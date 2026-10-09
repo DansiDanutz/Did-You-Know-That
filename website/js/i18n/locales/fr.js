@@ -13,8 +13,6 @@ export default {
     "book.stop": "⏹ Arrêter la lecture",
     "inv.watch": "▶ Revoir la vidéo",
     "inv.read": "📖 Lire le livre",
-    "listen.limit": "C'est fini pour les vidéos d'aujourd'hui ! 🌙 Va jouer, manger et voir tes amis. Dexter t'attend demain ✦",
-    "listen.left": "Encore {n} vidéos sur {max} aujourd'hui",
     "book.sparks": "✦ {n}/{max}",
     "hud.inventory": "Ouvrir l'inventaire",
     "inv.title": "Mon inventaire",
@@ -56,24 +54,12 @@ export default {
     "inside.title": "Comment gagner cette carte",
     "inside.step1": "<b>Lis</b> l'histoire et touche les mots lumineux pour trouver les étincelles cachées ✦",
     "inside.step2": "<b>Lis ta mission :</b> les trois choses que le gardien va te demander",
-    "inside.step3": "<b>Bonus :</b> repère le mot magique sur la carte néon de la vidéo et tape-le au sceau de cire",
-    "inside.step4": "<b>Enregistre</b> ta carte ✦ dans ton sac à dos. Les questions du Professeur Hoot sont un entraînement facultatif, et chaque étincelle trouvée est juste pour le plaisir !",
+    "inside.step3": "<b>Enregistre</b> ta carte ✦ dans ton sac à dos. Les questions du Professeur Hoot sont un entraînement facultatif, et chaque étincelle trouvée est juste pour le plaisir !",
     "story.didyouknow": "✦ Le savais-tu ?",
     "story.hint": "✦ Une étincelle se cache sur cette page…",
     "mission.kicker": "Ta mission",
     "mission.title": "Ce que tu vas découvrir…",
     "mission.note": "Tout est dans ce livre, et la vidéo raconte aussi l'histoire. Les questions du Professeur Hoot ne servent qu'à s'entraîner !",
-    "gate.title": "Le sceau de cire",
-    "gate.sealed": "Un mot magique se cache sur la carte néon brillante, au milieu de la vidéo. Trouve-le pour briser le sceau et avoir une surprise !",
-    "gate.listen": "▶ Regarder l'histoire",
-    "gate.channel": "▶ Visiter la chaîne",
-    "gate.secretLabel": "Tu as trouvé le mot magique ? Tape-le ici :",
-    "gate.secretPlaceholder": "Mot secret",
-    "gate.break": "Briser le sceau",
-    "gate.wrong": "Pas tout à fait… cherche la carte néon au milieu de l'épisode !",
-    "gate.broken": "Le sceau est brisé !",
-    "gate.brokenText": "Tu as trouvé le mot magique ! Dexter fait une danse de joie. Tourne la page : le gardien a trois questions pour toi…",
-    "gate.toast": "Le sceau est brisé ! Tourne la page ✦",
     "quiz.asks": "Le gardien demande…",
     "quiz.first": "Brillant ! +2 ✦",
     "quiz.second": "Bien joué ! +1 ✦",
@@ -100,6 +86,7 @@ export default {
     "album.close": "Fermer l'album",
     "listen.help": "Profite de l'histoire ! Tout ce que demande le gardien est aussi dans le livre magique.",
     "listen.error": "La vidéo n'a pas pu être lue ici. Réessaie ou ouvre-la sur YouTube.",
+    "listen.channel": "▶ Voir la chaîne",
     "listen.close": "Fermer",
     "listen.soon": "Dexter est encore en train de filmer cette histoire ! 🎬 Elle arrive très bientôt sur notre chaîne YouTube.",
     "listen.replay": "Profite encore de l'histoire ! ✦",
@@ -209,160 +196,182 @@ export default {
   stories: {
     "why-wonder": {
       kids: {
-        title: "Le monstre du défilement",
-        teaser: "Tu savais que personne n'arrive à empêcher les enfants de faire défiler les vidéos ? Alors on a rendu le défilement intelligent.",
+        title: "Qui appuie sur Play ?",
+        teaser: "Dexter voulait juste regarder UNE vidéo avant le coucher du soleil. Alors, qui n'arrêtait pas d'appuyer sur Play ?",
         card: {
-          name: "Dompteur de défilement",
-          fact: "Les enfants de 8 à 12 ans passent plus de 5 h ½ par jour devant des écrans pour s'amuser. Toi, tu as choisi de donner de la valeur à tes minutes !",
+          name: "Chef de la lecture auto",
+          fact: "Les vidéos peuvent démarrer toutes seules. Ça s'appelle la lecture automatique. Avec un adulte, tu peux la désactiver, mettre un minuteur et donner une heure de coucher à ton écran.",
         },
         mission: [
-          "Combien d'heures par jour les enfants de ton âge passent devant les écrans",
-          "Combien de vidéos par jour Did You Know That? te laisse regarder",
-          "Combien de temps d'écran les experts conseillent au maximum pour les petits (2 à 5 ans)",
+          "Qui a vraiment appuyé sur Play quand Dexter n'arrivait pas à s'arrêter",
+          "Le nom du truc qui lance la vidéo suivante tout seul",
+          "Combien d'heures de sommeil il faut aux enfants de ton âge",
         ],
         pages: {
-          opening: { chapter: "Épisode I", heading: "Le monstre du défilement" },
-          start: {
-            heading: "Appuie sur Start !",
-            text: [
-              "Tu savais que personne (ni tes parents, ni tes profs, pas même les super-héros) n'arrive à empêcher les enfants de [[faire défiler]] les vidéos ?",
-              "Alors Dexter a eu une idée complètement folle. Et si, au lieu de t'arrêter, on rendait ton défilement intelligent ? Appuie sur START, explorateur !",
-            ],
-            note: "Faire défiler, c'est glisser ton doigt pour voir toujours plus de choses. Certaines applis sont conçues pour que tu n'arrives jamais au bout !",
+          opening: {
+            "chapter": "Épisode 1",
+            "heading": "Qui appuie sur Play ?"
           },
-          tower: {
-            heading: "Niveau 1 : la tour du temps d'écran",
-            text: [
-              "Dexter grimpe en sautant sur une tour géante d'horloges. Des [[scientifiques]] américains ont demandé à des milliers de familles combien de temps les enfants passent devant les écrans pour s'amuser. De 2 à 4 ans : environ deux heures et demie par jour. De 5 à 8 ans : plus de trois heures !",
-              "De 8 à 12 ans : cinq heures et demie. Chaque. Jour. Et les ados ? Presque neuf heures. C'est plus qu'une journée d'école entière !",
+          rocket: {
+            "heading": "Une petite vidéo",
+            "text": [
+              "Le professeur Hoot et moi, on construit une fusée ! Il faut la finir avant le [[coucher du soleil]]. Je regarde juste UNE petite vidéo sur les ailerons de fusée…",
+              "La vidéo se termine. « À suivre… » Une autre démarre. Puis encore une. Attends… où est passé le soleil ? Notre fusée n'est pas finie !"
             ],
-            note: "Ces chercheurs s'appellent Common Sense Media. Ils interrogent les familles sur le temps d'écran depuis plus de dix ans.",
+            "note": "Le coucher du soleil, c'est quand le Soleil descend derrière l'horizon. En été il arrive tard ; en hiver, tôt."
           },
-          videoland: {
-            heading: "Niveau 2 : le pays des vidéos sans fin",
-            text: [
-              "Où passent toutes ces heures ? Dans un parc d'attractions caché dans le téléphone, où les vidéos et les jeux lancent la suite [[automatiquement]]. Impossible de s'arrêter un instant !",
-              "Soudain, le sol tremble… et le boss surgit : le monstre du défilement ! Une grosse boule violette et toute poilue, avec un écran à la place du ventre et une langue faite de vidéos qui ne finissent jamais.",
+          mystery: {
+            "heading": "Un mystère",
+            "text": [
+              "Salut, moi c'est Dexter. Et j'ai un [[mystère]] : pourquoi je n'ai pas pu m'arrêter après UNE vidéo ?",
+              "Qu'est-ce que tu en penses ? Est-ce que je suis juste nul pour m'arrêter… ou est-ce que quelque chose appuyait sur Play ? Réfléchis avant de tourner la page !"
             ],
-            note: "La « lecture automatique », c'est quand la vidéo suivante démarre toute seule. C'est l'un des tours préférés du monstre du défilement !",
+            "note": "Un mystère, c'est une énigme que personne n'a encore résolue. Les bons explorateurs font d'abord une hypothèse, puis la testent."
           },
-          boss: {
-            heading: "Niveau 3 : le combat contre le boss !",
-            text: [
-              "Le monstre du défilement vole trois trésors. D'abord, il attrape le dîner : « encore une seule vidéo… ». Ensuite, il vole le [[sommeil]] : les enfants de ton âge ont besoin de 9 à 12 heures de sommeil, et les écrans au coucher gardent ton cerveau tout excité.",
-              "Puis il vole les copains, les vrais, ceux avec qui on joue au foot ! Mais Dexter esquive, saute et récupère tous les trésors. Les experts de la santé disent que les petits de 2 à 5 ans ne devraient pas passer plus d'une heure par jour devant un écran.",
+          willpower: {
+            "heading": "La grande idée de Dexter",
+            "text": [
+              "Je sais ! Il me faut juste une SUPER [[volonté]] ! Regardez. Une vidéo… et je m'arrête.",
+              "Je fixe l'écran. Poings serrés. La vidéo se termine. Une autre démarre, toute seule. Je fonds dans le fauteuil comme de la gelée. Bon. Ça n'a pas marché."
             ],
-            note: "Pendant que tu dors, ton cerveau range tout ce que tu as appris dans la journée, comme quand on range une chambre en désordre !",
+            "note": "La volonté, c'est faire de gros efforts pour faire (ou ne pas faire) quelque chose. Ça aide, mais ce n'est pas magique."
           },
-          deal: {
-            heading: "Niveau 4 : le marché de Dexter",
-            text: [
-              "La chouette Professeur Hoot arrive en volant avec une carte lumineuse : la Route des Merveilles ! Dans Did You Know That?, tu fais toujours défiler, mais chaque histoire t'apprend quelque chose de [[vrai]].",
-              "Lis le livre magique, regarde l'histoire, réponds au Professeur Hoot et gagne des cartes spéciales. Et le jeu ne te laisse regarder que 3 vidéos par jour, alors il te reste plein de temps pour jouer, manger, dormir et voir tes amis.",
+          hint: {
+            "heading": "L'indice du professeur Hoot",
+            "text": [
+              "« Qu'as-tu remarqué, Dexter… juste à la fin de la vidéo ? » Regardons la fin encore une fois, de très près. Regarde ! Un petit compte à rebours : « À suivre… trois, deux, un. » Personne n'a appuyé sur Play. C'est l'appli qui a appuyé pour moi !",
+              "Ça s'appelle la [[lecture automatique]] : quand une vidéo se termine, la suivante démarre toute seule. Plein d'applis sont faites comme ça, alors c'est dur pour tout le monde de s'arrêter, même pour les grands. Ce n'est pas parce que je suis nul. C'est construit comme ça."
             ],
-            note: "Chaque carte que tu enregistres reste dans ton sac à dos 🎒, et tu peux revoir son histoire quand tu veux !",
+            "note": "La lecture automatique est un réglage. Dans la plupart des applis, un adulte peut la trouver dans les réglages et la désactiver."
           },
-          finale: {
-            heading: "Niveau terminé !",
-            text: [
-              "Feu d'artifice ! Tu as terminé le premier niveau de ton aventure. Ta mission maintenant : enregistre ta première carte, le Dompteur de Scroll, et essaie les trois questions du Professeur Hoot ! Bonus : trouve le [[mot]] magique sur la carte néon brillante de la vidéo.",
-              "Tu savais ça ? Maintenant, oui. À bientôt sur la Route des Merveilles !",
+          test: {
+            "heading": "Le test",
+            "text": [
+              "Testons ! Le professeur Hoot touche un bouton : lecture automatique DÉSACTIVÉE. La vidéo se termine… et l'écran attend, tout simplement.",
+              "Oooh. Maintenant, quand une vidéo se termine, il ne se passe rien. Je peux [[choisir]]. Et je choisis… la fusée !"
             ],
-            note: "Le mot magique apparaît dans la vidéo, en plein milieu. Garde les yeux grands ouverts !",
+            "note": "C'est comme ça que travaillent les scientifiques : deviner, tester, regarder ce qui se passe. La première idée de Dexter était fausse, et ce n'est pas grave !"
+          },
+          bedtime: {
+            "heading": "Bonne nuit, tablette",
+            "text": [
+              "Tu sais quand ça compte aussi ? Au coucher. Les enfants de notre âge ont besoin de 9 à 12 heures de [[sommeil]] chaque nuit. Des scientifiques ont découvert que les enfants qui utilisent des écrans au coucher dorment souvent moins et ont plus sommeil le lendemain.",
+              "Alors ce soir, je mets un minuteur. Quand il sonne, ma tablette va au lit la première. Bonne nuit, tablette !"
+            ],
+            "note": "Les médecins du sommeil sont d'accord : les enfants de 6 à 12 ans devraient dormir 9 à 12 heures par nuit. Pendant que tu dors, ton cerveau range tout ce que tu as appris !"
+          },
+          launch: {
+            "heading": "Trois, deux, un…",
+            "text": [
+              "C'est le matin ! La fusée est finie. Compte à rebours… DÉCOLLAGE ! On a réussi. Alors, qu'est-ce qu'on a découvert ? Les vidéos peuvent continuer toutes seules, mais tu peux être le [[chef]] : lecture automatique désactivée, un minuteur et une heure de coucher pour ton écran.",
+              "Ta mission : avec un adulte, trouve le bouton de lecture automatique dans une appli que tu utilises, et décidez ensemble s'il doit être activé ou non. Tu le savais ? Maintenant, oui !"
+            ],
+            "note": "Être le chef de ton écran, ça veut dire que c'est toi qui décides quand il s'arrête, pas l'appli."
           },
           q1: {
-            question: "Environ combien d'heures par jour les enfants de 8 à 12 ans passent-ils devant les écrans pour s'amuser ?",
-            choices: ["Environ 1 heure", "Environ 3 heures", "Plus de 5 heures"],
-            explain: "Plus de 5 h ½ par jour ! C'est comme une journée d'école entière, tous les jours.",
+            question: "Quand la vidéo de Dexter s'est terminée, qui a lancé la suivante ?",
+            choices: ["Dexter, sans faire exprès", "L'appli, toute seule", "Le professeur Hoot"],
+            explain: "C'est l'appli qui a appuyé sur Play pour lui. Personne n'a touché l'écran !",
           },
           q2: {
-            question: "Combien de vidéos par jour Did You Know That? te laisse-t-il regarder ?",
-            choices: ["1 vidéo", "3 vidéos", "20 vidéos"],
-            explain: "Seulement 3 courtes vidéos, pour qu'il te reste plein de temps pour jouer, manger, dormir et voir tes amis.",
+            question: "Comment ça s'appelle quand la vidéo suivante démarre toute seule ?",
+            choices: ["La lecture automatique", "La relecture", "L'avance rapide"],
+            explain: "La lecture automatique. C'est un réglage, et un adulte peut la désactiver.",
           },
           q3: {
-            question: "Que disent les experts de la santé : combien de temps d'écran au maximum par jour pour les enfants de 2 à 5 ans ?",
-            choices: ["1 heure d'écran", "4 heures d'écran", "Autant qu'ils veulent"],
-            explain: "L'Organisation mondiale de la Santé et les pédiatres recommandent au maximum 1 heure par jour pour les petits.",
+            question: "De combien d'heures de sommeil les enfants de 6 à 12 ans ont-ils besoin chaque nuit ?",
+            choices: ["Environ 5 heures", "Environ 15 heures", "9 à 12 heures"],
+            explain: "9 à 12 heures. C'est ce que recommandent les médecins du sommeil pour les enfants de ton âge.",
           },
         },
       },
       adults: {
-        title: "Les minutes en or",
-        teaser: "L'inventeur du défilement infini a chiffré les dégâts de sa propre invention. Le résultat est vertigineux.",
+        title: "Le piège de la relecture",
+        teaser: "Pourquoi la méthode de révision qui semble la meilleure perd-elle face à celle qui semble la pire ?",
         card: {
-          name: "Minute en or",
-          fact: "En 1790, Benjamin Franklin a légué 1 000 £ à Boston, à laisser fructifier pendant 200 ans. En 1990, la somme atteignait environ 5 millions de dollars.",
+          name: "Difficulté désirable",
+          fact: "Une semaine plus tard, les étudiants qui avaient lu un texte une fois puis l'avaient restitué trois fois en retenaient 61 %. Ceux qui l'avaient lu quatre fois : 40 %. Relire donne l'impression d'apprendre ; se souvenir, c'est apprendre.",
         },
         mission: [
-          "Combien de vies humaines le défilement infini engloutit chaque jour, selon son propre inventeur",
-          "Quelle somme Benjamin Franklin a léguée à Boston pour qu'elle fructifie pendant 200 ans",
-          "Quelle part du contenu les étudiants qui relisaient ont retenue au bout d'une semaine, comparée à ceux qui se testaient eux-mêmes",
+          "Ce qui est arrivé aux résultats entre cinq minutes et une semaine",
+          "Quel groupe était le plus confiant, et comment il s'en est sorti",
+          "Ce que les données conseillent de faire après avoir lu quelque chose",
         ],
         pages: {
-          opening: { chapter: "Épisode I", heading: "Les minutes en or" },
-          coldopen: {
-            heading: "La page sans fond",
-            text: [
-              "En 2006, un designer nommé Aza Raskin a supprimé le bas d'Internet : il a inventé le [[défilement]] infini. Le contenu continuerait simplement de se charger, indéfiniment.",
-              "Des années plus tard, il a fait le calcul pour sa propre invention. Son estimation : elle engloutit l'équivalent d'environ 200 000 vies humaines, chaque jour.",
-            ],
-            note: "Raskin a ensuite cofondé le Center for Humane Technology, qui milite pour des conceptions moins manipulatrices.",
+          opening: {
+            "chapter": "Épisode 1",
+            "heading": "Le piège de la relecture"
           },
-          lever: {
-            heading: "Le levier",
-            text: [
-              "Le geste de tirer pour actualiser a été imaginé par Loren Brichter pour une application Twitter. Il a plus tard fait remarquer un fait troublant : les machines à sous seraient bien moins addictives si les joueurs ne tiraient pas eux-mêmes le [[levier]].",
-              "Votre pouce est le levier, et la récompense est imprévisible. Résultat : l'internaute moyen passe désormais environ 6 heures 38 minutes par jour en ligne.",
+          case: {
+            "heading": "Deux textes courts",
+            "text": [
+              "En 2006, à l'université Washington de Saint-Louis, 120 étudiants reçoivent deux textes courts : l'un sur le Soleil, l'autre sur les [[loutres]] de mer.",
+              "Consignes simples. Lisez l'un des deux deux fois. Lisez l'autre une fois, puis écrivez tout ce dont vous vous souvenez."
             ],
-            note: "Les psychologues parlent de renforcement à ratio variable. B. F. Skinner a montré qu'il produit le comportement le plus persistant de tous les schémas de récompense.",
+            "note": "Chaque passage faisait un peu plus de 250 mots, tiré d'un manuel de préparation aux examens, et était noté sur 30 unités d'idées (Roediger & Karpicke, 2006)."
           },
-          franklin: {
-            heading: "L'expérience de Franklin",
-            text: [
-              "À sa mort en 1790, Benjamin Franklin a légué 1 000 £ à Boston et autant à Philadelphie, avec une seule règle : les laisser [[fructifier]], intactes, pendant 200 ans.",
-              "En 1990, la part de Boston avait atteint environ cinq millions de dollars ; celle de Philadelphie, gérée autrement, avoisinait deux millions. Même somme, même durée, un système différent. Les minutes fructifient exactement comme l'argent.",
+          puzzle: {
+            "heading": "Rien d'étonnant",
+            "text": [
+              "Cinq minutes plus tard, tout le monde passe un test de mémoire. Le passage lu [[deux fois]] l'emporte : 81 % des idées restituées, contre 75 %.",
+              "Rien d'étonnant. Relire devrait aider. Alors pourquoi les chercheurs, Henry Roediger et Jeffrey Karpicke, ont-ils continué à tester ?"
             ],
-            note: "Franklin avait conçu ce fonds comme des prêts à 5 % à de jeunes artisans sortis d'apprentissage : un capital de départ, des siècles avant la microfinance.",
+            "note": "Le premier test de rappel ne donnait aucune correction : les étudiants écrivaient ce dont ils se souvenaient et ne voyaient jamais les réponses."
           },
-          testing: {
-            heading: "L'effet de test",
-            text: [
-              "En 2006, les psychologues Henry Roediger et Jeffrey Karpicke ont réparti des étudiants en deux groupes. Les uns ont relu un texte plusieurs fois ; les autres l'ont lu une seule fois, puis se sont [[testés]].",
-              "Cinq minutes plus tard, ceux qui avaient relu semblaient plus savants. Une semaine après, le résultat s'est inversé : ceux qui s'étaient testés se souvenaient d'environ 61 %, les autres d'environ 40 %. Relire donne l'impression d'apprendre ; c'est la récupération en mémoire qui fait apprendre.",
+          flip: {
+            "heading": "Le renversement",
+            "text": [
+              "Deux jours plus tard, le résultat s'était inversé. Une semaine plus tard, le passage lu une seule fois, puis [[restitué]], était mieux retenu : 56 % contre 42 %.",
+              "Ils ont recommencé, plus fort. Un groupe lit un passage quatre fois. Un autre le lit une fois, puis le restitue trois fois. Après cinq minutes, les lecteurs mènent : 83 contre 71. Après une semaine : 61 % pour le groupe qui restituait, 40 % pour celui qui lisait. Et les lecteurs avaient parcouru le texte environ quatorze fois. Les autres, environ trois."
             ],
-            note: "C'est pourquoi chaque histoire ici s'achève par les questions du Professeur Hoot : y répondre est ce qui ancre les faits.",
+            "note": "180 étudiants, 30 par condition. Le nombre de lectures vient des décomptes des étudiants eux-mêmes (tableau 1 de l'article)."
           },
-          minutes: {
-            heading: "Minutes en or",
-            text: [
-              "Le Foreign Service Institute américain estime qu'il faut de 600 à 750 heures de cours à un anglophone pour atteindre un niveau professionnel en espagnol ou en français. Trente minutes concentrées par jour vous y mènent en trois à quatre [[ans]].",
-              "Pas en faisant défiler davantage. En faisant défiler avec intention, et en vous testant sur ce que vous avez vu.",
+          twist: {
+            "heading": "Le piège",
+            "text": [
+              "Voici la partie qui devrait inquiéter tout étudiant. Avant le test final, les chercheurs ont demandé : à quel point vous en souviendrez-vous dans une semaine ? Les lecteurs à quatre lectures étaient les plus [[confiants]] de tous. Ce sont eux qui ont le moins retenu.",
+              "Relire donne l'impression d'apprendre. Cette impression est le piège."
             ],
-            note: "Le FSI classe l'arabe, le mandarin, le japonais et le coréen parmi les langues les plus difficiles pour un anglophone : environ 2 200 heures de cours.",
+            "note": "Sur une échelle de 1 à 7, les relecteurs ont prédit 4,8, les restituants 4,0. Une semaine plus tard, ils ont retenu 40 % et 61 %. C'est une comparaison entre groupes, pas la prédiction de chacun sur lui-même."
           },
-          invitation: {
-            heading: "L'invitation",
-            text: [
-              "C'est sur cela que repose Did You Know That? : des histoires racontées avec leurs preuves, des questions qui aident le savoir à s'ancrer, et des cartes spéciales qui construisent votre propre [[collection]] de découvertes.",
-              "Maintenant, enregistre la carte Minute d'Or et teste-toi avec les questions du gardien. Bonus : la vidéo de l'Épisode 1 cache un mot spécial sur une carte néon ; tape-le au sceau pour une surprise.",
+          mechanism: {
+            "heading": "Pourquoi ça marche (probablement)",
+            "text": [
+              "Pourquoi l'effort de se souvenir battrait-il une relecture confortable ? L'explication des auteurs : se souvenir entraîne exactement ce dont on aura besoin plus tard, aller rechercher une idée en mémoire. Et l'effort lui-même semble aider ; les psychologues parlent de [[difficulté]] désirable.",
+              "Personne n'a donné les réponses à ces étudiants pendant qu'ils se souvenaient : le gain ne venait donc pas simplement du fait de revoir le texte."
             ],
-            note: "Chaque carte que tu enregistres reste dans ta collection, et tu peux revoir son épisode quand tu veux.",
+            "note": "C'est l'interprétation des auteurs, proposée avec plusieurs théories qui se recoupent. L'étude a mesuré les résultats, pas le mécanisme."
+          },
+          limits: {
+            "heading": "Est-ce que ça tient ?",
+            "text": [
+              "Une seule université, de jeunes étudiants, deux passages courts et, au plus, une semaine de délai. Des chercheurs ont donc [[regroupé]] 159 comparaisons issues de 61 études.",
+              "En moyenne, se tester battait nettement la relecture, mais pas à chaque fois. Cela marchait mieux avec une correction et sur des délais plus longs. Sans correction, quand les gens ne se rappelaient que la moitié ou moins au premier essai, le bénéfice disparaissait. Les études publiées tendent aussi à montrer des effets plus grands que les non publiées : la vraie moyenne est probablement un peu plus faible."
+            ],
+            "note": "Rowland (2014), Psychological Bulletin : effet regroupé g = 0,50 ; environ une comparaison sur cinq favorisait la relecture."
+          },
+          method: {
+            "heading": "Ce que les données soutiennent",
+            "text": [
+              "Ne vous contentez pas de relire. Fermez le livre, essayez de vous souvenir, puis [[vérifiez]] ce qui manque. Revenez-y un autre jour.",
+              "Ça paraîtra plus difficile. Ce n'est pas le signe que ça ne marche pas. Le saviez-vous ? Maintenant, oui."
+            ],
+            "note": "Cette routine s'appuie sur les études ci-dessus sans avoir été testée exactement sous cette forme. Elle marche le mieux quand on se souvient déjà d'une bonne partie."
           },
           q1: {
-            question: "Selon l'inventeur du défilement infini lui-même, combien de vies humaines ce mécanisme gaspille-t-il chaque jour ?",
-            choices: ["Environ 2 000", "Environ 20 000", "Environ 200 000", "Environ 2 millions"],
-            explain: "Estimation d'Aza Raskin : environ 200 000 vies par jour, en supposant que le défilement infini ajoute 50 % de temps passé sur les fils.",
+            question: "Après une semaine, quel groupe s'est le mieux souvenu ?",
+            choices: ["Lu une fois, puis restitué trois fois", "Lu quatre fois", "Les deux groupes, à peu près pareil", "Aucun groupe ne s'est souvenu de grand-chose"],
+            explain: "Le groupe qui restituait : 61 % contre 40 %, alors qu'il avait lu le texte environ trois fois au lieu de quatorze.",
           },
           q2: {
-            question: "Quelle somme Benjamin Franklin a-t-il léguée à Boston en 1790, à laisser fructifier intacte pendant 200 ans ?",
-            choices: ["1 000 £", "100 £", "100 000 £", "1 million de £"],
-            explain: "1 000 £ à Boston et autant à Philadelphie. En 1990, le fonds de Boston valait environ 5 millions de dollars, celui de Philadelphie environ 2 millions.",
+            question: "Avant le test final, quel groupe était le plus sûr de se souvenir ?",
+            choices: ["Le groupe qui restituait", "Le groupe à un seul test", "Les lecteurs à quatre lectures", "Tous les groupes pareil"],
+            explain: "Les lecteurs à quatre lectures (4,8 sur 7). Une semaine plus tard, ce sont eux qui ont le moins retenu.",
           },
           q3: {
-            question: "Une semaine plus tard, les étudiants qui s'étaient testés se souvenaient d'environ 61 %. Quelle part ont retenue ceux qui avaient simplement relu ?",
-            choices: ["Environ 80 %", "Environ 61 % aussi", "Environ 52 %", "Environ 40 %"],
-            explain: "Environ 40 % (Roediger et Karpicke, 2006). Relire donne l'impression d'apprendre ; c'est la récupération en mémoire qui fait apprendre.",
+            question: "Dans la synthèse de 2014 portant sur 159 comparaisons, quand le bénéfice du test a-t-il disparu ?",
+            choices: ["Avec correction et délais longs", "Sans correction et avec la moitié ou moins rappelé au départ", "Dans toutes les études non publiées", "Quand les étudiants lisaient plus de dix fois"],
+            explain: "Sans correction et avec un rappel initial faible (la moitié ou moins), le bénéfice s'évanouissait (Rowland, 2014).",
           },
         },
       },

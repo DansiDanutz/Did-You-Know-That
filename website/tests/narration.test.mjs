@@ -9,25 +9,20 @@ import { STORIES } from "../js/data/stories.js";
 const t = createTranslator("en");
 const ep1 = localizeStory(STORIES[0], LOCALES.en, LOCALES.en, "kids");
 const page = (id) => ep1.pages.find((p) => p.id === id);
-const sealed = { gateOpen: false };
-const open = { gateOpen: true };
+const sealed = {};
+const open = {};
 
 test("story pages are read without spark markers or HTML", () => {
-  const { key, text } = narrationFor(page("start"), ep1, sealed, t);
-  assert.equal(key, "start");
-  assert.match(text, /Press Start!/);
+  const { key, text } = narrationFor(page("rocket"), ep1, sealed, t);
+  assert.equal(key, "rocket");
+  assert.match(text, /One Quick Video/);
   assert.doesNotMatch(text, /\[\[|\]\]|<|>/);
-  assert.match(text, /from scrolling\?/);
+  assert.match(text, /isn't finished!/);
 });
 
 test("the mission page reads every item in order", () => {
   const { text } = narrationFor(page("mission"), ep1, sealed, t);
   ep1.mission.forEach((item) => assert.ok(text.includes(item)));
-});
-
-test("the magic-word seal has its own closed and open narration", () => {
-  assert.equal(narrationFor(page("seal"), ep1, sealed, t).key, "seal");
-  assert.equal(narrationFor(page("seal"), ep1, open, t).key, "seal~open");
 });
 
 test("the guardian's questions never wait for the video or the magic word", () => {
@@ -39,7 +34,7 @@ test("the guardian's questions never wait for the video or the magic word", () =
 });
 
 test("cover, inside and end pages are narrated; blank pages are silent", () => {
-  assert.match(narrationFor({ type: "cover" }, ep1, sealed, t).text, /Scroll Monster/);
+  assert.match(narrationFor({ type: "cover" }, ep1, sealed, t).text, /Who Keeps Pressing Play/);
   assert.match(narrationFor({ type: "inside" }, ep1, sealed, t).text, /How to win this card/);
   assert.match(narrationFor(page("end"), ep1, sealed, t).text, /The End/);
   assert.equal(narrationFor({ type: "blank" }, ep1, sealed, t).text, "");
@@ -56,7 +51,7 @@ test("allNarrationItems enumerates every page state once, for generation", () =>
   const items = allNarrationItems(ep1, t);
   const keys = items.map((i) => i.key);
   assert.equal(new Set(keys).size, keys.length, "no duplicates");
-  ["cover", "inside", "opening", "start", "tower", "videoland", "boss", "deal", "finale", "mission", "seal", "seal~open", "q1", "q2", "q3", "end"].forEach((k) =>
+  ["cover", "inside", "opening", "rocket", "mystery", "willpower", "hint", "test", "bedtime", "launch", "mission", "q1", "q2", "q3", "end"].forEach((k) =>
     assert.ok(keys.includes(k), k),
   );
   assert.ok(!keys.includes("quiz~sleep"), "the guardian never sleeps");

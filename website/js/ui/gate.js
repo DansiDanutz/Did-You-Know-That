@@ -41,11 +41,11 @@ const escape = (text) => String(text).replace(/[&<>"']/g, (c) => `&#${c.charCode
 // The video always plays inside the game, in YouTube's own embedded player
 // (plays started there count as YouTube views). Before an episode is
 // published the same modal shows a "coming soon" card with a channel link.
-function modalMarkup(story, { t, left, replay, channelUrl }) {
+function modalMarkup(story, { t, replay, channelUrl }) {
   const screen = story.youtubeId
     ? `<div class="listen-player"><div id="yt-player"></div></div>`
     : `<div class="listen-player listen-soon"><p>${t("listen.soon")}</p>
-         <a class="btn-gold" href="${escape(channelUrl)}" target="_blank" rel="noopener">${t("gate.channel")}</a></div>`;
+         <a class="btn-gold" href="${escape(channelUrl)}" target="_blank" rel="noopener">${t("listen.channel")}</a></div>`;
   const note = `<p class="listen-text">${t(replay ? "listen.replay" : "listen.help")}</p>`;
   return `
     <div class="listen-modal" role="dialog" aria-modal="true" aria-label="${escape(story.title)}">
@@ -59,15 +59,13 @@ function modalMarkup(story, { t, left, replay, channelUrl }) {
       </div>
       <div class="listen-meter">
         ${story.youtubeId ? note : ""}
-        ${left && story.youtubeId ? `<p class="listen-left">🎬 ${t("listen.left", left)}</p>` : ""}
       </div>
     </div>`;
 }
 
-// `left` is { n, max } videos left today (shown under the player).
 // `replay` marks a story played again from the library.
-export function openListening(overlay, story, { channelUrl, t, left, replay = false }) {
-  overlay.innerHTML = modalMarkup(story, { t, left, replay, channelUrl });
+export function openListening(overlay, story, { channelUrl, t, replay = false }) {
+  overlay.innerHTML = modalMarkup(story, { t, replay, channelUrl });
   overlay.hidden = false;
   requestAnimationFrame(() => overlay.classList.add("is-open"));
 

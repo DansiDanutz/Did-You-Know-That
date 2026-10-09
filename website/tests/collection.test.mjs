@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
-  emptyCollection, migrateProgress, saveCard, isSaved, recordQuiz, recordBonusWord, searchCards,
+  emptyCollection, migrateProgress, saveCard, isSaved, recordQuiz, searchCards,
   makeBackup, parseBackup, normalizeCollection,
 } from "../js/lib/collection.js";
 
@@ -35,7 +35,6 @@ test("old progress migrates without losing anything earned", () => {
 test("quiz results are private learning feedback, separate from saved cards", () => {
   const learning = recordQuiz({}, "why-wonder:kids", { answered: 3, correct: 2 }, AT);
   assert.deepEqual(learning["why-wonder:kids"].quiz, { answered: 3, correct: 2, at: AT });
-  assert.equal(recordBonusWord(learning, "why-wonder", AT)["why-wonder"].bonusWordAt, AT);
 });
 
 test("collection search matches title and summary, filters by topic, ignores case and accents", () => {

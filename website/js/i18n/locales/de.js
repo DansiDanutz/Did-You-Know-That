@@ -54,24 +54,12 @@ export default {
     "inside.title": "So gewinnst du diese Karte",
     "inside.step1": "<b>Lies</b> die Geschichte und tippe auf die leuchtenden Wörter, um versteckte Funken zu finden ✦",
     "inside.step2": "<b>Lies deine Mission:</b> die drei Dinge, nach denen dich der Wächter fragt",
-    "inside.step3": "<b>Bonus:</b> Finde das Zauberwort auf der Neonkarte im Video und tippe es am Wachssiegel ein",
-    "inside.step4": "<b>Speichere</b> deine Karte ✦ in deinem Rucksack. Die Fragen von Professor Hoot sind freiwillige Übung, und jeder Funke, den du findest, ist nur zum Spaß!",
+    "inside.step3": "<b>Speichere</b> deine Karte ✦ in deinem Rucksack. Die Fragen von Professor Hoot sind freiwillige Übung, und jeder Funke, den du findest, ist nur zum Spaß!",
     "story.didyouknow": "✦ Wusstest du schon?",
     "story.hint": "✦ Auf dieser Seite versteckt sich ein Funke …",
     "mission.kicker": "Deine Mission",
     "mission.title": "Das wirst du entdecken…",
     "mission.note": "Alles steht in diesem Buch, und das Video erzählt die Geschichte auch. Die Fragen von Professor Hoot sind nur zum Üben!",
-    "gate.title": "Das Wachssiegel",
-    "gate.sealed": "Ein Zauberwort versteckt sich auf der leuchtenden Neonkarte in der Mitte des Videos. Finde es, um das Siegel zu brechen und eine Überraschung zu bekommen!",
-    "gate.listen": "▶ Geschichte ansehen",
-    "gate.channel": "▶ Zum Kanal",
-    "gate.secretLabel": "Zauberwort gefunden? Tippe es hier ein:",
-    "gate.secretPlaceholder": "Geheimwort",
-    "gate.break": "Siegel brechen",
-    "gate.wrong": "Nicht ganz… achte auf die Neonkarte in der Mitte der Folge!",
-    "gate.broken": "Das Siegel ist gebrochen!",
-    "gate.brokenText": "Du hast das Zauberwort gefunden! Dexter macht einen Freudentanz. Blättere um: Der Wächter hat drei Fragen für dich…",
-    "gate.toast": "Das Siegel ist gebrochen! Blättere um ✦",
     "quiz.asks": "Der Wächter fragt …",
     "quiz.first": "Großartig! +2 ✦",
     "quiz.second": "Geschafft! +1 ✦",
@@ -96,10 +84,9 @@ export default {
     "album.notFound": "Noch nicht gefunden",
     "album.soon": "Demnächst",
     "album.close": "Album schließen",
-    "listen.limit": "Das waren alle deine Videos für heute! 🌙 Geh spielen, essen und triff deine Freunde. Dexter wartet morgen auf dich ✦",
-    "listen.left": "Noch {n} von {max} Videos heute",
     "listen.help": "Viel Spaß mit der Geschichte! Alles, was der Wächter fragt, steht auch im Zauberbuch.",
     "listen.error": "Das Video konnte hier nicht abgespielt werden. Versuch es noch einmal oder öffne es auf YouTube.",
+    "listen.channel": "▶ Zum Kanal",
     "listen.close": "Schließen",
     "listen.soon": "Dexter dreht diese Geschichte noch! 🎬 Sie kommt sehr bald auf unseren YouTube-Kanal.",
     "listen.replay": "Genieße die Geschichte noch einmal! ✦",
@@ -209,160 +196,182 @@ export default {
   stories: {
     "why-wonder": {
       kids: {
-        title: "Das Scroll-Monster",
-        teaser: "Wusstest du, dass niemand Kinder vom Scrollen abhalten kann? Also haben wir das Scrollen schlau gemacht.",
+        title: "Wer drückt da auf Play?",
+        teaser: "Dexter wollte nur EIN Video vor Sonnenuntergang schauen. Wer hat also immer wieder auf Play gedrückt?",
         card: {
-          name: "Scroll-Bändiger",
-          fact: "Kinder zwischen 8 und 12 Jahren verbringen mehr als 5½ Stunden am Tag zum Spaß vor Bildschirmen. Du hast dich entschieden, deine Minuten zählen zu lassen!",
+          name: "Autoplay-Boss",
+          fact: "Videos können ganz von allein starten. Das nennt man Autoplay. Mit einem Erwachsenen kannst du es ausschalten, einen Timer stellen und deinem Bildschirm eine Schlafenszeit geben.",
         },
         mission: [
-          "Wie viele Stunden am Tag Kinder in deinem Alter vor Bildschirmen verbringen",
-          "Wie viele Videos pro Tag dich Did You Know That? schauen lässt",
-          "Wie viel Bildschirmzeit kleine Kinder (2 bis 5) laut Fachleuten höchstens haben sollten",
+          "Wer wirklich auf Play gedrückt hat, als Dexter nicht aufhören konnte",
+          "Wie der Trick heißt, der das nächste Video von allein startet",
+          "Wie viele Stunden Schlaf Kinder in deinem Alter brauchen",
         ],
         pages: {
-          opening: { chapter: "Folge I", heading: "Das Scroll-Monster" },
-          start: {
-            heading: "Drück Start!",
-            text: [
-              "Wusstest du, dass niemand (nicht deine Eltern, nicht deine Lehrer, nicht mal Superhelden) Kinder vom [[Scrollen]] abhalten kann?",
-              "Darum hatte Dexter eine verrückte Idee. Was, wenn wir dich nicht bremsen … sondern dein Scrollen schlau machen? Drück START, Entdecker!",
-            ],
-            note: "Scrollen heißt, mit dem Finger immer weiter zu wischen, um mehr zu sehen. Manche Apps sind so gebaut, dass du nie am Ende ankommst!",
+          opening: {
+            "chapter": "Folge 1",
+            "heading": "Wer drückt da auf Play?"
           },
-          tower: {
-            heading: "Level 1: Der Bildschirmzeit-Turm",
-            text: [
-              "Dexter springt einen riesigen Turm aus Uhren hinauf. [[Forscher]] in Amerika haben tausende Familien gefragt, wie lange Kinder zum Spaß vor Bildschirmen sitzen. Mit 2 bis 4 Jahren: etwa zweieinhalb Stunden am Tag. Mit 5 bis 8: mehr als drei Stunden!",
-              "Mit 8 bis 12: fünfeinhalb Stunden. Jeden. Einzelnen. Tag. Und Teenager? Fast neun Stunden. Das ist länger als ein ganzer Schultag!",
+          rocket: {
+            "heading": "Nur ein kurzes Video",
+            "text": [
+              "Professor Hoot und ich bauen eine Rakete! Vor dem [[Sonnenuntergang]] muss sie fertig sein. Ich schaue nur EIN kurzes Video über Raketenflossen…",
+              "Das Video ist zu Ende. „Als Nächstes…“ Ein neues startet. Dann noch eins. Moment… wo ist die Sonne hin? Unsere Rakete ist nicht fertig!"
             ],
-            note: "Die Forscher heißen Common Sense Media. Sie fragen Familien schon seit mehr als zehn Jahren nach ihrer Bildschirmzeit.",
+            "note": "Sonnenuntergang ist, wenn die Sonne hinter dem Horizont verschwindet. Im Sommer kommt er spät, im Winter früh."
           },
-          videoland: {
-            heading: "Level 2: Das endlose Videoland",
-            text: [
-              "Wo bleiben all die Stunden? In einem Freizeitpark im Handy, wo Videos und Spiele das nächste [[automatisch]] starten. Nie gibt es einen Moment zum Aufhören!",
-              "Dann bebt der Boden … und der Boss springt heraus: das Scroll-Monster! Ein flauschiger lila Klecks mit einem Bildschirm als Bauch und einer Zunge aus endlosen Videos.",
+          mystery: {
+            "heading": "Ein Rätsel",
+            "text": [
+              "Hallo, ich bin Dexter. Und ich habe ein [[Rätsel]]: Warum konnte ich nach EINEM Video nicht aufhören?",
+              "Was meinst du? War ich einfach schlecht im Aufhören… oder hat etwas immer wieder auf Play gedrückt? Überleg kurz, bevor du umblätterst!"
             ],
-            note: "„Autoplay“ heißt, dass das nächste Video ganz von allein startet. Das ist einer der Lieblingstricks des Scroll-Monsters!",
+            "note": "Ein Rätsel ist eine Frage, die noch niemand gelöst hat. Gute Entdecker stellen zuerst eine Vermutung auf und prüfen sie dann."
           },
-          boss: {
-            heading: "Level 3: Der Bosskampf!",
-            text: [
-              "Das Scroll-Monster klaut drei Schätze. Zuerst schnappt es sich das Abendessen: „nur noch ein Video …“. Dann stiehlt es den [[Schlaf]]: Kinder in deinem Alter brauchen 9 bis 12 Stunden, und Bildschirme vor dem Einschlafen halten dein Gehirn auf Trab.",
-              "Dann klaut es die Freunde, die echten, mit denen du Fußball spielen kannst! Aber Dexter weicht aus, springt und holt sich jeden Schatz zurück. Gesundheitsexperten sagen: Kleine Kinder von 2 bis 5 sollten höchstens 1 Stunde am Tag vor dem Bildschirm sitzen.",
+          willpower: {
+            "heading": "Dexters große Idee",
+            "text": [
+              "Ich weiß! Ich brauche nur SUPER-[[Willenskraft]]! Passt auf. Ein Video… und ich höre auf.",
+              "Ich starre auf den Bildschirm. Fäuste geballt. Das Video ist zu Ende. Ein neues startet, ganz von allein. Ich zerfließe im Sessel wie Wackelpudding. Okay. Das hat nicht geklappt."
             ],
-            note: "Während du schläfst, sortiert dein Gehirn alles, was du heute gelernt hast, wie beim Aufräumen eines unordentlichen Zimmers!",
+            "note": "Willenskraft heißt, sich sehr anzustrengen, etwas zu tun (oder nicht zu tun). Sie hilft, aber sie ist keine Zauberei."
           },
-          deal: {
-            heading: "Level 4: Dexters Abmachung",
-            text: [
-              "Professor Hoot, die Eule, flattert mit einer leuchtenden Karte herbei: der Straße der Wunder! Bei Did You Know That? scrollst du weiter, aber jede Geschichte lehrt dich etwas [[Echtes]].",
-              "Lies das Zauberbuch, sieh dir die Geschichte an, beantworte die Fragen von Professor Hoot und gewinne Spezialkarten. Und das Spiel lässt dich nur 3 Videos pro Tag schauen, damit noch jede Menge Zeit zum Spielen, Essen, Schlafen und für deine Freunde bleibt.",
+          hint: {
+            "heading": "Professor Hoots Hinweis",
+            "text": [
+              "„Was ist dir aufgefallen, Dexter… ganz am Ende des Videos?“ Schauen wir uns das Ende noch einmal ganz genau an. Da! Ein winziger Countdown: „Als Nächstes… drei, zwei, eins.“ Niemand hat auf Play gedrückt. Die App hat für mich gedrückt!",
+              "Das nennt man [[Autoplay]]: Wenn ein Video endet, startet das nächste von allein. Viele Apps sind so gebaut, deshalb fällt es allen schwer aufzuhören, sogar Erwachsenen. Nicht weil ich schlecht bin. So ist es gebaut."
             ],
-            note: "Jede Karte, die du speicherst, bleibt in deinem Rucksack 🎒, und du kannst dir ihre Geschichte jederzeit wieder ansehen!",
+            "note": "Autoplay ist eine Einstellung. In den meisten Apps findet ein Erwachsener sie im Einstellungsmenü und kann sie ausschalten."
           },
-          finale: {
-            heading: "Level geschafft!",
-            text: [
-              "Feuerwerk! Du hast das erste Level deines Abenteuers geschafft. Deine Mission jetzt: Speichere deine erste Karte, den Scroll-Bändiger, und probiere die drei Fragen von Professor Hoot aus! Bonus: Finde das magische [[Wort]] auf der leuchtenden Neonkarte im Video.",
-              "Wusstest du das? Jetzt schon. Wir sehen uns auf der Straße der Wunder!",
+          test: {
+            "heading": "Der Test",
+            "text": [
+              "Probieren wir es aus! Professor Hoot tippt auf einen Schalter: Autoplay AUS. Das Video endet… und der Bildschirm wartet einfach.",
+              "Ooh. Jetzt passiert nichts, wenn ein Video zu Ende ist. Ich darf [[wählen]]. Und ich wähle… die Rakete!"
             ],
-            note: "Das Zauberwort erscheint im Video, genau in der Mitte. Halte die Augen weit offen!",
+            "note": "So arbeiten Forscherinnen und Forscher: vermuten, testen, hinschauen. Dexters erste Vermutung war falsch, und das ist völlig in Ordnung!"
+          },
+          bedtime: {
+            "heading": "Gute Nacht, Tablet",
+            "text": [
+              "Weißt du, wann das noch wichtig ist? Beim Schlafengehen. Kinder in unserem Alter brauchen jede Nacht 9 bis 12 Stunden [[Schlaf]]. Forscher haben herausgefunden, dass Kinder, die vor dem Schlafen Bildschirme nutzen, oft weniger schlafen und am nächsten Tag müder sind.",
+              "Also stelle ich heute Abend einen Timer. Wenn er klingelt, geht mein Tablet zuerst ins Bett. Gute Nacht, Tablet!"
+            ],
+            "note": "Schlafärzte sind sich einig: 6- bis 12-Jährige sollten 9 bis 12 Stunden pro Nacht schlafen. Während du schläfst, räumt dein Gehirn alles auf, was du gelernt hast!"
+          },
+          launch: {
+            "heading": "Drei, zwei, eins…",
+            "text": [
+              "Guten Morgen! Die Rakete ist fertig. Countdown… START! Wir haben es geschafft. Also, was haben wir entdeckt? Videos können von allein weiterlaufen, aber du kannst der [[Boss]] sein: Autoplay aus, ein Timer und eine Schlafenszeit für deinen Bildschirm.",
+              "Deine Mission: Such mit einem Erwachsenen den Autoplay-Schalter in einer App, die du benutzt, und entscheidet gemeinsam, ob er an oder aus sein soll. Wusstest du das? Jetzt schon!"
+            ],
+            "note": "Der Boss deines Bildschirms zu sein heißt: Du entscheidest, wann er aufhört, nicht die App."
           },
           q1: {
-            question: "Wie viele Stunden am Tag verbringen Kinder von 8 bis 12 Jahren ungefähr zum Spaß vor Bildschirmen?",
-            choices: ["Etwa 1 Stunde", "Etwa 3 Stunden", "Mehr als 5 Stunden"],
-            explain: "Mehr als 5½ Stunden am Tag! Das ist wie ein ganzer Schultag, jeden Tag.",
+            question: "Als Dexters Video zu Ende war, wer hat das nächste gestartet?",
+            choices: ["Dexter, aus Versehen", "Die App, ganz von allein", "Professor Hoot"],
+            explain: "Die App hat für ihn auf Play gedrückt. Niemand hat den Bildschirm berührt!",
           },
           q2: {
-            question: "Wie viele Videos pro Tag lässt dich Did You Know That? schauen?",
-            choices: ["1 Video", "3 Videos", "20 Videos"],
-            explain: "Nur 3 kurze Videos, damit dir genug Zeit zum Spielen, Essen, Schlafen und für deine Freunde bleibt.",
+            question: "Wie heißt es, wenn das nächste Video von allein startet?",
+            choices: ["Autoplay", "Wiederholung", "Vorspulen"],
+            explain: "Autoplay. Das ist eine Einstellung, und ein Erwachsener kann sie ausschalten.",
           },
           q3: {
-            question: "Wie viel Bildschirmzeit am Tag sollten Kinder von 2 bis 5 Jahren laut Gesundheitsexperten höchstens haben?",
-            choices: ["1 Stunde Bildschirmzeit", "4 Stunden Bildschirmzeit", "So viel sie wollen"],
-            explain: "Die Weltgesundheitsorganisation und Kinderärzte empfehlen für kleine Kinder höchstens 1 Stunde am Tag.",
+            question: "Wie viele Stunden Schlaf brauchen 6- bis 12-Jährige pro Nacht?",
+            choices: ["Etwa 5 Stunden", "Etwa 15 Stunden", "9 bis 12 Stunden"],
+            explain: "9 bis 12 Stunden. Das empfehlen Schlafärzte für Kinder in deinem Alter.",
           },
         },
       },
       adults: {
-        title: "Die goldenen Minuten",
-        teaser: "Der Erfinder des endlosen Scrollens hat nachgerechnet, was seine eigene Erfindung kostet. Das Ergebnis ist atemberaubend.",
+        title: "Die Wiederlesefalle",
+        teaser: "Warum verliert die Lernmethode, die sich am besten anfühlt, gegen die, die sich schlechter anfühlt?",
         card: {
-          name: "Goldene Minute",
-          fact: "1790 vermachte Benjamin Franklin Boston 1.000 £, die 200 Jahre lang Zinsen tragen sollten. Bis 1990 war daraus rund 5 Millionen Dollar geworden.",
+          name: "Wünschenswerte Schwierigkeit",
+          fact: "Nach einer Woche erinnerten sich Studierende, die einen Text einmal gelesen und dreimal abgerufen hatten, an 61 % davon. Wer ihn viermal gelesen hatte: 40 %. Wiederlesen fühlt sich wie Lernen an; Abrufen ist Lernen.",
         },
         mission: [
-          "Wie viele Menschenleben das endlose Scrollen laut seinem eigenen Erfinder jeden Tag verschwendet",
-          "Wie viel Geld Benjamin Franklin Boston hinterließ, damit es 200 Jahre lang Zinsen trägt",
-          "Wie viel Wiederleser nach einer Woche behalten hatten, verglichen mit Studierenden, die sich selbst abfragten",
+          "Was mit den Ergebnissen zwischen fünf Minuten und einer Woche passierte",
+          "Welche Gruppe am zuversichtlichsten war und wie sie abschnitt",
+          "Was die Belege empfehlen, nachdem man etwas gelesen hat",
         ],
         pages: {
-          opening: { chapter: "Folge I", heading: "Die goldenen Minuten" },
-          coldopen: {
-            heading: "Die bodenlose Seite",
-            text: [
-              "2006 entfernte ein Designer namens Aza Raskin den Boden des Internets: Er erfand das endlose [[Scrollen]]. Inhalte laden einfach immer weiter, für alle Zeit.",
-              "Jahre später rechnete er die Folgen seiner eigenen Erfindung nach. Seine Schätzung: Sie vergeudet jeden einzelnen Tag die Zeit von etwa 200.000 Menschenleben.",
-            ],
-            note: "Raskin gründete später das Center for Humane Technology mit, das sich für weniger manipulatives Design einsetzt.",
+          opening: {
+            "chapter": "Folge 1",
+            "heading": "Die Wiederlesefalle"
           },
-          lever: {
-            heading: "Der Hebel",
-            text: [
-              "Pull-to-Refresh erfand Loren Brichter für eine Twitter-App. Später wies er auf etwas Beunruhigendes hin: Spielautomaten wären weit weniger süchtig machend, wenn die Spieler den [[Hebel]] nicht selbst ziehen dürften.",
-              "Dein Daumen ist der Hebel, und die Belohnung ist unvorhersehbar. Das Ergebnis: Der durchschnittliche Internetnutzer ist heute rund 6 Stunden und 38 Minuten täglich online.",
+          case: {
+            "heading": "Zwei kurze Texte",
+            "text": [
+              "2006 bekamen an der Washington University in St. Louis 120 Studierende zwei kurze Texte: einen über die Sonne, einen über [[Seeotter]].",
+              "Einfache Anweisungen. Lies einen davon zweimal. Lies den anderen einmal und schreib dann alles auf, woran du dich erinnerst."
             ],
-            note: "Psychologen nennen das einen Verstärkungsplan mit variablem Quotienten. B. F. Skinner stellte fest, dass er von allen Belohnungsmustern das hartnäckigste Verhalten hervorbringt.",
+            "note": "Jeder Abschnitt hatte etwas über 250 Wörter, stammte aus einem Prüfungsvorbereitungsbuch und wurde nach 30 Ideeneinheiten bewertet (Roediger & Karpicke, 2006)."
           },
-          franklin: {
-            heading: "Franklins Experiment",
-            text: [
-              "Als Benjamin Franklin 1790 starb, hinterließ er Boston und Philadelphia je 1.000 £, mit einer einzigen Regel: 200 Jahre lang unberührt [[wachsen]] lassen.",
-              "Bis 1990 war Bostons Anteil auf etwa fünf Millionen Dollar angewachsen; Philadelphia, anders verwaltet, landete bei rund zwei Millionen. Dieselbe Summe, dieselbe Zeit, ein anderes System. Minuten wachsen genau wie Geld.",
+          puzzle: {
+            "heading": "Keine Überraschung",
+            "text": [
+              "Fünf Minuten später machten alle einen Gedächtnistest. Der [[zweimal]] gelesene Text gewann: 81 % der Ideen erinnert, gegenüber 75 %.",
+              "Keine Überraschung. Etwas noch einmal zu lesen sollte helfen. Warum also testeten die Forscher, Henry Roediger und Jeffrey Karpicke, weiter?"
             ],
-            note: "Franklin legte den Fonds als Darlehen zu 5 % an junge Handwerker an, die ihre Lehre beendet hatten: Startkapital, Jahrhunderte vor dem Mikrofinanzwesen.",
+            "note": "Der erste Abruftest gab keine Rückmeldung: Die Studierenden schrieben auf, woran sie sich erinnerten, und sahen die Antworten nie."
           },
-          testing: {
-            heading: "Der Testeffekt",
-            text: [
-              "2006 teilten die Psychologen Henry Roediger und Jeffrey Karpicke Studierende in zwei Gruppen. Die eine las einen Text mehrmals erneut; die andere las ihn einmal und prüfte sich dann [[selbst]].",
-              "Fünf Minuten später wirkten die Wiederleser klüger. Eine Woche später kehrte sich das Bild um: Wer sich selbst abgefragt hatte, behielt etwa 61 %, die Wiederleser etwa 40 %. Wiederlesen fühlt sich wie Lernen an; Abrufen ist Lernen.",
+          flip: {
+            "heading": "Die Wende",
+            "text": [
+              "Zwei Tage später hatte sich das Ergebnis umgekehrt. Nach einer Woche wurde der Text, der nur einmal gelesen und dann [[abgerufen]] worden war, besser erinnert: 56 % gegenüber 42 %.",
+              "Sie wiederholten den Versuch, härter. Eine Gruppe las einen Text viermal. Eine andere las ihn einmal und rief ihn dann dreimal ab. Nach fünf Minuten führten die Leser: 83 zu 71. Nach einer Woche: 61 % für die Abrufgruppe, 40 % für die Lesegruppe. Und die Leser waren etwa vierzehnmal durch den Text gegangen. Die Abrufer etwa dreimal."
             ],
-            note: "Darum endet hier jede Geschichte mit den Fragen von Professor Hoot: Sie zu beantworten lässt das Wissen haften.",
+            "note": "180 Studierende, 30 pro Bedingung. Die Lesezahlen stammen aus den Strichlisten der Studierenden selbst (Tabelle 1 der Studie)."
           },
-          minutes: {
-            heading: "Goldene Minuten",
-            text: [
-              "Das Foreign Service Institute der USA schätzt, dass ein Englischsprecher 600 bis 750 Unterrichtsstunden braucht, um in Spanisch oder Französisch sicher zu kommunizieren. Mit dreißig konzentrierten Minuten am Tag schaffst du das in drei bis vier [[Jahren]].",
-              "Nicht, indem du mehr scrollst. Sondern indem du mit Absicht scrollst und dich selbst an dem prüfst, was du gesehen hast.",
+          twist: {
+            "heading": "Der Haken",
+            "text": [
+              "Jetzt kommt der Teil, der jeden Lernenden beunruhigen sollte. Vor dem Abschlusstest fragten die Forscher: Wie gut wirst du dich in einer Woche daran erinnern? Die Viermal-Leser waren von allen am [[zuversichtlichsten]]. Sie erinnerten sich am wenigsten.",
+              "Wiederlesen fühlt sich wie Lernen an. Dieses Gefühl ist die Falle."
             ],
-            note: "Das FSI stuft Arabisch, Mandarin, Japanisch und Koreanisch für Englischsprecher als am schwersten ein: etwa 2.200 Unterrichtsstunden.",
+            "note": "Auf einer Skala von 1 bis 7 sagten die Wiederleser 4,8 voraus, die Abrufer 4,0. Eine Woche später erinnerten sie 40 % und 61 %. Das ist ein Gruppenvergleich, nicht die Vorhersage jeder einzelnen Person über sich selbst."
           },
-          invitation: {
-            heading: "Die Einladung",
-            text: [
-              "Darauf baut Did You Know That? auf: Geschichten, die mit ihren Belegen erzählt werden, Fragen, die helfen, Wissen zu verankern, und Spezialkarten, die deine eigene [[Sammlung]] von Entdeckungen aufbauen.",
-              "Speichere jetzt die Karte Goldene Minute und teste dich mit den Fragen des Wächters. Bonus: Das Video zu Folge 1 versteckt ein besonderes Wort auf einer Neonkarte; tippe es am Siegel ein für eine Überraschung.",
+          mechanism: {
+            "heading": "Warum es (wahrscheinlich) funktioniert",
+            "text": [
+              "Warum sollte mühsames Abrufen glattes Wiederlesen schlagen? Die Erklärung der Autoren: Abrufen übt genau das, was man später braucht, eine Idee wieder aus dem Gedächtnis zu holen. Und die Anstrengung selbst scheint zu helfen; Psychologen nennen das wünschenswerte [[Schwierigkeit]].",
+              "Niemand gab den Studierenden beim Abrufen die Antworten; der Gewinn kam also nicht einfach daher, den Text noch einmal zu sehen."
             ],
-            note: "Jede Karte, die du speicherst, bleibt in deiner Sammlung, und du kannst dir ihre Folge jederzeit wieder ansehen.",
+            "note": "Das ist die Deutung der Autoren, zusammen mit mehreren sich überschneidenden Theorien. Die Studie hat die Ergebnisse gemessen, nicht den Mechanismus."
+          },
+          limits: {
+            "heading": "Hält das stand?",
+            "text": [
+              "Eine Universität, junge Studierende, zwei kurze Texte und höchstens eine Woche Abstand. Spätere Forscher haben deshalb 159 Vergleiche aus 61 Studien [[zusammengefasst]].",
+              "Im Schnitt schlug Testen das Wiederlernen deutlich, aber nicht jedes Mal. Am besten wirkte es mit Rückmeldung und über längere Abstände. Ohne Rückmeldung und wenn Leute beim ersten Versuch nur die Hälfte oder weniger abrufen konnten, verschwand der Vorteil. Veröffentlichte Studien zeigen zudem meist größere Effekte als unveröffentlichte, der wahre Durchschnitt ist also wohl etwas kleiner."
+            ],
+            "note": "Rowland (2014), Psychological Bulletin: gepoolter Effekt g = 0,50; etwa jeder fünfte Vergleich sprach für das Wiederlernen."
+          },
+          method: {
+            "heading": "Was die Belege stützen",
+            "text": [
+              "Lies nicht einfach noch einmal. Schließ das Buch, versuch dich zu erinnern, und [[prüfe]] dann, was gefehlt hat. Komm an einem anderen Tag darauf zurück.",
+              "Es wird sich schwerer anfühlen. Das ist kein Zeichen, dass es nicht wirkt. Wusstest du das? Jetzt schon."
+            ],
+            "note": "Diese Routine stützt sich auf die obigen Studien, ohne genau in dieser Form getestet worden zu sein. Sie wirkt am besten, wenn man sich schon an einiges erinnern kann."
           },
           q1: {
-            question: "Wie viele Menschenleben verschwendet das endlose Scrollen laut seinem eigenen Erfinder schätzungsweise jeden Tag?",
-            choices: ["Etwa 2.000", "Etwa 20.000", "Etwa 200.000", "Etwa 2 Millionen"],
-            explain: "Aza Raskins Schätzung: etwa 200.000 Menschenleben pro Tag, unter der Annahme, dass endloses Scrollen die Verweildauer in Feeds um 50 % erhöht.",
+            question: "Welche Gruppe erinnerte sich nach einer Woche am besten?",
+            choices: ["Einmal gelesen, dann dreimal abgerufen", "Viermal gelesen", "Beide Gruppen etwa gleich", "Keine Gruppe erinnerte sich an viel"],
+            explain: "Die Abrufgruppe: 61 % gegenüber 40 %, obwohl sie den Text etwa dreimal statt vierzehnmal gelesen hatte.",
           },
           q2: {
-            question: "Wie viel vermachte Benjamin Franklin 1790 der Stadt Boston, damit es 200 Jahre lang unberührt Zinsen trägt?",
-            choices: ["1.000 £", "100 £", "100.000 £", "1 Million £"],
-            explain: "Je 1.000 £ für Boston und Philadelphia. Bis 1990 war der Fonds in Boston etwa 5 Millionen Dollar wert, der in Philadelphia etwa 2 Millionen.",
+            question: "Welche Gruppe war vor dem Abschlusstest am sichersten, sich zu erinnern?",
+            choices: ["Die Abrufgruppe", "Die Gruppe mit einem Test", "Die Viermal-Leser", "Alle Gruppen gleich"],
+            explain: "Die Viermal-Leser (4,8 von 7). Eine Woche später erinnerten sie sich am wenigsten.",
           },
           q3: {
-            question: "Eine Woche später erinnerten sich Studierende, die sich selbst abgefragt hatten, an etwa 61 %. Wie viel behielten die Wiederleser?",
-            choices: ["Etwa 80 %", "Ebenfalls etwa 61 %", "Etwa 52 %", "Etwa 40 %"],
-            explain: "Etwa 40 % (Roediger & Karpicke, 2006). Wiederlesen fühlt sich wie Lernen an; Abrufen ist Lernen.",
+            question: "Wann verschwand in der Übersichtsarbeit von 2014 mit 159 Vergleichen der Testvorteil?",
+            choices: ["Mit Rückmeldung und langen Abständen", "Ohne Rückmeldung und wenn anfangs die Hälfte oder weniger abgerufen wurde", "In jeder unveröffentlichten Studie", "Wenn Studierende öfter als zehnmal lasen"],
+            explain: "Ohne Rückmeldung und bei niedrigem Anfangsabruf (die Hälfte oder weniger) löste sich der Vorteil auf (Rowland, 2014).",
           },
         },
       },

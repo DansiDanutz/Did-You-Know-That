@@ -14,8 +14,6 @@ export default {
     "book.stop": "⏹ Stop reading",
     "inv.watch": "▶ Watch again",
     "inv.read": "📖 Read the book",
-    "listen.limit": "That's all your videos for today! 🌙 Go play, eat and see your friends. Dexter will be waiting tomorrow ✦",
-    "listen.left": "{n} of {max} videos left today",
     "book.sparks": "✦ {n}/{max}",
     "hud.inventory": "Open inventory",
     "inv.title": "My Inventory",
@@ -57,24 +55,12 @@ export default {
     "inside.title": "How to win this card",
     "inside.step1": "<b>Read</b> the story and tap the glowing words to find hidden sparks ✦",
     "inside.step2": "<b>Read your mission:</b> the three things the guardian will ask you",
-    "inside.step3": "<b>Bonus:</b> spot the magic word on the neon card in the video and type it at the wax seal",
-    "inside.step4": "<b>Save</b> your card ✦ to your backpack. Professor Hoot's questions are optional practice, and every spark you find is just for fun!",
+    "inside.step3": "<b>Save</b> your card ✦ to your backpack. Professor Hoot's questions are optional practice, and every spark you find is just for fun!",
     "story.didyouknow": "✦ Did you know?",
     "story.hint": "✦ A spark is hiding on this page…",
     "mission.kicker": "Your mission",
     "mission.title": "What you'll discover…",
     "mission.note": "It's all in this book, and the video tells the story too. Professor Hoot's questions are just for practice!",
-    "gate.title": "The Wax Seal",
-    "gate.sealed": "A magic word hides on the glowing neon card in the middle of the video. Find it to break the seal and get a surprise!",
-    "gate.listen": "▶ Watch the story",
-    "gate.channel": "▶ Visit the channel",
-    "gate.secretLabel": "Found the magic word? Type it here:",
-    "gate.secretPlaceholder": "Secret word",
-    "gate.break": "Break seal",
-    "gate.wrong": "Not quite… look for the neon card in the middle of the episode!",
-    "gate.broken": "The seal is broken!",
-    "gate.brokenText": "You found the magic word! Dexter does a happy dance. Turn the page: the guardian has three questions for you…",
-    "gate.toast": "The seal is broken! Turn the page ✦",
     "quiz.asks": "The Guardian asks…",
     "quiz.first": "Brilliant! +2 ✦",
     "quiz.second": "Got it! +1 ✦",
@@ -101,6 +87,7 @@ export default {
     "album.close": "Close album",
     "listen.help": "Enjoy the story! Everything the guardian asks is in the magic book too.",
     "listen.error": "The video couldn't play here. Try again, or open it on YouTube.",
+    "listen.channel": "▶ Visit the channel",
     "listen.close": "Close",
     "listen.soon": "Dexter is still filming this story! 🎬 It arrives on our YouTube channel very soon.",
     "listen.replay": "Enjoy the story again! ✦",
@@ -210,166 +197,182 @@ export default {
   stories: {
     "why-wonder": {
       kids: {
-        title: "The Scroll Monster",
-        teaser: "Did you know that nobody can stop kids from scrolling? So we made scrolling smart.",
+        title: "Who Keeps Pressing Play?",
+        teaser: "Dexter only wanted to watch ONE video before sunset. So who kept pressing play?",
         card: {
-          name: "Scroll Tamer",
-          fact: "Kids aged 8 to 12 spend over 5½ hours a day on screens for fun. You chose to make your minutes count!",
+          name: "Autoplay Boss",
+          fact: "Videos can start all by themselves. That's called autoplay. With a grown-up you can switch it off, set a timer, and give your screen a bedtime.",
         },
         mission: [
-          "How many hours a day kids your age spend on screens",
-          "How many videos a day Did You Know That? lets you watch",
-          "How much screen time experts say little kids (2 to 5) should have at most",
+          "Who really pressed play when Dexter couldn't stop",
+          "The name of the trick that starts the next video by itself",
+          "How many hours of sleep kids your age need",
         ],
         pages: {
           opening: {
-            "chapter": "Episode I",
-            "heading": "The Scroll Monster"
+            "chapter": "Episode 1",
+            "heading": "Who Keeps Pressing Play?"
           },
-          start: {
-            "heading": "Press Start!",
+          rocket: {
+            "heading": "One Quick Video",
             "text": [
-              "Did you know that nobody (not your parents, not your teachers, not even superheroes) can stop kids from [[scrolling]]?",
-              "So Dexter had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? Press START, explorer!"
+              "Professor Hoot and I are building a rocket! We have to finish before [[sunset]]. I'll just watch ONE quick video about rocket fins…",
+              "The video ends. “Up next…” Another one starts. Then another. Wait… where did the sun go? Our rocket isn't finished!"
             ],
-            "note": "Scrolling means sliding your finger to see more and more. Some apps are built so you never reach the end!"
+            "note": "Sunset is when the Sun goes down behind the horizon. In summer it comes late; in winter, early."
           },
-          tower: {
-            "heading": "Level 1: The Screen-Time Tower",
+          mystery: {
+            "heading": "A Mystery",
             "text": [
-              "Dexter jumps up a giant tower of clocks. [[Scientists]] in America asked thousands of families how long kids spend on screens for fun. Ages 2 to 4: about two and a half hours a day. Ages 5 to 8: more than three hours!",
-              "Ages 8 to 12: five and a half hours. Every. Single. Day. And teenagers? Almost nine hours. That's longer than a whole school day!"
+              "Hi, I'm Dexter. And I have a [[mystery]]: why couldn't I stop after ONE video?",
+              "What do you think? Was I just bad at stopping… or did something keep pressing play? Have a think before you turn the page!"
             ],
-            "note": "The researchers are called Common Sense Media. They have been asking families about screen time for more than ten years."
+            "note": "A mystery is a puzzle nobody has solved yet. Good explorers make a guess first, then test it."
           },
-          videoland: {
-            "heading": "Level 2: Endless Video Land",
+          willpower: {
+            "heading": "Dexter's Big Idea",
             "text": [
-              "Where do all those hours go? Into a theme park inside the phone, where videos and games start the next one [[automatically]]. There is never a moment to stop!",
-              "Then the ground shakes… and out jumps the boss: the Scroll Monster! A fuzzy purple blob with a screen for a belly and a tongue made of never-ending videos."
+              "I know! I just need SUPER [[willpower]]! Watch this. One video… and I stop.",
+              "I stare at the screen. Fists clenched. The video ends. Another one starts, all by itself. I melt into the chair like jelly. Okay. That didn't work."
             ],
-            "note": "“Autoplay” means the next video starts all by itself. It's one of the Scroll Monster's favourite tricks!"
+            "note": "Willpower is trying really hard to do (or not do) something. It helps, but it isn't magic."
           },
-          boss: {
-            "heading": "Level 3: Boss Fight!",
+          hint: {
+            "heading": "Professor Hoot's Hint",
             "text": [
-              "The Scroll Monster steals three treasures. First he grabs dinner: “just one more video…”. Then he steals [[sleep]]: kids your age need 9 to 12 hours, and screens at bedtime keep your brain buzzing.",
-              "Then he steals friends, real ones you can play football with! But Dexter dodges, jumps and wins every treasure back. Health experts say little kids aged 2 to 5 should have no more than 1 hour of screens a day."
+              "“What did you notice, Dexter… right at the end of the video?” Let's watch the end again, very closely. Look! A tiny countdown: “Up next… three, two, one.” Nobody pressed play. The app pressed it for me!",
+              "That's called [[autoplay]]: when one video ends, the next one starts by itself. Lots of apps are built that way, so it's hard for anyone to stop, even grown-ups. It's not because I'm bad. It's how it's built."
             ],
-            "note": "While you sleep, your brain sorts everything you learned today, like tidying up a messy room!"
+            "note": "Autoplay is a setting. On most apps a grown-up can find it in the settings menu and switch it off."
           },
-          deal: {
-            "heading": "Level 4: Dexter's Deal",
+          test: {
+            "heading": "The Test",
             "text": [
-              "Professor Hoot the owl flies in with a glowing map: the Road of Wonders! In Did You Know That? you still scroll, but every story teaches you something [[real]].",
-              "Read the magic book, watch the story, answer Professor Hoot and win Special Cards. And the game lets you watch only 3 videos a day, so there is plenty of time left to play, eat, sleep and see your friends."
+              "Let's test it! Professor Hoot taps a switch: autoplay OFF. The video ends… and the screen just waits.",
+              "Ooh. Now when a video ends, nothing happens. I get to [[choose]]. And I choose… rocket!"
             ],
-            "note": "Every card you save stays in your backpack 🎒, and you can watch its story again anytime!"
+            "note": "That's how scientists work: guess, test, look at what happens. Dexter's first guess was wrong, and that's fine!"
           },
-          finale: {
-            "heading": "Level Complete!",
+          bedtime: {
+            "heading": "Goodnight, Tablet",
             "text": [
-              "Fireworks! You finished the first level of your adventure. Your mission now: save your first card, the Scroll Tamer, and try Professor Hoot's three questions! Bonus: find the magic [[word]] on the glowing neon card in the video.",
-              "Did you know that? Now you do. See you on the Road of Wonders!"
+              "You know when else this matters? Bedtime. Kids our age need 9 to 12 hours of [[sleep]] every night. Scientists found that kids who use screens at bedtime often sleep less and feel sleepier the next day.",
+              "So tonight I'm setting a timer. When it rings, my tablet goes to bed first. Goodnight, tablet!"
             ],
-            "note": "The magic word appears in the video, right in the middle. Keep your eyes wide open!"
+            "note": "Sleep doctors agree: 6-to-12-year-olds should sleep 9 to 12 hours each night. While you sleep, your brain tidies up everything you learned!"
+          },
+          launch: {
+            "heading": "Three, Two, One…",
+            "text": [
+              "Morning! The rocket is finished. Countdown… LAUNCH! We did it. So, what did we discover? Videos can keep playing by themselves, but you can be the [[boss]]: autoplay off, a timer, and a bedtime for your screen.",
+              "Your mission: with a grown-up, find the autoplay switch on one app you use, and decide together if it should be on or off. Did you know that? Now you do!"
+            ],
+            "note": "Being the boss of your screen means you decide when it stops, not the app."
           },
           q1: {
-            question: "About how many hours a day do kids aged 8 to 12 spend on screens for fun?",
-            choices: ["About 1 hour", "About 3 hours", "More than 5 hours"],
-            explain: "More than 5½ hours a day! That's like a whole school day, every day.",
+            question: "When Dexter's video ended, who started the next one?",
+            choices: ["Dexter, by mistake", "The app, all by itself", "Professor Hoot"],
+            explain: "The app pressed play for him. Nobody touched the screen!",
           },
           q2: {
-            question: "How many videos a day does Did You Know That? let you watch?",
-            choices: ["1 video", "3 videos", "20 videos"],
-            explain: "Just 3 short videos, so there is plenty of time left to play, eat, sleep and see your friends.",
+            question: "What is it called when the next video starts by itself?",
+            choices: ["Autoplay", "Replay", "Fast-forward"],
+            explain: "Autoplay. It's a setting, and a grown-up can switch it off.",
           },
           q3: {
-            question: "What do health experts say kids aged 2 to 5 should have at most each day?",
-            choices: ["1 hour of screen time", "4 hours of screen time", "As much as they want"],
-            explain: "The World Health Organization and pediatricians recommend no more than 1 hour a day for little kids.",
+            question: "How many hours of sleep do kids aged 6 to 12 need each night?",
+            choices: ["About 5 hours", "About 15 hours", "9 to 12 hours"],
+            explain: "9 to 12 hours. That's what sleep doctors recommend for kids your age.",
           },
         },
       },
       adults: {
-        title: "The Golden Minutes",
-        teaser: "The inventor of infinite scroll ran the numbers on his own invention. The result is staggering.",
+        title: "The Re-Reading Trap",
+        teaser: "Why does the study method that feels best lose to the one that feels worse?",
         card: {
-          name: "Golden Minute",
-          fact: "In 1790 Benjamin Franklin left £1,000 to Boston to compound for 200 years. By 1990 it had grown to about $5 million.",
+          name: "Desirable Difficulty",
+          fact: "After a week, students who read a passage once and recalled it three times remembered 61% of it. Students who read it four times: 40%. Re-reading feels like learning; recalling is.",
         },
         mission: [
-          "How many human lifetimes infinite scroll wastes every day, according to its own inventor",
-          "How much money Benjamin Franklin left Boston to compound for 200 years",
-          "How much re-readers remembered after a week, compared with students who tested themselves",
+          "What happened to the results between five minutes and one week",
+          "Which group was the most confident, and how it did",
+          "What the evidence says you should do after reading something",
         ],
         pages: {
           opening: {
-            "chapter": "Episode I",
-            "heading": "The Golden Minutes"
+            "chapter": "Episode 1",
+            "heading": "The Re-Reading Trap"
           },
-          coldopen: {
-            "heading": "The Bottomless Page",
+          case: {
+            "heading": "Two Short Texts",
             "text": [
-              "In 2006, a designer named Aza Raskin removed the bottom of the internet: he invented infinite [[scroll]]. Content would simply keep loading, forever.",
-              "Years later he ran the numbers on his own invention. His estimate: it wastes the equivalent of about 200,000 human lifetimes, every single day."
+              "In 2006, at Washington University in St. Louis, 120 students were handed two short texts: one about the Sun, one about sea [[otters]].",
+              "Simple instructions. Read one of them twice. Read the other once, then write down everything you can remember."
             ],
-            "note": "Raskin later co-founded the Center for Humane Technology, which campaigns for less manipulative design."
+            "note": "Each passage was a little over 250 words, taken from a test-prep book, and scored on 30 idea units (Roediger & Karpicke, 2006)."
           },
-          lever: {
-            "heading": "The Lever",
+          puzzle: {
+            "heading": "No Surprise",
             "text": [
-              "Pull-to-refresh was invented by Loren Brichter for a Twitter app. He later pointed out something unsettling: slot machines would be far less addictive if gamblers didn't get to pull the [[lever]] themselves.",
-              "Your thumb is the lever, and the reward is unpredictable. The result: the average internet user is now online for about 6 hours 38 minutes a day."
+              "Five minutes later, everyone took a memory test. The passage they had read [[twice]] won: 81% of the ideas recalled, against 75%.",
+              "No surprise there. Reading something again should help. So why did the researchers, Henry Roediger and Jeffrey Karpicke, keep testing?"
             ],
-            "note": "Psychologists call it a variable-ratio reward schedule. B. F. Skinner found it produces the most persistent behaviour of any reward pattern."
+            "note": "The first recall test gave no feedback: students wrote what they remembered and never saw the answers."
           },
-          franklin: {
-            "heading": "Franklin's Experiment",
+          flip: {
+            "heading": "The Flip",
             "text": [
-              "When Benjamin Franklin died in 1790, he left £1,000 each to Boston and Philadelphia, with one rule: let it [[compound]], untouched, for 200 years.",
-              "By 1990, Boston's share had grown to about five million dollars; Philadelphia, managed differently, ended near two million. Same sum, same time, a different system. Minutes compound exactly like money."
+              "Two days later, the result had flipped. A week later, the passage they had only read once, and then tried to [[recall]], was remembered better: 56% against 42%.",
+              "They ran it again, harder. One group read a passage four times. Another read it once, then recalled it three times. After five minutes the readers led, 83 to 71. After a week: 61% for the group that recalled, 40% for the group that read. And the readers had gone through the text about fourteen times. The recallers, about three."
             ],
-            "note": "Franklin designed the fund as 5% loans to young tradesmen who had finished their apprenticeships: starter capital, centuries before microfinance."
+            "note": "180 students, 30 per condition. The reading counts are the students' own tallies (Table 1 of the paper)."
           },
-          testing: {
-            "heading": "The Testing Effect",
+          twist: {
+            "heading": "The Twist",
             "text": [
-              "In 2006, psychologists Henry Roediger and Jeffrey Karpicke split students into two groups. One re-read a passage several times; the other read it once, then tested [[themselves]].",
-              "Five minutes later, the re-readers looked smarter. One week later the result flipped: the self-testers remembered about 61%, the re-readers about 40%. Re-reading feels like learning; retrieval is learning."
+              "Here is the part that should make every student uneasy. Before the final test, the researchers asked: how well will you remember this in a week? The four-times readers were the most [[confident]] of all. They remembered the least.",
+              "Re-reading feels like learning. That feeling is the trap."
             ],
-            "note": "That's why every story here ends with Professor Hoot's questions: answering them is what makes the facts stick."
+            "note": "On a 1–7 scale the re-readers predicted 4.8, the recallers 4.0. A week later they recalled 40% and 61%. This is a group comparison, not each person's own prediction."
           },
-          minutes: {
-            "heading": "Golden Minutes",
+          mechanism: {
+            "heading": "Why It Works (Probably)",
             "text": [
-              "The US Foreign Service Institute estimates 600 to 750 class hours for an English speaker to reach working proficiency in Spanish or French. Thirty focused minutes a day gets you there in three to four [[years]].",
-              "Not by scrolling more. By scrolling on purpose, and testing yourself on what you saw."
+              "Why would struggling to recall beat smooth re-reading? The authors' explanation: recalling practises exactly what you'll need later, pulling an idea back out of memory. And the effort itself seems to help; psychologists call it a desirable [[difficulty]].",
+              "No one gave these students the answers while they recalled, so the gain wasn't simply from seeing the text again."
             ],
-            "note": "The FSI ranks Arabic, Mandarin, Japanese and Korean as the hardest for English speakers: about 2,200 class hours."
+            "note": "This is the authors' interpretation, offered with several overlapping theories. The study measured the results, not the mechanism."
           },
-          invitation: {
-            "heading": "The Invitation",
+          limits: {
+            "heading": "Does It Hold Up?",
             "text": [
-              "That's what Did You Know That? is built on: stories told with their evidence, questions that help knowledge stick, and Special Cards that build your own [[collection]] of discoveries.",
-              "Now save the Golden Minute card and test yourself with the guardian's questions. Bonus: the Episode 1 video hides a special word on a neon card; type it at the seal for a surprise."
+              "This was one university, young students, two short passages and, at most, a one-week delay. So later researchers [[pooled]] 159 comparisons from 61 studies.",
+              "On average, testing beat re-studying, clearly, but not every time. It worked best with feedback and over longer delays. When people got no feedback and could recall only half or less on their first try, the benefit disappeared. Published studies also tend to show bigger effects than unpublished ones, so the true average is probably a little smaller."
             ],
-            "note": "Every card you save stays in your collection, and you can watch its episode again anytime."
+            "note": "Rowland (2014), Psychological Bulletin: pooled effect g = 0.50; about one comparison in five favoured re-studying."
+          },
+          method: {
+            "heading": "What the Evidence Supports",
+            "text": [
+              "Don't just re-read. Close the book, try to recall, then [[check]] what you missed. Come back to it another day.",
+              "It will feel harder. That's not a sign it isn't working. Did you know that? Now you do."
+            ],
+            "note": "This routine draws on the studies above rather than being tested in this exact form. It works best when you can already recall a fair amount."
           },
           q1: {
-            question: "Infinite scroll's own inventor estimated it wastes how many human lifetimes every day?",
-            choices: ["About 2,000", "About 20,000", "About 200,000", "About 2 million"],
-            explain: "Aza Raskin's estimate: about 200,000 lifetimes a day, assuming infinite scroll adds 50% more time on feeds.",
+            question: "After one week, which group remembered the most?",
+            choices: ["Read once, then recalled three times", "Read four times", "Both groups did about the same", "Neither group remembered much"],
+            explain: "The recall group: 61% against 40%, even though they had read the text about three times instead of fourteen.",
           },
           q2: {
-            question: "How much did Benjamin Franklin leave Boston in 1790, to compound untouched for 200 years?",
-            choices: ["£1,000", "£100", "£100,000", "£1 million"],
-            explain: "£1,000 each to Boston and Philadelphia. By 1990 Boston's fund was worth about $5 million; Philadelphia's about $2 million.",
+            question: "Before the final test, which group was the most confident it would remember?",
+            choices: ["The recall group", "The one-test group", "The four-times readers", "All groups equally"],
+            explain: "The four-times readers (4.8 of 7). A week later they remembered the least.",
           },
           q3: {
-            question: "A week later, students who tested themselves remembered about 61%. How much did the re-readers remember?",
-            choices: ["About 80%", "About 61% too", "About 52%", "About 40%"],
-            explain: "About 40% (Roediger & Karpicke, 2006). Re-reading feels like learning; retrieval is learning.",
+            question: "In the 2014 review of 159 comparisons, when did the testing benefit disappear?",
+            choices: ["With feedback and long delays", "With no feedback and half or less recalled at first", "In every unpublished study", "When students read more than ten times"],
+            explain: "With no feedback and low initial recall (half or less), the benefit vanished (Rowland, 2014).",
           },
         },
       },
