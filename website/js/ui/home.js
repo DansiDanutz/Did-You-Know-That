@@ -64,8 +64,10 @@ export function renderKidsBar(host, { story, t }) {
   host.innerHTML = `
     <div class="kids-bar" role="region" aria-label="${t("home.adventure")}">
       <span class="kids-bar-title"><small>${t("home.adventure")}</small>${escape(story.title)}</span>
-      <button class="btn-ink" data-home="read" data-story="${story.id}">📖 ${t("home.readKids")}</button>
+      ${story.kind === "house"
+        ? `<button class="btn-gold" data-home="enter" data-story="${story.id}">${t("home.enter")}</button>`
+        : `<button class="btn-ink" data-home="read" data-story="${story.id}">📖 ${t("home.readKids")}</button>
       ${story.youtubeId ? `<button class="btn-gold" data-home="watch" data-story="${story.id}">▶ ${t("home.watchKids")}</button>` : ""}
-      <button class="btn-gold" data-home="mission">🔦 ${t("home.mission")}</button>
+      <button class="btn-gold" data-home="mission">🔦 ${t("home.mission")}</button>`}
     </div>`;
 }

@@ -22,4 +22,3 @@ video/*/assets/bed.wav
 out/ep*.mp4
 
 # Generated art test frames stay local; sheets are committed deliberately
-art/family/frame-test.png

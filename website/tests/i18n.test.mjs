@@ -83,8 +83,8 @@ test("localizeStory keeps language-neutral fields and does not mutate the base s
 // ---------------------------------------------------------------- settings
 
 test("normalizeSettings accepts valid values and repairs invalid ones", () => {
-  assert.deepEqual(normalizeSettings({ lang: "de", audience: "adults" }), { lang: "de", audience: "adults", chosen: false, name: "" });
-  assert.deepEqual(normalizeSettings({ lang: "zz", audience: "aliens", chosen: true }, "fr"), { lang: "fr", audience: "kids", chosen: true, name: "" });
+  assert.deepEqual(normalizeSettings({ lang: "de", audience: "adults" }), { lang: "de", audience: "adults", chosen: false, name: "", introSeen: false });
+  assert.deepEqual(normalizeSettings({ lang: "zz", audience: "aliens", chosen: true }, "fr"), { lang: "fr", audience: "kids", chosen: true, name: "", introSeen: false });
   assert.deepEqual(normalizeSettings(null, "en"), emptySettings("en"));
 });
 

@@ -33,3 +33,10 @@ test("houseStatus labels each house for the map", () => {
   assert.equal(houseStatus(stories, progress, 2), "soon");
   assert.equal(houseStatus([...stories.slice(0, 2), { id: "d", card: { id: "cd" } }], progressWith(), 2), "locked");
 });
+
+test("a house with a passed challenge counts as done even without a saved card", () => {
+  const progress = { ...progressWith(), done: { a: true } };
+  assert.equal(currentHouseIndex(stories, progress), 1);
+  assert.equal(houseStatus(stories, progress, 0), "done");
+  assert.equal(houseStatus(stories, progress, 1), "current");
+});

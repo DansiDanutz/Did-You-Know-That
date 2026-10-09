@@ -96,6 +96,7 @@ export default {
     "name.hello": "Hallo, {name}!",
     "name.explorerWords": "Forscher",
     "name.wellDone": "Super gemacht, {name}!",
+    "home.enter": "🏡 Ins Haus gehen",
     "home.mission": "Mission",
     "explorer.title": "Mein Entdecker",
     "explorer.empty": "Schließe eine Mission ab, um ein Outfit für Dexter und Deko für seine Werkstatt zu verdienen.",
@@ -194,6 +195,22 @@ export default {
   },
 
   stories: {
+    "house-of-family": {
+      kids: {
+        title: "Das Haus der Familie",
+        teaser: "Familie ist, wo die Liebe beginnt. Emma und Leo entdecken die kleinen Dinge, die eine Familie ausmachen.",
+        card: { name: "Herz der Freundlichkeit", fact: "Liebe wächst durch die kleinen Dinge, die wir jeden Tag tun: sich kümmern, helfen, zuhören und sich entschuldigen." },
+        mission: ["Wie Leo sich fühlte, als Emma schrie, und was geholfen hat", "Freundliche Worte, die nach einem Fehler alles besser machen", "Was eine Familie besonders macht, egal wie sie aussieht"],
+        pages: {},
+      },
+      adults: {
+        title: "Das Haus der Familie",
+        teaser: "Familie ist, wo die Liebe beginnt. Emma und Leo entdecken die kleinen Dinge, die eine Familie ausmachen.",
+        card: { name: "Herz der Freundlichkeit", fact: "Liebe wächst durch die kleinen Dinge, die wir jeden Tag tun: sich kümmern, helfen, zuhören und sich entschuldigen." },
+        mission: ["Wie Leo sich fühlte, als Emma schrie, und was geholfen hat", "Freundliche Worte, die nach einem Fehler alles besser machen", "Was eine Familie besonders macht, egal wie sie aussieht"],
+        pages: {},
+      },
+    },
     "why-wonder": {
       kids: {
         title: "Wer drückt da auf Play?",

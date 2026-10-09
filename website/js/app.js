@@ -17,7 +17,9 @@ import { renderAdultHome, renderKidsBar } from "./ui/home.js";
 import { openMission } from "./ui/mission.js";
 import { cleanName, personalize } from "./lib/player-name.js";
 import { greetingClips, nameIndexPath } from "./lib/name-voice.js";
-import { completeMission, recordAttempt, recordHint, equip } from "./lib/progression.js";
+import { completeMission, recordAttempt, recordHint, equip, addJournal, recordKindness } from "./lib/progression.js";
+import { openIntro, openFamilyHouse } from "./ui/family-house.js";
+import { FAMILY_HOUSE_ID } from "./data/family-episode.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
 import { greetingKey } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
@@ -82,7 +84,11 @@ function localizeAll() {
   return STORIES.map((story) => localizeStory(story, LOCALES[settings.lang], LOCALES.en, settings.audience));
 }
 
-const view = () => ({ cards: cardsView(collection, settings.audience) });
+// Saved cards plus the houses whose challenge was passed (the House of Family).
+const view = () => ({
+  cards: cardsView(collection, settings.audience),
+  done: { [FAMILY_HOUSE_ID]: Boolean(explorer.missions[FAMILY_HOUSE_ID]?.completedAt) },
+});
 const nowIso = () => new Date().toISOString();
 
 // ---------------------------------------------------------------- session state
@@ -148,6 +154,62 @@ function applyOutfit() {
     [...el.classList].filter((name) => name.startsWith("outfit-")).forEach((name) => el.classList.remove(name));
     if (explorer.appearance.outfit) el.classList.add(`outfit-${explorer.appearance.outfit}`);
   });
+}
+
+// ---------------------------------------------------------------- Episode 1: the House of Family
+// Dexter's recorded lines (English pilot). `speak(ids, text)` plays the clips in
+// order, or just waits for the text to be read when sound is off or the
+// language has no recording yet.
+const FAMILY_VOICE = (id) => `assets/voice/daxter/en/family/${id}.mp3`;
+const READ_MS = (text) => Math.min(12000, 900 + String(text ?? "").length * 55);
+function speakFamily(ids, text) {
+  if (sfx.muted || settings.lang !== "en" || !ids.length) return new Promise((r) => setTimeout(r, READ_MS(text)));
+  stopGreeting();
+  return playInOrder(ids.map(FAMILY_VOICE));
+}
+function showFamilyHouse() {
+  const entry = explorer.missions[FAMILY_HOUSE_ID] ?? {};
+  openFamilyHouse($("#house-layer"), {
+    playerName: settings.name,
+    speak: speakFamily,
+    stopSpeech: stopGreeting,
+    completed: Boolean(entry.completedAt),
+    kindnessDone: Boolean(entry.kindnessAt),
+    onAttempt: () => changeExplorer((state) => recordAttempt(state, FAMILY_HOUSE_ID, nowIso())),
+    onComplete: () => changeExplorer((state) => addJournal(completeMission(state, FAMILY_HOUSE_ID, {}, nowIso()), { kind: "house", id: FAMILY_HOUSE_ID, title: "The House of Family: Heart of Kindness" }, nowIso())).then(() => {
+      sfx.unlock();
+      world.render(view(), stories, t);
+      renderHome();
+    }),
+    onKindness: () => changeExplorer((state) => recordKindness(state, nowIso())),
+    onClose: () => {
+      const next = currentHouseIndex(stories, view());
+      if (next !== daxterAt) walkDaxter(next).then(() => world.daxter.say(nextStoryMessage(next), 8000));
+    },
+  });
+}
+
+// Meeting Dexter: the first time (and whenever the name changes to a new one),
+// a voiced introduction with two big choices, then the world explained.
+function meetDexter() {
+  return new Promise((resolve) => {
+    openIntro($("#house-layer"), {
+      playerName: settings.name,
+      speak: (ids, text) => (ids[0] === "intro-1" ? playNameThen(ids, text) : speakFamily(ids, text)),
+      onDone: () => {
+        applySettings({ introSeen: true });
+        resolve();
+      },
+    });
+  });
+}
+// "Hi, Sienna!" from the generic recordings, then Dexter's first line.
+function playNameThen(ids, text) {
+  if (sfx.muted || settings.lang !== "en") return new Promise((r) => setTimeout(r, READ_MS(text)));
+  stopGreeting();
+  const voice = nameVoice[settings.lang];
+  const clips = greetingClips({ lang: settings.lang, key: "welcome", name: settings.name, voiced: { [settings.lang]: voice?.names }, hasBody: () => false });
+  return playInOrder([...clips.filter((c) => c.includes("/names/")), ...ids.map(FAMILY_VOICE)]);
 }
 
 const SHADOW_MISSION = "missing-shadow";
@@ -342,6 +404,7 @@ function handleHomeAction(event) {
   if (action === "collection") return showInventory();
   if (action === "mission") return showMission();
   if (!story) return;
+  if (action === "enter") return handleHouse(stories.indexOf(story));
   if (action === "read") return openBook(story);
   if (action === "watch") return watchStory(story);
   if (action === "save") saveDiscoveryCard(story).then(renderHome);
@@ -451,6 +514,7 @@ async function handleHouse(index) {
   setTimeout(() => {
     world.daxter.setState("idle");
     busy = false;
+    if (stories[index].kind === "house") return showFamilyHouse();
     openBook(stories[index]);
   }, KNOCK_MS);
 }
@@ -792,6 +856,12 @@ function startScreen() {
       $("#start-layer").classList.add("is-leaving");
       setTimeout(() => ($("#start-layer").hidden = true), 600);
       const target = currentHouseIndex(stories, view());
+      if (settings.audience === "kids" && !settings.introSeen) {
+        await meetDexter();
+        await walkDaxter(target);
+        world.daxter.say(nextStoryMessage(target), 8000);
+        return;
+      }
       const spoken = greetPlayer();
       await new Promise((r) => setTimeout(r, 1200));
       await walkDaxter(target);
