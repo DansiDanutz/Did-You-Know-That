@@ -8,5 +8,5 @@ The "Next Step" mod shows the first unchecked item above the prompt. Tick items 
 - [ ] Produce the Episode 1 Adults video "The Golden Minutes" (≤5 min, documentary style)
 - [ ] Publish both on YouTube, then paste their video IDs into website/js/data/stories.js
 - [ ] Episode 2 (honey): rewrite the book as the full story and record Brian/Jane narration
-- [ ] Pixar-style 3D Daxter artwork (David starts the paid generation)
+- [ ] Pixar-style 3D Dexter artwork (David starts the paid generation)
 - [ ] Push the project to GitHub DansiDanutz/Did-You-Know-That

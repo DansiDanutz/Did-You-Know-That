@@ -89,3 +89,17 @@ test("canGoNext requires every visible page to be complete", () => {
   assert.equal(canGoNext([2, 3], done), true);
   assert.equal(canGoNext([3, 4], done), false);
 });
+
+test("phone keyboards can't break the magic word: punctuation, emoji and case are ignored", async () => {
+  const sun = await sha256Hex("SUN");
+  for (const typed of ["SUN", "sun", " Sun.", "sun!", "Sun ☀️", "s u n"]) assert.equal(await verifySecret(typed, sun), true, typed);
+  assert.equal(await verifySecret("SUNNY", sun), false);
+  assert.equal(normalizeSecret("Sun ☀️."), "SUN");
+});
+
+test("either episode's magic word opens the seal (it is only a bonus)", async () => {
+  const hashes = [await sha256Hex("SUN"), await sha256Hex("GOLDEN")];
+  assert.equal(await verifySecret("golden", hashes), true);
+  assert.equal(await verifySecret("sun", hashes), true);
+  assert.equal(await verifySecret("moon", hashes), false);
+});

@@ -31,7 +31,7 @@ const TOAST_MS = 2800;
 const sfx = createSfx();
 const narrator = createNarrator({ onReady: () => updateReadButtons() });
 const VOICE_KEY = "dykt-voice";
-let reading = false;
+let reading = true; // the storyteller reads every page as it turns; the button stops it
 let voice = readVoice();
 let currentFaces = [];
 let install = null; // the "Install the app" button controller
@@ -522,7 +522,10 @@ async function handleBookAction(story, action, el) {
   if (action === "listen") return watchStory(story);
   if (action === "secret") {
     const word = new FormData(el).get("secret");
-    if (await verifySecret(word, story.secretHash)) return unlockGate(story);
+    // The magic word is a bonus: the word from either audience's episode works.
+    const base = STORIES.find((entry) => entry.id === story.id);
+    const accepted = typeof base?.secretHash === "object" ? Object.values(base.secretHash) : [story.secretHash];
+    if (await verifySecret(word, accepted)) return unlockGate(story);
     setSession(story, { gateMessage: "gate.wrong" });
     sfx.wrong();
     refreshBook();
