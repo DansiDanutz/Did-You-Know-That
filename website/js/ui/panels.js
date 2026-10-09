@@ -120,6 +120,7 @@ export function openInventory(layer, { stories, cards, audience, t, onWatch, onR
     const open = () =>
       inspectCard(card, {
         actionsHtml: card.closest(".inv-slot").querySelector(".inv-actions").innerHTML,
+        closeLabel: t("listen.close"),
         onSettled: onSelect,
         onAction: runAction,
       });

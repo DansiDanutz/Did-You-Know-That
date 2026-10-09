@@ -17,13 +17,16 @@ function offsetFrom(sourceRect, targetEl) {
   };
 }
 
-export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
+export function inspectCard(sourceCard, { actionsHtml, closeLabel = "Close", onSettled, onAction }) {
+  const returnFocus = document.activeElement;
   const overlay = document.createElement("div");
   overlay.className = "card-inspect";
   overlay.setAttribute("role", "dialog");
   overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", sourceCard.querySelector(".dyk-card-name")?.textContent ?? "Card");
   overlay.innerHTML = `
     <div class="inspect-backdrop" data-dismiss></div>
+    <button class="inspect-close" type="button" data-dismiss aria-label="${closeLabel}">✕</button>
     <div class="inspect-stage">
       <span class="inspect-glow" aria-hidden="true"></span>
       <span class="inspect-shock" aria-hidden="true"></span>
@@ -34,6 +37,10 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
       <div class="inspect-actions">${actionsHtml}</div>
     </div>`;
   document.body.appendChild(overlay);
+  // A real modal: everything behind it is unreachable until it closes.
+  const behind = [...document.body.children].filter((el) => el !== overlay && !el.inert);
+  behind.forEach((el) => (el.inert = true));
+  overlay.querySelector(".inspect-close").focus();
 
   const stage = overlay.querySelector(".inspect-stage");
   const flip = overlay.querySelector(".inspect-flip");
@@ -78,6 +85,8 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
       .finished.then(() => {
         sourceCard.classList.remove("is-lifted");
         overlay.remove();
+        behind.forEach((el) => (el.inert = false));
+        if (returnFocus?.isConnected) returnFocus.focus();
       });
   }
 
@@ -87,7 +96,7 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
   document.addEventListener("keydown", onKey);
   overlay.addEventListener("click", (event) => {
     if (event.target.closest("[data-dismiss]")) return close();
-    const action = event.target.closest("[data-watch], [data-read]");
+    const action = event.target.closest("[data-watch], [data-read], [data-share]");
     if (action) {
       close();
       onAction(action);

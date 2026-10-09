@@ -902,3 +902,6 @@ body.has-overlay #world * {
 .daxter.is-cheer .daxter-halo {
   animation: halo 0.9s ease-in-out 3 !important;
 }
+
+.listen-fallback { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 12px; }
+.listen-fallback a { text-decoration: none; }

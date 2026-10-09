@@ -36,7 +36,7 @@ export function renderAdultHome(host, { stories, isSaved, t }) {
   const topics = [...new Set(rest.map((story) => story.publication.topic))];
   host.innerHTML = today
     ? `<div class="adult-home">
-        <h2 class="home-kicker">${t("home.today")}</h2>
+        <h2 class="home-kicker">${t(today.youtubeId ? "home.today" : "home.upcoming")}</h2>
         ${discoveryCard(today, { t, saved: isSaved(today), featured: true })}
         <div class="home-row">
           <button class="btn-gold" data-home="collection">🎒 ${t("home.collection")}</button>

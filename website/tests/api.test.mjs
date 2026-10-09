@@ -106,3 +106,10 @@ test("createRedis sends pipelined commands to the REST endpoint", async () => {
   const cmdError = createRedis({ KV_REST_API_URL: "https://db.example", KV_REST_API_TOKEN: "x" }, async () => ({ ok: true, json: async () => [{ error: "WRONGTYPE" }] }));
   await assert.rejects(cmdError.pipeline([["INCR", "a"]]));
 });
+
+test("the score write route is retired: nothing new is stored, old records are untouched", async () => {
+  const { POST } = await import("../api/score.js");
+  const res = await POST(new Request("https://dexty.live/api/score", { method: "POST", body: JSON.stringify({ playerId: ID_A }) }));
+  assert.equal(res.status, 410);
+  assert.equal((await res.json()).error, "retired");
+});

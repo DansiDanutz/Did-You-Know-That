@@ -95,6 +95,6 @@ test("the store migrates old progress once and never deletes it", async () => {
   const first = store.loadCollection(AT);
   assert.equal(first.collection.saved.kids["card-ep1-why"].firstSeason.rarity, "gold");
   assert.ok(data.has("dykt-progress-v1"), "old record kept");
-  store.saveCollection(saveCard(first.collection, "kids", "card-001-eternal-honey", AT));
+  store.updateCollection((c) => saveCard(c, "kids", "card-001-eternal-honey", AT), AT);
   assert.ok(store.loadCollection(AT).collection.saved.kids["card-001-eternal-honey"], "later loads read the new record");
 });

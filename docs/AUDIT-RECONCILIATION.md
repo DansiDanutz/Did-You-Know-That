@@ -22,3 +22,27 @@ Status: **fixed** (code + evidence), **partly fixed**, **open**, or **changed sc
 - Magic word accepts punctuation/emoji/case and either audience's word (`js/lib/secret.js`, tests in `tests/lib.test.mjs`).
 - Every book page is read aloud as it turns (`reading = true`).
 - Character renamed **Dexter** in all visible/spoken places (David, 9 Oct 2026). The master plan says "Daxter"; David's later direct instruction wins.
+
+---
+
+# Follow-up audit (product/learning, 9 Oct 2026) — stage 1 "trust and correctness"
+
+Branch `fix/audit-stage1`. Evidence from unit tests and browser checks on a preview (not yet live: production deploy needs David's approval).
+
+| Finding | Status | Evidence |
+|---|---|---|
+| Two tabs overwrite each other's saves | **fixed** | `store.updateCollection/updateLearning` apply each change to the latest stored data under a Web Locks cross-tab lock (`js/lib/storage-lock.js`); open tabs refresh on the `storage` event. Test "two tabs saving different cards keep both"; browser: episode page in tab 2 saved honey, app tab (stale) saved Ep 1 → both kept, app counter had already synced to 1/4. |
+| Failed writes still show "Saved" | **fixed** | Writes return `persisted`; app shows "cards last for this visit only…", episode page keeps the Save button and explains. Tests + browser with `setItem` throwing. |
+| Corrupt learning record discards cards | **fixed** | Records read separately; test "a corrupt learning record does not discard saved cards"; migration no longer overwrites learning another tab wrote. |
+| Expanded card Share has no handler; no close; not a modal | **fixed** | `card-inspect.js`: Share wired, ✕ close, background inert, focus in and restored. Browser: focus inside, library inert, Share → canonical `/e/<slug>/` link (copy fallback shown where share/clipboard are unavailable). |
+| Player: unbounded API load, stale mount, no fallback | **fixed (untested with a real video)** | 10 s timeout, no player attached after close, Retry + Open in YouTube on load/embed error. No published video exists to exercise it. |
+| Saving opens the video automatically | **fixed** | Save only saves; the card page shows ▶ Watch when a video exists. Browser: listen layer stays closed after save. |
+| Leaderboard write route still live | **fixed in code, not deployed** | `api/score.js` → HTTP 410 "retired", nothing stored, old records untouched; test added. |
+| Leaderboard wording in metadata | **fixed** | `index.html` description and `manifest.webmanifest`. |
+| iOS "Done" marks the app installed | **fixed** | Button now "Got it" and only hides the steps; installed state comes from standalone mode / install events. |
+| "Teens & Adults · harder questions" | **fixed** | "History, science and everyday discoveries" in 7 languages. |
+| Draft shown as "Today's discovery" | **fixed** | Unreleased episode labelled "Coming next · read it now". |
+| Discovery page → app loses audience/story | **fixed** | Link `/?audience=…&story=…`; app opens in that audience and opens the story after Start. |
+| Generic social preview image, placeholder sources | **open** | Needs episode artwork and the finished claim ledgers (Phase C). |
+| Stale docs saying "preview only" | **fixed** | `docs/ACCEPTANCE.md` updated: Phase A/B live since 9 Oct 2026 (`1146cb5`). |
+| Stage 2–5 (video pilots, missions, parent corner, adoption, pilot study) | **open** | Not started; see the audit handoff. |
