@@ -6,6 +6,9 @@
 
 import { LINES, CHALLENGES, STORYBOOK } from "../data/family-episode.js";
 import { DAXTER_SVG } from "./character.js";
+import { CAST_DEFS, PROPS, member, room, bubble } from "./family-cast.js";
+
+const OUTLINE = "#2a1406";
 
 const escape = (text) => String(text ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -23,50 +26,43 @@ const say = (id, name) => {
 };
 
 // ---------------------------------------------------------------- scenes (original vector art)
-// A friendly cartoon face in Dexter's style: big eyes with highlights, blush,
-// and a mouth, brows and tear that follow the mood.
-const face = (mood, x, y, scale = 1, hair = "#5a3a1a", girl = false) => {
-  const mouth = {
-    happy: `<path d="M-13 10 q13 16 26 0Z" fill="#7a1f12" stroke="#3a2412" stroke-width="3.5" stroke-linejoin="round"/>`,
-    calm: `<path d="M-10 12 q10 8 20 0" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-    sad: `<path d="M-11 17 q11 -11 22 0" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-    angry: `<path d="M-11 14 q11 -5 22 0" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-  }[mood];
-  const brows = {
-    happy: `<path d="M-22 -18 q8 -7 16 -1 M22 -18 q-8 -7 -16 -1" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-    calm: `<path d="M-22 -17 q8 -5 16 -1 M22 -17 q-8 -5 -16 -1" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-    sad: `<path d="M-22 -14 q8 -8 16 -4 M22 -14 q-8 -8 -16 -4" fill="none" stroke="#3a2412" stroke-width="3.5" stroke-linecap="round"/>`,
-    angry: `<path d="M-22 -22 l16 7 M22 -22 l-16 7" fill="none" stroke="#3a2412" stroke-width="4" stroke-linecap="round"/>`,
-  }[mood];
-  const eye = (cx) => `<ellipse cx="${cx}" cy="-2" rx="8" ry="10" fill="#fff" stroke="#3a2412" stroke-width="2.5"/><circle cx="${cx + 1}" cy="0" r="5" fill="#3a2412"/><circle cx="${cx + 3}" cy="-3" r="2" fill="#fff"/>`;
-  const tear = mood === "sad" ? `<path d="M19 6 q6 10 0 14 q-6 -4 0 -14Z" fill="#4fc3ff" stroke="#1c7fbf" stroke-width="1.5"/>` : "";
-  const hairShape = girl
-    ? `<path d="M-38 -4 q0 -44 38 -44 q38 0 38 44 q-12 -24 -38 -22 q-26 -2 -38 22Z" fill="${hair}"/><circle cx="-38" cy="8" r="13" fill="${hair}"/><circle cx="38" cy="8" r="13" fill="${hair}"/><circle cx="-38" cy="-2" r="4" fill="#ff3fa4"/><circle cx="38" cy="-2" r="4" fill="#ff3fa4"/>`
-    : `<path d="M-37 -6 q2 -42 37 -42 q35 0 37 42 q-14 -20 -37 -18 q-23 -2 -37 18Z" fill="${hair}"/><path d="M-6 -46 q8 -12 18 -4" fill="none" stroke="${hair}" stroke-width="7" stroke-linecap="round"/>`;
-  return `<g transform="translate(${x} ${y}) scale(${scale})"><circle r="36" fill="#ffd9b3" stroke="#3a2412" stroke-width="3.5"/>${hairShape}<ellipse cx="-22" cy="10" rx="7" ry="4" fill="#ff8fc7" opacity="0.55"/><ellipse cx="22" cy="10" rx="7" ry="4" fill="#ff8fc7" opacity="0.55"/>${brows}${eye(-13)}${eye(13)}${tear}${mouth}</g>`;
-};
-// A whole cartoon person: head at (x, y), body below, feet about 130 px down (before scale).
-const person = (mood, x, y, { scale = 1, shirt = "#4fc3ff", hair = "#5a3a1a" } = {}) => {
-  const girl = shirt === "#ff8fc7";
-  const arms = mood === "happy"
-    ? `<path d="M-28 52 l-22 -26 M28 52 l22 -26" stroke="#ffd9b3" stroke-width="12" stroke-linecap="round"/><path d="M-28 52 l-22 -26 M28 52 l22 -26" stroke="#3a2412" stroke-width="15" stroke-linecap="round" opacity="0" />`
-    : `<path d="M-28 50 l-12 34 M28 50 l12 34" stroke="#ffd9b3" stroke-width="12" stroke-linecap="round"/>`;
-  return `<g transform="translate(${x} ${y}) scale(${scale})">
-    <path d="M-16 88 v34 M16 88 v34" stroke="#3d7bff" stroke-width="18" stroke-linecap="round"/>
-    <rect x="-27" y="112" width="22" height="14" rx="6" fill="#3a2412"/><rect x="5" y="112" width="22" height="14" rx="6" fill="#3a2412"/>
-    ${arms}
-    ${girl ? `<path d="M-30 40 h60 l12 58 h-84Z" fill="${shirt}" stroke="#3a2412" stroke-width="3.5" stroke-linejoin="round"/>` : `<rect x="-30" y="40" width="60" height="60" rx="16" fill="${shirt}" stroke="#3a2412" stroke-width="3.5"/>`}
-    <path d="M-14 40 q14 10 28 0" fill="none" stroke="#3a2412" stroke-width="3" stroke-linecap="round"/>
-    ${face(mood, 0, 0, 1, hair, girl)}
-  </g>`;
-};
-const room = (inner) => `<svg class="fh-scene" viewBox="0 0 600 340" role="img" aria-hidden="true"><rect width="600" height="340" fill="#fff4dc"/><rect y="250" width="600" height="90" fill="#c98a3a"/><rect x="30" y="40" width="130" height="100" rx="10" fill="#bfe6ff" stroke="#8a5a2b" stroke-width="6"/><path d="M60 110 l25 -30 l20 20 l30 -45 l45 55Z" fill="#7ccf6a"/>${inner}</svg>`;
-const SCENES = {
-  "leo-sad": room(`${person("calm", 190, 150, { shirt: "#ff8fc7", hair: "#8a4a1a" })}<rect x="150" y="190" width="90" height="60" rx="8" fill="#fff" stroke="#3a2412" stroke-width="3"/><path d="M165 235 q20 -40 55 -10" stroke="#ff3fa4" stroke-width="4" fill="none"/>${person("sad", 380, 170, { scale: 0.85, shirt: "#ffd84a" })}<text x="330" y="110" font-size="28" font-family="Fredoka, sans-serif" fill="#3a2412">“Not now, Leo.”</text>`),
-  tower: room(`${person("calm", 170, 150, { shirt: "#ff8fc7", hair: "#8a4a1a" })}${person("sad", 420, 170, { scale: 0.85, shirt: "#ffd84a" })}<g transform="translate(290 250)"><rect x="-40" y="-20" width="40" height="40" rx="6" fill="#3d7bff" transform="rotate(-25)"/><rect x="10" y="-60" width="40" height="40" rx="6" fill="#ff8a1f" transform="rotate(18)"/><rect x="-20" y="-100" width="40" height="40" rx="6" fill="#3ee07a" transform="rotate(-8)"/></g><text x="190" y="80" font-size="26" font-family="Fredoka, sans-serif" fill="#3a2412">Oops! The tower fell.</text>`),
-  bags: room(`${person("calm", 330, 150, { shirt: "#3d7bff", hair: "#3a2412" })}<g fill="#c98a3a" stroke="#3a2412" stroke-width="3"><rect x="240" y="200" width="46" height="60" rx="8"/><rect x="372" y="200" width="46" height="60" rx="8"/><rect x="300" y="215" width="40" height="50" rx="8" fill="#ffd84a"/></g><text x="150" y="80" font-size="26" font-family="Fredoka, sans-serif" fill="#3a2412">Dad has a lot of bags…</text>`),
-  play: room(`${person("calm", 190, 150, { shirt: "#ff8fc7", hair: "#8a4a1a" })}${person("happy", 400, 170, { scale: 0.85, shirt: "#ffd84a" })}<text x="300" y="90" font-size="26" font-family="Fredoka, sans-serif" fill="#3a2412">“Emma, can I play too?”</text>`),
-  families: `<svg class="fh-scene" viewBox="0 0 600 340" role="img" aria-hidden="true"><rect width="600" height="340" fill="#fff4dc"/>${person("happy", 70, 120, { scale: 0.6, shirt: "#3d7bff" })}${person("happy", 140, 120, { scale: 0.6, shirt: "#ff8fc7", hair: "#8a4a1a" })}${person("happy", 105, 230, { scale: 0.45, shirt: "#ffd84a" })}${person("happy", 300, 120, { scale: 0.6, shirt: "#3ee07a", hair: "#ddd" })}${person("happy", 300, 230, { scale: 0.45, shirt: "#ff8a1f", hair: "#3a2412" })}${person("happy", 460, 120, { scale: 0.6, shirt: "#a040ff", hair: "#3a2412" })}${person("happy", 520, 230, { scale: 0.45, shirt: "#4fc3ff", hair: "#8a4a1a" })}${person("happy", 420, 230, { scale: 0.45, shirt: "#ffd84a", hair: "#5a3a1a" })}<path d="M300 60 c-10 -24 -44 -14 -40 10 c4 20 40 40 40 40 c0 0 36 -20 40 -40 c4 -24 -30 -34 -40 -10Z" fill="#ff3fa4"/></svg>`,
+// ---------------------------------------------------------------- scenes (the family, drawn in js/ui/family-cast.js)
+export const SCENES = {
+  // Emma at her drawing; Leo, with his teddy, has just been told "Not now".
+  "leo-sad": room(`
+    <rect x="130" y="196" width="150" height="14" rx="5" fill="#b8662a" stroke="${OUTLINE}" stroke-width="2.4"/><rect x="142" y="210" width="10" height="60" fill="#8a4a1a"/><rect x="258" y="210" width="10" height="60" fill="#8a4a1a"/>
+    ${member("emma", "calm", 205, 96, { scale: 0.78, arms: ["down", "out"], prop: "paper", propAt: [-10, 92] })}
+    <rect x="164" y="182" width="30" height="8" rx="3" fill="#ff3fa4"/><rect x="200" y="182" width="30" height="8" rx="3" fill="#3d7bff"/>
+    ${member("leo", "sad", 400, 128, { scale: 0.62, arms: ["down", "out"], prop: "teddy", propAt: [-6, 92], lids: 0 })}
+    ${bubble("Not now, Leo.", 250, 48, 215, 62)}`),
+  // The tower of blocks has just fallen.
+  tower: room(`
+    ${member("emma", "calm", 160, 96, { scale: 0.78, arms: ["down", "up"] })}
+    ${member("leo", "sad", 430, 128, { scale: 0.62, arms: "down" })}
+    <g transform="translate(300 262)" stroke="${OUTLINE}" stroke-width="2.4"><rect x="-70" y="-36" width="40" height="40" rx="7" fill="#3d7bff" transform="rotate(-24 -50 -16)"/><rect x="-20" y="-30" width="40" height="40" rx="7" fill="#ff8a1f" transform="rotate(16 0 -10)"/><rect x="30" y="-40" width="40" height="40" rx="7" fill="#3ee07a" transform="rotate(-10 50 -20)"/><rect x="-46" y="-84" width="40" height="40" rx="7" fill="#ffd84a" transform="rotate(32 -26 -64)"/><circle cx="-10" cy="-70" r="18" fill="#ff3fa4"/></g>
+    <text x="248" y="150" font-size="30" font-family="Fredoka, sans-serif" font-weight="700" fill="#ff8a1f">Oops!</text>
+    ${bubble("The tower fell…", 190, 46, 172, 62, 22)}`),
+  // Dad with the groceries; Emma nearby.
+  bags: room(`
+    ${member("dad", "calm", 330, 84, { scale: 0.92, arms: ["out", "out"], lids: 3 })}
+    <g transform="translate(276 170)">${PROPS.bag("#e0a24a")}</g><g transform="translate(384 170)">${PROPS.bag("#c98a3a")}</g>
+    <g transform="translate(470 262)">${PROPS.bag("#ffd84a")}</g>
+    ${member("emma", "calm", 120, 96, { scale: 0.78, arms: ["down", "down"] })}
+    ${bubble("Phew, so many bags!", 370, 30, 345, 48, 22)}`),
+  // Leo asks to join Emma's game.
+  play: room(`
+    <ellipse cx="200" cy="290" rx="70" ry="18" fill="#fff" opacity=".6"/><rect x="156" y="262" width="88" height="28" rx="6" fill="#7ccf6a" stroke="${OUTLINE}" stroke-width="2.4"/><circle cx="178" cy="276" r="7" fill="#ff3fa4"/><circle cx="200" cy="276" r="7" fill="#3d7bff"/><circle cx="222" cy="276" r="7" fill="#ffd84a"/>
+    ${member("emma", "calm", 160, 96, { scale: 0.78, arms: ["down", "out"] })}
+    ${member("leo", "happy", 420, 128, { scale: 0.62, arms: ["up", "up"], prop: "teddy", propAt: [-30, 86] })}
+    ${bubble("Emma, can I play too?", 300, 50, 412, 92, 22)}`),
+  // Families of different shapes, all held by one big heart.
+  families: `<svg class="fh-scene" viewBox="0 0 600 340" role="img" aria-hidden="true">${CAST_DEFS}
+    <rect width="600" height="340" fill="url(#fc-wall)"/><rect y="250" width="600" height="90" fill="url(#fc-floor)"/><rect y="244" width="600" height="8" fill="#8a5a2b"/>
+    <path d="M300 86 c-14 -34 -62 -22 -56 14 c6 28 56 56 56 56 c0 0 50 -28 56 -56 c6 -36 -42 -48 -56 -14Z" fill="#ff3fa4" stroke="${OUTLINE}" stroke-width="2.6"/><path d="M262 92 q6 -16 22 -18" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+    ${member("dad", "happy", 82, 128, { scale: 0.5, arms: ["down", "up"] })}${member("emma", "happy", 140, 158, { scale: 0.4, arms: ["up", "down"] })}
+    ${member("mom", "happy", 262, 150, { scale: 0.48, arms: ["down", "down"] })}${member("leo", "happy", 318, 178, { scale: 0.36, arms: ["up", "up"] })}${member("emma", "happy", 360, 164, { scale: 0.4, arms: ["down", "up"] })}
+    ${member("grandma", "happy", 480, 134, { scale: 0.5, arms: ["down", "out"] })}${member("leo", "happy", 540, 178, { scale: 0.36, arms: ["up", "down"] })}
+  </svg>`,
 };
 const COTTAGE = `<svg class="fh-cottage" viewBox="0 0 600 360" role="img" aria-label="A cottage with flowers and a heart above the door"><rect width="600" height="360" fill="#bfe6ff"/><circle cx="500" cy="70" r="40" fill="#ffe36b"/><rect y="280" width="600" height="80" fill="#7ccf6a"/><path d="M140 180 L300 60 L460 180Z" fill="#c0392b" stroke="#3a2412" stroke-width="6" stroke-linejoin="round"/><rect x="170" y="180" width="260" height="120" fill="#fff1c9" stroke="#3a2412" stroke-width="6"/><rect x="275" y="210" width="50" height="90" rx="6" fill="#8a5a2b" stroke="#3a2412" stroke-width="5"/><circle cx="313" cy="258" r="4" fill="#ffd84a"/><rect x="195" y="205" width="50" height="45" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="355" y="205" width="50" height="45" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><path d="M300 150 c-6 -14 -26 -8 -24 6 c2 12 24 24 24 24 c0 0 22 -12 24 -24 c2 -14 -18 -20 -24 -6Z" fill="#ff3fa4"/>${[200, 240, 360, 400, 440].map((x) => `<g transform="translate(${x} 292)"><rect x="-2" y="0" width="4" height="24" fill="#2f8f5b"/><circle r="8" fill="${["#ff3fa4", "#ffd84a", "#a040ff", "#ff8a1f", "#4fc3ff"][(x / 40) % 5]}"/></g>`).join("")}<g transform="translate(120 120)"><ellipse rx="10" ry="14" fill="#ffd84a" transform="rotate(-30)"/><ellipse rx="10" ry="14" fill="#ff8fc7" transform="rotate(30)"/></g></svg>`;
 // The whole house, cut open like a dollhouse: Emma and Leo's bedroom and the
@@ -93,8 +89,8 @@ const HOUSE_INSIDE = (tvOn) => `<svg class="fh-house" viewBox="0 0 600 420" role
     <ellipse cx="234" cy="348" rx="22" ry="7" fill="#3ee07a"/><circle cx="226" cy="343" r="6" fill="#ff3fa4"/><circle cx="240" cy="342" r="6" fill="#ffd84a"/>
     <rect x="130" y="300" width="60" height="30" rx="4" fill="#fff" stroke="#8a5a2b" stroke-width="3"/></g>
   <g aria-hidden="true"><rect x="318" y="340" width="130" height="50" rx="16" fill="#ff8fc7" stroke="#3a2412" stroke-width="4"/><rect x="330" y="348" width="40" height="24" rx="8" fill="#ffd84a"/><rect x="384" y="348" width="40" height="24" rx="8" fill="#a040ff"/>
-    <rect x="320" y="296" width="44" height="34" rx="4" fill="#fff" stroke="#8a5a2b" stroke-width="4"/>${face("happy", 334, 313, 0.28)}${face("happy", 350, 313, 0.28, "#8a4a1a")}
-    <rect x="378" y="300" width="36" height="28" rx="4" fill="#fff" stroke="#8a5a2b" stroke-width="4"/>${face("happy", 396, 314, 0.24, "#ddd")}
+    <rect x="320" y="296" width="44" height="34" rx="4" fill="#fff" stroke="#8a5a2b" stroke-width="4"/><path d="M342 322 c-4 -9 -16 -5 -14 4 c2 7 14 13 14 13 c0 0 12 -6 14 -13 c2 -9 -10 -13 -14 -4Z" fill="#ff3fa4"/>
+    <rect x="378" y="300" width="36" height="28" rx="4" fill="#fff" stroke="#8a5a2b" stroke-width="4"/><circle cx="390" cy="310" r="5" fill="#ffd84a"/><path d="M382 324 l6 -8 l5 5 l7 -9 l8 12Z" fill="#7ccf6a"/>
     <rect x="536" y="330" width="4" height="60" fill="#3a2412"/><path d="M520 330 l18 -24 l18 24Z" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
     <rect x="462" y="370" width="60" height="20" rx="3" fill="#8a5a2b"/></g>
   <g class="fh-tv" data-tv role="button" tabindex="0" aria-label="Turn on the television">
