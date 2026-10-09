@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --experimental-test-coverage tests/",
+    "test": "node --test --experimental-test-coverage tests/*.test.mjs",
     "dev": "python3 -m http.server 4173"
   }
 }

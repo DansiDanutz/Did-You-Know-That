@@ -22,4 +22,4 @@ jobs:
       - name: Syntax check every module
         run: find js api tools sw.js \( -name "*.js" -o -name "*.mjs" \) | xargs -n1 node --check
       - name: Unit tests
-        run: node --test tests/
+        run: node --test tests/*.test.mjs
