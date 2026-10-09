@@ -19,6 +19,13 @@ export const MOUTHS = MOUTH;
 
 export const sprite = (who, pose) => MANIFEST[`${who}-${pose}`] ?? MANIFEST[`${who}-neutral`];
 
+// Where the mouth overlay sits for a pose, in puppet coordinates (feet at 0,0).
+export function mouthPlace(id, pose, height) {
+  const info = sprite(id, pose);
+  const ps = height / info.height;
+  return { x: (info.mouth[0] - info.width / 2) * ps, y: (info.mouth[1] - info.height) * ps };
+}
+
 // A puppet standing with its feet at (x, y), `height` px tall on the 1920×1080 stage.
 export function character(id, { x, y, height, flip = false, mood = "neutral", pose = "neutral" }) {
   const base = sprite(id, "neutral");
@@ -28,23 +35,26 @@ export function character(id, { x, y, height, flip = false, mood = "neutral", po
     const ps = height / info.height; // every pose is scaled to the same standing height
     return `<image class="pose pose-${p}" href="assets/art/${info.file}" x="${-(info.width * ps) / 2}" y="${-height}" width="${info.width * ps}" height="${height}" opacity="${p === pose ? 1 : 0}"/>`;
   }).join("");
-  const [mx, my] = base.mouth;
-  const mouthX = (mx - base.width / 2) * s, mouthY = (my - base.height) * s;
+  const place = mouthPlace(id, pose, height);
   const ms = Math.max(0.55, height / 520); // mouth overlay scale with the puppet
   return `
   <g class="ch-pos ch-pos-${id}" transform="translate(${x} ${y})"><g class="ch-bob"><g class="ch-flip" transform="scale(${flip ? -1 : 1} 1)"><g class="ch ch-${id}">
     ${layers}
-    <g class="ch-mouthbox" transform="translate(${mouthX} ${mouthY}) scale(${ms})">
+    <g class="ch-mouthbox" transform="translate(${place.x.toFixed(1)} ${place.y.toFixed(1)})"><g transform="scale(${ms.toFixed(3)})">
       <ellipse rx="26" ry="15" fill="${base.skin}" opacity="0.96"/>
       <path class="ch-mouth" d="${MOUTH[mood]}" fill="#7a1f12" stroke="#3a2412" stroke-width="2.4" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
-    </g>
+    </g></g>
   </g></g></g></g>`;
 }
 
-export function actor(scene, id) {
+export function actor(scene, id, height = 600) {
   const root = `#sc-${scene} .ch-pos-${id}`;
   const f = (n) => Number(n).toFixed(2);
-  const pose = (p, at, dur = 0.25) => POSES.map((q) => `tl.to("${root} .pose-${q}", {opacity:${q === p ? 1 : 0}, duration:${dur}}, ${f(at)});`).join("\n");
+  const pose = (p, at, dur = 0.25) => {
+    const m = mouthPlace(id, p, height);
+    return [...POSES.map((q) => `tl.to("${root} .pose-${q}", {opacity:${q === p ? 1 : 0}, duration:${dur}}, ${f(at)});`),
+      `tl.to("${root} .ch-mouthbox", {x:${m.x.toFixed(1)}, y:${m.y.toFixed(1)}, duration:${dur}}, ${f(at)});`].join("\n");
+  };
   const steps = (dur) => 2 * Math.max(1, Math.round(dur / 0.3)) - 1;
   return {
     root,

@@ -17,7 +17,7 @@ const f = (n) => Number(n).toFixed(2);
 const BG = (name) => `<image href="assets/art/${name}.png" x="0" y="0" width="1920" height="1080" preserveAspectRatio="xMidYMid slice"/>`;
 // Props sit on the painted table at the right of the morning kitchen.
 const TABLE_PROPS = `
-  <g class="prop-paper"><rect x="1330" y="588" width="230" height="56" rx="8" fill="#fff" stroke="#3a2412" stroke-width="4" transform="skewX(-16)"/><path d="M1350 622 q30 -28 60 0 q30 28 60 0 q22 -20 44 0" stroke="#ff3fa4" stroke-width="6" fill="none"/></g>
+  <g class="prop-paper"></g>
   <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1600" y="566" width="50" height="74" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="4"/><rect x="1605" y="596" width="40" height="38" fill="#4fc3ff"/></g>
   <ellipse class="prop-puddle" cx="1440" cy="640" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/>`;
 const KITCHEN = (light = "morning") => (light === "afternoon" ? BG("kitchen-afternoon") : BG("kitchen-morning") + TABLE_PROPS);
@@ -216,7 +216,7 @@ const anim = (s) => {
     `tl.fromTo("#sc-credits .credits", {opacity:0, y:40}, {opacity:1, y:0, duration:1}, ${f(S + 0.3)});`,
     `tl.to("#sc-credits", {opacity:0, duration:1}, ${f(E - 1)});`,
   ].join("\n");
-  const A = Object.fromEntries(s.cast.map(([id]) => [id, actor(s.id, id)]));
+  const A = Object.fromEntries(s.cast.map(([id, opts]) => [id, actor(s.id, id, opts.height)]));
   const out = [`tl.fromTo("#sc-${s.id} .stage", {opacity:0}, {opacity:1, duration:0.6}, ${f(S)});`, `tl.to("#sc-${s.id} .stage", {opacity:0, duration:0.5}, ${f(E - 0.5)});`];
   for (const b of s.beats) {
     if (b.say && A[vo[b.say].speaker]) out.push(A[vo[b.say].speaker].talk(b.at, b.len));
