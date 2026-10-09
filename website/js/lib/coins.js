@@ -2,6 +2,7 @@
 // of road after its house. Collected coin ids are saved in progress.coins.
 
 export const COINS_PER_RARITY = Object.freeze({ silver: 5, gold: 10, legendary: 20 });
+export const COINS_PER_CARD = 10; // every saved card drops the same trail
 
 // [{ id, house, t }] where t ∈ (0, 1) is the position between this house and the next.
 export function coinsOnRoad(stories, cards, collected) {
@@ -9,7 +10,7 @@ export function coinsOnRoad(stories, cards, collected) {
   return stories.flatMap((story, house) => {
     const owned = cards[story.card.id];
     if (!owned) return [];
-    const count = COINS_PER_RARITY[owned.rarity] ?? 0;
+    const count = owned.firstSeason ? COINS_PER_RARITY[owned.rarity] ?? COINS_PER_CARD : COINS_PER_CARD;
     return Array.from({ length: count }, (_, i) => ({ id: `${story.id}:${i}`, house, t: (i + 1) / (count + 1) })).filter(
       (coin) => !taken.has(coin.id),
     );

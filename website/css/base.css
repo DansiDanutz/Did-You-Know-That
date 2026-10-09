@@ -650,3 +650,216 @@ input:focus-visible {
     width: 100%;
   }
 }
+
+/* ---------------------------------------------------------------- audience homes */
+
+.adult-home-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  overflow-y: auto;
+  padding: calc(max(12px, env(safe-area-inset-top)) + 72px) 16px 40px;
+  background: radial-gradient(ellipse at 50% -20%, #2a1f6b 0%, #0b0726 65%) fixed, #0b0726;
+}
+.adult-home-layer[hidden] { display: none; }
+body.is-adults .walk-controls { display: none; }
+.adult-home { max-width: 760px; margin: 0 auto; }
+.home-kicker { margin: 18px 0 10px; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.home-card {
+  margin: 0 0 14px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(26, 16, 80, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.home-card.is-featured { padding: 22px; border-color: rgba(255, 212, 77, 0.55); }
+.home-card h3 { margin: 4px 0 6px; font-size: clamp(22px, 5vw, 32px); line-height: 1.2; }
+.home-meta { margin: 0; font-size: 14px; color: rgba(255, 255, 255, 0.75); }
+.home-hook { margin: 0 0 14px; font-size: 18px; line-height: 1.5; color: rgba(255, 255, 255, 0.88); }
+.home-actions, .home-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.home-actions a.btn-ink { text-decoration: none; }
+.home-soon, .home-saved { font-weight: 700; color: var(--gold); }
+.home-topic h3 { font-size: 18px; margin: 14px 0 8px; }
+
+.kids-bar-host {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(max(12px, env(safe-area-inset-top)) + 64px);
+  z-index: 14;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 10px;
+}
+.kids-bar {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 20px;
+  background: rgba(11, 7, 38, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.kids-bar-title { display: flex; flex-direction: column; line-height: 1.15; font-weight: 700; margin-right: 4px; }
+.kids-bar-title small { font-size: 12px; color: var(--gold); font-weight: 600; }
+.kids-bar .btn-ink, .kids-bar .btn-gold { min-height: 40px; padding: 0 14px; font-size: 15px; }
+
+/* ---------------------------------------------------------------- mobile-first controls */
+
+/* Top bar: brand left, one right-hand group of equal-height controls. */
+.hud-actions { align-items: center; gap: 8px; }
+.hud-chip,
+.hud-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(11, 7, 38, 0.66);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+}
+.hud-chip { gap: 6px; padding: 0 14px; white-space: nowrap; }
+.hud-icon { width: 44px; padding: 0; font-size: 20px; }
+.hud-icon .flag { width: 26px; height: 18px; border-radius: 4px; }
+button.hud-chip:hover,
+.hud-icon:hover { background: rgba(60, 40, 140, 0.8); }
+
+/* Bottom sheet (language). */
+.sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(5, 4, 20, 0);
+  transition: background 0.2s ease;
+}
+.sheet-layer[hidden] { display: none; }
+.sheet-layer.is-open { background: rgba(5, 4, 20, 0.6); }
+.sheet {
+  width: min(520px, 100%);
+  max-height: 85dvh;
+  overflow-y: auto;
+  padding: 10px 16px max(16px, env(safe-area-inset-bottom));
+  border-radius: 24px 24px 0 0;
+  background: #170e48;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 0;
+  transform: translateY(100%);
+  transition: transform 0.22s ease;
+}
+.sheet-layer.is-open .sheet { transform: translateY(0); }
+.sheet-handle { display: block; width: 44px; height: 5px; margin: 0 auto 10px; border-radius: 3px; background: rgba(255, 255, 255, 0.3); }
+.sheet h2 { margin: 0 0 8px; font-size: 20px; text-align: center; }
+.lang-list { list-style: none; margin: 0; padding: 0; }
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+.lang-row .flag { width: 32px; height: 22px; }
+.lang-row:hover, .lang-row.is-current { background: rgba(255, 255, 255, 0.08); }
+.lang-check { margin-left: auto; color: var(--gold); font-size: 20px; }
+.sheet-close { display: block; width: 100%; min-height: 52px; margin-top: 8px; border: 0; border-radius: 14px; background: rgba(255, 255, 255, 0.1); color: #fff; font: inherit; font-weight: 700; }
+
+/* Current-language row on the start screen and in Settings. */
+.lang-current {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+}
+.lang-current .flag { width: 32px; height: 22px; }
+.lang-change { margin-left: auto; font-size: 15px; color: var(--gold); }
+
+/* Settings rows. */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+}
+.switch { position: relative; width: 50px; height: 30px; border-radius: 15px; background: rgba(255, 255, 255, 0.25); transition: background 0.2s; }
+.switch i { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform 0.2s; }
+.switch.is-on { background: #3ecf6e; }
+.switch.is-on i { transform: translateX(20px); }
+
+/* Book toolbar: one row; icons only on phones, icon + label from 600px. */
+.book-tools { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.tool-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.tool-btn .ico { font-size: 18px; line-height: 1; }
+@media (max-width: 599px) {
+  .tool-btn { width: 44px; min-width: 44px; height: 44px; padding: 0; }
+  .tool-btn .lbl { display: none; }
+  .book-toolbar { flex-wrap: nowrap; }
+}
+
+/* Start screen on phones: tighter so Start sits higher. */
+@media (max-width: 600px) {
+  .start-copy { font-size: 15px; line-height: 1.45; margin-bottom: 16px; }
+  .start-card .picker-label { margin: 14px 0 8px; }
+  .aud-btn { padding: 12px 10px; }
+  .aud-btn small { font-size: 12px; }
+}
+
+/* Settings: one consistent list — left-aligned section labels, full-width rows. */
+.panel.settings .picker-label { text-align: left; margin: 18px 4px 8px; }
+.panel.settings h2 { margin-bottom: 4px; }
+.panel.settings .backup { margin: 0; }
+.panel.settings .backup-note { margin: 0 4px 10px; }
+.panel.settings .backup-row { flex-direction: column; gap: 8px; }
+.panel.settings .backup-row .btn-ink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+.panel.settings > .btn-gold { display: block; width: 100%; min-height: 52px; margin-top: 20px; }
+.book-toolbar .pill { min-height: 44px; }

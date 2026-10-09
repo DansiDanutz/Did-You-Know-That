@@ -655,3 +655,12 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Bigger text (book toolbar "Aa"): never smaller than 17px; pages scroll. */
+.book-layer.is-large-text .book {
+  font-size: max(17px, calc(var(--pw) * 0.055));
+}
+.book-layer.is-large-text .page-inner {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

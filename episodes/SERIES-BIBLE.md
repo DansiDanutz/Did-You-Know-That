@@ -1,49 +1,51 @@
 # Did You Know That? · Series Bible
 
-Rules every episode must follow. Two versions of every episode: **Kids** and **Teens & Adults**.
+Video first, collection second. The product is a recognizable YouTube discovery series; **dexty.live** is its companion: discover episodes, watch voluntarily, save knowledge cards, revisit them and share discovery pages. Source of truth for the full plan: `CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct 2026). Episode templates: `episodes/templates/`.
+
+One brand, two distinct audiences:
+- **Kids** — "Explore the world with Dexter." An ongoing original cartoon series about understanding the world: phones and digital life, bodies and feelings, family and friendships, animals, nature, everyday science. Ages 7–9 first (6–12 only after testing).
+- **Adults** — "Discover something surprising. Understand the story behind it." Daily explanations from history, science, nature, technology, health, finance, everyday life. Never promise the viewer has never heard it.
+
+## Non-negotiable rules (YouTube policy and trust)
+- **Never reward watching.** No card, points, unlock or perk for playback, watch time, a word only obtainable in a video, likes, subscriptions or shares (YouTube API Developer Policies III.F.3). Every card is saved freely; the same learning is on an accessible discovery page; quizzes are optional private feedback.
+- **Official playback only**: visible YouTube player with normal controls and an "Open in YouTube" fallback. Opening a video never requires an account, a quiz or saving a card. No autoplay, no hidden playback, no claims that an embedded play counts as a view.
+- **Made-for-kids videos** have no working cards/end-screen elements/comments: closing scenes may be branded but never pretend to be clickable. Directions are spoken/text and truthful.
+- **Engagement means** curiosity, emotional connection, understanding, satisfying progress and voluntary return. No guilt, fear of missing out, punitive streaks, countdowns, randomized rewards, infinite scroll, autoplay of the next video, or rarity based on how many videos were watched.
+- Every episode resolves its own headline question. A next-episode preview may pose a new question after the resolution, never withhold the answer.
 
 ## Format
-- **Max 5:00 per video** (target 4:40–4:50). ~135 wpm kids, ~140 wpm adults → 620–680 words.
-- Structure: Hook (≤25 s) → 3 story beats → **Neon Card at the midpoint (≈2:20)** → payoff → call to action → 15 s end screen.
-- Open with our 7 s intro sting; close with our 15 s end screen (`out/`).
-- **Kids' magic words are always very easy everyday words** (SUN, HOUSE, TREE, MOON…), called the "MAGIC WORD" on screen. Adults may get harder words.
-- **Repeat the hint (Episode 1 and every kids episode):** Dexter explains at the start that a glowing card will show a magic word to remember, warns just before the card, says the word again right after ("Sun! Like the big, bright sun in the sky"), and repeats it in the call to action.
-- **Explicit ending (every episode):** the call to action is a numbered mission board, each step on screen as Dexter says it: open **dexty.live** and pick the audience → walk to the house labelled with this episode → open the book, find the wax seal, type the magic word → answer the questions and win the named card → tap the backpack 🎒 to see the collection and rewatch.
-- **Neon Card:** 8 s clip, glowing neon margins, logo, ONE special word. In the game the word is a **bonus**: typed at the wax seal it unlocks a surprise, never the card. Different word for Kids and Adults.
-- **Learn to win (YouTube policy):** the game may never reward watching (YouTube API policy III.F.3.c forbids rewards for views). Cards are won by answering the guardian's questions; every answer is taught BOTH in the video and in the magic book. List the facts in a "Facts used" table with sources.
+- **Kids:** target 3–4 min, ceiling 5:00. **Adults:** 3–5 min, the shortest that fully explains the idea. (Editorial targets to test, not retention guarantees.)
+- **Episode 1 (both audiences)** introduces Dexter, the promise and the companion app inside a complete useful story.
+- **From Episode 2:** open immediately with the subject; no app tutorial; branding short and integrated; at most one brief optional app mention near the end. The 7 s intro sting and the 8 s neon magic-word card are optional assets, not mandatory beats.
+- Beat sheets: see `episodes/templates/kids-episode.md` and `adults-episode.md`.
+- English is the pilot production language. Interface locales (7) do not mean dubbed videos exist; label video/narration languages accurately.
 
-## The narrator IS the character (both versions)
-- **Dexter narrates every episode himself**, in the first person, talking directly to the viewer ("you", "explorer"), never a detached voice-over.
-- **Episode openers:** he says who he is and his goal ("Hi! I'm Dexter… my goal is to turn your screen time into brain time").
-- **Stay connected:** at least one direct question or check-in per scene ("Ready?", "Which floor are you on?", "Stay close to me", "High five!").
-- Adults: the same Dexter, as a sharper, witty guide and expert host, still speaking to the viewer directly.
-- On screen his mouth moves while he speaks, so viewers always see who is talking.
+## Dexter (name fixed by David, 9 Oct 2026: **Dexter**, never Daxter)
+- Same name, silhouette and personality everywhere: lightbulb head with question-mark filament, round glasses, purple coat, pink-orange scarf, backpack. Smart, curious, kind, a little funny.
+- Kids: Dexter narrates in the first person, talks to the viewer, and **visibly acts** — anticipates, looks, gestures, reacts, handles props, pauses for discoveries. Never an idle loop. Mouth moves only while he speaks; where exact lip sync isn't possible he turns away or the explanation takes the frame.
+- Adults: a confident, curious host — mature illustration or a small recognizable guide. Do not import the kids' game layout into adult episodes.
 
-## Kids: "a cartoon you can play"
-- Looks and feels like a **video game**: START screen, LEVELS (4–5 per episode), XP bar, hearts, power-ups, a **boss** per episode, "LEVEL COMPLETE" stamps.
-- Bright saturated cartoon style, round shapes, squash-and-stretch, Pixar-inspired lighting.
-- Never shame or scare. Dexter is always on the kids' side. Jokes every ~30 s.
-- Facts simple but **real and sourced**; numbers shown as game scores.
+## Kids style
+Original stylized 2D/2.5D cartoon: coherent palette, round shapes, readable staging, one focal point per shot, camera moves with a reason. Animate the explanation itself (a circuit closing, a bee's dance mapping to flowers, a shadow moving). Explain unfamiliar words in context; no baby talk. Varied families and inclusive characters; model asking a trusted adult for help; respect boundaries. Never shame bodies, phones, food, money or family circumstances; don't depict all phone use as bad. End with a recap, a safe real-world mission and a clear goodbye.
 
-## Teens & Adults: "the documentary you didn't know you needed"
-- **Expert-level, specific, surprising.** No generic advice, no well-known clichés ("drink water", "the brain is complex"). Every claim named, dated and sourced on screen.
-- Prefer primary sources, named researchers, original documents, exact numbers, and counter-intuitive results (e.g. the testing effect's 5-minute vs 1-week reversal).
-- Premium look: dark backgrounds, neon accents, archival documents, kinetic data typography.
+## Adults style
+Premium documentary explainer: restrained colour, strong typography, original diagrams, accurate charts (units, timeframe, source on screen), archival material only with rights checked, reconstructions labelled. Explain mechanisms and uncertainty; separate association from causation; no fake authority, unsupported superlatives or sensational certainty. Health and finance teach general concepts only.
 
 ## Cast
 | Character | Role | Look | Voice |
 |---|---|---|---|
-| **Dexter** | Hero & kids narrator; cameo for adults | Lightbulb head with question-mark filament, round glasses, purple coat, pink-orange scarf, backpack | Bright, curious, quick |
-| **Professor Hoot** | Owl guardian who asks the quiz | Wise owl, tiny spectacles, scholar's cape | Warm, slow, a little theatrical |
-| **Episode boss** (kids) | The problem as a goofy villain (e.g. the Scroll Monster) | Fuzzy, funny, never truly scary | Grumbly, comedic |
-| **Narrator** (adults) | Documentary voice | — | Calm, precise, intimate |
+| **Dexter** | Guide and kids narrator; adult host | See above | ElevenLabs Brian |
+| **Professor Hoot** | Owl who asks the optional knowledge questions | Wise owl, tiny spectacles, scholar's cape | Warm, slow, a little theatrical |
+| **Episode friend / problem** (kids) | The problem as a goofy character (e.g. the Scroll Monster, the bell creature) | Funny, never truly scary | Comedic |
 
-## Sound design (mandatory)
-- **Music bed for every section**, changing with the mood (kids: chiptune-orchestral, platformer, villain pizzicato, boss battle, victory; adults: cinematic drone, minimal synth, period instruments when history appears).
-- **A sound effect for everything we explain**: numbers count up with dings, objects get foley (quill, coins, pages), transitions get whooshes, reveals get hits.
-- Neon Card: music cuts to silence → power-up shimmer (kids) / neon buzz + sub-bass (adults).
-- Mix: voice always on top (music ducked about −12 dB under VO), loudness ≈ −14 LUFS for YouTube.
-- Royalty-free only: our procedural sound library (`tools/make_audio.py`) or licensed stock. No copyrighted music.
+## Sound
+- A music bed under every section, changing with the mood; purposeful foley for what we explain; whooshes only where they mean something.
+- Voice always intelligible on phone speakers; music ducked under narration; consistent levels.
+- House delivery target (not a platform rule): about −14 LUFS integrated, ≤ −1.5 dBTP, measured on the final encoded master — and listened to.
+- Only project-generated (`tools/make_audio.py`) or licensed audio. No copyrighted music.
 
-## Topic selection
-A topic qualifies only if it has (1) a jaw-drop fact most people have never heard, (2) a visual we can animate, (3) three quiz-able facts from reliable sources, and (4) a kids angle AND an adults angle.
+## Research and production
+- Topic candidates are hypotheses until researched. Every central claim goes into the episode's claim ledger with an opened, checked source.
+- Production order per episode: **brief → claim ledger → script → recorded narration → storyboard (timed from the real narration) → motion test → render → QA receipt → publication draft.** Book/discovery page text is written from the same ledger.
+- Never regenerate unchanged recordings; narration manifests carry text/voice/settings hashes.
+- Publishing, production deployment and paid generation require David's approval.

@@ -6,22 +6,28 @@
 //
 //   node tools/make-narration.mjs --dry-run            # count characters, no API calls
 //   ELEVENLABS_API_KEY=… node tools/make-narration.mjs  # generate (skips existing files)
+//   node tools/make-narration.mjs --check              # list missing + stale recordings and their size, no API calls
+//   node tools/make-narration.mjs --baseline           # record fingerprints of existing files from today's text (no API)
 //   options: --lang=ro --story=why-wonder --voice=male --sample (one page per voice, to approve the sound first)
+//
+// Every recording's fingerprint (text + voice + model + settings) is stored in
+// the manifest; a recording whose page text changed is "stale": the site stops
+// playing it and a run re-records it.
 //
 // Voices are resolved by name from your ElevenLabs library, so no ids are hardcoded.
 
-import { mkdir, writeFile, access, readdir } from "node:fs/promises";
+import { mkdir, writeFile, readFile, access, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { STORIES } from "../js/data/stories.js";
 import { LANGUAGES, LOCALES, createTranslator } from "../js/i18n/index.js";
 import { localizeStory, AUDIENCES } from "../js/lib/localize.js";
-import { allNarrationItems, narrationPath, speechText } from "../js/lib/narration.js";
+import { allNarrationItems, narrationPath, speechText, narrationFingerprint, NARRATION_MODEL, NARRATION_SETTINGS } from "../js/lib/narration.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://api.elevenlabs.io/v1";
-const MODEL_ID = "eleven_multilingual_v2";
+const MODEL_ID = NARRATION_MODEL;
 // Brian = ElevenLabs' original premade voice; Jane = mature British audiobook
 // reader (public library, added to David's library as "DYKT Jane").
 const VOICES = {
@@ -31,7 +37,7 @@ const VOICES = {
 const VOICE_NAMES = Object.fromEntries(Object.entries(VOICES).map(([slot, v]) => [slot, v.name]));
 const OUTPUT_FORMAT = "mp3_44100_128";
 // Calm, human storytelling: steady delivery, a little slower than default.
-const VOICE_SETTINGS = { stability: 0.6, similarity_boost: 0.8, style: 0.25, use_speaker_boost: true, speed: 0.9 };
+const VOICE_SETTINGS = NARRATION_SETTINGS;
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
@@ -104,34 +110,65 @@ async function listRecordings(dir) {
   return nested.flat();
 }
 
-async function writeManifest() {
+const MANIFEST = join(ROOT, "assets/narration/manifest.json");
+
+async function readManifest() {
+  try {
+    return JSON.parse(await readFile(MANIFEST, "utf8"));
+  } catch {
+    return { files: [], fingerprints: {} };
+  }
+}
+
+// Fingerprints are kept from the previous manifest and set for recordings
+// made (or baselined) in this run, so a stale file stays marked stale.
+async function writeManifest(previous, fresh) {
   const present = (await listRecordings("assets/narration")).sort();
-  const file = join(ROOT, "assets/narration/manifest.json");
-  await mkdir(dirname(file), { recursive: true });
-  await writeFile(file, JSON.stringify({ files: present }, null, 0));
+  const fingerprints = Object.fromEntries(
+    present.flatMap((path) => {
+      const fingerprint = fresh[path] ?? previous.fingerprints?.[path];
+      return fingerprint ? [[path, fingerprint]] : [];
+    }),
+  );
+  await mkdir(dirname(MANIFEST), { recursive: true });
+  await writeFile(MANIFEST, JSON.stringify({ files: present, fingerprints }, null, 0));
   return present.length;
 }
 
 async function main() {
-  const items = plannedItems();
-  const chars = items.reduce((n, i) => n + i.text.length, 0);
-  console.log(`${items.length} recordings, ${chars.toLocaleString("en")} characters in total.`);
+  const previous = await readManifest();
+  const items = plannedItems().map((item) => ({ ...item, fingerprint: narrationFingerprint(speechText(item), item.voice) }));
+  const status = await Promise.all(
+    items.map(async (item) => {
+      if (!(await exists(join(ROOT, item.path)))) return "missing";
+      const recorded = previous.fingerprints?.[item.path];
+      return recorded && recorded !== item.fingerprint ? "stale" : "ok";
+    }),
+  );
+  const todo = items.filter((_, i) => status[i] !== "ok");
+  const chars = todo.reduce((n, item) => n + item.text.length, 0);
+  console.log(`${items.length} planned · ${status.filter((s) => s === "missing").length} missing · ${status.filter((s) => s === "stale").length} stale → ${todo.length} to record, ${chars.toLocaleString("en")} characters.`);
+  if (args.check) return todo.forEach((item, i) => console.log(`  ${status[items.indexOf(item)]}  ${item.path}`));
   if (args["dry-run"]) return;
+  if (args.baseline) {
+    const fresh = Object.fromEntries(items.filter((_, i) => status[i] === "ok" && !previous.fingerprints?.[items[i].path]).map((item) => [item.path, item.fingerprint]));
+    console.log(`Baseline: ${Object.keys(fresh).length} fingerprints recorded. Manifest lists ${await writeManifest(previous, fresh)} recordings.`);
+    return;
+  }
 
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) throw new Error("ELEVENLABS_API_KEY is not set.");
   const voiceIds = await resolveVoices(apiKey);
-  let made = 0;
-  for (const item of items) {
+  const fresh = {};
+  for (const item of todo) {
     const target = join(ROOT, item.path);
-    if (await exists(target)) continue;
     await mkdir(dirname(target), { recursive: true });
     await writeFile(target, await synthesize(apiKey, voiceIds[item.voice], speechText(item)));
-    made += 1;
-    process.stdout.write(`\r${made} generated`);
+    fresh[item.path] = item.fingerprint;
+    process.stdout.write(`\r${Object.keys(fresh).length} recorded`);
   }
   if (args.sample) return console.log("\nSamples saved in assets/narration/_samples/ for listening.");
-  console.log(`\nManifest lists ${await writeManifest()} recordings.`);
+  console.log(`\nManifest lists ${await writeManifest(previous, fresh)} recordings.`);
 }
 
 main().catch((error) => {

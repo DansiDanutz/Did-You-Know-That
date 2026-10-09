@@ -1,18 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { COINS_PER_RARITY, coinsOnRoad, withCoinCollected, coinTotal } from "../js/lib/coins.js";
+import { COINS_PER_RARITY, COINS_PER_CARD, coinsOnRoad, withCoinCollected, coinTotal } from "../js/lib/coins.js";
 import { nearestStop, clampRoad } from "../js/lib/journey.js";
 import { emptyProgress, normalizeProgress } from "../js/lib/storage.js";
 
 const stories = [{ id: "a", card: { id: "ca" } }, { id: "b", card: { id: "cb" } }, { id: "c", card: { id: "cc" }, comingSoon: true }];
-const cards = { ca: { rarity: "gold" }, cb: { rarity: "silver" } };
+const cards = { ca: { rarity: "gold" }, cb: { rarity: "silver", firstSeason: true } };
 
-test("each earned card drops coins by rarity: silver 5, gold 10, legendary 20", () => {
+test("every saved card drops the same coins; first-season cards keep their old count", () => {
   assert.deepEqual(COINS_PER_RARITY, { silver: 5, gold: 10, legendary: 20 });
   const coins = coinsOnRoad(stories, cards, []);
-  assert.equal(coins.filter((c) => c.house === 0).length, 10);
-  assert.equal(coins.filter((c) => c.house === 1).length, 5);
+  assert.equal(coins.filter((c) => c.house === 0).length, COINS_PER_CARD);
+  assert.equal(coins.filter((c) => c.house === 1).length, COINS_PER_RARITY.silver);
 });
 
 test("coins sit on the road after their house, evenly spread, with stable ids", () => {

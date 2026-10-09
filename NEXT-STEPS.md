@@ -1,12 +1,12 @@
 # Next steps: Did You Know That?
 
-The "Next Step" mod shows the first unchecked item above the prompt. Tick items with its Done button or edit this file.
+The "Next Step" mod shows the first unchecked item above the prompt. Full plan status: `docs/ACCEPTANCE.md`.
 
-- [x] Free ~8 GB of disk (or approve going below the 46 GB reserve) so the neon card clips can render
-- [x] Render the neon card clips: SPARK (kids) and GOLDEN (adults)
-- [x] Produce the Episode 1 Kids video "The Scroll Monster" (≤5 min, Brian/Jane narration, cartoon-game style)
-- [ ] Produce the Episode 1 Adults video "The Golden Minutes" (≤5 min, documentary style)
-- [ ] Publish both on YouTube, then paste their video IDs into website/js/data/stories.js
-- [ ] Episode 2 (honey): rewrite the book as the full story and record Brian/Jane narration
-- [ ] Pixar-style 3D Dexter artwork (David starts the paid generation)
-- [ ] Push the project to GitHub DansiDanutz/Did-You-Know-That
+- [x] Phase A: audit reconciliation, data contract, templates, Series Bible/README/NEXT-STEPS, asset inventory, open decisions
+- [ ] David answers `docs/OPEN-DECISIONS.md` (ladder, leaderboard, daily limit, magic word, card saving, font, rights, budget)
+- [x] Phase B: companion flow on preview — free card saving, discovery pages, homes, collection search, backup, leaderboard retired, offline shell, browser checks (production deploy waits for David)
+- [ ] Phase C: two 20–30 s motion tests (kids + adults), then Ep 1 kids revision and Ep 1 adults master with captions, sources, card, thumbnails, QA receipts
+- [ ] Phase C: Ep 2 storyboards (kids "The Bee's Secret Map", adults "Ancient honey")
+- [ ] Phase D: YouTube titles/descriptions/audience settings/captions/playlists + deployment checklist for David's approval
+- [ ] Phase E: 14 adult and 6 kids briefs; seven-episode buffer before any daily schedule
+- [ ] Phase F: measurement plan from YouTube Studio reports (no new tracking without permission)

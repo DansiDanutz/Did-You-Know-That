@@ -4,7 +4,8 @@
 // To publish a new episode:
 //   1. add an entry here (pages, quiz answer index per audience, card),
 //   2. add its texts to every locale file (tests fail if one is missing),
-//   3. set `youtubeId` once the video is live,
+//   3. when the video is live: publication.<audience>.publicationStatus =
+//      "published", youtubeId and publishedAt (validated by the tests),
 //   4. show the special word on a neon card in the middle of the video and
 //      store its SHA-256 (per audience if the videos differ):
 //        printf 'WORD' | shasum -a 256
@@ -23,7 +24,29 @@ export const STORIES = Object.freeze([
     id: "why-wonder",
     episode: 1,
     house: "home",
-    youtubeId: { kids: "", adults: "" }, // ← paste each YouTube video ID when published
+    // Publication data per audience (docs/DATA-CONTRACT.md). A video plays only
+    // when status is "published" with a valid youtubeId and publishedAt.
+    publication: {
+      kids: {
+        schemaVersion: 1,
+        episodeId: "kids-001-scroll-monster",
+        slug: "scroll-monster",
+        topic: "digital-life",
+        publicationStatus: "draft",
+        videoLanguage: "en",
+        narrationLanguages: ["en", "ro", "es", "fr", "de", "it", "zh"],
+        durationSeconds: 298.5,
+      },
+      adults: {
+        schemaVersion: 1,
+        episodeId: "adults-001-golden-minutes",
+        slug: "golden-minutes",
+        topic: "everyday-life",
+        publicationStatus: "draft",
+        videoLanguage: "en",
+        narrationLanguages: ["en", "ro", "es", "fr", "de", "it", "zh"],
+      },
+    },
     // Special word shown on the neon card in the MIDDLE of each video.
     secretHash: {
       kids: "d44fa953853bae3a2ab71f5d5236ede3b67f31aeff84aa56235be191d78f7eb5", // SUN (kids words are always simple everyday words)
@@ -56,7 +79,7 @@ export const STORIES = Object.freeze([
         { id: "franklin", type: "story", art: "coins", spark: "compound" },
         { id: "testing", type: "story", art: "brain", spark: "themselves" },
         { id: "minutes", type: "story", art: "hourglass", spark: "years" },
-        { id: "invitation", type: "story", art: "bulb", spark: "leaderboard" },
+        { id: "invitation", type: "story", art: "bulb", spark: "collection" },
         { id: "mission", type: "mission" },
         { id: "seal", type: "gate" },
         { id: "q1", type: "quiz", answer: { kids: 2, adults: 2 } },
@@ -71,7 +94,26 @@ export const STORIES = Object.freeze([
     id: "eternal-honey",
     episode: 2,
     house: "desert",
-    youtubeId: "", // ← paste the YouTube video ID when the episode is published
+    publication: {
+      kids: {
+        schemaVersion: 1,
+        episodeId: "kids-002-honey",
+        slug: "honey-that-never-spoils",
+        topic: "animals",
+        publicationStatus: "draft",
+        videoLanguage: "en",
+        narrationLanguages: [],
+      },
+      adults: {
+        schemaVersion: 1,
+        episodeId: "adults-002-ancient-honey",
+        slug: "ancient-honey",
+        topic: "history",
+        publicationStatus: "draft",
+        videoLanguage: "en",
+        narrationLanguages: [],
+      },
+    },
     secretHash: "36c58be3956c6dad24ccd962cb856d5374cd32bb8c33815159f5fa81bcd7f46e", // NECTAR
     card: { id: "card-001-eternal-honey", number: "002", art: "jar" },
     pages: [
