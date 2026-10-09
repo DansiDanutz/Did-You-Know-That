@@ -74,7 +74,8 @@ test("localizeStory keeps language-neutral fields and does not mutate the base s
   const honey = STORIES.find((story) => story.id === "eternal-honey");
   const before = JSON.stringify(honey);
   const s = localizeStory(honey, LOCALES.fr, en, "adults");
-  assert.equal(s.youtubeId, honey.youtubeId);
+  assert.equal(s.youtubeId, "", "a draft episode has no playable video");
+  assert.equal(s.publication.slug, "ancient-honey");
   assert.equal(s.card.id, honey.card.id);
   assert.equal(JSON.stringify(honey), before);
 });

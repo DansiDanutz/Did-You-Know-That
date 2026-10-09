@@ -1,7 +1,17 @@
 // Merges a language-neutral story (ids, art, answers) with the texts of one
 // language and audience. Missing translations fall back to English per field.
 
+import { isPlayable } from "./episode-schema.js";
+
 export const AUDIENCES = Object.freeze(["kids", "adults"]);
+
+// The video id the app may play: from publication data only when the episode
+// is published (drafts never show a Play button); older entries keep their id.
+function playableVideoId(story, audience) {
+  const publication = story.publication?.[audience];
+  if (publication) return isPlayable(publication) ? publication.youtubeId : "";
+  return forAudience(story.youtubeId, audience);
+}
 
 function entryFor(locale, storyId, audience) {
   const entry = locale?.stories?.[storyId];
@@ -27,7 +37,7 @@ const YOUTUBE_ID = /^[A-Za-z0-9_-]{6,20}$/;
 function cardImage(story, audience) {
   const custom = forAudience(story.card.image, audience);
   if (custom) return custom;
-  const videoId = forAudience(story.youtubeId, audience);
+  const videoId = playableVideoId(story, audience);
   return YOUTUBE_ID.test(videoId ?? "") ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
 }
 
@@ -40,7 +50,8 @@ export function localizeStory(story, locale, fallback, audience) {
   return {
     ...story,
     secretHash: forAudience(story.secretHash, audience),
-    youtubeId: forAudience(story.youtubeId, audience),
+    youtubeId: playableVideoId(story, audience),
+    publication: story.publication?.[audience],
     title: pick("title"),
     teaser: pick("teaser"),
     mission,

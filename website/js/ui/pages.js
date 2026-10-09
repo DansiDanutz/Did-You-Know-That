@@ -132,12 +132,12 @@ const RENDERERS = {
       </div>`;
   },
 
-  reward: ({ story, session, rarity, sparkCount, maxSparks, points, index, t }) => `
+  reward: ({ story, session, rarity, firstSeason, sparkCount, maxSparks, index, t }) => `
     <div class="page-inner reward-page">
       <span class="chapter">${t("reward.kicker")}</span>
       ${session.cardClaimed
-        ? `<div class="mini-card">${cardMarkup(story.card, rarity, { t, points })}</div>
-           <p>${t("reward.earned", { rarity: t(`rarity.${rarity}`), n: sparkCount, max: maxSparks })}</p>`
+        ? `<div class="mini-card">${cardMarkup(story.card, rarity, { t, firstSeason })}</div>
+           <p>${t("reward.saved")}</p>`
         : `<button class="card-back-btn" data-action="reveal" aria-label="${t("reward.aria")}">
              <span class="card-back-face"><img src="assets/logo.png" alt="" /></span>
            </button>
@@ -165,12 +165,10 @@ export function renderFace(face, ctx) {
 }
 
 export function isFaceComplete(face, session) {
-  if (face.type === "quiz") return Boolean(session.quiz[face.id]?.solved);
   if (face.type === "reward") return session.cardClaimed;
   return true;
 }
 
 export const BLOCKED_HINT = {
-  quiz: "blocked.quiz",
   reward: "blocked.reward",
 };

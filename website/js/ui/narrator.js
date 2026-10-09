@@ -2,11 +2,12 @@
 // (listed in assets/narration/manifest.json). There is deliberately no
 // robotic browser-voice fallback: without recordings the feature stays hidden.
 
-import { narrationPath } from "../lib/narration.js";
+import { narrationPath, speechText, isFresh } from "../lib/narration.js";
 
 const MANIFEST_URL = "assets/narration/manifest.json";
 
 export function createNarrator({ onReady } = {}) {
+  let manifest = { files: [], fingerprints: {} };
   let files = new Set();
   let audio = null;
   let queue = [];
@@ -14,7 +15,10 @@ export function createNarrator({ onReady } = {}) {
 
   fetch(MANIFEST_URL)
     .then((res) => (res.ok ? res.json() : { files: [] }))
-    .then((data) => (files = new Set(data.files ?? [])))
+    .then((data) => {
+      manifest = { files: data.files ?? [], fingerprints: data.fingerprints ?? {} };
+      files = new Set(manifest.files);
+    })
     .catch(() => (files = new Set()))
     .finally(() => onReady?.());
 
@@ -22,7 +26,8 @@ export function createNarrator({ onReady } = {}) {
     if (current !== token || !queue.length) return;
     const item = queue.shift();
     const path = narrationPath({ ...ctx, key: item.key });
-    if (!item.text || !files.has(path)) return playNext(current, ctx);
+    // Skip pages whose words changed since they were recorded (stale audio).
+    if (!item.text || !isFresh(manifest, path, speechText(item), ctx.voice)) return playNext(current, ctx);
     audio = new Audio(path);
     audio.onended = () => playNext(current, ctx);
     audio.onerror = () => playNext(current, ctx);

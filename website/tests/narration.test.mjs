@@ -62,3 +62,21 @@ test("allNarrationItems enumerates every page state once, for generation", () =>
   assert.ok(!keys.includes("quiz~sleep"), "the guardian never sleeps");
   assert.ok(items.every((i) => i.text.length > 0));
 });
+
+test("a narration fingerprint changes with the words, the voice or the voice settings", async () => {
+  const { narrationFingerprint } = await import("../js/lib/narration.js");
+  const a = narrationFingerprint("Hello explorer", "male");
+  assert.match(a, /^[0-9a-f]{8}$/);
+  assert.equal(a, narrationFingerprint("Hello explorer", "male"), "stable");
+  assert.notEqual(a, narrationFingerprint("Hello explorer!", "male"));
+  assert.notEqual(a, narrationFingerprint("Hello explorer", "female"));
+});
+
+test("stale recordings are detected from the manifest", async () => {
+  const { narrationFingerprint, isFresh } = await import("../js/lib/narration.js");
+  const manifest = { files: ["a.mp3", "b.mp3", "c.mp3"], fingerprints: { "a.mp3": narrationFingerprint("now", "male"), "b.mp3": "00000000" } };
+  assert.equal(isFresh(manifest, "a.mp3", "now", "male"), true);
+  assert.equal(isFresh(manifest, "b.mp3", "now", "male"), false, "text changed since recording");
+  assert.equal(isFresh(manifest, "c.mp3", "now", "male"), true, "legacy files without a fingerprint still play");
+  assert.equal(isFresh(manifest, "d.mp3", "now", "male"), false, "missing file");
+});

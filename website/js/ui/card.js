@@ -8,8 +8,9 @@ const BURST_COUNT = 36;
 const RARITY_GEMS = { silver: "◆", gold: "✦", legendary: "✸" };
 const SEASON = "S1";
 
-export function cardMarkup(card, rarity, { tilt = false, t, points } = {}) {
-  const label = t ? t(`rarity.${rarity}`) : rarity;
+export function cardMarkup(card, rarity, { tilt = false, t, points, firstSeason = false } = {}) {
+  // Old cards keep their earned rarity as a first-season badge; new ones are discoveries.
+  const label = !t ? rarity : firstSeason ? `${t(`rarity.${rarity}`)} · ${SEASON}` : t("card.discovery");
   const picture = card.image ? `<img src="${card.image}" alt="" loading="lazy" />` : art(card.art);
   const pointsBadge = points
     ? `<span class="dyk-card-points"><b>★</b>${t ? t("inv.points", { n: points }) : points}</span>`
@@ -29,7 +30,7 @@ export function cardMarkup(card, rarity, { tilt = false, t, points } = {}) {
           <span class="dyk-card-dust" aria-hidden="true"></span>
           ${pointsBadge}
         </div>
-        <div class="dyk-card-ribbon"><span>${label} · ${SEASON}</span></div>
+        <div class="dyk-card-ribbon"><span>${label}</span></div>
         <p class="dyk-card-fact">${card.fact ?? ""}</p>
         <footer class="dyk-card-foot">
           <img src="assets/logo.png" alt="" />
@@ -86,7 +87,7 @@ export function revealCard(overlay, card, rarity, sfx, { t, points }) {
         <div class="reveal-back"><img src="assets/logo.png" alt="" /></div>
         <div class="reveal-front">${cardMarkup(card, rarity, { tilt: true, t, points })}</div>
       </div>
-      <p class="reveal-points">${t("reveal.points", { n: points })}</p>
+      ${points ? `<p class="reveal-points">${t("reveal.points", { n: points })}</p>` : ""}
       <button class="btn-gold reveal-keep" data-keep>${t("reveal.keep")}</button>
     </div>`;
   overlay.hidden = false;

@@ -1,8 +1,11 @@
 import { cardPoints } from "./points.js";
 import { LANGUAGES } from "../i18n/index.js";
+import { migrateProgress, normalizeCollection } from "./collection.js";
 
 const STORAGE_KEY = "dykt-progress-v1";
 const SETTINGS_KEY = "dykt-settings-v1";
+const COLLECTION_KEY = "dexty-collection-v1";
+const LEARNING_KEY = "dexty-learning-v1";
 const LANG_CODES = LANGUAGES.map(({ code }) => code); // one source: the picker's own list
 const AUDIENCE_CODES = ["kids", "adults"];
 
@@ -87,6 +90,38 @@ export function createStore(backend) {
         backend?.setItem(STORAGE_KEY, JSON.stringify(progress));
       } catch (error) {
         console.warn("Progress could not be saved.", error);
+      }
+    },
+    // Saved cards + private learning. The first load migrates the old
+    // progress record (which is kept untouched, read-only).
+    loadCollection(now) {
+      try {
+        const stored = backend?.getItem(COLLECTION_KEY);
+        if (stored) {
+          const learning = JSON.parse(backend.getItem(LEARNING_KEY) ?? "{}");
+          return { collection: normalizeCollection(JSON.parse(stored)), learning: learning && typeof learning === "object" ? learning : {} };
+        }
+        const migrated = migrateProgress(this.load(), now);
+        backend?.setItem(COLLECTION_KEY, JSON.stringify(migrated.collection));
+        backend?.setItem(LEARNING_KEY, JSON.stringify(migrated.learning));
+        return migrated;
+      } catch (error) {
+        console.warn("Collection could not be loaded; starting fresh.", error);
+        return { collection: normalizeCollection(null), learning: {} };
+      }
+    },
+    saveCollection(collection) {
+      try {
+        backend?.setItem(COLLECTION_KEY, JSON.stringify(collection));
+      } catch (error) {
+        console.warn("Collection could not be saved.", error);
+      }
+    },
+    saveLearning(learning) {
+      try {
+        backend?.setItem(LEARNING_KEY, JSON.stringify(learning));
+      } catch (error) {
+        console.warn("Learning record could not be saved.", error);
       }
     },
     loadProfile(makeId) {

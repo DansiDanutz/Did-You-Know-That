@@ -31,13 +31,14 @@
       <div class="hud-actions">
         <span id="hud-coins" class="hud-btn hud-coins" data-i18n-aria="coins.title" aria-label="Coins">🪙 0</span>
         <button id="hud-inventory" class="hud-btn" data-i18n-aria="hud.inventory" aria-label="Open inventory">🎒 <span id="hud-cards">0/0</span></button>
-        <button id="hud-leaderboard" class="hud-btn" data-i18n-aria="hud.leaderboard" aria-label="Open leaderboard">🏆</button>
         <button id="hud-lang" class="hud-btn" data-i18n-aria="hud.settings" aria-label="Language and player">EN · 🧒</button>
         <button id="hud-sound" class="hud-btn" data-i18n-aria="hud.sound" aria-label="Toggle sound">🔊</button>
       </div>
     </header>
 
     <main id="world" class="world-wrap" aria-label="Journey map"></main>
+    <div id="kids-bar-host" class="kids-bar-host"></div>
+    <section id="adult-home" class="adult-home-layer" aria-label="Today's discovery" hidden></section>
 
     <nav class="walk-controls" aria-label="Move Dexter">
       <button id="walk-left" class="walk-btn" data-i18n-aria="walk.left" aria-label="Walk left">◀</button>
@@ -49,6 +50,7 @@
       <div class="book-toolbar">
         <span id="book-sparks" class="pill">✦ 0/0</span>
         <div class="book-tools">
+          <button id="book-text" class="hud-btn" aria-pressed="false" data-i18n-aria="book.textSize" aria-label="Bigger text">Aa</button>
           <button id="book-read" class="hud-btn" aria-pressed="false" hidden>🔊 Read aloud</button>
           <button id="book-voice" class="hud-btn" hidden>🎙️ Brian</button>
           <button id="book-close" class="hud-btn" data-i18n="book.close">✕ Close</button>

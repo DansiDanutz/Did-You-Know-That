@@ -59,3 +59,28 @@ export function allNarrationItems(story, t) {
   );
   return [...byKey.values()];
 }
+
+// The voice engine settings every book recording is made with. Part of each
+// recording's fingerprint, so changing them marks old audio as stale.
+export const NARRATION_MODEL = "eleven_multilingual_v2";
+export const NARRATION_SETTINGS = Object.freeze({ stability: 0.6, similarity_boost: 0.8, style: 0.25, use_speaker_boost: true, speed: 0.9 });
+
+// FNV-1a (32 bit): a cheap, deterministic fingerprint of exactly what was
+// sent to the voice engine. Not security — only change detection.
+export function narrationFingerprint(text, voice) {
+  const input = `${NARRATION_MODEL}|${JSON.stringify(NARRATION_SETTINGS)}|${voice}|${text}`;
+  let hash = 0x811c9dc5;
+  for (const char of input) {
+    hash ^= char.codePointAt(0);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, "0");
+}
+
+// A recording may play only if it exists and, when its fingerprint is
+// known, it was made from the current words with the current voice.
+export function isFresh(manifest, path, text, voice) {
+  if (!manifest.files?.includes(path)) return false;
+  const recorded = manifest.fingerprints?.[path];
+  return !recorded || recorded === narrationFingerprint(text, voice);
+}

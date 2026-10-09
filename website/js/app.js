@@ -1,26 +1,27 @@
 import { STORIES, CHANNEL_URL } from "./data/stories.js";
 import { LOCALES, createTranslator, detectLanguage } from "./i18n/index.js";
 import { localizeStory } from "./lib/localize.js";
-import { createStore, withCard, withGateUnlocked, cardsFor } from "./lib/storage.js";
+import { createStore, normalizeSettings } from "./lib/storage.js";
+import { saveCard, isSaved, withCoin, recordQuiz, recordBonusWord, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
 import { quizPoints, maxSparks } from "./lib/scoring.js";
-import { cardPoints, validateNickname } from "./lib/points.js";
 import { verifySecret } from "./lib/secret.js";
-import { emptyDays, todayKey, canWatch, registerVideo, videosLeft, slotFor, rarityForSlot, DAILY_VIDEOS, RARITY_LADDER } from "./lib/daily-limit.js";
+import { emptyDays, todayKey, canWatch, registerVideo, videosLeft, DAILY_VIDEOS } from "./lib/daily-limit.js";
 import { currentHouseIndex, houseStatus } from "./lib/journey.js";
-import { fetchLeaderboard, submitScore } from "./api.js";
 import { createWorld } from "./ui/world.js";
 import { createBook } from "./ui/book.js";
 import { buildFaces, renderFace, isFaceComplete, BLOCKED_HINT } from "./ui/pages.js";
 import { openListening } from "./ui/gate.js";
 import { flagSvg } from "./ui/flags.js";
 import { setupInstall } from "./ui/install.js";
+import { renderAdultHome, renderKidsBar } from "./ui/home.js";
+import { setupModalFocus } from "./ui/modal-focus.js";
 import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
-import { pickersMarkup, openInventory, openLeaderboard, openSettings } from "./ui/panels.js";
+import { pickersMarkup, openInventory, openSettings } from "./ui/panels.js";
 import { DAXTER_SVG } from "./ui/character.js";
 import { createSfx } from "./ui/sfx.js";
 import { createNarrator } from "./ui/narrator.js";
-import { coinsOnRoad, withCoinCollected, coinTotal, COINS_PER_RARITY } from "./lib/coins.js";
+import { coinsOnRoad, COINS_PER_CARD } from "./lib/coins.js";
 import { narrationFor } from "./lib/narration.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -49,7 +50,8 @@ function readVoice() {
 const store = createStore(safeLocalStorage());
 let settings = store.loadSettings(detectLanguage(navigator.languages));
 let profile = store.loadProfile(() => crypto.randomUUID());
-let progress = store.load();
+// Saved cards and the private learning record (migrated once from the old progress).
+let { collection, learning } = store.loadCollection(new Date().toISOString());
 let sessions = new Map();
 let t = createTranslator(settings.lang);
 let stories = localizeAll();
@@ -70,7 +72,8 @@ function localizeAll() {
   return STORIES.map((story) => localizeStory(story, LOCALES[settings.lang], LOCALES.en, settings.audience));
 }
 
-const view = () => ({ cards: cardsFor(progress, settings.audience) });
+const view = () => ({ cards: cardsView(collection, settings.audience) });
+const nowIso = () => new Date().toISOString();
 
 // ---------------------------------------------------------------- session state
 
@@ -81,8 +84,8 @@ function session(story) {
     sessions.get(sessionKey(story)) ?? {
       sparks: new Set(),
       quiz: {},
-      gateOpen: Boolean(progress.gates[story.id]),
-      cardClaimed: false,
+      gateOpen: Boolean(learning[story.id]?.bonusWordAt),
+      cardClaimed: isSaved(collection, settings.audience, story.card.id),
       gateMessage: "",
     }
   );
@@ -97,15 +100,22 @@ function score(story) {
   const quizScore = Object.values(s.quiz).reduce((sum, q) => sum + (q.solved ? quizPoints(q.picked.length) : 0), 0);
   const sparkCount = s.sparks.size + quizScore;
   const max = maxSparks(story.pages);
-  const slot = slotFor(watchDays, todayKey(), story.id, settings.audience);
-  const rarity = rarityForSlot(watchDays, todayKey(), story.id, settings.audience);
-  return { sparkCount, max, rarity, slot, points: cardPoints({ rarity, sparks: sparkCount, slot }, settings.audience) };
+  return { sparkCount, max };
 }
 
-function save(next) {
-  progress = next;
-  store.save(progress);
+// The look of a story's card: its first-season rarity if it was earned
+// before cards became free to save, otherwise the one discovery style.
+const cardStyle = (story) => view().cards[story.card.id]?.rarity ?? "gold";
+
+function saveCollection(next) {
+  collection = next;
+  store.saveCollection(collection);
   updateHud();
+}
+
+function saveLearning(next) {
+  learning = next;
+  store.saveLearning(learning);
 }
 
 // ---------------------------------------------------------------- text + HUD
@@ -118,10 +128,10 @@ function applyStaticText() {
 }
 
 function updateHud() {
-  const owned = Object.keys(cardsFor(progress, settings.audience)).length;
+  const owned = Object.keys(view().cards).length;
   $("#hud-cards").textContent = `${owned}/${STORIES.length}`;
   $("#hud-sound").textContent = sfx.muted ? "🔇" : "🔊";
-  $("#hud-coins").textContent = `🪙 ${coinTotal(progress)}`;
+  $("#hud-coins").textContent = `🪙 ${collection.coins.length}`;
   $("#hud-lang").innerHTML = `${flagSvg(settings.lang)} ${settings.lang.toUpperCase()} · ${settings.audience === "kids" ? "🧒" : "🎓"}`;
   if (openStory) {
     const { sparkCount, max } = score(openStory);
@@ -172,49 +182,15 @@ function countVideo(story) {
 
 const leftToday = () => ({ n: videosLeft(watchDays, todayKey(), settings.audience), max: DAILY_VIDEOS[settings.audience] });
 
-function nextRungMessage() {
-  const { n } = leftToday();
-  if (n === 0) return t("listen.limit");
-  const rung = RARITY_LADDER[settings.audience][DAILY_VIDEOS[settings.audience] - n];
-  return t("ladder.next", { rarity: t(`rarity.${rung}`) });
-}
-
-// ---------------------------------------------------------------- leaderboard
-
-async function pushScore() {
-  if (!profile.nickname) return null;
-  const result = await submitScore({ ...profile, audience: settings.audience, cards: cardsFor(progress, settings.audience) });
-  return result.ok ? result.data : null;
-}
-
-async function joinLeaderboard(raw) {
-  const nick = validateNickname(raw);
-  if (!nick.ok) return { ok: false, message: t("lb.badNick") };
-  profile = { ...profile, nickname: nick.value };
-  store.saveProfile(profile);
-  const placed = await pushScore();
-  if (!placed) return { ok: false, message: t("lb.offline") };
-  return { ok: true, message: t("lb.climbed", { rank: placed.rank }) };
-}
-
-function showLeaderboard() {
-  openLeaderboard($("#panel-layer"), {
-    audience: settings.audience,
-    profile,
-    t,
-    load: (board) => fetchLeaderboard(board, profile.playerId),
-    join: joinLeaderboard,
-  });
-}
-
 function showInventory() {
   const byId = (id) => stories.find((story) => story.id === id);
   openInventory($("#panel-layer"), {
     stories,
-    cards: cardsFor(progress, settings.audience),
+    cards: view().cards,
     audience: settings.audience,
     t,
     onWatch: (id) => watchStory(byId(id), { replay: true }),
+    onShare: (id) => shareDiscovery(byId(id)),
     onSelect: () => sfx.unlock(),
     onRead: (id) => {
       if (book) closeBook();
@@ -239,6 +215,7 @@ function applySettings(patch) {
   }
   if (openStory) reopenBook(openStory.id);
   install?.refresh();
+  renderHome();
   updateHud();
 }
 
@@ -258,7 +235,61 @@ function showSettings() {
       applySettings(patch);
       showSettings();
     },
+    onExport: exportBackup,
+    onImport: importBackup,
   });
+}
+
+// ---------------------------------------------------------------- backup (this device only)
+
+function exportBackup() {
+  const backup = makeBackup({ collection, learning, settings }, nowIso());
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" }));
+  link.download = `dexty-backup-${nowIso().slice(0, 10)}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  return t("backup.saved");
+}
+
+async function importBackup(file) {
+  const result = parseBackup(await file.text(), STORIES.map((story) => story.card.id));
+  if (!result.ok) return t("backup.bad");
+  saveCollection(result.data.collection);
+  saveLearning(result.data.learning);
+  if (result.data.settings) applySettings(normalizeSettings(result.data.settings, settings.lang));
+  world.render(view(), stories, t);
+  refreshCoins();
+  const count = Object.values(result.data.collection.saved).reduce((n, cards) => n + Object.keys(cards).length, 0);
+  return t("backup.restored", { n: count });
+}
+
+// ---------------------------------------------------------------- audience homes
+
+// Adults get "Today's Discovery" instead of the game map; kids keep the map
+// plus a labelled bar with direct Read / Watch buttons for the current story.
+function renderHome() {
+  const adults = settings.audience === "adults";
+  document.body.classList.toggle("is-adults", adults);
+  $("#adult-home").hidden = !adults;
+  if (adults) {
+    renderAdultHome($("#adult-home"), { stories, t, isSaved: (story) => isSaved(collection, "adults", story.card.id) });
+    $("#kids-bar-host").innerHTML = "";
+    return;
+  }
+  renderKidsBar($("#kids-bar-host"), { story: stories[currentHouseIndex(stories, view())], t });
+}
+
+function handleHomeAction(event) {
+  const btn = event.target.closest("[data-home]");
+  if (!btn) return;
+  const story = stories.find((entry) => entry.id === btn.dataset.story);
+  const action = btn.dataset.home;
+  if (action === "collection") return showInventory();
+  if (!story) return;
+  if (action === "read") return openBook(story);
+  if (action === "watch") return watchStory(story);
+  if (action === "save") saveDiscoveryCard(story).then(renderHome);
 }
 
 // ---------------------------------------------------------------- world
@@ -268,7 +299,7 @@ const world = createWorld($("#world"), {
   onHouse: (index) => handleHouse(index),
   onStep: () => sfx.step(),
   onCoin: (id) => {
-    save(withCoinCollected(progress, id));
+    saveCollection(withCoin(collection, id));
     sfx.coin();
     bumpCoins();
   },
@@ -310,12 +341,12 @@ function nudgeIdle() {
 }
 
 function refreshCoins() {
-  world.setCoins(coinsOnRoad(stories, cardsFor(progress, settings.audience), progress.coins));
+  world.setCoins(coinsOnRoad(stories, view().cards, collection.coins));
 }
 
 function bumpCoins() {
   const el = $("#hud-coins");
-  el.textContent = `🪙 ${coinTotal(progress)}`;
+  el.textContent = `🪙 ${collection.coins.length}`;
   el.classList.remove("is-bumped");
   void el.offsetWidth;
   el.classList.add("is-bumped");
@@ -372,7 +403,7 @@ async function handleHouse(index) {
 // ---------------------------------------------------------------- book
 
 function faceContext(story, index) {
-  const { sparkCount, max, rarity, points } = score(story);
+  const { sparkCount, max } = score(story);
   const s = session(story);
   return {
     story,
@@ -381,8 +412,8 @@ function faceContext(story, index) {
     t,
     sparkCount,
     maxSparks: max,
-    rarity,
-    points,
+    rarity: cardStyle(story),
+    firstSeason: Boolean(view().cards[story.card.id]?.firstSeason),
     gate: { message: s.gateMessage },
   };
 }
@@ -482,6 +513,7 @@ function closeBook({ advance = false } = {}) {
     }
     world.render(view(), stories, t);
     refreshCoins();
+    renderHome();
     if (advance) celebrateAndMoveOn();
   };
   pendingClose = { run, timer: setTimeout(run, BOOK_CLOSE_MS) };
@@ -507,25 +539,47 @@ function refreshBook() {
 function unlockGate(story) {
   setSession(story, { gateOpen: true, gateMessage: "" });
   narratedFaces = new Set([...narratedFaces].filter((i) => currentFaces[i]?.type !== "gate"));
-  save(withGateUnlocked(progress, story.id));
+  saveLearning(recordBonusWord(learning, story.id, nowIso()));
   sfx.seal();
   toast(t("gate.toast"));
   refreshBook();
 }
 
-async function claimCard(story) {
-  if (!mayWatch(story)) return toast(t("listen.limit"));
-  countVideo(story);
-  const { rarity, sparkCount, slot, points } = score(story);
-  await revealCard($("#reveal-layer"), story.card, rarity, sfx, { t, points });
-  setSession(story, { cardClaimed: true });
-  save(withCard(progress, settings.audience, story.card.id, { rarity, sparks: sparkCount, slot }, Date.now()));
-  refreshBook();
-  toast(`${nextRungMessage()}  ${t("coins.dropped", { n: COINS_PER_RARITY[rarity] })}`);
-  const placed = await pushScore();
-  if (placed) setTimeout(() => toast(t("lb.climbed", { rank: placed.rank })), 3000);
-  // The card is won: now the episode plays right here as the celebration.
-  if (story.youtubeId) watchStory(story, { replay: true });
+// Cards are saved freely: no playback, quiz or magic word is needed (master
+// plan §3). Saving shows the card, drops coins on the road and, when the
+// episode is published, opens it in the player.
+let savingCard = false;
+async function saveDiscoveryCard(story) {
+  if (savingCard || isSaved(collection, settings.audience, story.card.id)) return;
+  savingCard = true;
+  try {
+    await revealCard($("#reveal-layer"), story.card, cardStyle(story), sfx, { t });
+    setSession(story, { cardClaimed: true });
+    saveCollection(saveCard(collection, settings.audience, story.card.id, nowIso()));
+    refreshBook();
+    toast(t("coins.dropped", { n: COINS_PER_CARD }));
+    if (story.youtubeId) watchStory(story, { replay: true });
+  } finally {
+    savingCard = false;
+  }
+}
+
+// Share a public, account-free discovery page (no personal state in the URL).
+async function shareDiscovery(story) {
+  const slug = story?.publication?.slug;
+  if (!slug) return;
+  const url = `${location.origin}/e/${slug}/`;
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: story.title, text: story.teaser, url });
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    toast(t("share.copied"));
+  } catch (error) {
+    if (error?.name === "AbortError") return;
+    toast(t("share.failed", { url }));
+  }
 }
 
 async function handleBookAction(story, action, el) {
@@ -550,7 +604,7 @@ async function handleBookAction(story, action, el) {
     refreshBook();
     return shake(document.querySelector(".gate-page"));
   }
-  if (action === "reveal") return claimCard(story);
+  if (action === "reveal") return saveDiscoveryCard(story);
   if (action === "continue") return closeBook({ advance: true });
   if (action === "inventory") return showInventory();
 }
@@ -582,13 +636,24 @@ function answerQuiz(story, quizId, choice) {
   else sfx.wrong();
   refreshBook();
   if (!solved) shake(document.querySelector(`[data-quiz="${quizId}"][data-choice="${choice}"]`));
+  if (solved) recordQuizIfDone(story);
+}
+
+// Optional practice: once every question is solved, keep a private note of
+// how many were right first time. Never ranked, never needed for a card.
+function recordQuizIfDone(story) {
+  const quizPages = story.pages.filter((p) => p.type === "quiz");
+  const answers = session(story).quiz;
+  if (!quizPages.every((p) => answers[p.id]?.solved)) return;
+  const correct = quizPages.filter((p) => answers[p.id].picked.length === 1).length;
+  saveLearning(recordQuiz(learning, `${story.id}:${settings.audience}`, { answered: quizPages.length, correct }, nowIso()));
 }
 
 // ---------------------------------------------------------------- start screen
 
 function renderStartPickers() {
   $("#start-pickers").innerHTML = pickersMarkup(settings, t);
-  const returning = Object.keys(cardsFor(progress, settings.audience)).length > 0;
+  const returning = Object.keys(view().cards).length > 0;
   $("#start-go").textContent = returning ? t("start.continue") : t("start.go");
 }
 
@@ -663,13 +728,32 @@ function startScreen() {
 }
 
 $("#hud-inventory").addEventListener("click", showInventory);
-$("#hud-leaderboard").addEventListener("click", showLeaderboard);
+// The leaderboard is retired from the core journey (master plan §14); records are kept server-side.
 $("#hud-lang").addEventListener("click", showSettings);
 $("#hud-sound").addEventListener("click", () => {
   sfx.toggle();
   updateHud();
 });
 $("#book-close").addEventListener("click", () => closeBook());
+// Bigger book text, remembered on this device (audit 05: ~13px on small phones).
+const TEXT_KEY = "dexty-large-text";
+function applyTextSize(large) {
+  $("#book-layer").classList.toggle("is-large-text", large);
+  $("#book-text").setAttribute("aria-pressed", String(large));
+  try {
+    localStorage.setItem(TEXT_KEY, large ? "1" : "0");
+  } catch {
+    /* storage blocked: the choice lasts for this visit */
+  }
+}
+applyTextSize((() => {
+  try {
+    return localStorage.getItem(TEXT_KEY) === "1";
+  } catch {
+    return false;
+  }
+})());
+$("#book-text").addEventListener("click", () => applyTextSize(!$("#book-layer").classList.contains("is-large-text")));
 $("#book-read").addEventListener("click", () => {
   reading = !reading;
   if (reading) readVisiblePages();
@@ -721,5 +805,9 @@ world.render(view(), stories, t);
 world.placeAtStart();
 updateHud();
 startScreen();
+setupModalFocus();
+$("#adult-home").addEventListener("click", handleHomeAction);
+$("#kids-bar-host").addEventListener("click", handleHomeAction);
+renderHome();
 install = setupInstall($("#install-app"), $("#install-ios"), { t, toast });
 nudgeIdle();
