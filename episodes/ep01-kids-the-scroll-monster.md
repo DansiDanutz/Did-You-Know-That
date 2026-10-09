@@ -1,7 +1,7 @@
 # Episode 1 · KIDS · "The Scroll Monster"
 
 **Length:** 4:45 max · **Format:** cartoon video game (levels, XP bar, boss, power-ups) · **Words:** ~640 (≈135 wpm)
-**Special word (neon card at 2:20):** **SPARK** · **Game:** website Episode 1 (Kids) · quiz answers come ONLY from this video
+**Magic word (neon card at 2:08):** **SUN** (a bonus surprise in the game) · **Game:** dexty.live Episode 1 (Kids) · the quiz is taught by the video and by the magic book
 **Cast:** Daxter (hero, narrator) · the Scroll Monster (boss) · Professor Hoot (owl guardian) · see `SERIES-BIBLE.md`
 
 **HUD on screen the whole time:** top-left XP bar, top-right "LEVEL x/5", Daxter's heart icons. Each level ends with a "LEVEL COMPLETE ✦" stamp.
@@ -15,6 +15,7 @@
 **Daxter (VO):**
 > Did you know that nobody, not your parents, not your teachers, not even superheroes, can stop kids from scrolling?
 > *(beat, record-scratch SFX)* So I had a crazy idea. What if we didn't stop you… what if we made your scrolling **smart**?
+> And here's a secret, just for you: somewhere in this video, a glowing card will show you a magic word. Watch for it, and remember it! It's a bonus: type it in the game, and a secret surprise opens up.
 
 **On screen:** our 7 s "DID YOU KNOW THAT?" intro sting.
 
@@ -41,13 +42,15 @@
 > That's not an accident. It's a trick, and *he* is behind it: the **Scroll Monster**!
 
 ## 2:20 – 2:35 · ✦ SECRET POWER-UP: THE NEON CARD ✦
-**Visual:** Game pauses (screen dims, "PAUSE" text). A card spins in with glowing **neon margins**, the logo on top, and one word: **SPARK**.
+**Visual:** Game pauses (screen dims, "PAUSE" text). A card spins in with glowing **neon margins**, the logo on top, "MAGIC WORD" and one easy word: **SUN**, with the line "Bonus: type it in the game for a surprise ✦".
 **🎵 Music:** everything stops; a magical shimmer pad.
 **🔊 SFX:** power-up "bling" · sparkle cascade · soft heartbeat under the whisper.
 **Daxter (whispering):**
-> Psst… explorers! Secret power-up word: **SPARK**. You'll need it to unlock the magic book in the game. Spark!
+> *(Daxter, right after the card)* Did you remember the magic word? **Sun!** Like the big, bright sun in the sky.
 
-*(Use the rendered clip `neon-card-kids-SPARK.mp4`, 8 s.)*
+*(Use the rendered clip `out/neon-card-kids-SUN.mp4`, 8 s.)*
+
+The magic word is a **bonus**: it breaks the wax seal in the game for a surprise. The card itself is won by answering Professor Hoot's questions, which the magic book teaches.
 
 ## 2:35 – 3:30 · LEVEL 3 · BOSS FIGHT: WHAT THE MONSTER STEALS
 **Visual:** The Scroll Monster grabs three treasure chests: 🍽️ Dinner, 🌙 Sleep, 🤝 Friends. Daxter dodges and wins each back with a power-up.

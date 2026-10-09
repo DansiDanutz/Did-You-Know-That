@@ -1,10 +1,10 @@
 {
-  "total": 292.354,
+  "total": 296.813,
   "scenes": [
     {
       "id": "start",
       "kind": "scene",
-      "length": 43.64576,
+      "length": 48.103991,
       "voAt": 1.5,
       "start": 0
     },
@@ -13,7 +13,7 @@
       "kind": "video",
       "src": "assets/intro.mp4",
       "length": 7,
-      "start": 43.646
+      "start": 48.104
     },
     {
       "id": "tower",
@@ -22,7 +22,7 @@
       "title": "THE SCREEN-TIME TOWER",
       "length": 42.766485,
       "voAt": 3,
-      "start": 50.646
+      "start": 55.104
     },
     {
       "id": "videoland",
@@ -31,14 +31,14 @@
       "title": "ENDLESS VIDEO LAND",
       "length": 30.009433,
       "voAt": 3,
-      "start": 93.412
+      "start": 97.87
     },
     {
       "id": "neon",
       "kind": "video",
       "src": "assets/neon-kids.mp4",
       "length": 8,
-      "start": 123.422
+      "start": 127.88
     },
     {
       "id": "boss",
@@ -47,7 +47,7 @@
       "title": "BOSS FIGHT!",
       "length": 47.271156,
       "voAt": 3,
-      "start": 131.422
+      "start": 135.88
     },
     {
       "id": "deal",
@@ -56,52 +56,52 @@
       "title": "DAXTER'S DEAL",
       "length": 40.455329,
       "voAt": 3,
-      "start": 178.693
+      "start": 183.151
     },
     {
       "id": "finale",
       "kind": "scene",
       "length": 58.206213,
       "voAt": 0.5,
-      "start": 219.148
+      "start": 223.606
     },
     {
       "id": "end",
       "kind": "video",
       "src": "assets/endscreen.mp4",
       "length": 15,
-      "start": 277.354
+      "start": 281.813
     }
   ],
   "vo": [
     {
       "id": "start",
       "start": 1.5,
-      "len": 41.14576
+      "len": 45.603991
     },
     {
       "id": "tower",
-      "start": 53.646,
+      "start": 58.104,
       "len": 38.266485
     },
     {
       "id": "videoland",
-      "start": 96.412,
+      "start": 100.87,
       "len": 24.009433
     },
     {
       "id": "boss",
-      "start": 134.422,
+      "start": 138.88,
       "len": 42.771156
     },
     {
       "id": "deal",
-      "start": 181.693,
+      "start": 186.151,
       "len": 36.455329
     },
     {
       "id": "finale",
-      "start": 219.648,
+      "start": 224.106,
       "len": 54.706213
     }
   ],
@@ -112,95 +112,95 @@
     ],
     [
       "whoosh",
-      43.04576
+      47.503991
     ],
     [
       "levelup",
-      50.746
+      55.204
     ],
     [
       "levelup",
-      93.512
+      97.97
     ],
     [
       "levelup",
-      131.522
+      135.98
     ],
     [
       "levelup",
-      178.793
+      183.251
     ],
     [
       "boing",
-      65.88
+      70.33
     ],
     [
       "ding",
-      68.16
+      72.62
     ],
     [
       "boing",
-      70.93
+      75.38
     ],
     [
       "ding",
-      73.37
+      77.83
     ],
     [
       "boing",
-      75.26
+      79.72
     ],
     [
       "ding",
-      79.21
+      83.67
     ],
     [
       "boing",
-      82.68
+      87.14
     ],
     [
       "brass",
-      85.05
+      89.51
     ],
     [
       "autoplay",
-      105.3
+      109.76
     ],
     [
       "rumble",
-      114.47
+      118.93
     ],
     [
       "yoink",
-      145.8
+      150.26
     ],
     [
       "yoink",
-      148.93
+      153.39
     ],
     [
       "yoink",
-      157.03
+      161.49
     ],
     [
       "victory",
-      174.74
+      179.2
     ],
     [
       "hoot",
-      182.9
+      187.35
     ],
     [
       "card",
-      200.95
+      205.41
     ],
     [
       "fanfare",
-      219.448
+      223.906
     ],
     [
       "fireworks",
-      220.34799999999998
+      224.80599999999998
     ]
   ],
   "moods": {

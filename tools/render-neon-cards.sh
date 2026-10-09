@@ -22,6 +22,6 @@ render() {
   ffprobe -v error -show_entries stream=codec_type,codec_name,width,height,r_frame_rate:format=duration -of compact "$final"
 }
 
-render kids SUN "MAGIC WORD" "Type it in the game to open the magic book ✦"
+render kids SUN "MAGIC WORD" "Bonus: type it in the game for a surprise ✦"
 render adults GOLDEN "THE SPECIAL WORD" "Type it in the game to break the seal ✦"
 echo "✅ Both neon cards rendered into $OUT"
