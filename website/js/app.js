@@ -19,6 +19,7 @@ import { cleanName, personalize } from "./lib/player-name.js";
 import { greetingClips, nameIndexPath } from "./lib/name-voice.js";
 import { completeMission, recordAttempt, recordHint, equip, addJournal, recordKindness } from "./lib/progression.js";
 import { openIntro, openFamilyHouse } from "./ui/family-house.js";
+import { FAMILY_VOICE_LANGS, loadFamilyPack, familyVoicePath } from "./data/family-episode.js";
 import { FAMILY_HOUSE_ID } from "./data/family-episode.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
 import { greetingKey } from "./lib/greeting.js";
@@ -157,19 +158,23 @@ function applyOutfit() {
 }
 
 // ---------------------------------------------------------------- Episode 1: the House of Family
-// Dexter's recorded lines (English pilot). `speak(ids, text)` plays the clips in
-// order, or just waits for the text to be read when sound is off or the
-// language has no recording yet.
-const FAMILY_VOICE = (id) => `assets/voice/daxter/en/family/${id}.mp3`;
+// Dexter's recorded lines for the House of Family, in English and the six
+// translated languages (assets/voice/daxter/<lang>/family/). `speak(ids, text)`
+// plays the clips in order, or just waits for the text to be read when sound is
+// off or the language has no recording.
+const FAMILY_VOICED = new Set(["en", ...FAMILY_VOICE_LANGS]);
+const familyVoice = (id) => familyVoicePath(settings.lang, id);
 const READ_MS = (text) => Math.min(12000, 900 + String(text ?? "").length * 55);
 function speakFamily(ids, text) {
-  if (sfx.muted || settings.lang !== "en" || !ids.length) return new Promise((r) => setTimeout(r, READ_MS(text)));
+  if (sfx.muted || !FAMILY_VOICED.has(settings.lang) || !ids.length) return new Promise((r) => setTimeout(r, READ_MS(text)));
   stopGreeting();
-  return playInOrder(ids.map(FAMILY_VOICE));
+  return playInOrder(ids.map(familyVoice));
 }
-function showFamilyHouse() {
+async function showFamilyHouse() {
   const entry = explorer.missions[FAMILY_HOUSE_ID] ?? {};
+  const pack = await loadFamilyPack(settings.lang);
   openFamilyHouse($("#house-layer"), {
+    pack,
     playerName: settings.name,
     speak: speakFamily,
     stopSpeech: stopGreeting,
@@ -191,9 +196,11 @@ function showFamilyHouse() {
 
 // Meeting Dexter: the first time (and whenever the name changes to a new one),
 // a voiced introduction with two big choices, then the world explained.
-function meetDexter() {
+async function meetDexter() {
+  const pack = await loadFamilyPack(settings.lang);
   return new Promise((resolve) => {
     openIntro($("#house-layer"), {
+      pack,
       playerName: settings.name,
       speak: (ids, text) => (ids[0] === "intro-1" ? playNameThen(ids, text) : speakFamily(ids, text)),
       onDone: () => {
@@ -205,11 +212,11 @@ function meetDexter() {
 }
 // "Hi, Sienna!" from the generic recordings, then Dexter's first line.
 function playNameThen(ids, text) {
-  if (sfx.muted || settings.lang !== "en") return new Promise((r) => setTimeout(r, READ_MS(text)));
+  if (sfx.muted || !FAMILY_VOICED.has(settings.lang)) return new Promise((r) => setTimeout(r, READ_MS(text)));
   stopGreeting();
   const voice = nameVoice[settings.lang];
   const clips = greetingClips({ lang: settings.lang, key: "welcome", name: settings.name, voiced: { [settings.lang]: voice?.names }, hasBody: () => false });
-  return playInOrder([...clips.filter((c) => c.includes("/names/")), ...ids.map(FAMILY_VOICE)]);
+  return playInOrder([...clips.filter((c) => c.includes("/names/")), ...ids.map(familyVoice)]);
 }
 
 const SHADOW_MISSION = "missing-shadow";
