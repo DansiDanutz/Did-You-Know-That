@@ -7,6 +7,7 @@ import es from "./locales/es.js";
 import fr from "./locales/fr.js";
 import de from "./locales/de.js";
 import it from "./locales/it.js";
+import zh from "./locales/zh.js";
 
 export const LANGUAGES = Object.freeze([
   { code: "en", name: "English", flag: "🇬🇧" },
@@ -15,9 +16,10 @@ export const LANGUAGES = Object.freeze([
   { code: "fr", name: "Français", flag: "🇫🇷" },
   { code: "de", name: "Deutsch", flag: "🇩🇪" },
   { code: "it", name: "Italiano", flag: "🇮🇹" },
+  { code: "zh", name: "中文", flag: "🇨🇳" },
 ]);
 
-export const LOCALES = Object.freeze({ en, ro, es, fr, de, it });
+export const LOCALES = Object.freeze({ en, ro, es, fr, de, it, zh });
 export const DEFAULT_LANG = "en";
 
 export const isSupported = (code) => Object.hasOwn(LOCALES, code);
