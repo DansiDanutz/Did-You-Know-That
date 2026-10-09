@@ -1,3 +1,5 @@
+> **Superseded:** revision 2 (claim ledger, script, storyboard) is in `episodes/kids-001-scroll-monster/`. This file documents revision 1, the version the current kids master was rendered from.
+
 # Episode 1 · KIDS · "The Scroll Monster"
 
 **Length:** 4:45 max · **Format:** cartoon video game (levels, XP bar, boss, power-ups) · **Words:** ~640 (≈135 wpm)

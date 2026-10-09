@@ -31,12 +31,21 @@ Original stylized 2D/2.5D cartoon: coherent palette, round shapes, readable stag
 ## Adults style
 Premium documentary explainer: restrained colour, strong typography, original diagrams, accurate charts (units, timeframe, source on screen), archival material only with rights checked, reconstructions labelled. Explain mechanisms and uncertainty; separate association from causation; no fake authority, unsupported superlatives or sensational certainty. Health and finance teach general concepts only.
 
-## Cast
-| Character | Role | Look | Voice |
-|---|---|---|---|
-| **Dexter** | Guide and kids narrator; adult host | See above | ElevenLabs Brian |
-| **Professor Hoot** | Owl who asks the optional knowledge questions | Wise owl, tiny spectacles, scholar's cape | Warm, slow, a little theatrical |
-| **Episode friend / problem** (kids) | The problem as a goofy character (e.g. the Scroll Monster, the bell creature) | Funny, never truly scary | Comedic |
+## Cast and acting system (story/business brief, 9 Oct 2026)
+Build a small cast with chemistry before adding characters. Every episode stands alone: no missed-day loss, locked story or distressing cliffhanger.
+
+| Character | Strength / flaw | Story job and behaviour |
+|---|---|---|
+| **Dexter** | Curious and inventive; **guesses too quickly** | Wants to solve a concrete problem. Tries an idea, observes it fail, changes his mind. Glasses tilt when puzzled; the question-mark filament shows his mood. Never presents a guess as a fact. Voice: ElevenLabs Brian. |
+| **Professor Hoot** | Patient, observant; enjoys over-long explanations | Asks "What did you notice?" and gives **one** useful hint; Dexter or the viewer finishes the reasoning. Learns to explain simply. |
+| **Peer companion** (working concept) | Practical, playful; impatient with investigating | Emotional stakes and an everyday viewpoint; tests Dexter's explanations. Test a small robot or animal design before choosing a name/species. |
+| **Guest creature / problem** | Topic-specific motivation | A bee needs a route, a shadow seems to vanish, a notification creature interrupts a picnic. Not every episode is a monster fight. |
+
+**Character pack to produce before full episodes:** proportions; front/side/three-quarter turnarounds; eight readable expressions; hand and prop poses; mouth shapes or intentional alternative staging; voice direction; movement limits; a short acting test. Acting rule: anticipation → action → reaction → pause; characters respond to each other instead of floating while a narrator lectures.
+
+**Kids episode pattern (3–5 min, tested):** visual problem already happening (minimal branding) → question + prediction with a thinking pause → plausible wrong attempt with a funny, safe consequence → investigation (observation, comparison, visual demonstration) → application in a slightly different situation → resolution, one takeaway, optional offline activity, brief parent-directed app mention.
+
+**Adult episode pattern:** striking verified case → what seems puzzling → evidence trail → mechanism → limitation or reversal → why it matters → memorable resolution ("Did you know that? Now you do."), then an optional save invitation that never interrupts the answer. One story per episode; reject "nobody knows" / "scientists are shocked" framing.
 
 ## Sound
 - A music bed under every section, changing with the mood; purposeful foley for what we explain; whooshes only where they mean something.

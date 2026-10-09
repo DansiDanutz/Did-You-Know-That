@@ -36,8 +36,19 @@ Plan: `~/Documents/ChatGPT/Did-You-Know-That/CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct
 | Stale narration detection | `narrationFingerprint`, manifest `fingerprints`, `make-narration --check` | unit tests | 476 baselined; 112 now stale after wording changes → silent until re-recorded | done; re-recording **blocked: budget** |
 | CI | `.github/workflows/tests.yml` | GitHub | syntax + pages check + 170 tests | done |
 | Published-video journey (watch → save → reopen) | — | — | No episode is published yet | **blocked: publication** |
-## Phase C — pilots (not started)
-Ep 1 kids revision, Ep 1 adults, Ep 2 storyboards, two 20–30 s motion tests. Narration budget and font decision needed.
+## Phase C — pilots (in progress)
+
+| Requirement | Artifact | Check | Observed result | Status |
+|---|---|---|---|---|
+| Kids Ep 1 claim ledger with opened sources | `episodes/kids-001-scroll-monster/claims.md` | Every citation opened this session; unopenable sources listed and not used | 10 claims: 5 verified, 4 need rewording (outdated 2020 figures, "scientists", bedtime = association, WHO band 2–4), 1 hyperbole; AAP "2–5, 1 h" unverified (403) | done — **human review pending** |
+| Adults Ep 1 claim ledger | `episodes/adults-001-golden-minutes/claims.md` | Same rules | 11 claims: 3 verified, 7 need rewording (200,000-lifetimes figure has no published method; slot-machine line misattributed; Franklin not "untouched"; FSI now 690 h), 1 remove | done — **human review pending** |
+| Kids pilot script + storyboard (rev 3, story-first) | `episodes/kids-001-scroll-monster/{README,script,storyboard}.md` | Brief's kids pattern: problem → prediction → wrong guess → hint → investigation → application → resolution; claims referenced; no reward/end-screen beats | "Who Keeps Pressing Play?": 7 lines, 23 shots, ≈3:20 est. | done (draft) — narration **blocked: approval (~2,300 chars)** |
+| Adult pilot as ONE story (rev 3) | `episodes/adults-001-golden-minutes/{claims-retrieval,script,storyboard}.md` | Single researched story; adult pattern; every line → R-claim; charts carry sample/delay/source | "The Re-Reading Trap": 27-claim ledger from the full paper + Rowland 2014; 8 lines, 16 shots, ≈3:45 est. | done (draft) — narration **blocked: approval (~3,000 chars)** |
+| Two 20–30 s motion tests | — | — | Proposed: kids rev 3 shots 7–12, adults rev 3 shots 8–10 | open — needs narration + render (disk below reserve) |
+| Final masters, captions, cards, thumbnails, QA receipts | — | — | — | open |
+| Ep 2 storyboards | — | — | — | open |
+
+| Strategy and cast system recorded | `docs/STRATEGY.md`, Series Bible "Cast and acting system" | Brief's business model, brand hierarchy, launch sequence, scorecard, character flaws/roles | Written | done |
 
 ## Progression pilot (addendum, 9 Oct 2026)
 See `docs/PROGRESSION.md`: engine, "The Missing Shadow" mission, outfits/workshop, storage + backup — built on `feat/explorer-progression`, preview only. Child test and adult Curiosity Archive open.
