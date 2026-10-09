@@ -11,7 +11,7 @@ Plan: `~/Documents/ChatGPT/Did-You-Know-That/CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct
 | Data contract | `docs/DATA-CONTRACT.md` | Episode, card, player-data fields, migration, backup | Written; implementation in B | done |
 | Two audience story/style templates | `episodes/templates/kids-episode.md`, `adults-episode.md` | Beat sheet, claim ledger, storyboard columns, QA receipt, publication draft | Written | done |
 | Series Bible, README, NEXT-STEPS updated | `episodes/SERIES-BIBLE.md`, `README.md`, `NEXT-STEPS.md` | No rule requires or rewards watching | Rewritten | done |
-| No reward-conditioned viewing language in the **rules** | Series Bible | grep for magic-word-unlocks / answers-only-in-video | None in docs; **app text still has it** (ladder, "videos per day", "Find out in the video") — removed together with the mechanics in B | done (docs) / open (app → B) |
+| No reward-conditioned viewing language in the **rules** | Series Bible | grep for magic-word-unlocks / answers-only-in-video | None in docs; app wording changed with the mechanics in Phase B (ladder, points, "Find out in the video" removed) | done |
 | Explicit open decisions | `docs/OPEN-DECISIONS.md` | 10 decisions with recommendation | Waiting for David | decision |
 
 ## Phase B — companion flow (preview only; production deploy needs David's approval)
