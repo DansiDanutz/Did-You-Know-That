@@ -1,0 +1,230 @@
+{
+  "total": 96.338,
+  "scenes": [
+    {
+      "id": "hook",
+      "label": "",
+      "from": 40.14,
+      "lead": 0.4,
+      "tail": 0.8,
+      "kind": "scene",
+      "start": 0,
+      "length": 11.649,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "open",
+      "label": "1 · Open dexty.live",
+      "from": 2.52,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 11.649,
+      "length": 10.799,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "road",
+      "label": "2 · Walk to a house",
+      "from": 10.36,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 22.448,
+      "length": 10.009,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "book",
+      "label": "3 · Read or listen",
+      "from": 15.57,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 32.457,
+      "length": 14.375,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "quiz",
+      "label": "4 · Hoot's questions",
+      "from": 24.84,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 46.832,
+      "length": 10.009,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "card",
+      "label": "5 · Your card",
+      "from": 38.94,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 56.841,
+      "length": 10.009,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "mission",
+      "label": "+ Mission",
+      "from": 78,
+      "lead": 0.4,
+      "tail": 0.6,
+      "kind": "scene",
+      "start": 66.85,
+      "length": 13.771,
+      "voAt": 0.4,
+      "rate": 1
+    },
+    {
+      "id": "bye",
+      "label": "dexty.live",
+      "from": 96.66,
+      "lead": 0.3,
+      "tail": 1.2,
+      "kind": "scene",
+      "start": 80.621,
+      "length": 11.717,
+      "voAt": 0.3,
+      "rate": 0.444
+    },
+    {
+      "id": "closing",
+      "kind": "scene",
+      "start": 92.338,
+      "length": 4
+    }
+  ],
+  "vo": [
+    {
+      "id": "hook",
+      "start": 0.4,
+      "len": 10.44898
+    },
+    {
+      "id": "open",
+      "start": 12.049,
+      "len": 9.798821
+    },
+    {
+      "id": "road",
+      "start": 22.848,
+      "len": 9.009342
+    },
+    {
+      "id": "book",
+      "start": 32.857,
+      "len": 13.374694
+    },
+    {
+      "id": "quiz",
+      "start": 47.232,
+      "len": 9.009342
+    },
+    {
+      "id": "card",
+      "start": 57.241,
+      "len": 9.009342
+    },
+    {
+      "id": "mission",
+      "start": 67.25,
+      "len": 12.770975
+    },
+    {
+      "id": "bye",
+      "start": 80.921,
+      "len": 10.21678
+    }
+  ],
+  "sfx": [
+    [
+      "chime",
+      0.4
+    ],
+    [
+      "card",
+      5.67
+    ],
+    [
+      "pop",
+      12.05
+    ],
+    [
+      "tap",
+      16.22
+    ],
+    [
+      "tap",
+      20.43
+    ],
+    [
+      "pop",
+      22.85
+    ],
+    [
+      "tap",
+      31.29
+    ],
+    [
+      "pop",
+      32.86
+    ],
+    [
+      "ding",
+      39.03
+    ],
+    [
+      "pop",
+      47.23
+    ],
+    [
+      "hoot",
+      48.18
+    ],
+    [
+      "pop",
+      57.24
+    ],
+    [
+      "card",
+      60.85
+    ],
+    [
+      "pop",
+      67.25
+    ],
+    [
+      "chime",
+      76.45
+    ],
+    [
+      "victory",
+      80.92
+    ],
+    [
+      "fanfare",
+      92.538
+    ]
+  ],
+  "moods": {
+    "hook": "victory",
+    "open": "play",
+    "road": "play",
+    "book": "play",
+    "quiz": "play",
+    "card": "play",
+    "mission": "play",
+    "bye": "victory",
+    "closing": "victory"
+  }
+}

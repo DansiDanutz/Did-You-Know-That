@@ -1,0 +1,14 @@
+{
+  "voice": "nPczCjzI2devNBz1zQrb",
+  "settings": { "stability": 0.62, "similarity_boost": 0.8, "style": 0.18, "use_speaker_boost": true, "speed": 0.95 },
+  "purpose": "Episode 1 (Adults): what the Curiosity Archive is, shown on the real site with one case file.",
+  "lines": [
+    { "id": "hook", "text": "The students who were most sure they would remember <break time=\"0.4s\" /> remembered the least. <break time=\"0.7s\" /> That's a real 2006 experiment, <break time=\"0.3s\" /> and it's the first case file in the Curiosity Archive. <break time=\"0.5s\" /> Here's what it is, in two minutes." },
+    { "id": "open", "text": "Open dexty dot live and choose Teens and Adults. <break time=\"0.5s\" /> No account, no sign-up. <break time=\"0.4s\" /> The home page shows the latest story, and an editor's pick from the archive." },
+    { "id": "question", "text": "Every case file starts with one question. <break time=\"0.5s\" /> This one: why does the study method that feels best <break time=\"0.3s\" /> lose to the one that feels worse? <break time=\"0.6s\" /> Then a short story. Three paragraphs, no fluff." },
+    { "id": "predict", "text": "Before the answer, you make a prediction. <break time=\"0.5s\" /> One hundred and eighty students, three ways of studying. <break time=\"0.3s\" /> Which group remembered the most after a week? <break time=\"0.8s\" /> Pick one, <break time=\"0.4s\" /> and you get the real numbers, <break time=\"0.3s\" /> and why your guess was right or wrong. <break time=\"0.4s\" /> No score. Just the reasoning." },
+    { "id": "dossier", "text": "Then the evidence dossier. <break time=\"0.4s\" /> Every line is tagged: <break time=\"0.3s\" /> measured, <break time=\"0.3s\" /> interpretation, <break time=\"0.3s\" /> or limit. <break time=\"0.5s\" /> With the page number in the paper. <break time=\"0.4s\" /> So you always know what was shown, what was guessed, and what nobody knows yet." },
+    { "id": "keep", "text": "If it's worth keeping, save it. <break time=\"0.4s\" /> It stays on your device, with the sources. <break time=\"0.4s\" /> And you can write yourself a private takeaway: <break time=\"0.3s\" /> what you'll do differently. <break time=\"0.4s\" /> Nobody else sees it." },
+    { "id": "bye", "text": "That's the Curiosity Archive. <break time=\"0.4s\" /> One surprising question, the story, the evidence, and what it means. <break time=\"0.5s\" /> dexty dot live. <break time=\"0.5s\" /> Did you know that? <break time=\"0.4s\" /> Now you do." }
+  ]
+}
