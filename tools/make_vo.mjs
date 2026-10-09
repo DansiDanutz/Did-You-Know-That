@@ -21,10 +21,10 @@ for (const id of wanted) {
   if (!line) throw new Error(`No line "${id}" in vo-lines.json`);
   const target = join(dir, `assets/vo/${id}.mp3`);
   if (!ids.length && existsSync(target)) { console.log(`${target} exists, kept`); continue; }
-  const res = await fetch(`${API}/text-to-speech/${voice}?output_format=${OUTPUT_FORMAT}`, {
+  const res = await fetch(`${API}/text-to-speech/${line.voice ?? voice}?output_format=${OUTPUT_FORMAT}`, {
     method: "POST",
     headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-    body: JSON.stringify({ text: line.text, model_id: MODEL_ID, voice_settings: settings }),
+    body: JSON.stringify({ text: line.text, model_id: MODEL_ID, voice_settings: line.settings ?? settings }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status} for "${id}": ${(await res.text()).slice(0, 200)}`);
   writeFileSync(target, Buffer.from(await res.arrayBuffer()));

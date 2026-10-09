@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Dexty Stories · The Little Things That Make a Family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Fredoka", "Avenir Next", sans-serif; font-weight: 700; color: #fff; }
+.scene { position: absolute; inset: 0; overflow: hidden; }
+.scene > * { position: absolute; }
+.stage { inset: 0; width: 1920px; height: 1080px; }
+.stage svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* title + credits */
+.bg-title, .bg-end, .bg-credits { background: radial-gradient(circle at 50% 40%, #ffb3d9, #ff8fc7 40%, #7a4fd6 100%); }
+.t-presents { left: 0; right: 0; top: 260px; text-align: center; font-size: 40px; letter-spacing: .3em; color: #fff; opacity: 0; }
+.t-title { left: 0; right: 0; top: 340px; text-align: center; font-size: 120px; line-height: 1.05; text-shadow: 0 10px 0 #4b23c8, 0 0 50px rgba(255,255,255,.5); opacity: 0; }
+.t-sub { left: 0; right: 0; top: 640px; text-align: center; font-size: 44px; font-weight: 600; color: #fff; opacity: 0; }
+.t-logo { left: 50%; top: 120px; width: 120px; height: 120px; margin-left: -60px; opacity: 0; }
+.t-logo img { width: 100%; height: 100%; object-fit: contain; }
+.end-line { left: 0; right: 0; top: 440px; text-align: center; font-size: 72px; line-height: 1.2; padding: 0 200px; text-shadow: 0 8px 0 #4b23c8; opacity: 0; }
+.credits { left: 0; right: 0; top: 200px; text-align: center; font-size: 36px; line-height: 1.6; font-weight: 600; opacity: 0; }
+.credits b { display: block; font-size: 64px; margin-bottom: 24px; }
+.credits small { display: block; margin-top: 30px; font-size: 26px; opacity: .85; }
+
+/* overlays on scenes */
+.caption-card { left: 50%; top: 80px; width: 1100px; margin-left: -550px; padding: 22px 40px; border-radius: 30px; background: rgba(255,255,255,.92); color: #3a2412; text-align: center; font-size: 44px; opacity: 0; }
+.splash { position: absolute; }
+.heart-pop { position: absolute; font-size: 80px; opacity: 0; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="168.744" data-width="1920" data-height="1080">
+      <section id="sc-title" class="clip scene bg-title" data-start="0" data-duration="6.000" data-track-index="0"><div class="t-logo"><img src="assets/logo.png" alt="" /></div><p class="t-presents">DEXTY STORIES PRESENTS</p><h1 class="t-title">The Little Things<br/>That Make a Family</h1><p class="t-sub">A story about Emma, Leo, Mom and Dad</p></section>
+      <section id="sc-s1" class="clip scene bg-s1" data-start="6" data-duration="13.291" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#fff1c9"/><rect y="780" width="1920" height="300" fill="#c98a3a"/><rect y="780" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1260" y="120" width="420" height="320" rx="16" fill="#bfe6ff" stroke="#8a5a2b" stroke-width="14"/><circle cx="1560" cy="200" r="54" fill="#ffe36b"/><path d="M1270 400 l60 -70 l50 40 l70 -90 l110 120Z" fill="#7ccf6a"/>
+  <rect x="80" y="520" width="700" height="260" rx="10" fill="#e9dcc4" stroke="#8a5a2b" stroke-width="10"/><rect x="80" y="520" width="700" height="24" fill="#8a5a2b"/>
+  <rect x="120" y="300" width="160" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="300" width="300" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="820" y="700" width="1000" height="40" rx="10" fill="#8a5a2b"/><rect x="870" y="740" width="40" height="260" fill="#8a5a2b"/><rect x="1730" y="740" width="40" height="260" fill="#8a5a2b"/>
+  <g class="prop-paper"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/><path d="M1100 672 q40 -36 80 0 q40 36 80 0 q30 -26 60 0" stroke="#ff3fa4" stroke-width="7" fill="none"/></g>
+  <g class="prop-pencils"><rect x="1420" y="640" width="16" height="56" rx="3" fill="#ff3fa4" transform="rotate(-20 1428 668)"/><rect x="1450" y="640" width="16" height="56" rx="3" fill="#3d7bff" transform="rotate(-8 1458 668)"/><rect x="1480" y="640" width="16" height="56" rx="3" fill="#3ee07a" transform="rotate(10 1488 668)"/></g>
+  <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1560" y="610" width="64" height="90" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="1566" y="646" width="52" height="48" fill="#4fc3ff"/></g>
+  <ellipse class="prop-puddle" cx="1240" cy="700" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/>
+  <g class="ch-pos ch-pos-mom" transform="translate(420 1010)"><g class="ch-bob"><g class="ch ch-mom" transform="scale(-1.95 1.95) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="59" cy="244" r="12" fill="#f1c9a5"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3ee07a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="141" cy="244" r="12" fill="#f1c9a5"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#f1c9a5"/>
+      <circle cx="100" cy="104" r="48" fill="#f1c9a5" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -54 40 -56 q38 0 44 54 q-10 -22 -28 -24 q-24 6 -36 0 q-14 6 -20 26Z" fill="#5a3a1a"/><circle cx="100" cy="46" r="20" fill="#5a3a1a"/>
+      <circle cx="70" cy="114" r="4" fill="#ff8fc7" opacity=".7"/><circle cx="130" cy="114" r="4" fill="#ff8fc7" opacity=".7"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#f1c9a5"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-dad" transform="translate(1640 1010)"><g class="ch-bob"><g class="ch ch-dad" transform="scale(-2.05 2.05) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="59" cy="244" r="12" fill="#e8b990"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3d7bff" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="141" cy="244" r="12" fill="#e8b990"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#e8b990"/>
+      <circle cx="100" cy="104" r="48" fill="#e8b990" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 100 q8 -42 38 -44 q36 0 42 44 q-12 -12 -26 -12 q-16 -8 -30 0 q-12 -2 -24 12Z" fill="#3a2412"/>
+      <path d="M78 128 q22 20 44 0 q-6 20 -22 22 q-16 -2 -22 -22Z" fill="#6b4a2a" opacity=".85"/><circle cx="84" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><circle cx="116" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><path d="M97 100 h6" stroke="#3a2412" stroke-width="3"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#e8b990"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(1120 1010)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.6 1.6) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(-200 1010)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(1.2 1.2) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/><g transform="translate(120 230)"><circle cx="0" cy="0" r="14" fill="#c98a3a"/><circle cx="-10" cy="-10" r="6" fill="#c98a3a"/><circle cx="10" cy="-10" r="6" fill="#c98a3a"/><rect x="-12" y="8" width="24" height="26" rx="10" fill="#c98a3a"/></g></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M82 114 q18 24 36 0 q-18 10 -36 0Z" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div></section>
+      <section id="sc-s2" class="clip scene bg-s2" data-start="19.291" data-duration="33.131" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#fff1c9"/><rect y="780" width="1920" height="300" fill="#c98a3a"/><rect y="780" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1260" y="120" width="420" height="320" rx="16" fill="#bfe6ff" stroke="#8a5a2b" stroke-width="14"/><circle cx="1560" cy="200" r="54" fill="#ffe36b"/><path d="M1270 400 l60 -70 l50 40 l70 -90 l110 120Z" fill="#7ccf6a"/>
+  <rect x="80" y="520" width="700" height="260" rx="10" fill="#e9dcc4" stroke="#8a5a2b" stroke-width="10"/><rect x="80" y="520" width="700" height="24" fill="#8a5a2b"/>
+  <rect x="120" y="300" width="160" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="300" width="300" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="820" y="700" width="1000" height="40" rx="10" fill="#8a5a2b"/><rect x="870" y="740" width="40" height="260" fill="#8a5a2b"/><rect x="1730" y="740" width="40" height="260" fill="#8a5a2b"/>
+  <g class="prop-paper"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/><path d="M1100 672 q40 -36 80 0 q40 36 80 0 q30 -26 60 0" stroke="#ff3fa4" stroke-width="7" fill="none"/></g>
+  <g class="prop-pencils"><rect x="1420" y="640" width="16" height="56" rx="3" fill="#ff3fa4" transform="rotate(-20 1428 668)"/><rect x="1450" y="640" width="16" height="56" rx="3" fill="#3d7bff" transform="rotate(-8 1458 668)"/><rect x="1480" y="640" width="16" height="56" rx="3" fill="#3ee07a" transform="rotate(10 1488 668)"/></g>
+  <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1560" y="610" width="64" height="90" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="1566" y="646" width="52" height="48" fill="#4fc3ff"/></g>
+  <ellipse class="prop-puddle" cx="1240" cy="700" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/>
+  <g class="ch-pos ch-pos-mom" transform="translate(420 1010)"><g class="ch-bob"><g class="ch ch-mom" transform="scale(-1.95 1.95) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="59" cy="244" r="12" fill="#f1c9a5"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3ee07a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="141" cy="244" r="12" fill="#f1c9a5"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#f1c9a5"/>
+      <circle cx="100" cy="104" r="48" fill="#f1c9a5" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -54 40 -56 q38 0 44 54 q-10 -22 -28 -24 q-24 6 -36 0 q-14 6 -20 26Z" fill="#5a3a1a"/><circle cx="100" cy="46" r="20" fill="#5a3a1a"/>
+      <circle cx="70" cy="114" r="4" fill="#ff8fc7" opacity=".7"/><circle cx="130" cy="114" r="4" fill="#ff8fc7" opacity=".7"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#f1c9a5"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(1120 1010)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.6 1.6) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(860 1010)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(1.2 1.2) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div></section>
+      <section id="sc-s3" class="clip scene bg-s3" data-start="52.422" data-duration="19.710" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#fff1c9"/><rect y="780" width="1920" height="300" fill="#c98a3a"/><rect y="780" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1260" y="120" width="420" height="320" rx="16" fill="#bfe6ff" stroke="#8a5a2b" stroke-width="14"/><circle cx="1560" cy="200" r="54" fill="#ffe36b"/><path d="M1270 400 l60 -70 l50 40 l70 -90 l110 120Z" fill="#7ccf6a"/>
+  <rect x="80" y="520" width="700" height="260" rx="10" fill="#e9dcc4" stroke="#8a5a2b" stroke-width="10"/><rect x="80" y="520" width="700" height="24" fill="#8a5a2b"/>
+  <rect x="120" y="300" width="160" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="300" width="300" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="820" y="700" width="1000" height="40" rx="10" fill="#8a5a2b"/><rect x="870" y="740" width="40" height="260" fill="#8a5a2b"/><rect x="1730" y="740" width="40" height="260" fill="#8a5a2b"/>
+  <g class="prop-paper"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/><path d="M1100 672 q40 -36 80 0 q40 36 80 0 q30 -26 60 0" stroke="#ff3fa4" stroke-width="7" fill="none"/></g>
+  <g class="prop-pencils"><rect x="1420" y="640" width="16" height="56" rx="3" fill="#ff3fa4" transform="rotate(-20 1428 668)"/><rect x="1450" y="640" width="16" height="56" rx="3" fill="#3d7bff" transform="rotate(-8 1458 668)"/><rect x="1480" y="640" width="16" height="56" rx="3" fill="#3ee07a" transform="rotate(10 1488 668)"/></g>
+  <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1560" y="610" width="64" height="90" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="1566" y="646" width="52" height="48" fill="#4fc3ff"/></g>
+  <ellipse class="prop-puddle" cx="1240" cy="700" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/><g class="fresh-paper" opacity="0"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(1120 1010)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.6 1.6) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(760 1010)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(1.2 1.2) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/><rect x="128" y="236" width="40" height="26" rx="6" fill="#fff" stroke="#3a2412" stroke-width="3" transform="rotate(20 148 249)"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 124 q14 -12 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div></section>
+      <section id="sc-s4" class="clip scene bg-s4" data-start="72.132" data-duration="40.704" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#fff1c9"/><rect y="780" width="1920" height="300" fill="#c98a3a"/><rect y="780" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1260" y="120" width="420" height="320" rx="16" fill="#bfe6ff" stroke="#8a5a2b" stroke-width="14"/><circle cx="1560" cy="200" r="54" fill="#ffe36b"/><path d="M1270 400 l60 -70 l50 40 l70 -90 l110 120Z" fill="#7ccf6a"/>
+  <rect x="80" y="520" width="700" height="260" rx="10" fill="#e9dcc4" stroke="#8a5a2b" stroke-width="10"/><rect x="80" y="520" width="700" height="24" fill="#8a5a2b"/>
+  <rect x="120" y="300" width="160" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="300" width="300" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="820" y="700" width="1000" height="40" rx="10" fill="#8a5a2b"/><rect x="870" y="740" width="40" height="260" fill="#8a5a2b"/><rect x="1730" y="740" width="40" height="260" fill="#8a5a2b"/>
+  <g class="prop-paper"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/><path d="M1100 672 q40 -36 80 0 q40 36 80 0 q30 -26 60 0" stroke="#ff3fa4" stroke-width="7" fill="none"/></g>
+  <g class="prop-pencils"><rect x="1420" y="640" width="16" height="56" rx="3" fill="#ff3fa4" transform="rotate(-20 1428 668)"/><rect x="1450" y="640" width="16" height="56" rx="3" fill="#3d7bff" transform="rotate(-8 1458 668)"/><rect x="1480" y="640" width="16" height="56" rx="3" fill="#3ee07a" transform="rotate(10 1488 668)"/></g>
+  <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1560" y="610" width="64" height="90" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="1566" y="646" width="52" height="48" fill="#4fc3ff"/></g>
+  <ellipse class="prop-puddle" cx="1240" cy="700" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/><g class="drawing"><rect x="600" y="220" width="720" height="520" rx="12" fill="#fff" stroke="#3a2412" stroke-width="8"/>
+  <circle cx="960" cy="470" r="70" fill="none" stroke="#3d7bff" stroke-width="8"/><ellipse class="big-ear" cx="870" cy="470" rx="46" ry="60" fill="none" stroke="#3d7bff" stroke-width="8"/><ellipse class="big-ear" cx="1050" cy="470" rx="46" ry="60" fill="none" stroke="#3d7bff" stroke-width="8"/><path d="M930 490 q30 30 60 0" stroke="#3d7bff" stroke-width="8" fill="none"/><circle cx="940" cy="450" r="7" fill="#3d7bff"/><circle cx="980" cy="450" r="7" fill="#3d7bff"/>
+  
+  </g><g class="drawing-2" opacity="0"><g class="drawing-inner"><rect x="600" y="220" width="720" height="520" rx="12" fill="#fff" stroke="#3a2412" stroke-width="8"/>
+  
+  <g stroke-width="8" fill="none"><circle cx="800" cy="520" r="34" stroke="#3ee07a"/><rect x="776" y="560" width="48" height="70" rx="14" stroke="#3ee07a"/><circle cx="900" cy="520" r="38" stroke="#3d7bff"/><rect x="872" y="564" width="56" height="70" rx="14" stroke="#3d7bff"/><circle cx="1010" cy="540" r="28" stroke="#ff3fa4"/><rect x="990" y="574" width="40" height="56" rx="12" stroke="#ff3fa4"/><circle cx="1100" cy="556" r="22" stroke="#ff8a1f"/><rect x="1084" y="584" width="32" height="46" rx="10" stroke="#ff8a1f"/></g>
+  <path class="big-heart" d="M960 360 c-60 -120 -260 -40 -200 100 c40 90 200 190 200 190 c0 0 160 -100 200 -190 c60 -140 -140 -220 -200 -100Z" fill="none" stroke="#ff3fa4" stroke-width="12"/></g></g><g class="families" opacity="0"><rect x="560" y="120" width="800" height="150" rx="24" fill="#fff" stroke="#3a2412" stroke-width="6"/><text x="960" y="178" text-anchor="middle" font-size="36" font-family="Fredoka" font-weight="700" fill="#3a2412">Families can look different</text><text x="960" y="232" text-anchor="middle" font-size="30" font-family="Fredoka" fill="#6b4a2a">big · small · one parent · two · grandparents · people who care</text></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(360 1060)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.8399999999999999 1.8399999999999999) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(1560 1060)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(-1.44 1.44) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M82 114 q18 24 36 0 q-18 10 -36 0Z" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-dad" transform="translate(1820 1010)"><g class="ch-bob"><g class="ch ch-dad" transform="scale(-1.845 1.845) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="59" cy="244" r="12" fill="#e8b990"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3d7bff" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="141" cy="244" r="12" fill="#e8b990"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#e8b990"/>
+      <circle cx="100" cy="104" r="48" fill="#e8b990" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 100 q8 -42 38 -44 q36 0 42 44 q-12 -12 -26 -12 q-16 -8 -30 0 q-12 -2 -24 12Z" fill="#3a2412"/>
+      <path d="M78 128 q22 20 44 0 q-6 20 -22 22 q-16 -2 -22 -22Z" fill="#6b4a2a" opacity=".85"/><circle cx="84" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><circle cx="116" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><path d="M97 100 h6" stroke="#3a2412" stroke-width="3"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#e8b990"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-mom" transform="translate(120 1010)"><g class="ch-bob"><g class="ch ch-mom" transform="scale(1.755 1.755) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="59" cy="244" r="12" fill="#f1c9a5"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3ee07a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="141" cy="244" r="12" fill="#f1c9a5"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#f1c9a5"/>
+      <circle cx="100" cy="104" r="48" fill="#f1c9a5" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -54 40 -56 q38 0 44 54 q-10 -22 -28 -24 q-24 6 -36 0 q-14 6 -20 26Z" fill="#5a3a1a"/><circle cx="100" cy="46" r="20" fill="#5a3a1a"/>
+      <circle cx="70" cy="114" r="4" fill="#ff8fc7" opacity=".7"/><circle cx="130" cy="114" r="4" fill="#ff8fc7" opacity=".7"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#f1c9a5"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div></section>
+      <section id="sc-s5" class="clip scene bg-s5" data-start="112.837" data-duration="20.360" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#ffe8d1"/><rect y="780" width="1920" height="300" fill="#c98a3a"/><rect y="780" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1260" y="120" width="420" height="320" rx="16" fill="#ffd27a" stroke="#8a5a2b" stroke-width="14"/><circle cx="1560" cy="200" r="54" fill="#ffe36b"/><path d="M1270 400 l60 -70 l50 40 l70 -90 l110 120Z" fill="#7ccf6a"/>
+  <rect x="80" y="520" width="700" height="260" rx="10" fill="#e9dcc4" stroke="#8a5a2b" stroke-width="10"/><rect x="80" y="520" width="700" height="24" fill="#8a5a2b"/>
+  <rect x="120" y="300" width="160" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="300" width="300" height="200" rx="10" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="820" y="700" width="1000" height="40" rx="10" fill="#8a5a2b"/><rect x="870" y="740" width="40" height="260" fill="#8a5a2b"/><rect x="1730" y="740" width="40" height="260" fill="#8a5a2b"/>
+  <g class="prop-paper"><rect x="1080" y="630" width="300" height="70" rx="8" fill="#fff" stroke="#3a2412" stroke-width="5" transform="skewX(-20)"/><path d="M1100 672 q40 -36 80 0 q40 36 80 0 q30 -26 60 0" stroke="#ff3fa4" stroke-width="7" fill="none"/></g>
+  <g class="prop-pencils"><rect x="1420" y="640" width="16" height="56" rx="3" fill="#ff3fa4" transform="rotate(-20 1428 668)"/><rect x="1450" y="640" width="16" height="56" rx="3" fill="#3d7bff" transform="rotate(-8 1458 668)"/><rect x="1480" y="640" width="16" height="56" rx="3" fill="#3ee07a" transform="rotate(10 1488 668)"/></g>
+  <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1560" y="610" width="64" height="90" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="5"/><rect x="1566" y="646" width="52" height="48" fill="#4fc3ff"/></g>
+  <ellipse class="prop-puddle" cx="1240" cy="700" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/><g class="bags"><rect x="1500" y="860" width="110" height="140" rx="14" fill="#c98a3a" stroke="#3a2412" stroke-width="6"/><rect x="1620" y="860" width="110" height="140" rx="14" fill="#ffd84a" stroke="#3a2412" stroke-width="6"/><rect class="small-bag" x="1740" y="900" width="80" height="100" rx="14" fill="#3ee07a" stroke="#3a2412" stroke-width="6"/></g><g class="napkins"><rect x="900" y="650" width="70" height="46" rx="6" fill="#fff" stroke="#3a2412" stroke-width="4"/><rect x="1060" y="650" width="70" height="46" rx="6" fill="#fff" stroke="#3a2412" stroke-width="4"/><rect x="1220" y="650" width="70" height="46" rx="6" fill="#fff" stroke="#3a2412" stroke-width="4"/></g><g class="card-prop" opacity="0"><rect x="800" y="300" width="340" height="240" rx="16" fill="#fff" stroke="#3a2412" stroke-width="6"/><text x="970" y="390" text-anchor="middle" font-size="40" font-family="Fredoka" font-weight="700" fill="#b8126a">WE LOVE</text><text x="970" y="445" text-anchor="middle" font-size="40" font-family="Fredoka" font-weight="700" fill="#b8126a">OUR FAMILY!</text><path d="M970 486 c-12 -26 -50 -8 -42 20 c8 20 42 36 42 36 c0 0 34 -16 42 -36 c8 -28 -30 -46 -42 -20Z" fill="#ff3fa4"/></g>
+  <g class="ch-pos ch-pos-dad" transform="translate(1400 1010)"><g class="ch-bob"><g class="ch ch-dad" transform="scale(-2.05 2.05) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="59" cy="244" r="12" fill="#e8b990"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3d7bff" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="141" cy="244" r="12" fill="#e8b990"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#e8b990"/>
+      <circle cx="100" cy="104" r="48" fill="#e8b990" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 100 q8 -42 38 -44 q36 0 42 44 q-12 -12 -26 -12 q-16 -8 -30 0 q-12 -2 -24 12Z" fill="#3a2412"/>
+      <path d="M78 128 q22 20 44 0 q-6 20 -22 22 q-16 -2 -22 -22Z" fill="#6b4a2a" opacity=".85"/><circle cx="84" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><circle cx="116" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><path d="M97 100 h6" stroke="#3a2412" stroke-width="3"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#e8b990"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M88 120 q12 5 24 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(960 1010)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.6 1.6) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-mom" transform="translate(420 1010)"><g class="ch-bob"><g class="ch ch-mom" transform="scale(-1.95 1.95) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="59" cy="244" r="12" fill="#f1c9a5"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3ee07a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="141" cy="244" r="12" fill="#f1c9a5"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#f1c9a5"/>
+      <circle cx="100" cy="104" r="48" fill="#f1c9a5" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -54 40 -56 q38 0 44 54 q-10 -22 -28 -24 q-24 6 -36 0 q-14 6 -20 26Z" fill="#5a3a1a"/><circle cx="100" cy="46" r="20" fill="#5a3a1a"/>
+      <circle cx="70" cy="114" r="4" fill="#ff8fc7" opacity=".7"/><circle cx="130" cy="114" r="4" fill="#ff8fc7" opacity=".7"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#f1c9a5"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(640 1010)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(1.2 1.2) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div><span class="heart-pop" style="left:1260px;top:260px">❤️</span><span class="heart-pop" style="left:1380px;top:220px">💛</span><span class="heart-pop" style="left:560px;top:250px">💗</span></section>
+      <section id="sc-s6" class="clip scene bg-s6" data-start="133.197" data-duration="27.547" data-track-index="0"><div class="stage"><svg viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="#f1d9ff"/><rect y="800" width="1920" height="280" fill="#c98a3a"/><rect y="800" width="1920" height="14" fill="#8a5a2b"/>
+  <rect x="1240" y="120" width="420" height="300" rx="16" fill="#2a1a7a" stroke="#8a5a2b" stroke-width="14"/><circle cx="1540" cy="200" r="34" fill="#fff5c2"/><circle cx="1360" cy="180" r="4" fill="#fff"/><circle cx="1450" cy="320" r="4" fill="#fff"/><circle cx="1600" cy="340" r="3" fill="#fff"/>
+  <rect x="300" y="420" width="1300" height="410" rx="60" fill="#ff8fc7" stroke="#3a2412" stroke-width="10"/><rect x="340" y="460" width="1220" height="200" rx="40" fill="#ffb3d9"/><rect x="260" y="560" width="90" height="280" rx="40" fill="#ff8fc7" stroke="#3a2412" stroke-width="10"/><rect x="1550" y="560" width="90" height="280" rx="40" fill="#ff8fc7" stroke="#3a2412" stroke-width="10"/>
+  <rect x="120" y="200" width="150" height="110" rx="8" fill="#fff" stroke="#8a5a2b" stroke-width="10"/><rect x="300" y="230" width="110" height="80" rx="8" fill="#fff" stroke="#8a5a2b" stroke-width="10"/>
+  <rect x="700" y="880" width="520" height="40" rx="10" fill="#ffd84a" opacity=".6"/>
+  <g class="lamp"><rect x="1760" y="560" width="14" height="260" fill="#3a2412"/><path d="M1700 560 l134 0 l-30 -100 l-74 0Z" fill="#ffd84a"/><circle cx="1767" cy="600" r="120" fill="#ffd84a" opacity=".15"/></g>
+  <g class="ch-pos ch-pos-mom" transform="translate(560 880)"><g class="ch-bob"><g class="ch ch-mom" transform="scale(1.6575 1.6575) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#2a1470"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="59" cy="244" r="12" fill="#f1c9a5"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3ee07a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3ee07a"/><circle cx="141" cy="244" r="12" fill="#f1c9a5"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#f1c9a5"/>
+      <circle cx="100" cy="104" r="48" fill="#f1c9a5" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -54 40 -56 q38 0 44 54 q-10 -22 -28 -24 q-24 6 -36 0 q-14 6 -20 26Z" fill="#5a3a1a"/><circle cx="100" cy="46" r="20" fill="#5a3a1a"/>
+      <circle cx="70" cy="114" r="4" fill="#ff8fc7" opacity=".7"/><circle cx="130" cy="114" r="4" fill="#ff8fc7" opacity=".7"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#f1c9a5"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-emma" transform="translate(790 890)"><g class="ch-bob"><g class="ch ch-emma" transform="scale(1.36 1.36) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#5b4fcf"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ff8fc7" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ff8fc7"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 102 q8 -58 48 -56 q36 2 40 50 q-6 -16 -22 -22 q-22 10 -46 4 q-14 8 -20 24Z" fill="#8a4a1a"/><path d="M52 110 q-10 40 4 70 q10 -30 14 -60Z" fill="#8a4a1a"/><path d="M148 110 q10 40 -4 70 q-10 -30 -14 -60Z" fill="#8a4a1a"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="58" cy="70" r="7" fill="#ffd84a"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-leo" transform="translate(1110 900)"><g class="ch-bob"><g class="ch ch-leo" transform="scale(-1.02 1.02) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#3d7bff"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="59" cy="244" r="12" fill="#ffd9b3"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#ffd84a" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#ffd84a"/><circle cx="141" cy="244" r="12" fill="#ffd9b3"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#ffd9b3"/>
+      <circle cx="100" cy="104" r="48" fill="#ffd9b3" stroke="#3a2412" stroke-width="3"/>
+      <path d="M60 104 q6 -52 44 -52 q38 0 44 50 q-12 -18 -30 -14 q-14 -12 -28 0 q-16 -4 -30 16Z" fill="#3a2412"/><circle cx="66" cy="96" r="10" fill="#3a2412"/><circle cx="134" cy="96" r="10" fill="#3a2412"/><circle cx="100" cy="52" r="11" fill="#3a2412"/>
+      <circle cx="70" cy="114" r="5" fill="#ff8fc7" opacity=".6"/><circle cx="130" cy="114" r="5" fill="#ff8fc7" opacity=".6"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#ffd9b3"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g>
+  <g class="ch-pos ch-pos-dad" transform="translate(1360 880)"><g class="ch-bob"><g class="ch ch-dad" transform="scale(-1.7424999999999997 1.7424999999999997) translate(-100 -300)">
+    <g class="ch-legs"><rect x="76" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="104" y="226" width="20" height="74" rx="8" fill="#4a3a2a"/><rect x="70" y="288" width="30" height="14" rx="6" fill="#3a2412"/><rect x="100" y="288" width="30" height="14" rx="6" fill="#3a2412"/></g>
+    <g class="ch-arm ch-arm-l" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="48" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="59" cy="244" r="12" fill="#e8b990"/></g>
+    <rect class="ch-body" x="62" y="156" width="76" height="86" rx="22" fill="#3d7bff" stroke="#3a2412" stroke-width="3"/>
+    <g class="ch-arm ch-arm-r" style="transform-box: fill-box; transform-origin: 50% 8%;"><rect x="130" y="166" width="22" height="78" rx="11" fill="#3d7bff"/><circle cx="141" cy="244" r="12" fill="#e8b990"/></g>
+    <g class="ch-head" style="transform-box: fill-box; transform-origin: 50% 92%;">
+      <rect x="92" y="138" width="16" height="22" fill="#e8b990"/>
+      <circle cx="100" cy="104" r="48" fill="#e8b990" stroke="#3a2412" stroke-width="3"/>
+      <path d="M62 100 q8 -42 38 -44 q36 0 42 44 q-12 -12 -26 -12 q-16 -8 -30 0 q-12 -2 -24 12Z" fill="#3a2412"/>
+      <path d="M78 128 q22 20 44 0 q-6 20 -22 22 q-16 -2 -22 -22Z" fill="#6b4a2a" opacity=".85"/><circle cx="84" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><circle cx="116" cy="100" r="13" fill="none" stroke="#3a2412" stroke-width="3"/><path d="M97 100 h6" stroke="#3a2412" stroke-width="3"/>
+      <g class="ch-brows" stroke="#3a2412" stroke-width="4" stroke-linecap="round" fill="none"><path d="M76 86 q8 -6 16 0"/><path d="M108 86 q8 -6 16 0"/></g>
+      <g class="ch-eyes"><circle cx="84" cy="100" r="5" fill="#3a2412"/><circle cx="116" cy="100" r="5" fill="#3a2412"/></g>
+      <g class="ch-lids" fill="#e8b990"><ellipse cx="84" cy="94" rx="7" ry="0"/><ellipse cx="116" cy="94" rx="7" ry="0"/></g>
+      <path class="ch-mouth" d="M86 118 q14 16 28 0" fill="#7a1f12" stroke="#3a2412" stroke-width="3" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
+    </g>
+  </g></g></g></svg></div><p class="end-line">Love grows through the little things<br/>we do every day.</p></section>
+      <section id="sc-credits" class="clip scene bg-credits" data-start="160.744" data-duration="8.000" data-track-index="0"><div class="credits"><b>The Little Things That Make a Family</b>Emma · Leo · Mom · Dad<br/>Written for Dexty · Did You Know That?<small>Love grows through the little things we do every day.</small><small>dexty.live</small></div></section>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="168.744" data-track-index="5" data-volume="0.4"></audio>
+      <audio id="vo-s1-leo-1" src="assets/vo/s1-leo-1.mp3" data-start="7.2" data-duration="1.347" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s1-mom-1" src="assets/vo/s1-mom-1.mp3" data-start="8.897" data-duration="1.533" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s1-dad-1" src="assets/vo/s1-dad-1.mp3" data-start="10.779" data-duration="1.393" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s1-leo-2" src="assets/vo/s1-leo-2.mp3" data-start="12.522" data-duration="1.904" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s1-emma-1" src="assets/vo/s1-emma-1.mp3" data-start="14.777" data-duration="1.765" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-emma-1" src="assets/vo/s2-emma-1.mp3" data-start="21.291" data-duration="1.718" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-leo-1" src="assets/vo/s2-leo-1.mp3" data-start="23.359" data-duration="2.276" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-mom-1" src="assets/vo/s2-mom-1.mp3" data-start="27.685" data-duration="4.133" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-emma-2" src="assets/vo/s2-emma-2.mp3" data-start="32.168" data-duration="1.579" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-mom-2" src="assets/vo/s2-mom-2.mp3" data-start="34.097" data-duration="7.523" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-mom-3" src="assets/vo/s2-mom-3.mp3" data-start="41.97" data-duration="1.440" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-leo-2" src="assets/vo/s2-leo-2.mp3" data-start="43.76" data-duration="2.786" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s2-mom-4" src="assets/vo/s2-mom-4.mp3" data-start="46.896" data-duration="3.576" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-leo-1" src="assets/vo/s3-leo-1.mp3" data-start="55.622" data-duration="3.390" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-emma-1" src="assets/vo/s3-emma-1.mp3" data-start="60.162" data-duration="3.947" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-leo-2" src="assets/vo/s3-leo-2.mp3" data-start="64.46" data-duration="0.929" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-emma-2" src="assets/vo/s3-emma-2.mp3" data-start="65.738" data-duration="1.950" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-leo-3" src="assets/vo/s3-leo-3.mp3" data-start="68.039" data-duration="0.604" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s3-emma-3" src="assets/vo/s3-emma-3.mp3" data-start="68.992" data-duration="0.789" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-emma-1" src="assets/vo/s4-emma-1.mp3" data-start="73.732" data-duration="2.461" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-leo-1" src="assets/vo/s4-leo-1.mp3" data-start="76.543" data-duration="2.229" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-dad-1" src="assets/vo/s4-dad-1.mp3" data-start="79.422" data-duration="2.276" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-emma-2" src="assets/vo/s4-emma-2.mp3" data-start="82.848" data-duration="1.672" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-leo-2" src="assets/vo/s4-leo-2.mp3" data-start="84.87" data-duration="1.672" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-emma-3" src="assets/vo/s4-emma-3.mp3" data-start="86.892" data-duration="1.858" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-mom-1" src="assets/vo/s4-mom-1.mp3" data-start="89.099" data-duration="12.910" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-dad-2" src="assets/vo/s4-dad-2.mp3" data-start="102.36" data-duration="2.229" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-emma-4" src="assets/vo/s4-emma-4.mp3" data-start="104.939" data-duration="1.440" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-leo-3" src="assets/vo/s4-leo-3.mp3" data-start="106.728" data-duration="1.207" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s4-mom-2" src="assets/vo/s4-mom-2.mp3" data-start="108.286" data-duration="2.601" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-dad-1" src="assets/vo/s5-dad-1.mp3" data-start="114.037" data-duration="1.811" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-mom-1" src="assets/vo/s5-mom-1.mp3" data-start="116.798" data-duration="1.115" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-emma-1" src="assets/vo/s5-emma-1.mp3" data-start="118.263" data-duration="1.950" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-dad-2" src="assets/vo/s5-dad-2.mp3" data-start="121.763" data-duration="1.950" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-leo-1" src="assets/vo/s5-leo-1.mp3" data-start="124.064" data-duration="1.022" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-emma-2" src="assets/vo/s5-emma-2.mp3" data-start="125.435" data-duration="0.929" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s5-dad-3" src="assets/vo/s5-dad-3.mp3" data-start="126.714" data-duration="4.133" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-leo-1" src="assets/vo/s6-leo-1.mp3" data-start="134.797" data-duration="0.604" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-dad-1" src="assets/vo/s6-dad-1.mp3" data-start="135.751" data-duration="0.697" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-leo-2" src="assets/vo/s6-leo-2.mp3" data-start="136.797" data-duration="0.882" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-dad-2" src="assets/vo/s6-dad-2.mp3" data-start="138.03" data-duration="1.022" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-leo-3" src="assets/vo/s6-leo-3.mp3" data-start="139.401" data-duration="3.251" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-dad-3" src="assets/vo/s6-dad-3.mp3" data-start="143.002" data-duration="1.950" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-emma-1" src="assets/vo/s6-emma-1.mp3" data-start="145.303" data-duration="0.697" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-mom-1" src="assets/vo/s6-mom-1.mp3" data-start="146.349" data-duration="4.365" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-leo-4" src="assets/vo/s6-leo-4.mp3" data-start="151.865" data-duration="1.440" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-s6-narr-1" src="assets/vo/s6-narr-1.mp3" data-start="155.154" data-duration="2.740" data-track-index="6" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#sc-title .t-logo", {scale:0.6, opacity:0}, {scale:1, opacity:1, duration:0.7, ease:"back.out(1.6)"}, 0.20);
+tl.fromTo("#sc-title .t-presents", {opacity:0}, {opacity:1, duration:0.6}, 0.80);
+tl.fromTo("#sc-title .t-title", {opacity:0, y:30}, {opacity:1, y:0, duration:0.8, ease:"power2.out"}, 1.40);
+tl.fromTo("#sc-title .t-sub", {opacity:0}, {opacity:1, duration:0.6}, 2.60);
+tl.to("#sc-title", {opacity:0, duration:0.7}, 5.30);
+tl.fromTo("#sc-s1 .stage", {opacity:0}, {opacity:1, duration:0.6}, 6.00);
+      tl.to("#sc-s1 .stage", {opacity:0, duration:0.5}, 18.79);
+      tl.to("#sc-s1 .ch-pos-mom .ch-arm-r", {rotation:-60, duration:0.4, ease:"back.out(1.6)"}, 6.00);
+      tl.to("#sc-s1 .ch-pos-mom .ch-arm-r", {rotation:-40, duration:0.4, ease:"back.out(1.6)"}, 6.60);
+      tl.to("#sc-s1 .ch-pos-dad .ch-arm-l", {rotation:50, duration:0.4, ease:"back.out(1.6)"}, 6.30);
+      tl.to("#sc-s1 .ch-pos-emma .ch-arm-r", {rotation:-35, duration:0.4, ease:"back.out(1.6)"}, 6.00);
+      tl.to("#sc-s1 .ch-pos-emma .ch-eyes", {x:4, y:4, duration:0.2}, 6.00);
+      tl.fromTo("#sc-s1 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:11, ease:"sine.inOut", immediateRender:false}, 7.20);
+      tl.to("#sc-s1 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 7.20);
+      tl.to("#sc-s1 .ch-pos-leo", {x:520, duration:1.6, ease:"power1.inOut"}, 7.00);
+      tl.to("#sc-s1 .ch-pos-leo .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:9, ease:"sine.inOut"}, 7.00);
+      tl.fromTo("#sc-s1 .ch-pos-leo .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:9, ease:"sine.inOut", immediateRender:false}, 7.00);
+      tl.to("#sc-s1 .ch-pos-leo .ch-arm-l", {rotation:-140, duration:0.3, ease:"back.out(1.6)"}, 7.20);
+      tl.fromTo("#sc-s1 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:13, ease:"sine.inOut", immediateRender:false}, 8.90);
+      tl.to("#sc-s1 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 8.90);
+      tl.to("#sc-s1 .ch-pos-mom .ch-head", {rotation:-6, duration:0.3}, 8.90);
+      tl.to("#sc-s1 .ch-pos-mom .ch-arm-l", {rotation:40, duration:0.4, ease:"back.out(1.6)"}, 8.90);
+      tl.fromTo("#sc-s1 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:11, ease:"sine.inOut", immediateRender:false}, 10.78);
+      tl.to("#sc-s1 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 10.78);
+      tl.to("#sc-s1 .ch-pos-dad .ch-arm-l", {rotation:120, duration:0.4, ease:"back.out(1.6)"}, 10.78);
+      tl.fromTo("#sc-s1 .ch-pos-dad .ch-bob", {y:0}, {y:-20, duration:0.22, ease:"power2.out", immediateRender:false}, 10.98); tl.to("#sc-s1 .ch-pos-dad .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 11.20);
+      tl.fromTo("#sc-s1 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 12.52);
+      tl.to("#sc-s1 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 12.52);
+      tl.to("#sc-s1 .ch-pos-leo", {x:860, duration:1.2, ease:"power1.inOut"}, 12.42);
+      tl.to("#sc-s1 .ch-pos-leo .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:7, ease:"sine.inOut"}, 12.42);
+      tl.fromTo("#sc-s1 .ch-pos-leo .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:7, ease:"sine.inOut", immediateRender:false}, 12.42);
+      tl.fromTo("#sc-s1 .ch-pos-leo .ch-bob", {y:0}, {y:-30, duration:0.22, ease:"power2.out", immediateRender:false}, 13.82); tl.to("#sc-s1 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 14.04);
+      tl.to("#sc-s1 .ch-pos-leo .ch-arm-l", {rotation:-120, duration:0.4, ease:"back.out(1.6)"}, 13.72);
+      tl.fromTo("#sc-s1 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:15, ease:"sine.inOut", immediateRender:false}, 14.78);
+      tl.to("#sc-s1 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 14.78);
+      tl.set("#sc-s1 .ch-pos-emma .ch-mouth", {attr:{d:"M86 122 q14 -4 28 0"}}, 14.78);
+      tl.to("#sc-s1 .ch-pos-emma .ch-brows", {y:2, rotation:8, duration:0.25}, 14.78);
+      tl.to("#sc-s1 .ch-pos-emma .ch-arm-r", {rotation:-20, duration:0.4, ease:"back.out(1.6)"}, 14.78);
+      tl.set("#sc-s1 .ch-pos-leo .ch-mouth", {attr:{d:"M86 124 q14 -12 28 0"}}, 16.54);
+      tl.to("#sc-s1 .ch-pos-leo .ch-brows", {y:4, rotation:-8, duration:0.25}, 16.54);
+      tl.to("#sc-s1 .ch-pos-leo .ch-head", {rotation:-10, y:8, duration:0.5}, 16.74); tl.to("#sc-s1 .ch-pos-leo .ch-arm-l, #sc-s1 .ch-pos-leo .ch-arm-r", {rotation:0, duration:0.5}, 16.74);
+      tl.to("#sc-s1 .ch-pos-leo .ch-eyes", {x:0, y:6, duration:0.2}, 16.54);
+      tl.to("#sc-s1 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 7.00);
+tl.to("#sc-s1 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 10.30);
+tl.to("#sc-s1 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 13.60);
+tl.to("#sc-s1 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 16.90);
+      tl.to("#sc-s1 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 7.00);
+tl.to("#sc-s1 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 10.30);
+tl.to("#sc-s1 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 13.60);
+tl.to("#sc-s1 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 16.90);
+      tl.to("#sc-s1 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 7.00);
+tl.to("#sc-s1 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 10.30);
+tl.to("#sc-s1 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 13.60);
+tl.to("#sc-s1 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 16.90);
+      tl.to("#sc-s1 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 7.00);
+tl.to("#sc-s1 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 10.30);
+tl.to("#sc-s1 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 13.60);
+tl.to("#sc-s1 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 16.90);
+tl.fromTo("#sc-s2 .stage", {opacity:0}, {opacity:1, duration:0.6}, 19.29);
+      tl.to("#sc-s2 .stage", {opacity:0, duration:0.5}, 51.92);
+      tl.to("#sc-s2 .ch-pos-leo .ch-eyes", {x:6, y:0, duration:0.2}, 19.29);
+      tl.to("#sc-s2 .ch-pos-leo .ch-arm-l", {rotation:-70, duration:0.8, ease:"back.out(1.6)"}, 19.69);
+      tl.to("#sc-s2 .prop-glass", {rotation:80, x:-80, duration:0.5, ease:"power2.in"}, 20.29);
+      tl.to("#sc-s2 .prop-puddle", {attr:{rx:240, ry:34}, duration:0.6, ease:"power2.out"}, 20.59);
+      tl.to("#sc-s2 .prop-paper", {opacity:0.5, fill:"#bfe6ff", duration:0.5}, 20.69);
+      tl.fromTo("#sc-s2 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:15, ease:"sine.inOut", immediateRender:false}, 21.29);
+      tl.to("#sc-s2 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 21.29);
+      tl.fromTo("#sc-s2 .ch-pos-emma .ch-bob", {y:0}, {y:-50, duration:0.22, ease:"power2.out", immediateRender:false}, 21.19); tl.to("#sc-s2 .ch-pos-emma .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 21.41);
+      tl.set("#sc-s2 .ch-pos-emma .ch-mouth", {attr:{d:"M86 122 q14 -4 28 0"}}, 21.29);
+      tl.to("#sc-s2 .ch-pos-emma .ch-brows", {y:2, rotation:12, duration:0.25}, 21.29);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-l", {rotation:-140, duration:0.4, ease:"back.out(1.6)"}, 21.29);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-r", {rotation:-140, duration:0.4, ease:"back.out(1.6)"}, 21.29);
+      tl.set("#sc-s2 .ch-pos-leo .ch-mouth", {attr:{d:"M86 124 q14 -12 28 0"}}, 21.59);
+      tl.to("#sc-s2 .ch-pos-leo .ch-brows", {y:4, rotation:-10, duration:0.25}, 21.59);
+      tl.to("#sc-s2 .ch-pos-leo", {x:760, duration:0.5, ease:"power1.inOut"}, 21.49);
+      tl.fromTo("#sc-s2 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:21, ease:"sine.inOut", immediateRender:false}, 23.36);
+      tl.to("#sc-s2 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 23.36);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-l", {rotation:0, duration:0.4, ease:"back.out(1.6)"}, 23.36);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-r", {rotation:0, duration:0.4, ease:"back.out(1.6)"}, 23.36);
+      tl.to("#sc-s2 .ch-pos-leo .ch-arm-l", {rotation:-40, duration:0.4, ease:"back.out(1.6)"}, 23.36);
+      tl.to("#sc-s2 .ch-pos-leo .ch-head", {rotation:6, duration:0.12, yoyo:true, repeat:5, ease:"sine.inOut"}, 23.36);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-l", {rotation:30, duration:0.4, ease:"back.out(1.6)"}, 25.98);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-r", {rotation:-30, duration:0.4, ease:"back.out(1.6)"}, 25.98);
+      tl.to("#sc-s2 .ch-pos-mom", {x:560, duration:1.4, ease:"power1.inOut"}, 25.98);
+      tl.to("#sc-s2 .ch-pos-mom .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:9, ease:"sine.inOut"}, 25.98);
+      tl.fromTo("#sc-s2 .ch-pos-mom .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:9, ease:"sine.inOut", immediateRender:false}, 25.98);
+      tl.to("#sc-s2 .ch-pos-mom", {scaleY:0.78, duration:0.5, ease:"power2.inOut"}, 26.48);
+      tl.fromTo("#sc-s2 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:39, ease:"sine.inOut", immediateRender:false}, 27.68);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:9, ease:"sine.inOut"}, 27.68);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:4, duration:0.3}, 27.68);
+      tl.to("#sc-s2 .ch-pos-mom .ch-arm-l", {rotation:30, duration:0.4, ease:"back.out(1.6)"}, 27.68);
+      tl.fromTo("#sc-s2 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:13, ease:"sine.inOut", immediateRender:false}, 32.17);
+      tl.to("#sc-s2 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 32.17);
+      tl.to("#sc-s2 .ch-pos-emma .ch-brows", {y:2, rotation:10, duration:0.25}, 32.17);
+      tl.to("#sc-s2 .ch-pos-emma .ch-arm-l", {rotation:-60, duration:0.4, ease:"back.out(1.6)"}, 32.17);
+      tl.fromTo("#sc-s2 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:73, ease:"sine.inOut", immediateRender:false}, 34.10);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:19, ease:"sine.inOut"}, 34.10);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 34.60);
+      tl.to("#sc-s2 .ch-pos-emma .ch-brows", {y:0, rotation:0, duration:0.25}, 37.10);
+      tl.set("#sc-s2 .ch-pos-emma .ch-mouth", {attr:{d:"M88 120 q12 5 24 0"}}, 37.10);
+      tl.fromTo("#sc-s2 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:13, ease:"sine.inOut", immediateRender:false}, 41.97);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 41.97);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:-8, duration:0.3}, 41.97);
+      tl.to("#sc-s2 .ch-pos-mom .ch-eyes", {x:-4, y:0, duration:0.2}, 41.97);
+      tl.fromTo("#sc-s2 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:25, ease:"sine.inOut", immediateRender:false}, 43.76);
+      tl.to("#sc-s2 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 43.76);
+      tl.to("#sc-s2 .ch-pos-leo .ch-eyes", {x:-4, y:2, duration:0.2}, 43.76);
+      tl.to("#sc-s2 .ch-pos-leo .ch-arm-l", {rotation:-30, duration:0.4, ease:"back.out(1.6)"}, 43.76);
+      tl.fromTo("#sc-s2 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:33, ease:"sine.inOut", immediateRender:false}, 46.90);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:9, ease:"sine.inOut"}, 46.90);
+      tl.to("#sc-s2 .ch-pos-mom .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 46.90);
+      tl.to("#sc-s2 .ch-pos-mom", {scaleY:1, duration:0.5, ease:"power2.inOut"}, 49.87);
+      tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 20.29);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 23.59);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 26.89);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 30.19);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 33.49);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 36.79);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 40.09);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 43.39);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 46.69);
+tl.to("#sc-s2 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 49.99);
+      tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 20.29);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 23.59);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 26.89);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 30.19);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 33.49);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 36.79);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 40.09);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 43.39);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 46.69);
+tl.to("#sc-s2 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 49.99);
+      tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 20.29);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 23.59);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 26.89);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 30.19);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 33.49);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 36.79);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 40.09);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 43.39);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 46.69);
+tl.to("#sc-s2 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 49.99);
+tl.fromTo("#sc-s3 .stage", {opacity:0}, {opacity:1, duration:0.6}, 52.42);
+      tl.to("#sc-s3 .stage", {opacity:0, duration:0.5}, 71.63);
+      tl.to("#sc-s3 .ch-pos-leo", {x:880, duration:0.8, ease:"power1.inOut"}, 52.42);
+      tl.to("#sc-s3 .ch-pos-leo .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 52.42);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 52.42);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-r", {rotation:-80, duration:0.5, ease:"back.out(1.6)"}, 53.22);
+      tl.to("#sc-s3 .ch-leo .ch-arm-r", {rotation:-60, duration:0.3, yoyo:true, repeat:5}, 53.72);
+      tl.to("#sc-s3 .prop-puddle", {attr:{rx:0, ry:0}, duration:2, ease:"power2.in"}, 53.72);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:31, ease:"sine.inOut", immediateRender:false}, 55.62);
+      tl.to("#sc-s3 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:7, ease:"sine.inOut"}, 55.62);
+      tl.to("#sc-s3 .ch-pos-leo .ch-head", {rotation:6, duration:0.3}, 55.62);
+      tl.to("#sc-s3 .ch-pos-leo .ch-eyes", {x:6, y:0, duration:0.2}, 55.62);
+      tl.to("#sc-s3 .ch-pos-emma .ch-eyes", {x:-4, y:2, duration:0.2}, 55.62);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {rotation:6, duration:0.3}, 56.62);
+      tl.set("#sc-s3 .ch-pos-emma .ch-mouth", {attr:{d:"M88 120 q12 5 24 0"}}, 59.36);
+      tl.to("#sc-s3 .ch-pos-emma .ch-brows", {y:0, rotation:0, duration:0.25}, 59.36);
+      tl.fromTo("#sc-s3 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:37, ease:"sine.inOut", immediateRender:false}, 60.16);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:9, ease:"sine.inOut"}, 60.16);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {rotation:8, duration:0.3}, 60.16);
+      tl.set("#sc-s3 .ch-pos-emma .ch-mouth", {attr:{d:"M86 124 q14 -12 28 0"}}, 62.76);
+      tl.to("#sc-s3 .ch-pos-emma .ch-eyes", {x:0, y:4, duration:0.2}, 62.76);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:7, ease:"sine.inOut", immediateRender:false}, 64.46);
+      tl.to("#sc-s3 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 64.46);
+      tl.set("#sc-s3 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 64.46);
+      tl.to("#sc-s3 .ch-pos-leo .ch-brows", {y:0, rotation:0, duration:0.25}, 64.46);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-bob", {y:0}, {y:-36, duration:0.22, ease:"power2.out", immediateRender:false}, 64.46); tl.to("#sc-s3 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 64.68);
+      tl.fromTo("#sc-s3 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 65.74);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 65.74);
+      tl.set("#sc-s3 .ch-pos-emma .ch-mouth", {attr:{d:"M86 118 q14 16 28 0"}}, 65.74);
+      tl.to("#sc-s3 .ch-pos-emma .ch-arm-l", {rotation:-90, duration:0.4, ease:"back.out(1.6)"}, 65.74);
+      tl.fromTo("#sc-s3 .fresh-paper", {opacity:0, y:30}, {opacity:1, y:0, duration:0.4}, 65.94);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 68.04);
+      tl.to("#sc-s3 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 68.04);
+      tl.set("#sc-s3 .ch-pos-leo .ch-mouth", {attr:{d:"M92 112 q8 -10 16 0 q-8 16 -16 0Z"}}, 68.04);
+      tl.to("#sc-s3 .ch-pos-leo .ch-brows", {y:-4, rotation:0, duration:0.25}, 68.04);
+      tl.fromTo("#sc-s3 .ch-pos-leo .ch-bob", {y:0}, {y:-60, duration:0.22, ease:"power2.out", immediateRender:false}, 68.24); tl.to("#sc-s3 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 68.46);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-l", {rotation:-160, duration:0.4, ease:"back.out(1.6)"}, 68.04);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-r", {rotation:-160, duration:0.4, ease:"back.out(1.6)"}, 68.04);
+      tl.fromTo("#sc-s3 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 68.99);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 68.99);
+      tl.to("#sc-s3 .ch-pos-emma .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 68.99);
+      tl.set("#sc-s3 .ch-pos-emma .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 69.39);
+      tl.set("#sc-s3 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 69.39);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-l", {rotation:0, duration:0.4, ease:"back.out(1.6)"}, 69.59);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-r", {rotation:-40, duration:0.4, ease:"back.out(1.6)"}, 69.59);
+      tl.to("#sc-s3 .ch-pos-emma .ch-arm-r", {rotation:-30, duration:0.4, ease:"back.out(1.6)"}, 70.13);
+      tl.to("#sc-s3 .ch-pos-leo .ch-arm-r", {rotation:-30, duration:0.4, ease:"back.out(1.6)"}, 70.13);
+      tl.to("#sc-s3 .ch-emma .ch-arm-r, #sc-s3 .ch-leo .ch-arm-r", {rotation:-20, duration:0.3, yoyo:true, repeat:5}, 70.43);
+      tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 53.42);
+tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 56.72);
+tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 60.02);
+tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 63.32);
+tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 66.62);
+tl.to("#sc-s3 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 69.92);
+      tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 53.42);
+tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 56.72);
+tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 60.02);
+tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 63.32);
+tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 66.62);
+tl.to("#sc-s3 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 69.92);
+tl.fromTo("#sc-s4 .stage", {opacity:0}, {opacity:1, duration:0.6}, 72.13);
+      tl.to("#sc-s4 .stage", {opacity:0, duration:0.5}, 112.34);
+      tl.fromTo("#sc-s4 .big-ear", {scale:0.2, svgOrigin:"960 470"}, {scale:1, duration:0.8, ease:"back.out(2)"}, 72.13);
+      tl.to("#sc-s4 .ch-pos-leo .ch-arm-r", {rotation:-60, duration:0.4, ease:"back.out(1.6)"}, 72.13);
+      tl.set("#sc-s4 .ch-pos-dad, #sc-s4 .ch-pos-mom", {opacity:0}, 0);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:23, ease:"sine.inOut", immediateRender:false}, 73.73);
+      tl.to("#sc-s4 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 73.73);
+      tl.set("#sc-s4 .ch-pos-emma .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 73.73);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-bob", {y:0}, {y:-20, duration:0.22, ease:"power2.out", immediateRender:false}, 74.03); tl.to("#sc-s4 .ch-pos-emma .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 74.25);
+      tl.to("#sc-s4 .ch-pos-emma .ch-arm-l", {rotation:-100, duration:0.4, ease:"back.out(1.6)"}, 73.73);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:21, ease:"sine.inOut", immediateRender:false}, 76.54);
+      tl.to("#sc-s4 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 76.54);
+      tl.to("#sc-s4 .ch-pos-leo .ch-arm-l", {rotation:-120, duration:0.4, ease:"back.out(1.6)"}, 76.54);
+      tl.to("#sc-s4 .ch-pos-leo .ch-head", {rotation:-8, duration:0.3}, 76.54);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-bob", {y:0}, {y:-30, duration:0.22, ease:"power2.out", immediateRender:false}, 77.94); tl.to("#sc-s4 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 78.16);
+      tl.to("#sc-s4 .ch-pos-dad", {opacity:1, duration:0.3}, 79.12);
+      tl.to("#sc-s4 .ch-pos-dad", {x:1700, duration:1, ease:"power1.inOut"}, 79.12);
+      tl.to("#sc-s4 .ch-pos-dad .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 79.12);
+      tl.fromTo("#sc-s4 .ch-pos-dad .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 79.12);
+      tl.fromTo("#sc-s4 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:21, ease:"sine.inOut", immediateRender:false}, 79.42);
+      tl.to("#sc-s4 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 79.42);
+      tl.to("#sc-s4 .ch-pos-dad .ch-arm-l", {rotation:110, duration:0.4, ease:"back.out(1.6)"}, 79.42);
+      tl.to("#sc-s4 .ch-pos-dad .ch-head", {rotation:-6, duration:0.3}, 79.42);
+      tl.to("#sc-s4 .ch-pos-dad .ch-arm-r", {rotation:-80, duration:0.4, ease:"back.out(1.6)"}, 79.92);
+      tl.set("#sc-s4 .ch-pos-emma .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 80.42);
+      tl.set("#sc-s4 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 80.42);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-bob", {y:0}, {y:-20, duration:0.22, ease:"power2.out", immediateRender:false}, 81.42); tl.to("#sc-s4 .ch-pos-emma .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 81.64);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-bob", {y:0}, {y:-24, duration:0.22, ease:"power2.out", immediateRender:false}, 81.62); tl.to("#sc-s4 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 81.84);
+      tl.to("#sc-s4 .ch-pos-mom", {opacity:1, duration:0.3}, 82.05);
+      tl.to("#sc-s4 .ch-pos-mom", {x:230, duration:1, ease:"power1.inOut"}, 82.05);
+      tl.to("#sc-s4 .ch-pos-mom .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 82.05);
+      tl.fromTo("#sc-s4 .ch-pos-mom .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 82.05);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:15, ease:"sine.inOut", immediateRender:false}, 82.85);
+      tl.to("#sc-s4 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 82.85);
+      tl.to("#sc-s4 .ch-pos-emma .ch-arm-l", {rotation:-140, duration:0.4, ease:"back.out(1.6)"}, 82.85);
+      tl.to("#sc-s4 .drawing", {opacity:0, duration:0.3}, 83.65);
+      tl.fromTo("#sc-s4 .drawing-2", {opacity:0}, {opacity:1, duration:0.4}, 83.95);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:15, ease:"sine.inOut", immediateRender:false}, 84.87);
+      tl.to("#sc-s4 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 84.87);
+      tl.to("#sc-s4 .ch-pos-leo .ch-head", {rotation:8, duration:0.3}, 84.87);
+      tl.to("#sc-s4 .ch-pos-leo .ch-eyes", {x:-5, y:0, duration:0.2}, 84.87);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 86.89);
+      tl.to("#sc-s4 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 86.89);
+      tl.to("#sc-s4 .ch-pos-emma .ch-head", {rotation:-8, duration:0.3}, 86.89);
+      tl.to("#sc-s4 .ch-pos-emma .ch-eyes", {x:0, y:-4, duration:0.2}, 86.89);
+      tl.to("#sc-s4 .ch-pos-emma .ch-arm-r", {rotation:-20, duration:0.4, ease:"back.out(1.6)"}, 86.89);
+      tl.fromTo("#sc-s4 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:127, ease:"sine.inOut", immediateRender:false}, 89.10);
+      tl.to("#sc-s4 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:35, ease:"sine.inOut"}, 89.10);
+      tl.to("#sc-s4 .ch-pos-mom .ch-head", {rotation:4, duration:0.3}, 89.10);
+      tl.to("#sc-s4 .ch-pos-mom .ch-arm-r", {rotation:-40, duration:0.4, ease:"back.out(1.6)"}, 89.10);
+      tl.to("#sc-s4 .ch-pos-mom .ch-arm-r", {rotation:-70, duration:0.4, ease:"back.out(1.6)"}, 92.10);
+      tl.to("#sc-s4 .ch-pos-mom .ch-arm-l", {rotation:60, duration:0.4, ease:"back.out(1.6)"}, 94.10);
+      tl.fromTo("#sc-s4 .families", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, 92.30);
+      tl.fromTo("#sc-s4 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:21, ease:"sine.inOut", immediateRender:false}, 102.36);
+      tl.to("#sc-s4 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 102.36);
+      tl.to("#sc-s4 .ch-pos-dad .ch-arm-l", {rotation:60, duration:0.4, ease:"back.out(1.6)"}, 102.36);
+      tl.to("#sc-s4 .ch-pos-dad .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 103.16);
+      tl.to("#sc-s4 .families", {opacity:0, duration:0.4}, 102.36);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:13, ease:"sine.inOut", immediateRender:false}, 104.94);
+      tl.to("#sc-s4 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 104.94);
+      tl.to("#sc-s4 .ch-pos-emma .ch-arm-l", {rotation:-120, duration:0.4, ease:"back.out(1.6)"}, 104.94);
+      tl.fromTo("#sc-s4 .ch-pos-emma .ch-bob", {y:0}, {y:-20, duration:0.22, ease:"power2.out", immediateRender:false}, 104.94); tl.to("#sc-s4 .ch-pos-emma .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 105.16);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:11, ease:"sine.inOut", immediateRender:false}, 106.73);
+      tl.to("#sc-s4 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 106.73);
+      tl.to("#sc-s4 .ch-pos-leo .ch-arm-l", {rotation:-150, duration:0.4, ease:"back.out(1.6)"}, 106.73);
+      tl.to("#sc-s4 .ch-pos-leo .ch-arm-r", {rotation:-150, duration:0.4, ease:"back.out(1.6)"}, 106.73);
+      tl.fromTo("#sc-s4 .ch-pos-leo .ch-bob", {y:0}, {y:-40, duration:0.22, ease:"power2.out", immediateRender:false}, 107.03); tl.to("#sc-s4 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 107.25);
+      tl.fromTo("#sc-s4 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:25, ease:"sine.inOut", immediateRender:false}, 108.29);
+      tl.to("#sc-s4 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:5, ease:"sine.inOut"}, 108.29);
+      tl.set("#sc-s4 .ch-pos-mom .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 108.29);
+      tl.to("#sc-s4 .ch-pos-mom .ch-head", {rotation:-6, duration:0.3}, 108.29);
+      tl.to("#sc-s4 .ch-pos-mom .ch-arm-r", {rotation:-90, duration:0.4, ease:"back.out(1.6)"}, 109.29);
+      tl.set("#sc-s4 .ch-pos-dad .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 108.79);
+      tl.fromTo("#sc-s4 .drawing-2 .big-heart", {opacity:0, scale:0.3, svgOrigin:"960 500"}, {opacity:1, scale:1, duration:0.8, ease:"back.out(1.6)"}, 111.24);
+      tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 73.13);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 76.43);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 79.73);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 83.03);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 86.33);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 89.63);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 92.93);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 96.23);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 99.53);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 102.83);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 106.13);
+tl.to("#sc-s4 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 109.43);
+      tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 73.13);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 76.43);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 79.73);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 83.03);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 86.33);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 89.63);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 92.93);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 96.23);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 99.53);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 102.83);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 106.13);
+tl.to("#sc-s4 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 109.43);
+      tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 73.13);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 76.43);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 79.73);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 83.03);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 86.33);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 89.63);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 92.93);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 96.23);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 99.53);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 102.83);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 106.13);
+tl.to("#sc-s4 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 109.43);
+      tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 73.13);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 76.43);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 79.73);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 83.03);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 86.33);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 89.63);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 92.93);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 96.23);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 99.53);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 102.83);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 106.13);
+tl.to("#sc-s4 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 109.43);
+tl.fromTo("#sc-s5 .stage", {opacity:0}, {opacity:1, duration:0.6}, 112.84);
+      tl.to("#sc-s5 .stage", {opacity:0, duration:0.5}, 132.70);
+      tl.to("#sc-s5 .ch-pos-dad .ch-arm-l", {rotation:40, duration:0.4, ease:"back.out(1.6)"}, 112.84);
+      tl.to("#sc-s5 .ch-pos-dad .ch-arm-r", {rotation:-40, duration:0.4, ease:"back.out(1.6)"}, 112.84);
+      tl.to("#sc-s5 .ch-pos-emma", {x:1180, duration:1, ease:"power1.inOut"}, 112.84);
+      tl.to("#sc-s5 .ch-pos-emma .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 112.84);
+      tl.fromTo("#sc-s5 .ch-pos-emma .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 112.84);
+      tl.to("#sc-s5 .ch-pos-emma .ch-arm-l", {rotation:-80, duration:0.4, ease:"back.out(1.6)"}, 113.84);
+      tl.to("#sc-s5 .small-bag", {x:-520, y:-120, duration:0.6, ease:"power1.inOut"}, 114.04);
+      tl.fromTo("#sc-s5 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 114.04);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 114.04);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {rotation:6, duration:0.3}, 114.04);
+      tl.set("#sc-s5 .ch-pos-dad .ch-mouth", {attr:{d:"M86 118 q14 16 28 0"}}, 114.04);
+      tl.fromTo("#sc-s5 .ch-pos-emma .ch-bob", {y:0}, {y:-20, duration:0.22, ease:"power2.out", immediateRender:false}, 115.04); tl.to("#sc-s5 .ch-pos-emma .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 115.26);
+      tl.to("#sc-s5 .ch-pos-leo", {x:560, duration:0.8, ease:"power1.inOut"}, 116.20);
+      tl.to("#sc-s5 .ch-pos-leo .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 116.20);
+      tl.fromTo("#sc-s5 .ch-pos-leo .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 116.20);
+      tl.to("#sc-s5 .ch-pos-leo .ch-arm-l", {rotation:-70, duration:0.4, ease:"back.out(1.6)"}, 117.00);
+      tl.fromTo("#sc-s5 .napkins rect", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.3, stagger:0.25}, 117.20);
+      tl.fromTo("#sc-s5 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:9, ease:"sine.inOut", immediateRender:false}, 116.80);
+      tl.to("#sc-s5 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 116.80);
+      tl.to("#sc-s5 .ch-pos-mom .ch-head", {rotation:-6, duration:0.3}, 116.80);
+      tl.to("#sc-s5 .ch-pos-mom .ch-arm-l", {rotation:40, duration:0.4, ease:"back.out(1.6)"}, 116.80);
+      tl.set("#sc-s5 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 117.30);
+      tl.fromTo("#sc-s5 .ch-pos-leo .ch-bob", {y:0}, {y:-30, duration:0.22, ease:"power2.out", immediateRender:false}, 117.40); tl.to("#sc-s5 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 117.62);
+      tl.fromTo("#sc-s5 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 118.26);
+      tl.to("#sc-s5 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 118.26);
+      tl.to("#sc-s5 .ch-pos-emma", {x:800, duration:0.8, ease:"power1.inOut"}, 117.76);
+      tl.to("#sc-s5 .ch-pos-emma .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 117.76);
+      tl.fromTo("#sc-s5 .ch-pos-emma .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 117.76);
+      tl.to("#sc-s5 .ch-pos-emma .ch-head", {rotation:8, duration:0.3}, 118.26);
+      tl.to("#sc-s5 .ch-pos-emma .ch-arm-r", {rotation:-60, duration:0.4, ease:"back.out(1.6)"}, 118.26);
+      tl.to("#sc-s5 .ch-pos-leo .ch-eyes", {x:6, y:0, duration:0.2}, 118.26);
+      tl.fromTo("#sc-s5 .card-prop", {opacity:0, scale:0.4, svgOrigin:"970 500"}, {opacity:1, scale:1, duration:0.6, ease:"back.out(1.6)"}, 120.56);
+      tl.to("#sc-s5 .ch-pos-dad", {x:1240, duration:1, ease:"power1.inOut"}, 120.76);
+      tl.to("#sc-s5 .ch-pos-dad .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 120.76);
+      tl.fromTo("#sc-s5 .ch-pos-dad .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 120.76);
+      tl.to("#sc-s5 .ch-pos-mom", {x:600, duration:1, ease:"power1.inOut"}, 120.76);
+      tl.to("#sc-s5 .ch-pos-mom .ch-legs", {rotation:6, svgOrigin:"100 226", duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut"}, 120.76);
+      tl.fromTo("#sc-s5 .ch-pos-mom .ch-bob", {y:0}, {y:-8, duration:0.15, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 120.76);
+      tl.to("#sc-s5 .ch-pos-dad", {scaleY:0.78, duration:0.5, ease:"power2.inOut"}, 121.86);
+      tl.set("#sc-s5 .ch-pos-mom .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 121.86);
+      tl.to("#sc-s5 .ch-pos-mom .ch-arm-l", {rotation:100, duration:0.4, ease:"back.out(1.6)"}, 121.86);
+      tl.fromTo("#sc-s5 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 121.76);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 121.76);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {rotation:-6, duration:0.3}, 121.76);
+      tl.to("#sc-s5 .ch-pos-dad .ch-arm-l", {rotation:50, duration:0.4, ease:"back.out(1.6)"}, 121.76);
+      tl.fromTo("#sc-s5 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:9, ease:"sine.inOut", immediateRender:false}, 124.06);
+      tl.to("#sc-s5 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 124.06);
+      tl.to("#sc-s5 .ch-pos-leo .ch-head", {rotation:-8, duration:0.3}, 124.06);
+      tl.to("#sc-s5 .ch-pos-leo .ch-arm-l", {rotation:-100, duration:0.4, ease:"back.out(1.6)"}, 124.06);
+      tl.fromTo("#sc-s5 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:7, ease:"sine.inOut", immediateRender:false}, 125.44);
+      tl.to("#sc-s5 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 125.44);
+      tl.to("#sc-s5 .ch-pos-emma .ch-head", {rotation:8, duration:0.3}, 125.44);
+      tl.to("#sc-s5 .ch-pos-emma .ch-arm-r", {rotation:-90, duration:0.4, ease:"back.out(1.6)"}, 125.44);
+      tl.fromTo("#sc-s5 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:39, ease:"sine.inOut", immediateRender:false}, 126.71);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:9, ease:"sine.inOut"}, 126.71);
+      tl.to("#sc-s5 .ch-pos-dad .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 126.71);
+      tl.to("#sc-s5 .ch-pos-dad .ch-arm-l", {rotation:110, duration:0.4, ease:"back.out(1.6)"}, 128.91);
+      tl.to("#sc-s5 .ch-pos-dad .ch-arm-r", {rotation:-110, duration:0.4, ease:"back.out(1.6)"}, 128.91);
+      tl.set("#sc-s5 .ch-pos-emma .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 129.31);
+      tl.set("#sc-s5 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 129.31);
+      tl.set("#sc-s5 .ch-pos-mom .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 129.31);
+      tl.fromTo("#sc-s5 .heart-pop", {opacity:0, y:0, scale:0.5}, {opacity:1, y:-80, scale:1, duration:1.2, stagger:0.2, ease:"power2.out"}, 131.20);
+      tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 113.84);
+tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 117.14);
+tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 120.44);
+tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 123.74);
+tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 127.04);
+tl.to("#sc-s5 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 130.34);
+      tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 113.84);
+tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 117.14);
+tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 120.44);
+tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 123.74);
+tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 127.04);
+tl.to("#sc-s5 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 130.34);
+      tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 113.84);
+tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 117.14);
+tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 120.44);
+tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 123.74);
+tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 127.04);
+tl.to("#sc-s5 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 130.34);
+      tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 113.84);
+tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 117.14);
+tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 120.44);
+tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 123.74);
+tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 127.04);
+tl.to("#sc-s5 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 130.34);
+tl.fromTo("#sc-s6 .stage", {opacity:0}, {opacity:1, duration:0.6}, 133.20);
+      tl.to("#sc-s6 .stage", {opacity:0, duration:0.5}, 160.24);
+      tl.to("#sc-s6 .ch-pos-emma .ch-head", {rotation:-10, duration:0.3}, 133.20);
+      tl.to("#sc-s6 .ch-pos-mom .ch-arm-r", {rotation:-50, duration:0.4, ease:"back.out(1.6)"}, 133.20);
+      tl.to("#sc-s6 .ch-pos-dad .ch-arm-l", {rotation:50, duration:0.4, ease:"back.out(1.6)"}, 133.20);
+      tl.fromTo("#sc-s6 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 134.80);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 134.80);
+      tl.to("#sc-s6 .ch-pos-leo .ch-eyes", {x:-5, y:-3, duration:0.2}, 134.80);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:6, duration:0.3}, 134.80);
+      tl.fromTo("#sc-s6 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 135.75);
+      tl.to("#sc-s6 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 135.75);
+      tl.to("#sc-s6 .ch-pos-dad .ch-head", {rotation:-6, duration:0.3}, 135.75);
+      tl.to("#sc-s6 .ch-pos-dad .ch-eyes", {x:4, y:2, duration:0.2}, 135.75);
+      tl.fromTo("#sc-s6 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:7, ease:"sine.inOut", immediateRender:false}, 136.80);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 136.80);
+      tl.to("#sc-s6 .ch-pos-leo .ch-brows", {y:-4, rotation:0, duration:0.25}, 136.80);
+      tl.fromTo("#sc-s6 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:9, ease:"sine.inOut", immediateRender:false}, 138.03);
+      tl.to("#sc-s6 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 138.03);
+      tl.to("#sc-s6 .ch-pos-dad .ch-brows", {y:-5, rotation:0, duration:0.25}, 138.03);
+      tl.set("#sc-s6 .ch-pos-dad .ch-mouth", {attr:{d:"M92 112 q8 -10 16 0 q-8 16 -16 0Z"}}, 138.03);
+      tl.set("#sc-s6 .ch-pos-dad .ch-mouth", {attr:{d:"M86 118 q14 16 28 0"}}, 139.05);
+      tl.fromTo("#sc-s6 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:31, ease:"sine.inOut", immediateRender:false}, 139.40);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:7, ease:"sine.inOut"}, 139.40);
+      tl.to("#sc-s6 .ch-pos-leo .ch-arm-l", {rotation:-80, duration:0.4, ease:"back.out(1.6)"}, 139.40);
+      tl.to("#sc-s6 .ch-pos-emma .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 140.40);
+      tl.fromTo("#sc-s6 .ch-pos-dad .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:17, ease:"sine.inOut", immediateRender:false}, 143.00);
+      tl.to("#sc-s6 .ch-pos-dad .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 143.00);
+      tl.to("#sc-s6 .ch-pos-dad .ch-head", {y:6, duration:0.16, yoyo:true, repeat:3, ease:"sine.inOut"}, 143.00);
+      tl.to("#sc-s6 .ch-pos-dad .ch-arm-l", {rotation:70, duration:0.4, ease:"back.out(1.6)"}, 144.00);
+      tl.fromTo("#sc-s6 .ch-pos-emma .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:5, ease:"sine.inOut", immediateRender:false}, 145.30);
+      tl.to("#sc-s6 .ch-pos-emma .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:1, ease:"sine.inOut"}, 145.30);
+      tl.to("#sc-s6 .ch-pos-emma .ch-head", {rotation:10, duration:0.3}, 145.30);
+      tl.to("#sc-s6 .ch-pos-emma .ch-eyes", {x:5, y:-3, duration:0.2}, 145.30);
+      tl.to("#sc-s6 .ch-pos-emma .ch-eyes", {x:-5, y:-3, duration:0.2}, 145.90);
+      tl.to("#sc-s6 .ch-pos-emma .ch-head", {rotation:0, duration:0.3}, 146.20);
+      tl.fromTo("#sc-s6 .ch-pos-mom .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:41, ease:"sine.inOut", immediateRender:false}, 146.35);
+      tl.to("#sc-s6 .ch-pos-mom .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:11, ease:"sine.inOut"}, 146.35);
+      tl.to("#sc-s6 .ch-pos-mom .ch-arm-r", {rotation:-100, duration:0.4, ease:"back.out(1.6)"}, 146.35);
+      tl.to("#sc-s6 .ch-pos-mom .ch-arm-r", {rotation:-60, duration:0.4, ease:"back.out(1.6)"}, 147.55);
+      tl.to("#sc-s6 .ch-pos-mom .ch-head", {rotation:-6, duration:0.3}, 147.35);
+      tl.to("#sc-s6 .ch-pos-leo .ch-eyes", {x:0, y:-4, duration:0.2}, 151.06);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:-6, duration:0.3}, 151.06);
+      tl.to("#sc-s6 .ch-pos-leo .ch-brows", {y:-3, rotation:0, duration:0.25}, 151.06);
+      tl.fromTo("#sc-s6 .ch-pos-leo .ch-mouth", {scaleY:1}, {scaleY:0.3, duration:0.1, yoyo:true, repeat:13, ease:"sine.inOut", immediateRender:false}, 151.87);
+      tl.to("#sc-s6 .ch-pos-leo .ch-head", {rotation:2, duration:0.35, yoyo:true, repeat:3, ease:"sine.inOut"}, 151.87);
+      tl.set("#sc-s6 .ch-pos-leo .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 151.87);
+      tl.fromTo("#sc-s6 .ch-pos-leo .ch-bob", {y:0}, {y:-40, duration:0.22, ease:"power2.out", immediateRender:false}, 152.27); tl.to("#sc-s6 .ch-pos-leo .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 152.49);
+      tl.to("#sc-s6 .ch-pos-leo .ch-arm-l", {rotation:-150, duration:0.4, ease:"back.out(1.6)"}, 151.87);
+      tl.set("#sc-s6 .ch-pos-emma .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 152.87);
+      tl.set("#sc-s6 .ch-pos-mom .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 152.87);
+      tl.set("#sc-s6 .ch-pos-dad .ch-mouth", {attr:{d:"M82 114 q18 24 36 0 q-18 10 -36 0Z"}}, 152.87);
+      tl.fromTo("#sc-s6 .ch-pos-dad .ch-bob", {y:0}, {y:-10, duration:0.22, ease:"power2.out", immediateRender:false}, 153.06); tl.to("#sc-s6 .ch-pos-dad .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 153.28);
+      tl.fromTo("#sc-s6 .ch-pos-mom .ch-bob", {y:0}, {y:-10, duration:0.22, ease:"power2.out", immediateRender:false}, 153.17); tl.to("#sc-s6 .ch-pos-mom .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, 153.39);
+      tl.to("#sc-s6 .stage", {scale:0.8, y:40, duration:4, ease:"power1.inOut"}, 153.65);
+      tl.to("#sc-s6 .stage", {opacity:0.55, duration:3}, 154.65);
+      tl.fromTo("#sc-s6 .end-line", {opacity:0, y:20}, {opacity:1, y:0, duration:0.8}, 155.45);
+      tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 134.20);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 137.50);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 140.80);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 144.10);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 147.40);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 150.70);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 154.00);
+tl.to("#sc-s6 .ch-pos-mom .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 157.30);
+      tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 134.20);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 137.50);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 140.80);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 144.10);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 147.40);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 150.70);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 154.00);
+tl.to("#sc-s6 .ch-pos-emma .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 157.30);
+      tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 134.20);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 137.50);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 140.80);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 144.10);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 147.40);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 150.70);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 154.00);
+tl.to("#sc-s6 .ch-pos-leo .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 157.30);
+      tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 134.20);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 137.50);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 140.80);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 144.10);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 147.40);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 150.70);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 154.00);
+tl.to("#sc-s6 .ch-pos-dad .ch-lids ellipse", {attr:{ry:7}, duration:0.07, yoyo:true, repeat:1}, 157.30);
+tl.fromTo("#sc-credits .credits", {opacity:0, y:40}, {opacity:1, y:0, duration:1}, 161.04);
+tl.to("#sc-credits", {opacity:0, duration:1}, 167.74);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

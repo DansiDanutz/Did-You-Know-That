@@ -1,0 +1,24 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Fredoka", "Avenir Next", sans-serif; font-weight: 700; color: #fff; }
+.scene { position: absolute; inset: 0; overflow: hidden; }
+.scene > * { position: absolute; }
+.stage { inset: 0; width: 1920px; height: 1080px; }
+.stage svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* title + credits */
+.bg-title, .bg-end, .bg-credits { background: radial-gradient(circle at 50% 40%, #ffb3d9, #ff8fc7 40%, #7a4fd6 100%); }
+.t-presents { left: 0; right: 0; top: 260px; text-align: center; font-size: 40px; letter-spacing: .3em; color: #fff; opacity: 0; }
+.t-title { left: 0; right: 0; top: 340px; text-align: center; font-size: 120px; line-height: 1.05; text-shadow: 0 10px 0 #4b23c8, 0 0 50px rgba(255,255,255,.5); opacity: 0; }
+.t-sub { left: 0; right: 0; top: 640px; text-align: center; font-size: 44px; font-weight: 600; color: #fff; opacity: 0; }
+.t-logo { left: 50%; top: 120px; width: 120px; height: 120px; margin-left: -60px; opacity: 0; }
+.t-logo img { width: 100%; height: 100%; object-fit: contain; }
+.end-line { left: 0; right: 0; top: 440px; text-align: center; font-size: 72px; line-height: 1.2; padding: 0 200px; text-shadow: 0 8px 0 #4b23c8; opacity: 0; }
+.credits { left: 0; right: 0; top: 200px; text-align: center; font-size: 36px; line-height: 1.6; font-weight: 600; opacity: 0; }
+.credits b { display: block; font-size: 64px; margin-bottom: 24px; }
+.credits small { display: block; margin-top: 30px; font-size: 26px; opacity: .85; }
+
+/* overlays on scenes */
+.caption-card { left: 50%; top: 80px; width: 1100px; margin-left: -550px; padding: 22px 40px; border-radius: 30px; background: rgba(255,255,255,.92); color: #3a2412; text-align: center; font-size: 44px; opacity: 0; }
+.splash { position: absolute; }
+.heart-pop { position: absolute; font-size: 80px; opacity: 0; }

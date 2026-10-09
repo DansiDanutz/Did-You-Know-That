@@ -1,0 +1,623 @@
+{
+  "title": "The Little Things That Make a Family",
+  "cast": {
+    "emma": "cgSgspJ2msm6clMCkdW9",
+    "leo": "FGY2WhTYpPnrIDTdsKH5",
+    "mom": "EXAVITQu4vr4xnSDxMaL",
+    "dad": "iP95p4xoKVk53GoZ742B",
+    "narrator": "Gubgw9l4dtIoQA9YZHgx"
+  },
+  "lines": [
+    {
+      "id": "s1-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Good morning, everybody!"
+    },
+    {
+      "id": "s1-mom-1",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Good morning, sweetheart!"
+    },
+    {
+      "id": "s1-dad-1",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Good morning, little explorer!"
+    },
+    {
+      "id": "s1-leo-2",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Emma! Emma! Can I draw with you?"
+    },
+    {
+      "id": "s1-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Not now, Leo. I'm busy!"
+    },
+    {
+      "id": "s2-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "LEO! You ruined my picture!"
+    },
+    {
+      "id": "s2-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "I'm sorry, Emma. I didn't mean to!"
+    },
+    {
+      "id": "s2-mom-1",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Emma, I can see you're upset. You worked very hard on that picture."
+    },
+    {
+      "id": "s2-emma-2",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Yes! And now it's ruined!"
+    },
+    {
+      "id": "s2-mom-2",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "It's okay to feel angry. <break time=\"0.4s\" /> But let's remember something important. <break time=\"0.3s\" /> We can be angry without being unkind."
+    },
+    {
+      "id": "s2-mom-3",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Leo, what happened?"
+    },
+    {
+      "id": "s2-leo-2",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "It was an accident. I wanted to draw with Emma."
+    },
+    {
+      "id": "s2-mom-4",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Thank you for telling me. <break time=\"0.3s\" /> Let's see how we can make things better."
+    },
+    {
+      "id": "s3-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "I'm sorry I spilled the water. I didn't mean to hurt your drawing."
+    },
+    {
+      "id": "s3-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Thank you for helping me clean it up. <break time=\"0.8s\" /> I'm sorry I shouted at you."
+    },
+    {
+      "id": "s3-leo-2",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "It's okay!"
+    },
+    {
+      "id": "s3-emma-2",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Would you like to help me make a new picture?"
+    },
+    {
+      "id": "s3-leo-3",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "REALLY?"
+    },
+    {
+      "id": "s3-emma-3",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Really!"
+    },
+    {
+      "id": "s4-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Leo! Why does Dad have such big ears?"
+    },
+    {
+      "id": "s4-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "So he can hear us when we say we love him!"
+    },
+    {
+      "id": "s4-dad-1",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Well, these ears just heard something wonderful!"
+    },
+    {
+      "id": "s4-emma-2",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Let's draw our whole family!"
+    },
+    {
+      "id": "s4-leo-2",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Emma, what makes us a family?"
+    },
+    {
+      "id": "s4-emma-3",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Is it because we live in the same house?"
+    },
+    {
+      "id": "s4-mom-1",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Living together can be part of it. <break time=\"0.3s\" /> But families can look different. Some families are big. Some are small. <break time=\"0.3s\" /> Some children live with one parent, some with two, and some with grandparents or other people who care for them."
+    },
+    {
+      "id": "s4-dad-2",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "What matters is that we care for one another."
+    },
+    {
+      "id": "s4-emma-4",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "And that we help each other!"
+    },
+    {
+      "id": "s4-leo-3",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "And we give hugs!"
+    },
+    {
+      "id": "s4-mom-2",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "When someone wants a hug, absolutely!"
+    },
+    {
+      "id": "s5-dad-1",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Thank you, Emma. That was very thoughtful."
+    },
+    {
+      "id": "s5-mom-1",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Thank you, Leo!"
+    },
+    {
+      "id": "s5-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Let's make a surprise for Mom and Dad!"
+    },
+    {
+      "id": "s5-dad-2",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Do you know what makes this gift so special?"
+    },
+    {
+      "id": "s5-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "The colors?"
+    },
+    {
+      "id": "s5-emma-2",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "The big heart?"
+    },
+    {
+      "id": "s5-dad-3",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Those are beautiful. <break time=\"0.4s\" /> But what makes it special is that you made it with love."
+    },
+    {
+      "id": "s6-leo-1",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Dad?"
+    },
+    {
+      "id": "s6-dad-1",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Yes, buddy?"
+    },
+    {
+      "id": "s6-leo-2",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Are we rich?"
+    },
+    {
+      "id": "s6-dad-2",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Why do you ask?"
+    },
+    {
+      "id": "s6-leo-3",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Because Emma said treasures are things that are very special."
+    },
+    {
+      "id": "s6-dad-3",
+      "speaker": "dad",
+      "voice": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.55,
+        "similarity_boost": 0.8,
+        "style": 0.4,
+        "use_speaker_boost": true,
+        "speed": 0.96
+      },
+      "text": "Well, we have something very special."
+    },
+    {
+      "id": "s6-emma-1",
+      "speaker": "emma",
+      "voice": "cgSgspJ2msm6clMCkdW9",
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.55,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "text": "Where?"
+    },
+    {
+      "id": "s6-mom-1",
+      "speaker": "mom",
+      "voice": "EXAVITQu4vr4xnSDxMaL",
+      "settings": {
+        "stability": 0.6,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Right here. <break time=\"0.4s\" /> People who care about you are a wonderful kind of treasure."
+    },
+    {
+      "id": "s6-leo-4",
+      "speaker": "leo",
+      "voice": "FGY2WhTYpPnrIDTdsKH5",
+      "settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.8,
+        "style": 0.6,
+        "use_speaker_boost": true,
+        "speed": 1.02
+      },
+      "text": "Then I'm VERY rich!"
+    },
+    {
+      "id": "s6-narr-1",
+      "speaker": "narrator",
+      "voice": "Gubgw9l4dtIoQA9YZHgx",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      },
+      "text": "Love grows through the little things we do every day."
+    }
+  ]
+}
