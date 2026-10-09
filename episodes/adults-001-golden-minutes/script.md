@@ -1,34 +1,35 @@
-# "The Golden Minutes" · revision 2 · narration script
+# Adults · Episode 001 · revision 3 · "The Re-Reading Trap" (working title)
 
-Narrator: **Dexter** as a calm, confident host (ElevenLabs Brian, adult delivery). Audience: curious adults. Claim references → `claims.md` (A1–A11). Every number on screen carries its source, date and population.
+**One story, one question:** why does the study method that *feels* best lose to the one that feels worse? Narrator: Dexter as calm host (ElevenLabs Brian, adult delivery). Every line traces to `claims-retrieval.md` (R-numbers). Revision 2's four subjects (infinite scroll, Franklin, retrieval, language hours) are split out: infinite scroll and Franklin stay in the backlog as their own researched stories (`claims.md` keeps their verified material).
 
-## A-L1 · cold open (A1)
-Around 2006, a designer named Aza Raskin built one of the most copied ideas on the web: the page that never ends. Infinite scroll. Years later, he became one of its loudest critics. Why would someone turn against their own invention?
+## L1 · striking case (R1a, R1b, R1c)
+In 2006, at Washington University in St. Louis, a hundred and twenty students were handed two short texts: one about the Sun, one about sea otters. Simple instructions. Read one of them twice. Read the other once, then write down everything you can remember.
 
-## A-L2 · the stakes (A6, A2)
-Start with the scale. In early 2025, adult internet users told the research firm GWI that they spend about six hours and thirty-eight minutes online each day. Raskin has offered dramatic estimates of how much human time scrolling consumes, but he never published how he worked them out, so we won't repeat them as fact.
+## L2 · the puzzle (R1d, R1e)
+Five minutes later, everyone took a memory test. The passage they'd read twice won: eighty-one percent of the ideas recalled, against seventy-five. No surprise there. Reading something again should help.
+So why did the researchers, Henry Roediger and Jeffrey Karpicke, keep testing?
 
-## A-L3 · the mechanism (A3, A4, A5)
-In 2009, Loren Brichter created pull-to-refresh for Tweetie, a Twitter app that Twitter later bought. Asked whether the gesture works like a slot machine, he said he agreed "100 percent", and called pull-to-refresh addictive.
-Why would a gesture feel like that? In lab studies, rewards that arrive unpredictably keep behaviour going longer than rewards that arrive on a fixed schedule. You pull. Sometimes there's something new. Sometimes there isn't. So you pull again.
+## L3 · the evidence trail (R1f, R1g, R2a–R2e)
+Two days later, the result had flipped. A week later, the passage they had only read once, and then recalled, was remembered better: fifty-six percent against forty-two.
+They ran it again, harder. One group read a passage four times. Another read it once, then tried to recall it three times. After five minutes, the readers led: eighty-three against seventy-one. After a week: sixty-one percent for the group that recalled, forty for the group that read. And the readers had gone through the text about fourteen times. The recallers, about three.
 
-## A-L4 · the twist: time compounds both ways (A7)
-Now flip the idea. Time compounds, in both directions.
-When Benjamin Franklin died in 1790, he left a thousand pounds each to Boston and Philadelphia, to be lent to young tradesmen and left to grow for two hundred years, with most of each fund spent on public works after the first hundred. By 1990, Boston's remaining fund was worth about four and a half million dollars. Philadelphia's, managed differently, about two million.
-Same gift. Same time. A different system.
+## L4 · the twist (R3)
+Here is the part that should make every student uneasy. Before the final test, the researchers asked: how well will you remember this in a week? The four-times readers were the most confident of all. They remembered the least.
+Re-reading feels like learning. That feeling is the trap.
 
-## A-L5 · the evidence for learning (A8)
-Systems matter for learning, too. In one 2006 experiment, psychologists Henry Roediger and Jeffrey Karpicke had students either read a passage four times, or read it once and then try to recall it three times.
-Five minutes later, the re-readers did better: 83 percent against 71. One week later, the result flipped. The students who had tested themselves remembered 61 percent. The re-readers, 40.
-Re-reading feels like learning. Recalling is what makes it stick.
+## L5 · the mechanism, carefully (R4a, R4b)
+Why would struggling to recall beat smooth re-reading? The authors' explanation: recalling practises exactly what you'll need later, pulling an idea back out of memory. And the effort itself seems to help; psychologists call it a "desirable difficulty". No one gave these students the answers while they recalled, so the gain wasn't simply from seeing the text again.
 
-## A-L6 · resolution: a sense of scale (A9, A10)
-So where could thirty focused minutes a day go? The US Foreign Service Institute estimates about 690 classroom hours, plus homework, for an English speaker to reach professional working proficiency in Spanish or French. At half an hour a day, the classroom part alone is almost four years. That's not a promise. It's a sense of scale.
-Scrolling isn't the enemy. Unplanned scrolling is. Spend some of those minutes on purpose, and test yourself on what you saw.
+## L6 · the limits (R4c, R5a, R5b, R5c, R5d, R5f)
+This was one university, young students, two short passages and, at most, a one-week delay. So: does it hold up?
+Later researchers pooled a hundred and fifty-nine comparisons from sixty-one studies. On average, testing beat re-studying, clearly, but not every time. It worked best with feedback, and over longer delays. And when people got no feedback and could recall only half or less on their first try, the benefit disappeared. Published studies also tend to show bigger effects than unpublished ones, so the true average is probably a little smaller.
 
-## A-L7 · optional app mention, close
-That's the idea behind Did You Know That?: a short story with its sources, a question you can try, and a card to keep what you learned. This one is at dexty.live.
+## L7 · meaning and resolution (R7)
+So here's what the evidence supports. Don't just re-read. Close the book, try to recall, then check what you missed. Come back to it another day. It will feel harder. That's not a sign it isn't working.
 Did you know that? Now you do.
 
+## L8 · optional, after the answer (product line, no claims)
+If you'd like to keep this one, its card and sources are at dexty.live.
+
 ---
-Word count ≈ 470. Pronunciations: "Raskin" RAS-kin; "Brichter" BRIK-ter; "Roediger" ROH-di-ger; "Karpicke" KAR-pik; "Tweetie" TWEE-tee; "GWI" G-W-I; "dexty.live" DEX-tee dot live.
+≈ 520 words → ≈ 3:45 at ~140 wpm plus visual beats. Pronunciations: Roediger "ROH-di-ger", Karpicke "KAR-pik". Title alternatives for testing (two honest options required): "The Study Habit That Fools You" · "Why Re-Reading Feels Better and Works Worse".

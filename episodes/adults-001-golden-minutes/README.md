@@ -1,4 +1,7 @@
-# ADULTS · Episode 001 · "The Golden Minutes" (revision 2)
+# ADULTS · Episode 001 · "The Re-Reading Trap" (revision 3; previously "The Golden Minutes")
+
+> **Revision 3 (9 Oct 2026):** one researched story — Roediger & Karpicke 2006 and its limits — with its own ledger `claims-retrieval.md` (27 claims, full paper + Rowland 2014 meta-analysis opened). Infinite scroll and Franklin's funds move to the backlog as separate stories (their verified material stays in `claims.md`). The brief below describes revision 2 and is kept for history.
+
 
 Production folder (template: `episodes/templates/adults-episode.md`). Status: **script + storyboard drafted; no narration, no video yet.** Nothing here is approved for publication.
 

@@ -1,4 +1,7 @@
-# KIDS · Episode 001 · "The Scroll Monster" (revision 2)
+# KIDS · Episode 001 · "Who Keeps Pressing Play?" (revision 3; previously "The Scroll Monster")
+
+> **Revision 3 (9 Oct 2026):** rewritten story-first per the story/business brief — one interrupted activity (finishing a rocket before sunset), prediction, Dexter's wrong guess, Hoot's hint, autoplay investigation and test, bedtime application, resolved ending. Statistics tower and monster fight removed. The brief and change list below describe revision 2 and are kept for history.
+
 
 Production folder (template: `episodes/templates/kids-episode.md`). Status: **script + storyboard drafted; narration not yet recorded; motion test not yet made.** Nothing here is approved for publication.
 
