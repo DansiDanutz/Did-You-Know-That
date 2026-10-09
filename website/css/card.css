@@ -224,21 +224,6 @@
   }
 }
 
-.dyk-card-points {
-  position: absolute;
-  right: 0.45em;
-  bottom: 0.45em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25em;
-  padding: 0.22em 0.65em;
-  border-radius: 999px;
-  font-size: 0.78em;
-  font-weight: 700;
-  color: #3a1d02;
-  background: linear-gradient(180deg, #fff1b0, #e6a91f);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
 
 .dyk-card-ribbon {
   position: relative;

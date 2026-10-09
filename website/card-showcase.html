@@ -14,6 +14,6 @@ const [ep1, honey] = STORIES;
 const kids = localizeStory(ep1, LOCALES.en, LOCALES.en, "kids");
 const adults = localizeStory(ep1, LOCALES.en, LOCALES.en, "adults");
 const h = localizeStory(honey, LOCALES.en, LOCALES.en, "kids");
-document.body.innerHTML = [cardMarkup(h.card, "silver", { tilt: true, t, points: 140 }), cardMarkup(kids.card, "gold", { tilt: true, t, points: 260 }), cardMarkup(adults.card, "legendary", { tilt: true, t, points: 960 })].join("");
+document.body.innerHTML = [cardMarkup(h.card, "silver", { tilt: true, t }), cardMarkup(kids.card, "gold", { tilt: true, t }), cardMarkup(adults.card, "legendary", { tilt: true, t })].join("");
 document.querySelectorAll(".dyk-card").forEach(enableTilt);
 </script></body></html>

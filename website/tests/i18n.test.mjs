@@ -103,3 +103,19 @@ test("every language the picker offers survives a reload", () => {
     assert.equal(normalizeSettings({ lang: code, audience: "kids", chosen: true }, "en").lang, code, code),
   );
 });
+
+// ---------------------------------------------------------------- no raw keys on screen
+
+test("every literal t(\"key\") used by the app exists in English", async () => {
+  const { readdir, readFile } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const root = new URL("../js/", import.meta.url).pathname;
+  const files = (await readdir(root, { recursive: true })).filter((f) => f.endsWith(".js") && !f.startsWith("i18n"));
+  const used = new Set();
+  for (const file of files) {
+    const source = await readFile(join(root, file), "utf8");
+    for (const [, key] of source.matchAll(/\bt\(\s*["'`]([a-z][\w-]*\.[\w.-]+)["'`]/g)) used.add(key);
+  }
+  const missing = [...used].filter((key) => !en.ui[key]);
+  assert.deepEqual(missing, []);
+});

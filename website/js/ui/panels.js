@@ -1,16 +1,11 @@
-// Overlay panels: language/audience pickers, inventory and leaderboard.
+// Overlay panels: language/audience pickers, inventory and settings.
 
-import { kidNickname, isKidNickname } from "../lib/kid-names.js";
 import { currentLanguageButton } from "./language-sheet.js";
 import { cardMarkup, enableTilt } from "./card.js";
 import { inspectCard } from "./card-inspect.js";
 import { searchCards } from "../lib/collection.js";
 import { ITEMS } from "../lib/progression.js";
 import { DAXTER_SVG } from "./character.js";
-
-const MEDALS = ["🥇", "🥈", "🥉"];
-const escapeHtml = (text) =>
-  String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 export function pickersMarkup(settings, t) {
   const audience = (key, icon) => `
@@ -153,98 +148,6 @@ export function openInventory(layer, { stories, cards, audience, t, explorer, on
       }
     });
   });
-}
-
-function boardRows(data, t) {
-  if (!data.top.length) return `<p class="lb-empty">${t("lb.empty")}</p>`;
-  const rows = data.top
-    .map(
-      (row) => `<li class="lb-row${row.isYou ? " is-you" : ""}">
-        <span class="lb-rank">${MEDALS[row.rank - 1] ?? `#${row.rank}`}</span>
-        <span class="lb-nick">${escapeHtml(row.nickname)}${row.isYou ? ` <em>(${t("lb.you")})</em>` : ""}</span>
-        <span class="lb-cards">${t("lb.cards", { n: row.cards })}</span>
-        <span class="lb-points">★ ${row.points}</span>
-      </li>`,
-    )
-    .join("");
-  const me = data.me && !data.top.some((r) => r.isYou) ? `<p class="lb-me">${t("lb.rank", { rank: data.me.rank })} · ★ ${data.me.points}</p>` : "";
-  return `<ol class="lb-list">${rows}</ol>${me}`;
-}
-
-function joinForm(profile, t, audience) {
-  if (audience === "kids") return kidsJoinForm(profile, t);
-  return `
-    <form class="lb-join" data-join>
-      <label for="lb-nick">${profile.nickname ? t("lb.change") : t("lb.join")}</label>
-      <div class="secret-row">
-        <input id="lb-nick" name="nickname" maxlength="16" autocomplete="off" value="${escapeHtml(profile.nickname)}" placeholder="${t("lb.nickname")}" />
-        <button class="btn-gold" type="submit">${t("lb.save")}</button>
-      </div>
-      <small>${t("lb.rules")}</small>
-      <p class="lb-msg" aria-live="polite"></p>
-    </form>`;
-}
-
-// Kids pick a made-up explorer name; there is no text box to type into.
-function kidsJoinForm(profile, t) {
-  // Never show a typed (possibly real) name on the kids board: only generated ones.
-  const name = isKidNickname(profile.nickname) ? profile.nickname : kidNickname();
-  return `
-    <form class="lb-join is-kids" data-join>
-      <label>${t("lb.kidsJoin")}</label>
-      <input type="hidden" name="nickname" value="${escapeHtml(name)}" />
-      <p class="lb-kid-name" aria-live="polite">${escapeHtml(name)}</p>
-      <div class="secret-row">
-        <button class="btn-ink" type="button" data-shuffle>${t("lb.shuffle")}</button>
-        <button class="btn-gold" type="submit">${t("lb.save")}</button>
-      </div>
-      <small>${t("lb.kidsRules")}</small>
-      <p class="lb-msg" aria-live="polite"></p>
-    </form>`;
-}
-
-// `load(audience)` and `join(nickname)` are supplied by the app.
-export function openLeaderboard(layer, { audience, profile, t, load, join }) {
-  let board = audience;
-  openLayer(
-    layer,
-    `<div class="panel leaderboard" role="dialog" aria-modal="true" aria-label="${t("lb.title")}">
-      <button class="panel-close" data-close aria-label="${t("album.close")}">✕</button>
-      <h2>🏆 ${t("lb.title")}</h2>
-      <div class="lb-tabs" role="tablist">
-        <button role="tab" data-board="kids">🧒 ${t("aud.kids")}</button>
-        <button role="tab" data-board="adults">🎓 ${t("aud.adults")}</button>
-      </div>
-      <div class="lb-body" aria-live="polite"></div>
-      ${joinForm(profile, t, audience)}
-    </div>`,
-  );
-  const body = layer.querySelector(".lb-body");
-  const refresh = async () => {
-    layer.querySelectorAll("[data-board]").forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.board === board)));
-    body.innerHTML = `<p class="lb-empty">${t("lb.loading")}</p>`;
-    const result = await load(board);
-    body.innerHTML = result.ok ? boardRows(result.data, t) : `<p class="lb-empty">📡 ${t("lb.offline")}</p>`;
-  };
-  layer.querySelectorAll("[data-board]").forEach((tab) =>
-    tab.addEventListener("click", () => {
-      board = tab.dataset.board;
-      refresh();
-    }),
-  );
-  layer.querySelector("[data-shuffle]")?.addEventListener("click", () => {
-    const name = kidNickname();
-    layer.querySelector('[data-join] input[name="nickname"]').value = name;
-    layer.querySelector(".lb-kid-name").textContent = name;
-  });
-  layer.querySelector("[data-join]").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const msg = layer.querySelector(".lb-msg");
-    const outcome = await join(new FormData(event.target).get("nickname"));
-    msg.textContent = outcome.message;
-    if (outcome.ok) refresh();
-  });
-  refresh();
 }
 
 export function openSettings(layer, { settings, t, muted, onPick, onOpenLanguage, onToggleSound, onExport, onImport }) {

@@ -20,13 +20,10 @@ test("cardPoints = rarity base + sparks bonus, doubled for adults", () => {
   assert.equal(cardPoints({ rarity: "bogus", sparks: 3 }, "kids"), 0);
 });
 
-test("adults earn a watch-streak bonus for each extra video in a day; kids do not", () => {
+test("watching more videos never changes points (legacy slot is ignored)", () => {
   const base = { rarity: "gold", sparks: 0 };
-  assert.equal(cardPoints({ ...base, slot: 0 }, "adults"), 400);
-  assert.equal(cardPoints({ ...base, slot: 4 }, "adults"), 800);
-  assert.equal(cardPoints({ ...base, slot: 2 }, "adults"), 600);
-  assert.equal(cardPoints({ ...base, slot: 4 }, "kids"), 200, "kids get no streak bonus");
-  assert.equal(cardPoints({ ...base, slot: 99 }, "adults"), 800, "slot is clamped");
+  for (const slot of [0, 2, 4, 99]) assert.equal(cardPoints({ ...base, slot }, "adults"), 400, `slot ${slot}`);
+  assert.equal(cardPoints({ ...base, slot: 4 }, "kids"), 200);
 });
 
 test("totalPoints sums a collection", () => {
