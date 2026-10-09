@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Renders the two 8 s neon-card clips (with sound) into out/:
-#   out/neon-card-kids-SPARK.mp4   and   out/neon-card-adults-GOLDEN.mp4
+#   out/neon-card-kids-SUN.mp4   and   out/neon-card-adults-GOLDEN.mp4
 # Audio comes from brand/audio/neon-{kids,adults}.wav (tools/make_audio.py).
 set -euo pipefail
 
@@ -13,7 +13,7 @@ render() {
   local silent="$OUT/_neon-$audience-silent.mp4"
   local final="$OUT/neon-card-$audience-$word.mp4"
   echo "▶ Rendering $word ($audience)…"
-  npx --yes hyperframes render -q delivery -f 30 -o "$silent" \
+  npx --yes hyperframes@0.8.143 render -q delivery -f 30 -o "$silent" \
     --variables "{\"word\":\"$word\",\"kicker\":\"$kicker\",\"footer\":\"$footer\",\"theme\":\"$audience\"}"
   ffmpeg -y -v error -i "$silent" -i "$ROOT/brand/audio/neon-$audience.wav" \
     -c:v copy -c:a aac -b:a 192k -shortest "$final"

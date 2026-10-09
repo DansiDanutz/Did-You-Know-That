@@ -1,6 +1,6 @@
 // Overlay panels: language/audience pickers, inventory and leaderboard.
 
-import { kidNickname } from "../lib/kid-names.js";
+import { kidNickname, isKidNickname } from "../lib/kid-names.js";
 import { LANGUAGES } from "../i18n/index.js";
 import { flagSvg } from "./flags.js";
 import { cardMarkup, enableTilt } from "./card.js";
@@ -131,7 +131,8 @@ function joinForm(profile, t, audience) {
 
 // Kids pick a made-up explorer name; there is no text box to type into.
 function kidsJoinForm(profile, t) {
-  const name = profile.nickname || kidNickname();
+  // Never show a typed (possibly real) name on the kids board: only generated ones.
+  const name = isKidNickname(profile.nickname) ? profile.nickname : kidNickname();
   return `
     <form class="lb-join is-kids" data-join>
       <label>${t("lb.kidsJoin")}</label>

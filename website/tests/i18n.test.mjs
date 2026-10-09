@@ -96,3 +96,9 @@ for (const { code } of LANGUAGES) {
     }
   });
 }
+
+test("every language the picker offers survives a reload", () => {
+  LANGUAGES.forEach(({ code }) =>
+    assert.equal(normalizeSettings({ lang: code, audience: "kids", chosen: true }, "en").lang, code, code),
+  );
+});

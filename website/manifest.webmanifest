@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Did You Know That? · The Road of Wonders",
   "short_name": "Did You Know",
-  "description": "Walk the Road of Wonders with Daxter, open magic story books, collect Special Cards and climb the leaderboard.",
+  "description": "Walk the Road of Wonders with Dexter, open magic story books, collect Special Cards and climb the leaderboard.",
   "start_url": "/?source=app",
   "scope": "/",
   "display": "standalone",

@@ -14,3 +14,12 @@ test("every possible kid nickname passes the leaderboard rules", () => {
     KID_NOUNS.forEach((noun) => assert.equal(validateNickname(`${adj} ${noun} 99`).ok, true, `${adj} ${noun}`)),
   );
 });
+
+test("only generated explorer names count as kid names", async () => {
+  const { isKidNickname } = await import("../js/lib/kid-names.js");
+  assert.equal(isKidNickname("Cosmic Dragon 32"), true);
+  assert.equal(isKidNickname("Brave Fox 10"), true);
+  assert.equal(isKidNickname("Maria Popescu"), false);
+  assert.equal(isKidNickname("Brave Fox"), false);
+  assert.equal(isKidNickname(""), false);
+});

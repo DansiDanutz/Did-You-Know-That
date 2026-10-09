@@ -5,7 +5,7 @@
 
 **Adult style rule (all episodes):** expert-level, specific, surprising. No generic advice, no well-known clichés. Every claim named, dated and sourced on screen. Visual language: premium documentary (dark backgrounds, neon accents, archival documents, kinetic data typography).
 
-**Cast:** documentary narrator · Daxter cameo in the intro sting and final card · see `SERIES-BIBLE.md`
+**Cast:** documentary narrator · Dexter cameo in the intro sting and final card · see `SERIES-BIBLE.md`
 
 ---
 

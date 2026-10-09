@@ -15,7 +15,7 @@ export default {
     "ladder.next": "Your next video today wins a {rarity} card! ✦",
     "inv.watch": "▶ Watch again",
     "inv.read": "📖 Read the book",
-    "listen.limit": "That's all your videos for today! 🌙 Go play, eat and see your friends. Daxter will be waiting tomorrow ✦",
+    "listen.limit": "That's all your videos for today! 🌙 Go play, eat and see your friends. Dexter will be waiting tomorrow ✦",
     "listen.left": "{n} of {max} videos left today",
     "book.sparks": "✦ {n}/{max}",
     "hud.inventory": "Open inventory",
@@ -44,7 +44,7 @@ export default {
     "lb.climbed": "You are now #{rank} on the leaderboard!",
     "reveal.points": "+{n} points",
     "start.sub": "The Road of Wonders",
-    "start.copy": "Walk with <b>Daxter</b> from house to house. In every house a magic book waits: read the story, answer the guardian and unlock a collectible card. Then watch the episode right here in the game!",
+    "start.copy": "Walk with <b>Dexter</b> from house to house. In every house a magic book waits: read the story, answer the guardian and unlock a collectible card. Then watch the episode right here in the game!",
     "start.lang": "Choose your language",
     "start.audience": "Who is playing?",
     "start.go": "Start the adventure",
@@ -60,13 +60,13 @@ export default {
     "settings.done": "Done",
     "house.episode": "Episode {n}",
     "house.soon": "Coming soon",
-    "daxter.hello": "Hi! I'm Daxter. Let's discover some amazing facts!",
+    "daxter.hello": "Hi! I'm Dexter. Let's discover some amazing facts!",
     "daxter.glow": "Look, a glowing book! <b>{title}</b>. Tap the house!",
     "daxter.soon": "The next house is still being built! {subscribe} so you see the story first ✦",
     "daxter.subscribe": "Subscribe",
     "daxter.locked": "Let's finish the glowing house first!",
     "daxter.cheer": "Card collected! Onward to the next house! ✦",
-    "daxter.welcome": "Hi, explorer! I'm Daxter, the brightest lightbulb on the Road of Wonders! Every house here hides a magic book full of amazing facts. Walk with me to the first house, and let's win your very first card together!",
+    "daxter.welcome": "Hi, explorer! I'm Dexter, the brightest lightbulb on the Road of Wonders! Every house here hides a magic book full of amazing facts. Walk with me to the first house, and let's win your very first card together!",
     "daxter.back1": "You're back! I was hoping you'd come! Ready for a new amazing fact? Let's go to the next house!",
     "daxter.back2": "Hello again, explorer! Did you know that your brain grows stronger every time you learn something new? Let's feed it!",
     "daxter.back3": "Yay, my favourite explorer is here! I wonder what's hiding in the next magic book… shall we find out?",
@@ -95,7 +95,7 @@ export default {
     "gate.break": "Break seal",
     "gate.wrong": "Not quite… look for the neon card in the middle of the episode!",
     "gate.broken": "The seal is broken!",
-    "gate.brokenText": "You found the magic word! Daxter does a happy dance. Turn the page: the guardian has three questions for you…",
+    "gate.brokenText": "You found the magic word! Dexter does a happy dance. Turn the page: the guardian has three questions for you…",
     "gate.toast": "The seal is broken! Turn the page ✦",
     "quiz.asks": "The Guardian asks…",
     "quiz.first": "Brilliant! +2 ✦",
@@ -107,7 +107,7 @@ export default {
     "reward.earned": "You earned a <b>{rarity}</b> card with {n}/{max} sparks ✦",
     "end.title": "The End…",
     "end.forNow": "…for now.",
-    "end.text": "Daxter tucks the book into his backpack. Somewhere down the road, another house is glowing.",
+    "end.text": "Dexter tucks the book into his backpack. Somewhere down the road, another house is glowing.",
     "end.continue": "Continue the journey →",
     "end.album": "Open my card album",
     "blocked.quiz": "The guardian is waiting for your answer!",
@@ -126,14 +126,14 @@ export default {
     "listen.help": "Enjoy the story! Everything the guardian asks is in the magic book too.",
     "listen.error": "The player couldn't load. Watch on YouTube and use the secret word instead.",
     "listen.close": "Close",
-    "listen.soon": "Daxter is still filming this story! 🎬 It arrives on our YouTube channel very soon.",
+    "listen.soon": "Dexter is still filming this story! 🎬 It arrives on our YouTube channel very soon.",
     "listen.replay": "Enjoy the story again! ✦",
     "install.button": "📲 Install the app",
     "install.iosTitle": "Install on your iPhone or iPad",
     "install.iosStep1": "In Safari, tap the Share button <b>⬆︎</b> at the bottom of the screen",
     "install.iosStep2": "Scroll down, tap <b>Add to Home Screen</b>, then <b>Add</b>",
     "install.iosDone": "Done, I added it ✓",
-    "install.installed": "The app is installed! Find Daxter on your home screen ✦",
+    "install.installed": "The app is installed! Find Dexter on your home screen ✦",
   },
 
   quips: {
@@ -186,14 +186,14 @@ export default {
             "heading": "Press Start!",
             "text": [
               "Did you know that nobody (not your parents, not your teachers, not even superheroes) can stop kids from [[scrolling]]?",
-              "So Daxter had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? Press START, explorer!"
+              "So Dexter had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? Press START, explorer!"
             ],
             "note": "Scrolling means sliding your finger to see more and more. Some apps are built so you never reach the end!"
           },
           tower: {
             "heading": "Level 1: The Screen-Time Tower",
             "text": [
-              "Daxter jumps up a giant tower of clocks. [[Scientists]] in America asked thousands of families how long kids spend on screens for fun. Ages 2 to 4: about two and a half hours a day. Ages 5 to 8: more than three hours!",
+              "Dexter jumps up a giant tower of clocks. [[Scientists]] in America asked thousands of families how long kids spend on screens for fun. Ages 2 to 4: about two and a half hours a day. Ages 5 to 8: more than three hours!",
               "Ages 8 to 12: five and a half hours. Every. Single. Day. And teenagers? Almost nine hours. That's longer than a whole school day!"
             ],
             "note": "The researchers are called Common Sense Media. They have been asking families about screen time for more than ten years."
@@ -210,12 +210,12 @@ export default {
             "heading": "Level 3: Boss Fight!",
             "text": [
               "The Scroll Monster steals three treasures. First he grabs dinner: “just one more video…”. Then he steals [[sleep]]: kids your age need 9 to 12 hours, and screens at bedtime keep your brain buzzing.",
-              "Then he steals friends, real ones you can play football with! But Daxter dodges, jumps and wins every treasure back. Health experts say little kids aged 2 to 5 should have no more than 1 hour of screens a day."
+              "Then he steals friends, real ones you can play football with! But Dexter dodges, jumps and wins every treasure back. Health experts say little kids aged 2 to 5 should have no more than 1 hour of screens a day."
             ],
             "note": "While you sleep, your brain sorts everything you learned today, like tidying up a messy room!"
           },
           deal: {
-            "heading": "Level 4: Daxter's Deal",
+            "heading": "Level 4: Dexter's Deal",
             "text": [
               "Professor Hoot the owl flies in with a glowing map: the Road of Wonders! In Did You Know That? you still scroll, but every story teaches you something [[real]].",
               "Read the magic book, watch the story, answer Professor Hoot and win Special Cards. And the game lets you watch only 3 videos a day, so there is plenty of time left to play, eat, sleep and see your friends."

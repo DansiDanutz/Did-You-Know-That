@@ -31,7 +31,7 @@ const TOAST_MS = 2800;
 const sfx = createSfx();
 const narrator = createNarrator({ onReady: () => updateReadButtons() });
 const VOICE_KEY = "dykt-voice";
-let reading = false;
+let reading = true; // the storyteller reads every page as it turns; the button stops it
 let voice = readVoice();
 let currentFaces = [];
 let install = null; // the "Install the app" button controller
@@ -426,6 +426,7 @@ function updateReadButtons() {
 }
 
 function openBook(story) {
+  finishPendingClose();
   stopGreeting();
   openStory = story;
   narratedFaces = new Set();
@@ -453,19 +454,37 @@ function openBook(story) {
   readVisiblePages();
 }
 
+// Closing animates for BOOK_CLOSE_MS, then tears the book down. The teardown
+// is held in `pendingClose` so opening another book first finishes it: a
+// book opened during the animation can never be destroyed by the old close.
+const BOOK_CLOSE_MS = 400;
+let pendingClose = null;
+
+function finishPendingClose() {
+  if (!pendingClose) return;
+  clearTimeout(pendingClose.timer);
+  pendingClose.run();
+}
+
 function closeBook({ advance = false } = {}) {
+  finishPendingClose();
   narrator.stop();
   const layer = $("#book-layer");
+  const closing = book;
   layer.classList.remove("is-open");
-  setTimeout(() => {
+  const run = () => {
+    pendingClose = null;
     layer.hidden = true;
-    book?.destroy();
-    book = null;
-    openStory = null;
+    closing?.destroy();
+    if (book === closing) {
+      book = null;
+      openStory = null;
+    }
     world.render(view(), stories, t);
-  refreshCoins();
+    refreshCoins();
     if (advance) celebrateAndMoveOn();
-  }, 400);
+  };
+  pendingClose = { run, timer: setTimeout(run, BOOK_CLOSE_MS) };
 }
 
 async function celebrateAndMoveOn() {
@@ -522,7 +541,10 @@ async function handleBookAction(story, action, el) {
   if (action === "listen") return watchStory(story);
   if (action === "secret") {
     const word = new FormData(el).get("secret");
-    if (await verifySecret(word, story.secretHash)) return unlockGate(story);
+    // The magic word is a bonus: the word from either audience's episode works.
+    const base = STORIES.find((entry) => entry.id === story.id);
+    const accepted = typeof base?.secretHash === "object" ? Object.values(base.secretHash) : [story.secretHash];
+    if (await verifySecret(word, accepted)) return unlockGate(story);
     setSession(story, { gateMessage: "gate.wrong" });
     sfx.wrong();
     refreshBook();
