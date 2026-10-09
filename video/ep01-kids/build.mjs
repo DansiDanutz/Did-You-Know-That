@@ -37,7 +37,7 @@ add({ id: "start", kind: "scene", length: 1.5 + vo.start.len + 1, voAt: 1.5 });
 add({ id: "intro", kind: "video", src: "assets/intro.mp4", length: INTRO });
 add({ id: "tower", kind: "scene", level: 1, title: "THE SCREEN-TIME TOWER", length: TITLE + vo.tower.len + 1.5, voAt: TITLE });
 add({ id: "videoland", kind: "scene", level: 2, title: "ENDLESS VIDEO LAND", length: TITLE + vo.videoland.len + 3, voAt: TITLE });
-add({ id: "neon", kind: "video", src: "assets/neon-spark.mp4", length: NEON });
+add({ id: "neon", kind: "video", src: "assets/neon-kids.mp4", length: NEON });
 add({ id: "boss", kind: "scene", level: 3, title: "BOSS FIGHT!", length: TITLE + vo.boss.len + 1.5, voAt: TITLE });
 add({ id: "deal", kind: "scene", level: 4, title: "DAXTER'S DEAL", length: TITLE + vo.deal.len + 1, voAt: TITLE });
 add({ id: "finale", kind: "scene", length: vo.finale.len + 3.5, voAt: 0.5 });
@@ -85,7 +85,8 @@ const BODY = {
     <div class="press-start">PRESS START</div>
     ${daxter("dax-start")}
     <div class="hello">Hi! I'm <b>DAXTER</b></div>
-    <div class="question">My goal: turn your <b>screen time</b> into <b>brain time!</b></div>`,
+    <div class="question">My goal: turn your <b>screen time</b> into <b>brain time!</b></div>
+    <div class="hint">✨ Watch for the glowing card with the <b>MAGIC WORD</b>! ✨</div>`,
   tower: (s) => `${hud(1)}${titleCard(s)}
     <div class="tower">${[0, 1, 2, 3].map((i) => `<div class="floor f${i}"><span>${["AGES 2–4", "AGES 5–8", "AGES 8–12", "TEENS"][i]}</span></div>`).join("")}</div>
     <div class="clock-art">${art("clocktower")}</div>
@@ -102,6 +103,7 @@ const BODY = {
     <div class="chests">${[["🍽️", "DINNER"], ["🌙", "SLEEP"], ["🤝", "FRIENDS"]].map(([icon, name], i) => `<div class="chest c${i}"><div class="chest-art">${icon}</div><b>${name}</b></div>`).join("")}</div>
     ${daxter("dax-boss")}
     <div class="who">Ages 2–5: <b>max 1 hour</b> of screens a day</div>
+    <div class="word-banner">MAGIC WORD: <b>SUN</b> ☀️</div>
     <div class="source">Source: WHO 2019 · American Academy of Pediatrics</div>`,
   deal: (s) => `${hud(4)}${titleCard(s)}
     <div class="owl">${art("owl")}</div>
@@ -145,6 +147,8 @@ const anim = (s) => {
       tl.to("#sc-start .dax-start", {y:-40, duration:0.35, yoyo:true, repeat:13, ease:"sine.inOut"}, ${S + 2.2});
       tl.fromTo("#sc-start .hello", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, ${S + 1.6});
       tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, ${L("start", "My goal")});
+      tl.to("#sc-start .question", {opacity:0, duration:0.4}, ${L("start", "And here's a secret")});
+      tl.fromTo("#sc-start .hint", {opacity:0, scale:0.6}, {opacity:1, scale:1, duration:0.6, ease:"back.out(2)"}, ${L("start", "And here's a secret")});
       tl.to("#sc-${s.id}", {scale:1.6, opacity:0, duration:0.6, ease:"power2.in"}, ${S + s.length - 0.6});`,
     tower: `
       ${[0, 1, 2, 3].map((i) => {
@@ -163,7 +167,9 @@ const anim = (s) => {
       tl.fromTo("#sc-videoland", {x:0}, {x:16, duration:0.06, yoyo:true, repeat:15}, ${L("videoland", "The Scroll Monster")});
       tl.to("#sc-videoland .dax-land", {x:-120, rotation:-12, duration:0.4}, ${L("videoland", "The Scroll Monster")});`,
     boss: `
-      tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, ${S + TITLE});
+      tl.fromTo("#sc-boss .word-banner", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, ${L("boss", "Sun!")});
+      tl.to("#sc-boss .word-banner", {scale:0.6, opacity:0, duration:0.4}, ${L("boss", "Now… boss fight!")});
+      tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, ${L("boss", "Now… boss fight!")});
       tl.to("#sc-boss .boss-monster", {y:-20, duration:0.6, yoyo:true, repeat:${Math.floor(s.length / 1.2)}, ease:"sine.inOut"}, ${S + TITLE + 1});
       ${["He steals dinner", "He steals sleep", "And he steals friends"].map((p, i) => `tl.to("#sc-boss .chest.c${i}", {x:${-560 - i * 260}, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, ${L("boss", p)});`).join("\n")}
       tl.fromTo("#sc-boss .who", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5}, ${L("boss", "Doctors")});

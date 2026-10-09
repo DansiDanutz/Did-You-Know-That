@@ -26,7 +26,7 @@ export const STORIES = Object.freeze([
     youtubeId: { kids: "", adults: "" }, // ← paste each YouTube video ID when published
     // Special word shown on the neon card in the MIDDLE of each video.
     secretHash: {
-      kids: "5c33a73fa55987ba4cd05848b17468a0bbab3be6d0882b104b4f370f93751188", // SPARK
+      kids: "d44fa953853bae3a2ab71f5d5236ede3b67f31aeff84aa56235be191d78f7eb5", // SUN (kids words are always simple everyday words)
       adults: "18b1cb9d01d1298fb45e2ca9a181a08134c08d7722c88c3348a11ff2171da6cc", // GOLDEN
     },
     requiredWatchRatio: 0.85,

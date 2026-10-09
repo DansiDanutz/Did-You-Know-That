@@ -10,7 +10,7 @@
   "lines": [
     {
       "id": "start",
-      "text": "Hi! I'm Daxter, the brightest lightbulb on the Road of Wonders! <break time=\"0.6s\" /> And you? You're the explorer I've been waiting for. <break time=\"0.6s\" /> My goal is simple: to turn your screen time into brain time. <break time=\"0.8s\" /> Did you know that nobody… not your parents, not your teachers, not even superheroes… can stop kids from scrolling? <break time=\"0.8s\" /> So I had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? <break time=\"0.5s\" /> Ready, explorer? Let's go!"
+      "text": "Hi! I'm Daxter, the brightest lightbulb on the Road of Wonders! <break time=\"0.6s\" /> And you? You're the explorer I've been waiting for. <break time=\"0.6s\" /> My goal is simple: to turn your screen time into brain time. <break time=\"0.8s\" /> Did you know that nobody… not your parents, not your teachers, not even superheroes… can stop kids from scrolling? <break time=\"0.8s\" /> So I had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? <break time=\"0.7s\" /> And here's a secret, just for you: somewhere in this video, a glowing card will show you a magic word. Watch for it, and remember it! You'll need it to open the game. <break time=\"0.5s\" /> Ready, explorer? Let's go!"
     },
     {
       "id": "tower",
@@ -18,11 +18,11 @@
     },
     {
       "id": "videoland",
-      "text": "So where do all those hours go? Come on, I'll show you. <break time=\"0.5s\" /> This is Endless Video Land… where videos and games start the next one automatically. Did you notice? There's never a moment to stop! <break time=\"0.7s\" /> That's not an accident. It's a trick… and I know who's behind it. <break time=\"0.5s\" /> The Scroll Monster!"
+      "text": "So where do all those hours go? Come on, I'll show you. <break time=\"0.5s\" /> This is Endless Video Land… where videos and games start the next one automatically. Did you notice? There's never a moment to stop! <break time=\"0.7s\" /> That's not an accident. It's a trick… and I know who's behind it. <break time=\"0.5s\" /> The Scroll Monster! <break time=\"0.8s\" /> Wait… look! The glowing card is coming. Remember the magic word!"
     },
     {
       "id": "boss",
-      "text": "Boss fight! Stay close to me, explorer. <break time=\"0.4s\" /> The Scroll Monster is sneaky. He steals dinner… “just one more video”. <break time=\"0.6s\" /> He steals sleep. You need nine to twelve hours every night, and screens at bedtime keep your brain buzzing. <break time=\"0.6s\" /> And he steals friends. Real ones, the kind you play football with! <break time=\"0.7s\" /> Doctors and the World Health Organization say little kids, aged two to five, should have no more than one hour of screens a day. <break time=\"0.5s\" /> But you and me? We're smarter than him. Yoink! We win the treasures back!"
+      "text": "Did you remember the magic word? <break time=\"0.4s\" /> Sun! Like the big, bright sun in the sky. <break time=\"0.6s\" /> Now… boss fight! Stay close to me, explorer. <break time=\"0.4s\" /> The Scroll Monster is sneaky. He steals dinner… “just one more video”. <break time=\"0.6s\" /> He steals sleep. You need nine to twelve hours every night, and screens at bedtime keep your brain buzzing. <break time=\"0.6s\" /> And he steals friends. Real ones, the kind you play football with! <break time=\"0.7s\" /> Doctors and the World Health Organization say little kids, aged two to five, should have no more than one hour of screens a day. <break time=\"0.5s\" /> But you and me? We're smarter than him. Yoink! We win the treasures back!"
     },
     {
       "id": "deal",
@@ -30,7 +30,7 @@
     },
     {
       "id": "finale",
-      "text": "Level one complete! High five, explorer! <break time=\"0.6s\" /> Now it's your mission: open the game, find my house, type the secret word, and win your very first card… the Scroll Tamer! <break time=\"0.7s\" /> Did you know that? Now you do. I'll see you on the Road of Wonders. Bye for now!"
+      "text": "Level one complete! High five, explorer! <break time=\"0.6s\" /> Now it's your mission: open the game, find my house, type the magic word… <break time=\"0.3s\" /> SUN… <break time=\"0.3s\" /> and win your very first card… the Scroll Tamer! <break time=\"0.7s\" /> Did you know that? Now you do. I'll see you on the Road of Wonders. Bye for now!"
     }
   ]
 }
