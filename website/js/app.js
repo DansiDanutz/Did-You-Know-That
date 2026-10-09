@@ -3,7 +3,7 @@ import { LOCALES, createTranslator, detectLanguage } from "./i18n/index.js";
 import { localizeStory } from "./lib/localize.js";
 import { createStore, normalizeSettings } from "./lib/storage.js";
 import { withStorageLock } from "./lib/storage-lock.js";
-import { saveCard, isSaved, withCoin, recordQuiz, recordBonusWord, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
+import { saveCard, isSaved, withCoin, recordQuiz, recordBonusWord, practisedStories, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
 import { quizPoints, maxSparks } from "./lib/scoring.js";
 import { verifySecret } from "./lib/secret.js";
 import { emptyDays, todayKey, canWatch, registerVideo, videosLeft, DAILY_VIDEOS } from "./lib/daily-limit.js";
@@ -241,6 +241,7 @@ function showInventory() {
   openInventory($("#panel-layer"), {
     stories,
     cards: view().cards,
+    practised: practisedStories(learning, settings.audience),
     explorer: settings.audience === "kids" ? explorer : null,
     onEquip: (itemId) => changeExplorer((state) => equip(state, itemId)).then(showInventory),
     audience: settings.audience,

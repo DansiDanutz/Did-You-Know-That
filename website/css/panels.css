@@ -524,3 +524,4 @@
 .name-input { width: 100%; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.06); color: #fff; font: inherit; font-size: 18px; }
 .name-input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .name-note { margin: 6px 4px 0; font-size: 13px; color: rgba(255, 255, 255, 0.75); text-align: left; }
+.inv-status { margin: 8px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.82); text-align: center; }

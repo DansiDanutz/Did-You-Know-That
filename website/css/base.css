@@ -945,3 +945,16 @@ body.is-adults .walk-controls {
     height: 72px;
   }
 }
+
+.start-parents,
+.parents-link a {
+  display: inline-block;
+  min-height: 44px;
+  padding: 12px 8px 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.parents-link { margin: 12px 0 0; text-align: center; }

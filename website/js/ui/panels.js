@@ -4,7 +4,7 @@ import { currentLanguageButton } from "./language-sheet.js";
 import { cardMarkup, enableTilt } from "./card.js";
 import { inspectCard } from "./card-inspect.js";
 import { searchCards } from "../lib/collection.js";
-import { ITEMS } from "../lib/progression.js";
+import { ITEMS, MISSIONS, missionStatus } from "../lib/progression.js";
 import { DAXTER_SVG } from "./character.js";
 
 export function pickersMarkup(settings, t) {
@@ -44,19 +44,30 @@ function openLayer(layer, html, onClose) {
 // book or share its public discovery page. Search and topic filters help once
 // the collection grows; no points, ranks or rarity ladders.
 // Kids: Dexter's wardrobe, equipment looks and workshop (earned in app missions).
+const MISSION_NAMES = { "missing-shadow": "The Missing Shadow" }; // English pilot
+
+// Tried and solved stay distinct; neither is presented as mastery.
+const missionLines = (explorer, t) =>
+  Object.keys(MISSIONS)
+    .map((id) => ({ id, status: missionStatus(explorer, id) }))
+    .filter(({ status }) => status !== "new")
+    .map(({ id, status }) => `<p class="explorer-line">${t(`explorer.${status}`, { name: MISSION_NAMES[id] ?? id })}</p>`)
+    .join("");
+
 function explorerSection(explorer, t) {
   if (!explorer) return "";
   const owned = Object.keys(explorer.owned);
-  if (!owned.length) return `<section class="explorer-panel"><h3>🧭 ${t("explorer.title")}</h3><p>${t("explorer.empty")}</p></section>`;
+  if (!owned.length) return `<section class="explorer-panel"><h3>🧭 ${t("explorer.title")}</h3><p>${t("explorer.empty")}</p>${missionLines(explorer, t)}</section>`;
   const outfits = owned.filter((id) => ITEMS[id].kind === "outfit");
   const gear = owned.filter((id) => ITEMS[id].kind === "equipment");
   return `<section class="explorer-panel"><h3>🧭 ${t("explorer.title")}</h3>
     <div class="outfit-row">${outfits.map((id) => `<button class="outfit-choice${explorer.appearance.outfit === id ? " is-worn" : ""}" type="button" data-equip="${id}" aria-pressed="${explorer.appearance.outfit === id}"><span class="outfit-preview outfit-${id}">${DAXTER_SVG}</span><b>${ITEMS[id].name}</b></button>`).join("")}</div>
     <p class="explorer-line">🔦 ${gear.map((id) => ITEMS[id].name).join(" · ")}</p>
+    ${missionLines(explorer, t)}
     <p class="explorer-line">🏠 ${t("explorer.workshop")}: ${explorer.workshop.map((id) => ITEMS[id].name).join(" · ")}</p></section>`;
 }
 
-export function openInventory(layer, { stories, cards, audience, t, explorer, onEquip, onWatch, onRead, onShare, onSelect }) {
+export function openInventory(layer, { stories, cards, audience, t, explorer, practised = new Set(), onEquip, onWatch, onRead, onShare, onSelect }) {
   const saved = stories.filter((story) => cards[story.card.id]);
   const topics = [...new Set(saved.map((story) => story.publication?.topic).filter(Boolean))];
   const entry = (story) => ({ cardId: story.card.id, title: story.card.name, summary: story.card.fact, topic: story.publication?.topic ?? "" });
@@ -68,6 +79,7 @@ export function openInventory(layer, { stories, cards, audience, t, explorer, on
     }
     const share = story.publication?.slug ? `<button class="btn-ink" data-share="${story.id}">${t("inv.share")}</button>` : "";
     return `<div class="inv-slot" data-card="${story.card.id}">${cardMarkup(story.card, owned.rarity, { tilt: true, t, firstSeason: owned.firstSeason })}
+      <p class="inv-status">${t("inv.saved")}${practised.has(story.id) ? ` · ${t("inv.practised")}` : ""}</p>
       <div class="inv-actions">
         ${story.youtubeId ? `<button class="btn-gold" data-watch="${story.id}">${t("inv.watch")}</button>` : ""}
         <button class="btn-ink" data-read="${story.id}">${t("inv.read")}</button>
@@ -169,6 +181,7 @@ export function openSettings(layer, { settings, t, muted, onPick, onOpenLanguage
         </div>
         <p class="backup-msg" aria-live="polite"></p>
       </section>
+      <p class="parents-link"><a href="/parents/">👪 ${t("parents.link")}</a></p>
       <button class="btn-gold" data-close>${t("settings.done")}</button>
     </div>`;
   openLayer(layer, render(settings));

@@ -98,3 +98,15 @@ test("the store migrates old progress once and never deletes it", async () => {
   store.updateCollection((c) => saveCard(c, "kids", "card-001-eternal-honey", AT), AT);
   assert.ok(store.loadCollection(AT).collection.saved.kids["card-001-eternal-honey"], "later loads read the new record");
 });
+
+test("practisedStories lists stories whose questions were tried in this audience, without scores", async () => {
+  const { practisedStories } = await import("../js/lib/collection.js");
+  const learning = {
+    "eternal-honey:kids": { quiz: { answered: 3, correct: 1, at: "2026-10-09T10:00:00Z" } },
+    "scroll-monster:adults": { quiz: { answered: 4, correct: 4, at: "2026-10-09T10:00:00Z" } },
+    "scroll-monster": { bonusWordAt: "2026-10-09T10:00:00Z" },
+  };
+  assert.deepEqual([...practisedStories(learning, "kids")], ["eternal-honey"]);
+  assert.deepEqual([...practisedStories(learning, "adults")], ["scroll-monster"]);
+  assert.deepEqual([...practisedStories(null, "kids")], []);
+});

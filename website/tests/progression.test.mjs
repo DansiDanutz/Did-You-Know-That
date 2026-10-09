@@ -92,3 +92,14 @@ test("explorer progress is stored safely and survives a backup round trip", asyn
   const oldBackup = JSON.stringify({ app: "dexty", version: 1, exportedAt: AT, collection: emptyCollection(), learning: {}, settings: null });
   assert.deepEqual(parseBackup(oldBackup, []).data.explorer, emptyExplorer(), "older backups without explorer still restore");
 });
+
+test("missionStatus keeps tried and solved distinct", async () => {
+  const { missionStatus } = await import("../js/lib/progression.js");
+  const fresh = emptyExplorer();
+  assert.equal(missionStatus(fresh, "missing-shadow"), "new");
+  const tried = recordAttempt(fresh, "missing-shadow", "2026-10-09T10:00:00Z");
+  assert.equal(missionStatus(tried, "missing-shadow"), "tried");
+  const solved = completeMission(tried, "missing-shadow", { choice: "outfit-sky" }, "2026-10-09T10:05:00Z");
+  assert.equal(missionStatus(solved, "missing-shadow"), "solved");
+  assert.equal(missionStatus(solved, "no-such-mission"), "new");
+});

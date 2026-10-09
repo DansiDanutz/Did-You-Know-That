@@ -90,3 +90,12 @@ export function equipmentFor(state, missionId) {
   const owned = Object.keys(state.owned).filter((id) => ITEMS[id].kind === "equipment");
   return [...new Set([...(MISSIONS[missionId]?.loans ?? []), ...owned])];
 }
+
+// "new" → "tried" (an attempt was made) → "solved" (the new example was
+// applied). Never a score: solving one mission is not called mastery.
+export function missionStatus(state, missionId) {
+  const entry = state?.missions?.[missionId];
+  if (!MISSIONS[missionId] || !entry) return "new";
+  if (entry.completedAt) return "solved";
+  return entry.attempts > 0 ? "tried" : "new";
+}
