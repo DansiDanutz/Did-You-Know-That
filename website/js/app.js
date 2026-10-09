@@ -18,9 +18,10 @@ import { setupInstall } from "./ui/install.js";
 import { renderAdultHome, renderKidsBar } from "./ui/home.js";
 import { openMission } from "./ui/mission.js";
 import { cleanName, personalize } from "./lib/player-name.js";
+import { greetingClips, nameIndexPath } from "./lib/name-voice.js";
 import { completeMission, recordAttempt, recordHint, equip } from "./lib/progression.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
-import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
+import { greetingKey } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
 import { pickersMarkup, openInventory, openSettings } from "./ui/panels.js";
 import { DAXTER_SVG } from "./ui/character.js";
@@ -270,6 +271,7 @@ function applySettings(patch) {
   }
   if (openStory) reopenBook(openStory.id);
   install?.refresh();
+  if (patch.lang) loadNameVoice(settings.lang);
   renderHome();
   updateHud();
 }
@@ -751,7 +753,7 @@ const withName = (text) => personalize(text, settings.name, { words: t("name.exp
 // ---------------------------------------------------------------- Daxter's greeting
 
 const VISITS_KEY = "dyk-visits";
-const GREETING_MAX_MS = 16000;
+const GREETING_MAX_MS = 18000; // name clip + greeting
 let greetingAudio = null;
 
 function nextVisit() {
@@ -779,15 +781,51 @@ function greetPlayer() {
   world.daxter.say(text, Math.min(GREETING_MAX_MS, 2500 + text.length * 70));
   if (sfx.muted) return new Promise((r) => setTimeout(r, 2500));
   stopGreeting();
-  const audio = new Audio(greetingAudioPath(settings.lang, key));
-  greetingAudio = audio;
-  return new Promise((resolve) => {
-    const done = () => resolve();
-    audio.addEventListener("ended", done, { once: true });
-    audio.addEventListener("error", done, { once: true });
-    setTimeout(done, GREETING_MAX_MS);
-    audio.play().catch(done);
+  const voice = nameVoice[settings.lang];
+  const clips = greetingClips({
+    lang: settings.lang,
+    key,
+    name: settings.name,
+    voiced: { [settings.lang]: voice?.names },
+    hasBody: (lang, greeting) => Boolean(nameVoice[lang]?.bodies.has(greeting)),
   });
+  return playInOrder(clips);
+}
+
+// Plays clips one after another ("Hi, Sienna!" then the greeting). The first
+// starts inside the Start tap, which is what lets a phone play sound.
+function playInOrder(paths) {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, GREETING_MAX_MS);
+    const finish = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+    const playAt = (index) => {
+      if (index >= paths.length || (index > 0 && !greetingAudio)) return finish();
+      const audio = new Audio(paths[index]);
+      greetingAudio = audio;
+      audio.addEventListener("ended", () => playAt(index + 1), { once: true });
+      audio.addEventListener("error", () => playAt(index + 1), { once: true });
+      audio.play().catch(() => playAt(index + 1));
+    };
+    playAt(0);
+  });
+}
+
+// Which names Dexter can say, per language (generic recordings, see
+// tools/make-name-voice.mjs). Loaded ahead of the Start tap.
+const nameVoice = {};
+async function loadNameVoice(lang) {
+  if (nameVoice[lang]) return;
+  try {
+    const res = await fetch(nameIndexPath(lang));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const index = await res.json();
+    nameVoice[lang] = { names: new Map(Object.entries(index.names ?? {})), bodies: new Set(index.bodies ?? []) };
+  } catch {
+    nameVoice[lang] = { names: new Map(), bodies: new Set() }; // no recordings yet: the normal greeting plays
+  }
 }
 
 function startScreen() {
@@ -914,6 +952,7 @@ window.addEventListener("storage", (event) => {
   updateHud();
 });
 applyOutfit();
+loadNameVoice(settings.lang);
 setupModalFocus();
 $("#adult-home").addEventListener("click", handleHomeAction);
 $("#kids-bar-host").addEventListener("click", handleHomeAction);
