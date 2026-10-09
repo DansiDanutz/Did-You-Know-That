@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>House of Family multilingual voice release check · 10 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f1ede5; --muted:#b4ada0; --line:#3a352b; } th { background:#241f17 !important; } code { background:#2a251b !important; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; } h2 { font-size: 20px; margin: 32px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .M{background:var(--m)} .L{background:var(--l)}
+  .fixed{color:var(--l); font-weight:600} .open{color:var(--c); font-weight:600}
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: var(--l); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>House of Family: multilingual voice release check</h1>
+<p class="meta">Dexty / Did You Know That? · 10 Oct 2026 · main <code>d11290a</code> · live on https://dexty.live · scope: German, Spanish, French, Italian, Romanian and Chinese text and narration for Episode 1</p>
+
+<h2>What shipped</h2>
+<table>
+  <tr><th>PR</th><th>Content</th><th>Merge</th><th>Tests check</th></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/15">#15</a></td><td>Translated text packs for six languages (Dexter's lines, five challenges, six story scenes, UI strings, in-picture speech bubbles), 318 recorded Dexter clips (53 per language), language-aware voice tool, <code>speakFamily</code> and name greeting wired to the current language, speech bubbles sized for Chinese.</td><td><code>d11290a</code></td><td class="ok">pass (website)</td></tr>
+</table>
+<p class="meta">Recording cost: 39,796 characters planned, plus 2,574 to re-record Chinese, on an ElevenLabs Creator plan with about 169,000 of 363,000 credits left afterwards. Same voice and model as Dexter's existing greetings.</p>
+
+<h2>Findings</h2>
+<table>
+  <tr><th>Sev</th><th>Finding</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td><span class="sev M">M</span></td><td>The first Chinese clips were recorded from text that still used different character names and episode title than the existing Chinese book text, because the recorder loaded the text at start.</td><td class="fixed">Fixed</td><td>Chinese text aligned ("Emma", "Leo", "家庭之屋"), all 53 Chinese clips deleted and re-recorded; recorded text matches the shipped pack.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>All translations are machine-assisted and have had no native-speaker review.</td><td class="open">Open</td><td>Noted in the PR and in each language file's header.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Speech bubbles in the pictures were sized for Latin letters and would clip Chinese text.</td><td class="fixed">Fixed</td><td>Chinese bubbles fit in the browser run.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Only English shows the child's name in Dexter's lines; the recordings are generic.</td><td class="open">Open</td><td>By design; personalised name clips for these lines were not recorded.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The journal entry written when the house is completed still has an English title.</td><td class="open">Open</td><td>Set in <code>app.js</code> at completion; not part of this scope.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Spanish, French, Italian and Romanian were not run in a browser on the live site.</td><td class="open">Open</td><td>Their 53 clips each resolve with HTTP 200 on the local server, and their text packs pass the completeness tests.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The recorded audio was not listened to; verification is by network requests, clip timing against the on-screen lines, and file validity.</td><td class="open">Open</td><td>MP3 headers and durations checked (for example German story scene 24.8 s).</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>About 47 MB of audio was added to the public repository.</td><td class="open">Open</td><td>Consider moving narration to storage outside git before more languages or episodes are added.</td></tr>
+</table>
+
+<h2>Verification</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Unit tests (<code>node --test tests/*.test.mjs</code>)</td><td class="ok">223 pass, 0 fail (new tests: every line, challenge, scene and UI string translated; placeholders match; a recording per clip)</td></tr>
+  <tr><td>Page and precache check</td><td class="ok">pass</td></tr>
+  <tr><td>CI tests workflow on PR #15</td><td class="ok">pass</td></tr>
+  <tr><td>Clip URLs, all seven languages</td><td class="ok">371 of 371 return 200 locally</td></tr>
+  <tr><td>Deployment</td><td class="ok">Vercel production aliased to dexty.live; language files, <code>app.js</code> and sample clips served with HTTP 200</td></tr>
+  <tr><td>Live, German, clean session (test name "Maya")</td><td class="ok">intro, whole house, TV, storybook with the current scene highlighted, five challenges, certificate; 22 clip requests, all from the German folder, none failed</td></tr>
+  <tr><td>Live, Chinese, clean session</td><td class="ok">the same full loop; 21 clip requests from the Chinese folder, none failed; no console errors</td></tr>
+  <tr><td>Not tested</td><td>Sound output, real devices, screen readers, Spanish, French, Italian and Romanian in a live browser, console errors in the German run</td></tr>
+</table>
+</main>
+</body>
+</html>
