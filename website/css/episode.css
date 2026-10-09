@@ -2,7 +2,7 @@
 :root {
   --bg: #0b0726;
   --panel: #1a1050;
-  --ink: #f4efff;
+  --text: #f4efff;
   --muted: rgba(244, 239, 255, 0.78);
   --gold: #ffd44d;
   --line: rgba(255, 255, 255, 0.16);
@@ -14,7 +14,7 @@
 body {
   margin: 0;
   background: radial-gradient(ellipse at 50% -10%, #3b1f9a 0%, var(--bg) 60%) fixed, var(--bg);
-  color: var(--ink);
+  color: var(--text);
   font: 18px/1.6 "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -22,7 +22,7 @@ a { color: var(--gold); }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
 .ep-top { padding: max(12px, env(safe-area-inset-top)) 16px 8px; }
-.ep-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; text-decoration: none; }
+.ep-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; text-decoration: none; }
 
 .ep { max-width: 760px; margin: 0 auto; padding: 8px 16px 48px; }
 .ep-badge { margin: 8px 0 0; color: var(--gold); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 14px; }
@@ -50,7 +50,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-
 .ep-btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 20px; border-radius: 999px;
-  border: 1px solid var(--line); background: transparent; color: var(--ink);
+  border: 1px solid var(--line); background: transparent; color: var(--text);
   font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
 }
 .ep-btn.gold { background: var(--gold); color: #3a1d02; border-color: var(--gold); }
