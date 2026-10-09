@@ -42,8 +42,8 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .bar-value { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
 .names { left: 0; right: 0; bottom: 140px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-size: 44px; font-style: italic; color: rgba(236,232,223,.85); opacity: 0; }
 .ch-week1 { transform-origin: 0 0; }
-.ch-exp2 { top: 220px; }
-.readings { left: 260px; right: 260px; bottom: 120px; display: flex; justify-content: center; gap: 200px; opacity: 0; }
+.ch-exp2 { top: 500px; }
+.readings { left: 260px; right: 260px; bottom: 70px; display: flex; justify-content: center; gap: 200px; opacity: 0; }
 .readings div { text-align: center; }
 .readings b { display: block; font-size: 90px; color: #b8b2a7; font-variant-numeric: tabular-nums; }
 .readings div:last-child b { color: #7fc8b5; }
@@ -124,7 +124,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     <p class="caption">Mean % of idea units recalled · R1g, R2c, R2d, R2e</p></section>
       <section id="sc-twist" class="clip scene bg-twist" data-start="80.482" data-duration="19.726" data-track-index="0">
     <div class="twin">
-      <div class="chart ch-conf"><h3>Predicted memory (1–7)</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6857142857142857"></i></span><b class="bar-value">4.8%</b></div><div class="bar b3"><span class="bar-label">Read 3×, recalled 1×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6"></i></span><b class="bar-value">4.2%</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.5714285714285714"></i></span><b class="bar-value">4%</b></div></div>
+      <div class="chart ch-conf"><h3>Predicted memory (1–7)</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6857142857142857"></i></span><b class="bar-value">4.8</b></div><div class="bar b3"><span class="bar-label">Read 3×, recalled 1×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6"></i></span><b class="bar-value">4.2</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.5714285714285714"></i></span><b class="bar-value">4</b></div></div>
       <div class="chart ch-real"><h3>Actual recall, 1 week</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.4"></i></span><b class="bar-value">40%</b></div><div class="bar b3"><span class="bar-label">Read 3×, recalled 1×</span><span class="bar-track"><i class="bar-fill" style="--v:0.56"></i></span><b class="bar-value">56%</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.61"></i></span><b class="bar-value">61%</b></div></div>
     </div>
     <p class="trap"><span>Re-reading feels like learning.</span><span>That feeling is the trap.</span></p>
@@ -301,7 +301,7 @@ tl.fromTo("#sc-puzzle .chart", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6,
 tl.fromTo("#sc-flip .ch-week1", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 46.93);
       tl.fromTo("#sc-flip .ch-week1 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 52.34);
       tl.fromTo("#sc-flip .ch-week1 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 53.85);
-      tl.to("#sc-flip .ch-week1", {scale:0.72, x:-520, y:-40, duration:0.8, ease:"power2.inOut"}, 55.25);
+      tl.to("#sc-flip .ch-week1", {scale:0.62, y:-110, duration:0.8, ease:"power2.inOut"}, 55.25);
       tl.fromTo("#sc-flip .ch-exp2", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 55.25);
       tl.fromTo("#sc-flip .ch-exp2 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 65.38);
       tl.fromTo("#sc-flip .ch-exp2 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 66.60);

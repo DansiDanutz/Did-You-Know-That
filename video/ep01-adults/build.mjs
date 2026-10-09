@@ -74,7 +74,7 @@ writeFileSync("timeline.json", JSON.stringify({ total: TOTAL, scenes, vo: voClip
   title: "documentary", case: "documentary", puzzle: "documentary", flip: "tension", twist: "tension", mechanism: "documentary", limits: "documentary", method: "resolve", keep: "resolve", closing: "resolve" } }, null, 2));
 
 // ---------------------------------------------------------------- markup
-const bar = (cls, label, value, max = 100) => `<div class="bar ${cls}"><span class="bar-label">${label}</span><span class="bar-track"><i class="bar-fill" style="--v:${value / max}"></i></span><b class="bar-value">${value}%</b></div>`;
+const bar = (cls, label, value, max = 100, unit = "%") => `<div class="bar ${cls}"><span class="bar-label">${label}</span><span class="bar-track"><i class="bar-fill" style="--v:${value / max}"></i></span><b class="bar-value">${value}${unit}</b></div>`;
 const chart = (cls, title, rows) => `<div class="chart ${cls}"><h3>${title}</h3>${rows.map((r) => bar(...r)).join("")}</div>`;
 const caption = (text) => `<p class="caption">${text}</p>`;
 
@@ -99,7 +99,7 @@ const BODY = {
     ${caption("Mean % of idea units recalled · R1g, R2c, R2d, R2e")}`,
   twist: () => `
     <div class="twin">
-      ${chart("ch-conf", "Predicted memory (1–7)", [["b1", "Read 4×", 4.8, 7], ["b3", "Read 3×, recalled 1×", 4.2, 7], ["b2", "Read 1×, recalled 3×", 4.0, 7]])}
+      ${chart("ch-conf", "Predicted memory (1–7)", [["b1", "Read 4×", 4.8, 7, ""], ["b3", "Read 3×, recalled 1×", 4.2, 7, ""], ["b2", "Read 1×, recalled 3×", 4.0, 7, ""]])}
       ${chart("ch-real", "Actual recall, 1 week", [["b1", "Read 4×", 40], ["b3", "Read 3×, recalled 1×", 56], ["b2", "Read 1×, recalled 3×", 61]])}
     </div>
     <p class="trap"><span>Re-reading feels like learning.</span><span>That feeling is the trap.</span></p>
@@ -177,7 +177,7 @@ const anim = (s) => {
       reveal("#sc-flip .ch-week1", L("A week later")),
       `tl.fromTo("#sc-flip .ch-week1 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, ${L("fifty-six percent").toFixed(2)});`,
       `tl.fromTo("#sc-flip .ch-week1 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, ${L("forty-two").toFixed(2)});`,
-      `tl.to("#sc-flip .ch-week1", {scale:0.72, x:-520, y:-40, duration:0.8, ease:"power2.inOut"}, ${L("They ran it again").toFixed(2)});`,
+      `tl.to("#sc-flip .ch-week1", {scale:0.62, y:-110, duration:0.8, ease:"power2.inOut"}, ${L("They ran it again").toFixed(2)});`,
       reveal("#sc-flip .ch-exp2", L("They ran it again")),
       `tl.fromTo("#sc-flip .ch-exp2 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, ${L("eighty-three").toFixed(2)});`,
       `tl.fromTo("#sc-flip .ch-exp2 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, ${L("seventy-one").toFixed(2)});`,

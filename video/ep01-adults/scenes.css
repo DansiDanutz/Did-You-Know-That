@@ -32,8 +32,8 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .bar-value { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
 .names { left: 0; right: 0; bottom: 140px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-size: 44px; font-style: italic; color: rgba(236,232,223,.85); opacity: 0; }
 .ch-week1 { transform-origin: 0 0; }
-.ch-exp2 { top: 220px; }
-.readings { left: 260px; right: 260px; bottom: 120px; display: flex; justify-content: center; gap: 200px; opacity: 0; }
+.ch-exp2 { top: 500px; }
+.readings { left: 260px; right: 260px; bottom: 70px; display: flex; justify-content: center; gap: 200px; opacity: 0; }
 .readings div { text-align: center; }
 .readings b { display: block; font-size: 90px; color: #b8b2a7; font-variant-numeric: tabular-nums; }
 .readings div:last-child b { color: #7fc8b5; }
