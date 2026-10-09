@@ -1,3 +1,5 @@
+> **Superseded:** revision 2 (claim ledger, script, storyboard) is in `episodes/adults-001-golden-minutes/`. This file documents revision 1, the version the current kids master was rendered from.
+
 # Episode 1 · ADULTS · "The Golden Minutes"
 
 **Length:** 4:50 max · **Narrator:** calm, precise documentary voice · **Words:** ~660 (≈140 wpm)

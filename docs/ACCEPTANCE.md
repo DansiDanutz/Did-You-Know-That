@@ -36,8 +36,17 @@ Plan: `~/Documents/ChatGPT/Did-You-Know-That/CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct
 | Stale narration detection | `narrationFingerprint`, manifest `fingerprints`, `make-narration --check` | unit tests | 476 baselined; 112 now stale after wording changes → silent until re-recorded | done; re-recording **blocked: budget** |
 | CI | `.github/workflows/tests.yml` | GitHub | syntax + pages check + 170 tests | done |
 | Published-video journey (watch → save → reopen) | — | — | No episode is published yet | **blocked: publication** |
-## Phase C — pilots (not started)
-Ep 1 kids revision, Ep 1 adults, Ep 2 storyboards, two 20–30 s motion tests. Narration budget and font decision needed.
+## Phase C — pilots (in progress)
+
+| Requirement | Artifact | Check | Observed result | Status |
+|---|---|---|---|---|
+| Kids Ep 1 claim ledger with opened sources | `episodes/kids-001-scroll-monster/claims.md` | Every citation opened this session; unopenable sources listed and not used | 10 claims: 5 verified, 4 need rewording (outdated 2020 figures, "scientists", bedtime = association, WHO band 2–4), 1 hyperbole; AAP "2–5, 1 h" unverified (403) | done — **human review pending** |
+| Adults Ep 1 claim ledger | `episodes/adults-001-golden-minutes/claims.md` | Same rules | 11 claims: 3 verified, 7 need rewording (200,000-lifetimes figure has no published method; slot-machine line misattributed; Franklin not "untouched"; FSI now 690 h), 1 remove | done — **human review pending** |
+| Kids revision script + storyboard | `episodes/kids-001-scroll-monster/{README,script,storyboard}.md` | Follows the kids template beat sheet; every claim referenced; no app reward language; no fake end screen | 7 lines, 26 shots, ≈3:23 estimated | done (draft) — narration **blocked: approval (~2,600 chars)** |
+| Adults script + storyboard | `episodes/adults-001-golden-minutes/{README,script,storyboard}.md` | Adults template; charts carry units/timeframe/population/source | 7 lines, 22 shots, ≈3:35 estimated | done (draft) — narration **blocked: approval (~2,900 chars)** |
+| Two 20–30 s motion tests | — | — | Proposed: kids shots 11–14, adults shots 13–16 | open — needs narration + render (disk below reserve) |
+| Final masters, captions, cards, thumbnails, QA receipts | — | — | — | open |
+| Ep 2 storyboards | — | — | — | open |
 
 ## Phase D–F
 Launch preparation, publishing cadence, measurement — after C; publication and production deploys need David's approval.
