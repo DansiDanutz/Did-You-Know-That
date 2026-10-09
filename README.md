@@ -1,6 +1,6 @@
 # Did You Know That?
 
-YouTube channel [@Did-You-Know-that-2026](https://www.youtube.com/@Did-You-Know-that-2026) and its companion game, **The Road of Wonders**: https://did-you-know-that-2026.vercel.app
+YouTube channel [@Did-You-Know-that-2026](https://www.youtube.com/@Did-You-Know-that-2026) and its companion game, **The Road of Wonders**: https://dexty.live
 
 | Folder | What it is |
 |---|---|

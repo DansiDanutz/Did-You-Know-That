@@ -76,7 +76,7 @@
 > Open the game, type the word, and claim the **Golden Minute** card.
 > Did you know that? Now you do.
 
-**On screen:** `did-you-know-that-2026.vercel.app` · Subscribe ✦ → end screen (15 s template).
+**On screen:** `dexty.live` · Subscribe ✦ → end screen (15 s template).
 
 ---
 

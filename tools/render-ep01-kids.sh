@@ -15,7 +15,7 @@ rm -f "$OUT/neon-card-kids-SPARK.mp4"
 cd "$ROOT/video/ep01-kids"
 npx --yes hyperframes render -q delivery -f 30 -o "$OUT/_ep01k-raw.mp4" 2>&1 | grep -E "Render complete|rror" || true
 
-ffmpeg -y -v error -i "$OUT/_ep01k-raw.mp4" -c:v copy -af loudnorm=I=-14:TP=-1.5:LRA=11 -c:a aac -b:a 192k -ar 48000 "$FINAL"
+ffmpeg -y -v error -i "$OUT/_ep01k-raw.mp4" -c:v copy -af "loudnorm=I=-14:TP=-1.5:LRA=11,alimiter=limit=0.84:level=false" -c:a aac -b:a 192k -ar 48000 "$FINAL"
 rm -f "$OUT/_ep01k-raw.mp4"
 
 echo "Loudness:"

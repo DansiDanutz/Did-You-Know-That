@@ -116,7 +116,7 @@ const BODY = {
     <div class="fireworks">${Array.from({ length: 24 }, (_, i) => `<i class="fw fw${i % 6}" style="--a:${i * 15}deg"></i>`).join("")}</div>
     <div class="reward"><div class="reward-card">${art("phone")}<b>SCROLL TAMER</b><small>CARD #001</small></div></div>
     ${daxter("dax-finale")}
-    <div class="url">did-you-know-that-2026.vercel.app</div>`,
+    <div class="url">dexty.live</div>`,
 };
 
 const sceneHtml = (s) => {
@@ -169,6 +169,7 @@ const anim = (s) => {
     boss: `
       tl.fromTo("#sc-boss .word-banner", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, ${L("boss", "Sun!")});
       tl.to("#sc-boss .word-banner", {scale:0.6, opacity:0, duration:0.4}, ${L("boss", "Now… boss fight!")});
+      tl.fromTo("#sc-boss .chests", {opacity:0}, {opacity:1, duration:0.5}, ${L("boss", "Now… boss fight!")});
       tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, ${L("boss", "Now… boss fight!")});
       tl.to("#sc-boss .boss-monster", {y:-20, duration:0.6, yoyo:true, repeat:${Math.floor(s.length / 1.2)}, ease:"sine.inOut"}, ${S + TITLE + 1});
       ${["He steals dinner", "He steals sleep", "And he steals friends"].map((p, i) => `tl.to("#sc-boss .chest.c${i}", {x:${-560 - i * 260}, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, ${L("boss", p)});`).join("\n")}
