@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dexty quality audit · 9 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; } h2 { font-size: 22px; margin: 40px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; } h3 { font-size: 17px; margin: 22px 0 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .C{background:var(--c)} .H{background:var(--h)} .M{background:var(--m)} .L{background:var(--l)} .OK{background:var(--ok)}
+  .st { font-weight: 600; } .fixed{color:var(--l)} .open{color:var(--c)} .partial{color:var(--h)}
+  .score { display:grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap:10px; margin: 14px 0; }
+  .score div { background:#fff; border:1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .score b { display:block; font-size: 26px; }
+  .score small { color: var(--muted); }
+  blockquote { margin: 10px 0; padding: 10px 14px; border-left: 4px solid var(--h); background: #fff8ec; }
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  ol li, ul li { margin: 4px 0; }
+  .ev { color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Dexty / Did You Know That? · quality audit</h1>
+<p class="meta">9 October 2026 · Auditor: Claude (Fable) as senior developer and business manager · Scope: repository <code>DansiDanutz/Did-You-Know-That</code> (branch <code>fix/kimi-audit</code> @ <code>acd0bf3</code>, stacked on PR #9 → #8 → <code>main</code> <code>0ceb203</code>), live site dexty.live, rendered video masters, the Series Bible, the business brief, the progression spec, and the Codex and Kimi audits of the same day. Method: code reading, test and coverage runs, measured page weight, a scripted first-run playthrough at phone size (Chromium), readability counts on the story text, and an external research brief with sources (section 7).</p>
+
+<h2>1. Verdict</h2>
+<p><b>The engineering is solid for a one-day-old codebase; the product is not yet a game anyone would come back to, because there is almost nothing in it.</b> Two playable episodes (one of them a 73-word stub), one mission, no published video, a YouTube channel with zero uploads. The loop that exists (walk → house → storybook → spark words → optional quiz → free card → coins) is well built and the card reveal feels premium. But Episode 1 for kids is a screen-time statistics lecture with an app tutorial inside it, not a wonder story, and one of its three quiz questions is about the app's own rule rather than the world. Children will not retell that story to a parent, and that retelling is the only growth engine a made-for-kids product has.</p>
+<p>On "addiction": for an under-13 audience, engagement built on streak guilt, variable rewards, timers or notifications is now a regulatory risk in the UK (ICO Children's code), the EU (DSA Article 28 minor-protection guidelines) and the US (COPPA 2025 amendments), and it is the fastest way to get the app deleted by a parent. The project's own Series Bible already bans those mechanics. The correct target, and what the best children's learning apps actually do, is a <b>habit with a stopping point</b>: a predictable rhythm of new stories, visible progress that completes, things to do with a grown-up, and a character who remembers you. For adults the hook is intellectual: a weekly question worth arguing about, evidence you can inspect, and a personal archive that grows. Everything below is in service of that.</p>
+
+<div class="score">
+  <div><b>8.0</b>Engineering<small> tests, data safety, policy discipline</small></div>
+  <div><b>4.0</b>Content &amp; learning<small> 2 episodes, 1 mission, Ep1 kids is a lecture</small></div>
+  <div><b>5.0</b>Game &amp; retention<small> loop works, nothing after card 1</small></div>
+  <div><b>7.0</b>Design &amp; UX<small> distinct identity; no music; untested on real devices</small></div>
+  <div><b>3.0</b>Business today<small> $0, 0 videos, no measurement</small></div>
+</div>
+
+<h2>2. What is built, verified</h2>
+<table>
+<tr><th>Area</th><th>State on <code>fix/kimi-audit</code></th><th>Evidence</th></tr>
+<tr><td>Tests</td><td>208/208 pass; 91.4 % line coverage of the files tests import; <b>the UI layer (≈2,900 lines incl. <code>app.js</code> 962 lines, <code>world.js</code>, <code>mission.js</code>, <code>book.js</code>, <code>gate.js</code>) has no automated tests and there are no browser tests</b></td><td class="ev"><code>node --test --experimental-test-coverage</code>; untested-file list from the coverage table</td></tr>
+<tr><td>Content</td><td>Ep 1 kids: 14 pages, 361 words, 6 spark words, 3 quiz items. Ep 1 adults: 330 words ("The Golden Minutes"). Ep 2 kids: 2 story pages, 73 words, 2 sparks. Ep 3–4: coming-soon shells. 1 mission (The Missing Shadow). 1 adult case file (The Re-Reading Trap, new this session).</td><td class="ev"><code>js/data/stories.js</code> + localizer counts</td></tr>
+<tr><td>Video</td><td>Ep 1 kids master rendered (4:58, under the 5:00 ceiling, over the 3–4 min target) from the lecture script; intro and end-screen stings; two neon word cards. No adult master. 0 uploads on the channel.</td><td class="ev"><code>out/ep01-kids-the-scroll-monster.mp4</code> ffprobe; Kimi audit channel check</td></tr>
+<tr><td>Narration</td><td>476 clips, 0 stale, 7 languages × 2 voices for Ep 1; Ep 2 never recorded (364 clips ≈ 59.6 k characters). 616 "Hello, [name]!" clips recorded and QA'd this session.</td><td class="ev"><code>make-narration.mjs --check</code></td></tr>
+<tr><td>Privacy / policy</td><td>No accounts, no analytics, no cookies; all state in localStorage; score and leaderboard routes return 410; nothing rewards watching; name never leaves the device except as a request for one generic clip. Parents page written from the actual network behaviour.</td><td class="ev">grep for beacons/analytics (none); live curl 410/410; <code>/parents/</code></td></tr>
+<tr><td>Performance</td><td>DOMContentLoaded 46 ms locally; precache shell was 1.56 MB (a 534 KB logo shown at ≤120 px), <b>now 0.71 MB</b> after this audit's fix</td><td class="ev"><code>precache.js</code> size sum before/after; commit <code>acd0bf3</code></td></tr>
+<tr><td>Accessibility</td><td>Modal focus manager, inert backgrounds, large-text toggle, 44 px targets (after #10), global reduced-motion rule. Keyboard-only and screen-reader journeys untested by hand.</td><td class="ev"><code>modal-focus.js</code>, <code>base.css:484</code></td></tr>
+<tr><td>Deployment</td><td>Live = <code>main</code> exactly (byte-identical shell files). PRs #7, #8, #9, #10 unmerged; previews only.</td><td class="ev">shasum live vs <code>git show main:</code></td></tr>
+</table>
+
+<h2>3. Findings</h2>
+<table>
+<tr><th>#</th><th>Sev</th><th>Finding</th><th>Evidence</th><th>Status</th></tr>
+<tr><td>Q1</td><td><span class="sev C">CRITICAL</span></td><td><b>No published content.</b> The entire video → app → share flywheel is unreachable; nothing in the app can be measured against real users until Episode 1 (both audiences) is on YouTube.</td><td class="ev">0 <code>youtubeId</code>; channel 0 videos</td><td class="st open">open · needs your publishing authority</td></tr>
+<tr><td>Q2</td><td><span class="sev H">HIGH</span></td><td><b>Episode 1 kids is a lecture plus a tutorial.</b> Pages "tower"/"boss" recite Common Sense Media screen-time averages; "deal" and "finale" explain the app; quiz item 2 asks "How many videos a day does Did You Know That? let you watch?". A 7-year-old gets no mystery, no prediction, nothing to retell. The rendered 4:58 video uses the same script. PR #7's rewrite ("Who Keeps Pressing Play?": rocket before sunset, a wrong guess, Hoot's hint, the autoplay investigation, a bedtime application) is the right shape and is not built.</td><td class="ev">story text dump; <code>episodes/kids-001-scroll-monster/script.md</code> on PR #7</td><td class="st open">open · re-record 7 languages + re-render</td></tr>
+<tr><td>Q3</td><td><span class="sev H">HIGH</span></td><td><b>Episode 2 kids is a stub</b> (73 words, 2 pages) yet appears as a lit house on the road. A child who finishes it gets a card for reading two paragraphs.</td><td class="ev">localizer counts</td><td class="st open">open · write or hide</td></tr>
+<tr><td>Q4</td><td><span class="sev H">HIGH</span></td><td><b>After the first card and the one mission there is nothing to do.</b> No completion arc (album, season end, "road fully lit"), coins are collected and never used (a vestigial currency), only 3 rotating return greetings.</td><td class="ev">playthrough; <code>coins.js</code> has no sink; <code>greeting.js</code> BACK_LINES=3</td><td class="st open">open · design in §5</td></tr>
+<tr><td>Q5</td><td><span class="sev H">HIGH</span></td><td><b>Adult Episode 1 in the app ("The Golden Minutes") carries a claim the ledger says must be reworded</b>: Franklin's £1,000 did not compound "untouched" for 200 years (most of each fund was paid out after 100 years; Boston ≈ $4.5 M in 1990). It also keeps the magic-word bonus line. The Re-Reading Trap case file is the correct model; the old story should be replaced, not patched.</td><td class="ev">PR #7 <code>claims.md</code> A7 "NEEDS REWORDING"; <code>en.js</code> adults card fact</td><td class="st open">open · narration ×7 affected</td></tr>
+<tr><td>Q6</td><td><span class="sev H">HIGH</span></td><td><b>Only one mission</b>; the progression spec calls for three templates (predict-and-test, sort-with-reason, sequence-a-process) so a child experiences each kind of thinking. The one that exists is good: predict → experiment → apply to a new case → explanation → chosen reward → family activity, ≈3 min.</td><td class="ev"><code>mission.js</code> STEPS; playthrough 2.2 s to reach the experiment</td><td class="st open">open</td></tr>
+<tr><td>Q7</td><td><span class="sev M">MEDIUM</span></td><td><b>Dexter acts on the map but not where learning happens.</b> Inside the book and the mission the character is absent or static; the mission scene is a still SVG tree. The Bible's rule ("never an idle loop", "visibly acts, anticipates, reacts") is met on the road only.</td><td class="ev">20 keyframes in <code>world.css</code>, 0 character motion in <code>book.css</code>/<code>mission.js</code></td><td class="st open">open</td></tr>
+<tr><td>Q8</td><td><span class="sev M">MEDIUM</span></td><td><b>No music, synthesized blips only.</b> Narration is strong (Brian/Jane); the rest of the soundscape is a WebAudio oscillator. Kids' products live on sound.</td><td class="ev"><code>sfx.js</code> tone()/noise()</td><td class="st open">open · needs licensed or generated music (budget)</td></tr>
+<tr><td>Q9</td><td><span class="sev OK">OK</span></td><td><b>Reduced motion is honoured globally</b>: <code>base.css</code> line 484 collapses every animation and transition to 0.01 ms under <code>prefers-reduced-motion</code>, which covers the world, book and card sheets too (the <code>animationend</code> cleanups still fire). My first per-file grep suggested a gap; the corrected finding is: no gap. Not verified with OS-level emulation.</td><td class="ev"><code>css/base.css:484–492</code></td><td class="st fixed">good</td></tr>
+<tr><td>Q10</td><td><span class="sev M">MEDIUM</span></td><td><b>UI layer untested; no browser journey tests.</b> Every regression caught today (start button under the fold, stuck focus, listener leaks) was found by hand. <code>app.js</code> is 962 lines (soft ceiling 800).</td><td class="ev">coverage table</td><td class="st open">open · Playwright smoke: start → house → book → card → mission</td></tr>
+<tr><td>Q11</td><td><span class="sev M">MEDIUM</span></td><td><b>No measurement at all.</b> By design there is no analytics, which is right for children, but it also means the owner cannot see installs, saves, mission completions or return visits. YouTube Studio will show only the video side.</td><td class="ev">grep; strategy scorecard has no data source for "App"</td><td class="st open">open · decision: privacy-safe aggregate counters (no IDs, no cookies) after a privacy review</td></tr>
+<tr><td>Q12</td><td><span class="sev M">MEDIUM</span></td><td><b>Kids copy still promises "3 videos a day"</b> and a magic word that only the video reveals; decisions 3 and 4 in <code>OPEN-DECISIONS.md</code> are unanswered and every text change costs a 7-language re-record.</td><td class="ev"><code>en.js</code> l.277, 296</td><td class="st open">open · your decision</td></tr>
+<tr><td>Q13</td><td><span class="sev L">LOW</span></td><td>Google Fonts loaded on every page (an outside request on a children's product); the repo is public so self-hosting needs a font-licence decision.</td><td class="ev"><code>index.html</code></td><td class="st open">open</td></tr>
+<tr><td>Q14</td><td><span class="sev L">LOW</span></td><td>Logo and PWA icons were 1.0 MB for ≤120 px of pixels.</td><td class="ev">sips/PIL measurements</td><td class="st fixed">fixed · <code>acd0bf3</code>, 208/208 tests, verified in browser</td></tr>
+<tr><td>Q15</td><td><span class="sev OK">OK</span></td><td>YouTube policy posture: no reward for watching anywhere in the code; official player with controls; the only remaining video-tied item is the cosmetic magic-word surprise (Q12).</td><td class="ev"><code>gate.js</code>, <code>points.js</code> after #10</td><td class="st fixed">good</td></tr>
+</table>
+
+<h2>4. Is what is built enough?</h2>
+<p><b>No, and the gap is content and cadence, not code.</b> Measured against the products children actually return to (section 7), Dexty has the right skeleton and about 5 % of the body. A realistic "minimum lovable" Season 1 for kids is <b>six complete stories with six missions and one season ending</b>; for adults, <b>six case files on a weekly rhythm</b>. Today: one story (wrong kind), one stub, one mission, one case file. The engineering will carry that volume without changes; the production pipeline (claim ledger → script → narration → render → page → card) exists and has been exercised once.</p>
+
+<h2>5. The design: a habit with a stopping point</h2>
+<h3>5.1 Kids (6–12, written for 7–9)</h3>
+<ol>
+<li><b>Every episode is a mystery Dexter gets wrong first.</b> Problem already happening → child predicts → Dexter's quick guess fails → Hoot's one hint → investigation the child can see → application → resolution. (PR #7's rewrite is this; make it the template for all six.)</li>
+<li><b>Three mission templates, rotated:</b> predict-and-test (shadow: done), sort-with-reason (magnifying lens: group animal clues), sequence-a-process (water pack: route water through the garden). Each shows its two reward options before it starts; hints never shrink the reward.</li>
+<li><b>Completion you can see:</b> the road has six houses; each finished story lights its house; the album fills; at six the road holds a lantern festival (one-off celebration, replayable). Coins become the lanterns: each walked-over coin lights one road lamp, so the existing currency gets a direct, visible, non-shop use, or remove coins entirely.</li>
+<li><b>Dexter remembers:</b> on return he says the child's name (done), then one recall question about last time's card ("Last time we found out why honey never spoils, do you remember what was missing in the jar?"). Retrieval practice is the single best-evidenced learning technique and it is also a reason to come back. Never scored, always answered by Dexter if the child shrugs.</li>
+<li><b>Something to do with a grown-up</b> after every mission ("Find the autoplay switch together"; "Mark a stick's shadow at breakfast and at dinner"). Co-play is the parent hook and the word-of-mouth engine for a made-for-kids product that cannot use notifications, comments or clickable end screens.</li>
+<li><b>Stopping cues, not limits:</b> after a card: "Great stop here, the road keeps your place." No countdowns, no energy, no streaks, no "Dexter misses you" notifications.</li>
+<li><b>Sound and acting where learning happens:</b> a short music bed per world state, page-turn and spark sounds, and Dexter reacting inside the book and mission (a look, a shrug, a jump) using the same CSS rig the road already has.</li>
+</ol>
+<h3>5.2 Adults</h3>
+<ol>
+<li><b>One case file a week</b>, labelled as the editor's pick, each with the Re-Reading Trap structure: question → story → prediction with reasoned feedback → dossier tagged Measured / Interpretation / Limit → takeaway → free save and private note.</li>
+<li><b>Knowledge Atlas:</b> saved → investigated → revisited, with links between related files ("you saved Honey; this week's file on Franklin's fund is also about things that outlast their makers"). A returning reader gets one optional recall question.</li>
+<li><b>Share the question, not the answer:</b> the public card carries the question and the sources; the reader's private note never travels.</li>
+<li><b>Adult episodes are the growth and revenue engine.</b> They are not made-for-kids, so they keep end screens, cards, comments, notifications and full monetisation once eligible. Lead the channel launch with the adult pilot, follow with the kids pilot; the kids app earns trust and retelling, the adult channel earns reach.</li>
+</ol>
+
+<h2>6. YouTube → app funnel, within the rules</h2>
+<ul>
+<li>Made-for-kids uploads lose comments, the notification bell, personalised ads, and clickable end screens/cards; the kids funnel is the description link, the parent, and the app's own share pages. Plan for it; do not hope for the bell.</li>
+<li>Never reward watching, liking, subscribing or sharing; never require a video-only answer (the magic word must become a pure in-app surprise or go). Embed only our own videos in the official player with controls and branding intact.</li>
+<li>Cut 2–3 vertical Shorts from each episode (the surprise question, the wrong guess, the reveal) with the app link in the description; Shorts are the cheapest discovery lever for a zero-subscriber channel.</li>
+<li>Every episode's discovery page (<code>/e/&lt;slug&gt;/</code>) already works as the landing page; add a per-episode social image so shared links look like cards, not icons.</li>
+<li>Measure in Studio: first-minute retention, average view duration, Shorts → long-form click-through, description-link clicks. Do not forecast revenue; the channel is pre-eligibility.</li>
+</ul>
+
+<h2>7. External research (sources checked today)</h2>
+<section id="research">
+<p class="ev">Compiled by a research agent on 9 Oct 2026; every linked page was opened unless noted. Full brief kept in the session transcript; the points that change Dexty's design are below.</p>
+<h3>7.1 What the trusted kids' apps do</h3>
+<ul>
+<li><b>Khan Academy Kids, Duolingo ABC, PBS KIDS Games</b>: free, no ads, a companion character, short lessons, offline play. Khan Kids' own RCT (49 children, 13 min/day for 10 weeks) moved pre-literacy from the 34th to the 47th percentile and parents said it gave them ideas for teaching at home (<a href="https://blog.khanacademy.org/khan-academy-kids-improves-pre-literacy-skills-in-preschoolers-research-confirms/">Khan blog</a>).</li>
+<li><b>Endless Alphabet, Toca Boca</b>: "no high scores, failures, limits or stress"; open-ended play with no timers (<a href="https://www.originatorkids.com/endless-alphabet/">Originator</a>).</li>
+<li><b>Prodigy</b> is the cautionary tale: a 2021 complaint from 22 groups said children saw up to 4× more ads than maths problems and locked "treasure box" rewards pushed upgrades (<a href="https://fairplayforkids.org/feb-19-2021-advocates-to-ftc-prodigy-math-game-preys-on-kids-and-families/">Fairplay</a>). <b>FTC v. Epic Games</b> (2022): $245 M of the $520 M was for dark patterns (<a href="https://www.ftc.gov/news-events/news/press-releases/2022/12/fortnite-video-game-maker-epic-games-pay-more-half-billion-dollars-over-ftc-allegations">FTC</a>). <b>Radesky et al. 2022</b>: 80 % of 133 apps used by 3–5-year-olds had manipulative design (character pressure, time pressure, lures); PBS KIDS apps had none except autoplay (<a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2793493">JAMA Netw Open</a>).</li>
+</ul>
+<h3>7.2 The rules</h3>
+<ul>
+<li><b>UK ICO Children's code</b>, Standards 5 and 13: sticky features that make it hard to disengage are likely unfair; offer "continue" neutrally with no implied loss; pause/break options must not cost progress; nudges toward breaks are encouraged (<a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/age-appropriate-design-a-code-of-practice-for-online-services/5-detrimental-use-of-data/">ICO 5</a>, <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/childrens-code-guidance-and-resources/age-appropriate-design-a-code-of-practice-for-online-services/13-nudge-techniques/">ICO 13</a>).</li>
+<li><b>EU DSA Art. 28 guidelines (July 2025)</b>: streaks, autoplay and push notifications off by default for minors; no manipulative virtual currencies or loot boxes (<a href="https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-protection-minors">Commission</a>). Small enterprises are exempt, but it is the benchmark.</li>
+<li><b>US COPPA 2025 amendments</b>: separate opt-in consent for any third-party sharing or targeted ads; data kept only as long as needed; the proposed notification limits were not adopted but the FTC "remains concerned" about engagement techniques (<a href="https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data">FTC</a>).</li>
+<li><b>Allowed:</b> collections, rewards not tied to personal data, break prompts, parent-facing progress, content-based stopping points. <b>Risky:</b> loss-framed streaks, push notifications to children, random rewards, countdowns, pleading characters, public leaderboards, third-party analytics without consent.</li>
+</ul>
+<h3>7.3 What actually makes learning stick and people return</h3>
+<ul>
+<li><b>Self-determination:</b> autonomy, competence and relatedness each predict enjoyment and intent to play again across four studies (<a href="https://selfdeterminationtheory.org/SDT/documents/2006_RyanRigbyPrzybylski_MandE.pdf">Ryan, Rigby &amp; Przybylski 2006</a>).</li>
+<li><b>Rewards can backfire:</b> a 128-study meta-analysis found expected, tangible, completion-contingent rewards undermine intrinsic motivation (d ≈ −0.36), more so for children; positive feedback helps (d = 0.33) (<a href="https://pubmed.ncbi.nlm.nih.gov/10589297/">Deci, Koestner &amp; Ryan 1999</a>). Cards should be keepsakes of a discovery, never a wage for finishing.</li>
+<li><b>Curiosity gap:</b> asking first and delaying the answer raises effort and recall one to two weeks later (<a href="https://pubmed.ncbi.nlm.nih.gov/19619181/">Kang 2009</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/25284006/">Gruber 2014</a>).</li>
+<li><b>Retrieval and spacing:</b> testing beats re-reading at 2 days and 1 week; robust in 10-year-olds; the ideal gap grows with how long the memory must last (<a href="https://pubmed.ncbi.nlm.nih.gov/16507066/">Roediger &amp; Karpicke 2006</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/27014156/">Karpicke 2016</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/16719566/">Cepeda 2006</a>).</li>
+<li><b>Co-play:</b> the AAP recommends parent–child shared media use; the Cooney Center publishes a design guide for joint engagement (<a href="https://pubmed.ncbi.nlm.nih.gov/27940793/">AAP 2016</a>, <a href="https://joanganzcooneycenter.org/publication/the-new-coviewing-designing-for-learning-through-joint-media-engagement/">JGCC 2011</a>).</li>
+<li><b>Stopping cues:</b> natural end points ease transitions; autoplay drives conflict; children who played through a plan they made moved on without intervention 93 % of the time (small lab sample) (<a href="https://www.washington.edu/news/2016/05/05/two-minute-warnings-make-kids-screen-time-tantrums-worse/">UW 2016</a>, <a href="https://faculty.washington.edu/alexisr/PlanAndPlay.pdf">Hiniker 2017</a>).</li>
+<li><b>Adults:</b> Duolingo's streak milestone animation gave +1.7 % 7-day retention and streak repair softens the drop (<a href="https://blog.duolingo.com/how-duolingo-streak-builds-habit/">Duolingo</a>, <a href="https://udspace.udel.edu/items/42ce576b-8e1f-429a-8541-e29e48dbcfbb">Silverman &amp; Barasch 2023</a>); Blinkist's free tier is one editor's pick a day, a daily reason without a streak; Wikipedia browsers with gap-closing curiosity build tight concept networks and revisit concepts (<a href="https://pubmed.ncbi.nlm.nih.gov/33257879/">Lydon-Staley 2021</a>): link case files to each other.</li>
+</ul>
+<h3>7.4 YouTube funnel facts</h3>
+<ul>
+<li>Made-for-kids content loses cards and end screens, comments, notifications, personalised ads, miniplayer and save-to-playlist (<a href="https://support.google.com/youtube/answer/9632097">YouTube Help</a>). Long-form description links are clickable once advanced features are enabled; Shorts description links are not, "related video" links in Shorts are (<a href="https://support.google.com/youtube/answer/13748639">YouTube Help</a>). <b>Unverified:</b> whether MFK strips description links; test on the channel. Safest call to action: spoken and on-screen "dexty.live" plus the channel profile link.</li>
+<li>API policy III.F.3.c forbids rewards for viewing, liking, sharing, subscribing or commenting; III.J forbids a child-directed client from encouraging likes or subscribes; the player must be ≥200×200 px with no overlays (<a href="https://developers.google.com/youtube/terms/developer-policies">Developer Policies</a>).</li>
+<li>Education channels mixing Shorts and long-form had ≈37 % higher median subscribers in the 100K–1M monthly-view tier (18K channels, correlational; best mix 25–40 % Shorts) (<a href="https://air.io/en/audience-growth/do-youtube-shorts-help-your-long-form-videos-grow-data-from-18000-channels">AIR 2026</a>). No hard data exists on growing an educational channel from zero.</li>
+</ul>
+<h3>7.5 The ten moves, ranked by impact for effort</h3>
+<ol>
+<li>Open every house and video with the question before the answer (title, first line, card back).</li>
+<li>End every video on a question Dexty answers, spoken and on screen ("Find the Missing Shadow at dexty.live"); repeat in the profile link and Shorts related-video links; never reward the watching itself.</li>
+<li>"Remember?" with Professor Hoot: 2–3 retrieval questions from past houses on the next visit, spaced over days.</li>
+<li>Cards as surprise keepsakes: nothing lost, locked, paid or random.</li>
+<li>A built-in stopping cue per house: "The End", an optional "pick tomorrow's house", a pause that saves. Never autoplay the next house.</li>
+<li>A parent co-play layer: one question to ask together after each mission, plus the parents page.</li>
+<li>Autonomy and competence in missions: child chooses house order and Dexter's outfit; wrong guesses lead to discovery.</li>
+<li>Adults: a knowledge map linking case files, with open questions to return to.</li>
+<li>A weekly release rhythm matching uploads; adults may opt into a forgiving streak with free repair; no streaks or notifications for kids.</li>
+<li>Compliance as a feature: no third-party trackers or ads in kids mode, youtube-nocookie embed with tracking off, MFK status checked per video, minimal retention, a public "no dark patterns" pledge.</li>
+</ol>
+</section>
+
+<h2>8. Prioritised plan</h2>
+<table>
+<tr><th>Priority</th><th>Work</th><th>Why it is first</th><th>Needs</th></tr>
+<tr><td>P0</td><td>Merge #8 → #9 → #10 → #7 and deploy; answer open decisions 3, 4, 8</td><td>Unblocks every text change and the pilots</td><td>Your review; "deploy"</td></tr>
+<tr><td>P0</td><td>Rebuild Ep 1 kids as "Who Keeps Pressing Play?" (book + narration ×7 + re-render) and Ep 1 adults as The Re-Reading Trap (video)</td><td>Q1, Q2, Q5: the first impression of both products</td><td>Narration budget (~10 k + 3 k chars), render disk space, your sign-off on scripts</td></tr>
+<tr><td>P0</td><td>Publish both pilots; adult first</td><td>Nothing can be measured or improved before this</td><td>Publishing authority, channel settings review (MFK per upload)</td></tr>
+<tr><td>P1</td><td>Missions 2 and 3 (lens sort, water-pack sequence); completion arc; coins → lanterns; return recall question; family questions</td><td>Q4, Q6: the "come back" structure, all compliant</td><td>2–3 dev days; claim review for each mission's explanation</td></tr>
+<tr><td>P1</td><td>Write Ep 2 kids properly (hide until then); Ep 2–3 adult case files</td><td>Q3; weekly rhythm needs stock</td><td>Research + narration budget</td></tr>
+<tr><td>P1</td><td>Playwright smoke journey; split <code>app.js</code></td><td>Q10: cheap, protects everything above</td><td>1 dev day</td></tr>
+<tr><td>P2</td><td>Music bed + SFX pass; Dexter reactions in book/mission</td><td>Q7, Q8: feel, not function</td><td>Music licence or generation budget</td></tr>
+<tr><td>P2</td><td>Formative test: 5 families, 5 adults; watch retelling, stopping, parent comfort</td><td>Replaces guesses about "addictive" with observation</td><td>Consent, 1 week</td></tr>
+<tr><td>P2</td><td>Privacy-safe aggregate counters (decision), social images per episode, Shorts cuts</td><td>Q11, funnel</td><td>Privacy review; editing time</td></tr>
+</table>
+
+<h2>9. Verification record</h2>
+<ul>
+<li><code>node --test tests/*.test.mjs</code>: 208 pass, 0 fail (after the image commit).</li>
+<li><code>node tools/build-pages.mjs --check</code>: clean.</li>
+<li>Browser (Chromium, 375×812 and 375×667, 844×390): first-run greeting, book open, 20 page turns, mission to the experiment step, library labels, parents page, archive save + note, adults' home. New logo served at 320×317, 26 KB.</li>
+<li>Live: shell files on dexty.live byte-identical to <code>main</code>; <code>/api/score</code> and <code>/api/leaderboard</code> → 410 (leaderboard GET on the preview).</li>
+<li>Not verified: real iPhone/Android, Firefox, screen reader, any child or adult test, listening to every name clip.</li>
+</ul>
+<p class="meta">Nothing was published or deployed to production during this audit. Local and preview changes are on PR #10.</p>
+</main>
+</body>
+</html>
