@@ -73,6 +73,28 @@ export function normalizeProfile(value, makeId) {
 }
 
 
+// Guarded storage access: { ok, value } on read, true/false on write.
+function readJson(backend, key) {
+  try {
+    const raw = backend?.getItem(key);
+    return { ok: true, value: raw == null ? null : JSON.parse(raw) };
+  } catch (error) {
+    console.warn(`${key} could not be read.`, error);
+    return { ok: false, value: null };
+  }
+}
+
+function writeJson(backend, key, value) {
+  if (!backend) return false;
+  try {
+    backend.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.warn(`${key} could not be saved.`, error);
+    return false;
+  }
+}
+
 // Browser storage can be missing or throw (private mode, blocked cookies),
 // so every access is guarded and the game still works for the session.
 export function createStore(backend) {
@@ -93,36 +115,43 @@ export function createStore(backend) {
       }
     },
     // Saved cards + private learning. The first load migrates the old
-    // progress record (which is kept untouched, read-only).
+    // progress record (which is kept untouched, read-only). Each record is
+    // read separately, so a corrupt learning record never costs saved cards.
     loadCollection(now) {
-      try {
-        const stored = backend?.getItem(COLLECTION_KEY);
-        if (stored) {
-          const learning = JSON.parse(backend.getItem(LEARNING_KEY) ?? "{}");
-          return { collection: normalizeCollection(JSON.parse(stored)), learning: learning && typeof learning === "object" ? learning : {} };
-        }
-        const migrated = migrateProgress(this.load(), now);
-        backend?.setItem(COLLECTION_KEY, JSON.stringify(migrated.collection));
-        backend?.setItem(LEARNING_KEY, JSON.stringify(migrated.learning));
-        return migrated;
-      } catch (error) {
-        console.warn("Collection could not be loaded; starting fresh.", error);
-        return { collection: normalizeCollection(null), learning: {} };
+      const stored = readJson(backend, COLLECTION_KEY);
+      if (stored.ok && stored.value !== null) {
+        const learning = readJson(backend, LEARNING_KEY);
+        const isRecord = learning.ok && learning.value && typeof learning.value === "object" && !Array.isArray(learning.value);
+        return { collection: normalizeCollection(stored.value), learning: isRecord ? learning.value : {} };
       }
+      const migrated = migrateProgress(this.load(), now);
+      const existing = readJson(backend, LEARNING_KEY);
+      const kept = existing.ok && existing.value && typeof existing.value === "object" && !Array.isArray(existing.value) ? existing.value : {};
+      const learning = { ...migrated.learning, ...kept }; // never overwrite learning another tab wrote
+      writeJson(backend, COLLECTION_KEY, migrated.collection);
+      writeJson(backend, LEARNING_KEY, learning);
+      return { collection: migrated.collection, learning };
     },
-    saveCollection(collection) {
-      try {
-        backend?.setItem(COLLECTION_KEY, JSON.stringify(collection));
-      } catch (error) {
-        console.warn("Collection could not be saved.", error);
-      }
+    // Changes are applied to the LATEST stored collection (not a snapshot
+    // this tab loaded earlier), so saves from other tabs are never lost.
+    // Returns { collection, persisted }: persisted is false when the browser
+    // refused the write (private mode, quota, no storage).
+    updateCollection(operation, now) {
+      const next = operation(this.loadCollection(now).collection);
+      return { collection: next, persisted: writeJson(backend, COLLECTION_KEY, next) };
     },
-    saveLearning(learning) {
-      try {
-        backend?.setItem(LEARNING_KEY, JSON.stringify(learning));
-      } catch (error) {
-        console.warn("Learning record could not be saved.", error);
-      }
+    updateLearning(operation) {
+      const current = readJson(backend, LEARNING_KEY);
+      const base = current.ok && current.value && typeof current.value === "object" && !Array.isArray(current.value) ? current.value : {};
+      const next = operation(base);
+      return { learning: next, persisted: writeJson(backend, LEARNING_KEY, next) };
+    },
+    // Replaces the collection wholesale (backup restore only).
+    replaceCollection(collection) {
+      return writeJson(backend, COLLECTION_KEY, collection);
+    },
+    replaceLearning(learning) {
+      return writeJson(backend, LEARNING_KEY, learning);
     },
     loadProfile(makeId) {
       try {

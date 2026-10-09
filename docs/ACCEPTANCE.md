@@ -14,7 +14,7 @@ Plan: `~/Documents/ChatGPT/Did-You-Know-That/CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct
 | No reward-conditioned viewing language in the **rules** | Series Bible | grep for magic-word-unlocks / answers-only-in-video | None in docs; app wording changed with the mechanics in Phase B (ladder, points, "Find out in the video" removed) | done |
 | Explicit open decisions | `docs/OPEN-DECISIONS.md` | 10 decisions with recommendation | Waiting for David | decision |
 
-## Phase B — companion flow (preview only; production deploy needs David's approval)
+## Phase B — companion flow (live on dexty.live since 9 Oct 2026, merge 1146cb5)
 
 | Requirement | Artifact | Check | Observed result | Status |
 |---|---|---|---|---|

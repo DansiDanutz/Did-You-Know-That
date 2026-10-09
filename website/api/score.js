@@ -1,17 +1,10 @@
-import { createRedis, handleScore } from "./_leaderboard.js";
-
-const MAX_BODY_BYTES = 4096;
-
-export async function POST(request) {
-  const text = await request.text();
-  if (text.length > MAX_BODY_BYTES) return Response.json({ success: false, data: null, error: "too_large" }, { status: 413 });
-  let body;
-  try {
-    body = JSON.parse(text);
-  } catch {
-    return Response.json({ success: false, data: null, error: "invalid_json" }, { status: 400 });
-  }
-  const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
-  const result = await handleScore({ redis: createRedis(process.env), body, ip });
-  return Response.json(result.body, { status: result.status, headers: { "Cache-Control": "no-store" } });
+// Retired (audit 9 Oct 2026, master plan §14): the leaderboard trusted
+// client-reported scores and is no longer part of the journey. Writes are
+// refused so nothing new is stored; existing records stay untouched in Redis
+// and handleScore remains in _leaderboard.js should a verified design return.
+export async function POST() {
+  return Response.json(
+    { success: false, data: null, error: "retired" },
+    { status: 410, headers: { "Cache-Control": "no-store" } },
+  );
 }

@@ -3,6 +3,7 @@
 
 import { createStore } from "./lib/storage.js";
 import { saveCard, isSaved } from "./lib/collection.js";
+import { withStorageLock } from "./lib/storage-lock.js";
 
 const main = document.querySelector("main.ep");
 const message = main.querySelector(".ep-msg");
@@ -28,13 +29,13 @@ function showSaved() {
 
 if (isSaved(collection, audience, card)) showSaved();
 
-saveButton.addEventListener("click", () => {
-  if (!safeStorage()) {
-    message.textContent = "This browser is blocking storage, so the card can't be kept here. Try a normal (not private) window.";
-    return;
-  }
-  store.saveCollection(saveCard(collection, audience, card, new Date().toISOString()));
-  showSaved();
+// Saves into the latest stored collection under the cross-tab lock, and only
+// says "Saved" when the browser really kept it.
+saveButton.addEventListener("click", async () => {
+  const now = new Date().toISOString();
+  const { persisted } = await withStorageLock(() => store.updateCollection((current) => saveCard(current, audience, card, now), now));
+  if (persisted) return showSaved();
+  message.textContent = "This browser isn't letting the card be kept (private window or storage blocked). Try a normal window.";
 });
 
 main.querySelector("[data-share]").addEventListener("click", async () => {
