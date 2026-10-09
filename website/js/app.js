@@ -12,6 +12,7 @@ import { createBook } from "./ui/book.js";
 import { buildFaces, renderFace, isFaceComplete, BLOCKED_HINT } from "./ui/pages.js";
 import { openListening } from "./ui/gate.js";
 import { flagSvg } from "./ui/flags.js";
+import { openLanguageSheet, languageName } from "./ui/language-sheet.js";
 import { setupInstall } from "./ui/install.js";
 import { renderAdultHome, renderKidsBar } from "./ui/home.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
@@ -130,9 +131,9 @@ function applyStaticText() {
 function updateHud() {
   const owned = Object.keys(view().cards).length;
   $("#hud-cards").textContent = `${owned}/${STORIES.length}`;
-  $("#hud-sound").textContent = sfx.muted ? "🔇" : "🔊";
   $("#hud-coins").textContent = `🪙 ${collection.coins.length}`;
-  $("#hud-lang").innerHTML = `${flagSvg(settings.lang)} ${settings.lang.toUpperCase()} · ${settings.audience === "kids" ? "🧒" : "🎓"}`;
+  $("#hud-lang").innerHTML = flagSvg(settings.lang);
+  $("#hud-lang").setAttribute("aria-label", `${t("lang.title")}: ${languageName(settings.lang)}`);
   if (openStory) {
     const { sparkCount, max } = score(openStory);
     $("#book-sparks").textContent = t("book.sparks", { n: sparkCount, max });
@@ -235,8 +236,28 @@ function showSettings() {
       applySettings(patch);
       showSettings();
     },
+    muted: sfx.muted,
+    onOpenLanguage: () => showLanguageSheet(showSettings),
+    onToggleSound: () => {
+      sfx.toggle();
+      showSettings();
+    },
     onExport: exportBackup,
     onImport: importBackup,
+  });
+}
+
+// The one language control: the flag opens a sheet; `then` re-renders the
+// screen that asked (start screen or Settings).
+function showLanguageSheet(then) {
+  openLanguageSheet($("#sheet-layer"), {
+    current: settings.lang,
+    t,
+    onPick: (lang) => {
+      sfx.spark();
+      applySettings({ lang });
+      then?.();
+    },
   });
 }
 
@@ -451,9 +472,14 @@ function updateReadButtons() {
   $("#book-voice").hidden = !(hasMale && hasFemale);
   if (!hasMale && hasFemale) voice = "female";
   if (hasMale && !hasFemale) voice = "male";
-  $("#book-read").textContent = reading ? t("book.stop") : t("book.read");
+  // Icon + label; phones show the icon only, every button keeps a spoken name.
+  const readLabel = reading ? t("book.stop") : t("book.read");
+  $("#book-read").innerHTML = `<span class="ico" aria-hidden="true">${reading ? "🔊" : "🔈"}</span><span class="lbl">${readLabel.replace(/^\S+\s/, "")}</span>`;
+  $("#book-read").setAttribute("aria-label", readLabel.replace(/^\S+\s/, ""));
   $("#book-read").setAttribute("aria-pressed", String(reading));
-  $("#book-voice").textContent = voice === "female" ? "🎙️ Jane" : "🎙️ Brian";
+  const voiceName = voice === "female" ? "Jane" : "Brian";
+  $("#book-voice").innerHTML = `<span class="ico" aria-hidden="true">🎙️</span><span class="lbl">${voiceName}</span>`;
+  $("#book-voice").setAttribute("aria-label", `${t("book.voice")}: ${voiceName}`);
 }
 
 function openBook(story) {
@@ -703,10 +729,11 @@ function startScreen() {
   $("#start-daxter").innerHTML = DAXTER_SVG;
   renderStartPickers();
   $("#start-pickers").addEventListener("click", (event) => {
-    const btn = event.target.closest("[data-lang], [data-audience]");
+    if (event.target.closest("[data-open-lang]")) return showLanguageSheet(renderStartPickers);
+    const btn = event.target.closest("[data-audience]");
     if (!btn) return;
     sfx.spark();
-    applySettings(btn.dataset.lang ? { lang: btn.dataset.lang } : { audience: btn.dataset.audience });
+    applySettings({ audience: btn.dataset.audience });
     renderStartPickers();
   });
   $("#start-go").addEventListener(
@@ -729,11 +756,8 @@ function startScreen() {
 
 $("#hud-inventory").addEventListener("click", showInventory);
 // The leaderboard is retired from the core journey (master plan §14); records are kept server-side.
-$("#hud-lang").addEventListener("click", showSettings);
-$("#hud-sound").addEventListener("click", () => {
-  sfx.toggle();
-  updateHud();
-});
+$("#hud-lang").addEventListener("click", () => showLanguageSheet());
+$("#hud-settings").addEventListener("click", showSettings);
 $("#book-close").addEventListener("click", () => closeBook());
 // Bigger book text, remembered on this device (audit 05: ~13px on small phones).
 const TEXT_KEY = "dexty-large-text";

@@ -29,10 +29,10 @@
         <span><b>Did You Know That?</b><small data-i18n="start.sub">The Road of Wonders</small></span>
       </a>
       <div class="hud-actions">
-        <span id="hud-coins" class="hud-btn hud-coins" data-i18n-aria="coins.title" aria-label="Coins">🪙 0</span>
-        <button id="hud-inventory" class="hud-btn" data-i18n-aria="hud.inventory" aria-label="Open inventory">🎒 <span id="hud-cards">0/0</span></button>
-        <button id="hud-lang" class="hud-btn" data-i18n-aria="hud.settings" aria-label="Language and player">EN · 🧒</button>
-        <button id="hud-sound" class="hud-btn" data-i18n-aria="hud.sound" aria-label="Toggle sound">🔊</button>
+        <span id="hud-coins" class="hud-chip hud-coins" data-i18n-aria="coins.title" aria-label="Coins">🪙 0</span>
+        <button id="hud-inventory" class="hud-chip" data-i18n-aria="hud.inventory" aria-label="Open inventory">🎒 <span id="hud-cards">0/0</span></button>
+        <button id="hud-lang" class="hud-icon" aria-label="Language">EN</button>
+        <button id="hud-settings" class="hud-icon" data-i18n-aria="settings.title" aria-label="Settings">⚙️</button>
       </div>
     </header>
 
@@ -50,10 +50,10 @@
       <div class="book-toolbar">
         <span id="book-sparks" class="pill">✦ 0/0</span>
         <div class="book-tools">
-          <button id="book-text" class="hud-btn" aria-pressed="false" data-i18n-aria="book.textSize" aria-label="Bigger text">Aa</button>
-          <button id="book-read" class="hud-btn" aria-pressed="false" hidden>🔊 Read aloud</button>
-          <button id="book-voice" class="hud-btn" hidden>🎙️ Brian</button>
-          <button id="book-close" class="hud-btn" data-i18n="book.close">✕ Close</button>
+          <button id="book-text" class="hud-btn tool-btn" aria-pressed="false" data-i18n-aria="book.textSize" aria-label="Bigger text"><span class="ico" aria-hidden="true">Aa</span></button>
+          <button id="book-read" class="hud-btn tool-btn" aria-pressed="false" hidden></button>
+          <button id="book-voice" class="hud-btn tool-btn" hidden></button>
+          <button id="book-close" class="hud-btn tool-btn" data-i18n-aria="listen.close" aria-label="Close"><span class="ico" aria-hidden="true">✕</span><span class="lbl" data-i18n="listen.close">Close</span></button>
         </div>
       </div>
       <div id="book-host"></div>
@@ -81,6 +81,7 @@
       </div>
     </section>
 
+    <section id="sheet-layer" class="sheet-layer" hidden></section>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script type="module" src="js/app.js"></script>
   </body>

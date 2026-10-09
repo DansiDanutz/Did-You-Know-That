@@ -1,8 +1,7 @@
 // Overlay panels: language/audience pickers, inventory and leaderboard.
 
 import { kidNickname, isKidNickname } from "../lib/kid-names.js";
-import { LANGUAGES } from "../i18n/index.js";
-import { flagSvg } from "./flags.js";
+import { currentLanguageButton } from "./language-sheet.js";
 import { cardMarkup, enableTilt } from "./card.js";
 import { inspectCard } from "./card-inspect.js";
 import { searchCards } from "../lib/collection.js";
@@ -12,11 +11,6 @@ const escapeHtml = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 export function pickersMarkup(settings, t) {
-  const langs = LANGUAGES.map(
-    ({ code, name }) =>
-      `<button class="lang-btn${code === settings.lang ? " is-active" : ""}" data-lang="${code}" aria-pressed="${code === settings.lang}">
-        ${flagSvg(code)}${name}</button>`,
-  ).join("");
   const audience = (key, icon) => `
     <button class="aud-btn${settings.audience === key ? " is-active" : ""}" data-audience="${key}" aria-pressed="${settings.audience === key}">
       <span class="aud-icon" aria-hidden="true">${icon}</span>
@@ -24,7 +18,7 @@ export function pickersMarkup(settings, t) {
     </button>`;
   return `
     <p class="picker-label">${t("start.lang")}</p>
-    <div class="lang-grid">${langs}</div>
+    ${currentLanguageButton(settings.lang, t)}
     <p class="picker-label">${t("start.audience")}</p>
     <div class="aud-grid">${audience("kids", "🧒")}${audience("adults", "🎓")}</div>`;
 }
@@ -231,12 +225,16 @@ export function openLeaderboard(layer, { audience, profile, t, load, join }) {
   refresh();
 }
 
-export function openSettings(layer, { settings, t, onPick, onExport, onImport }) {
+export function openSettings(layer, { settings, t, muted, onPick, onOpenLanguage, onToggleSound, onExport, onImport }) {
   const render = (current) => `
     <div class="panel settings" role="dialog" aria-modal="true" aria-label="${t("settings.title")}">
       <button class="panel-close" data-close aria-label="${t("listen.close")}">✕</button>
-      <h2>🌐 ${t("settings.title")}</h2>
+      <h2>⚙️ ${t("settings.title")}</h2>
       ${pickersMarkup(current, t)}
+      <p class="picker-label">${t("settings.sound")}</p>
+      <button class="setting-row" type="button" role="switch" data-sound aria-checked="${!muted}">
+        <span>${muted ? "🔇" : "🔊"} ${t("settings.sound")}</span><span class="switch${muted ? "" : " is-on"}" aria-hidden="true"><i></i></span>
+      </button>
       <section class="backup" aria-labelledby="backup-title">
         <p class="picker-label" id="backup-title">${t("backup.title")}</p>
         <p class="backup-note">${t("backup.note")}</p>
@@ -255,10 +253,12 @@ export function openSettings(layer, { settings, t, onPick, onExport, onImport })
     const file = event.target.files?.[0];
     if (file) message(await onImport(file));
   });
+  layer.querySelector("[data-open-lang]").addEventListener("click", onOpenLanguage);
+  layer.querySelector("[data-sound]").addEventListener("click", onToggleSound);
   layer.addEventListener("click", function pick(event) {
-    const btn = event.target.closest("[data-lang], [data-audience]");
+    const btn = event.target.closest("[data-audience]");
     if (!btn) return;
-    onPick(btn.dataset.lang ? { lang: btn.dataset.lang } : { audience: btn.dataset.audience });
+    onPick({ audience: btn.dataset.audience });
     layer.removeEventListener("click", pick);
   });
 }
