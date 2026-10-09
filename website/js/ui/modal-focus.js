@@ -6,7 +6,7 @@
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
 
 // Highest first: the topmost open layer owns focus.
-const LAYERS = ["#sheet-layer", "#inspect-layer", "#reveal-layer", "#listen-layer", "#start-layer", "#panel-layer", "#book-layer"];
+const LAYERS = ["#sheet-layer", "#inspect-layer", "#mission-layer", "#reveal-layer", "#listen-layer", "#start-layer", "#panel-layer", "#book-layer"];
 const BACKGROUND = [".hud", "#world", ".walk-controls", "#kids-bar-host", "#adult-home"];
 
 const FOCUS_RETRY_MS = [0, 120, 360, 700];

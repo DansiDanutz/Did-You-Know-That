@@ -39,5 +39,8 @@ Plan: `~/Documents/ChatGPT/Did-You-Know-That/CLAUDE-DEXTY-MASTER-PLAN.md` (9 Oct
 ## Phase C — pilots (not started)
 Ep 1 kids revision, Ep 1 adults, Ep 2 storyboards, two 20–30 s motion tests. Narration budget and font decision needed.
 
+## Progression pilot (addendum, 9 Oct 2026)
+See `docs/PROGRESSION.md`: engine, "The Missing Shadow" mission, outfits/workshop, storage + backup — built on `feat/explorer-progression`, preview only. Child test and adult Curiosity Archive open.
+
 ## Phase D–F
 Launch preparation, publishing cadence, measurement — after C; publication and production deploys need David's approval.

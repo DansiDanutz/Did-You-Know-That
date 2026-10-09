@@ -5,6 +5,8 @@ import { currentLanguageButton } from "./language-sheet.js";
 import { cardMarkup, enableTilt } from "./card.js";
 import { inspectCard } from "./card-inspect.js";
 import { searchCards } from "../lib/collection.js";
+import { ITEMS } from "../lib/progression.js";
+import { DAXTER_SVG } from "./character.js";
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 const escapeHtml = (text) =>
@@ -42,7 +44,20 @@ function openLayer(layer, html, onClose) {
 // Saved cards stay in the library: each one can replay its video, re-open its
 // book or share its public discovery page. Search and topic filters help once
 // the collection grows; no points, ranks or rarity ladders.
-export function openInventory(layer, { stories, cards, audience, t, onWatch, onRead, onShare, onSelect }) {
+// Kids: Dexter's wardrobe, equipment looks and workshop (earned in app missions).
+function explorerSection(explorer, t) {
+  if (!explorer) return "";
+  const owned = Object.keys(explorer.owned);
+  if (!owned.length) return `<section class="explorer-panel"><h3>🧭 ${t("explorer.title")}</h3><p>${t("explorer.empty")}</p></section>`;
+  const outfits = owned.filter((id) => ITEMS[id].kind === "outfit");
+  const gear = owned.filter((id) => ITEMS[id].kind === "equipment");
+  return `<section class="explorer-panel"><h3>🧭 ${t("explorer.title")}</h3>
+    <div class="outfit-row">${outfits.map((id) => `<button class="outfit-choice${explorer.appearance.outfit === id ? " is-worn" : ""}" type="button" data-equip="${id}" aria-pressed="${explorer.appearance.outfit === id}"><span class="outfit-preview outfit-${id}">${DAXTER_SVG}</span><b>${ITEMS[id].name}</b></button>`).join("")}</div>
+    <p class="explorer-line">🔦 ${gear.map((id) => ITEMS[id].name).join(" · ")}</p>
+    <p class="explorer-line">🏠 ${t("explorer.workshop")}: ${explorer.workshop.map((id) => ITEMS[id].name).join(" · ")}</p></section>`;
+}
+
+export function openInventory(layer, { stories, cards, audience, t, explorer, onEquip, onWatch, onRead, onShare, onSelect }) {
   const saved = stories.filter((story) => cards[story.card.id]);
   const topics = [...new Set(saved.map((story) => story.publication?.topic).filter(Boolean))];
   const entry = (story) => ({ cardId: story.card.id, title: story.card.name, summary: story.card.fact, topic: story.publication?.topic ?? "" });
@@ -77,6 +92,7 @@ export function openInventory(layer, { stories, cards, audience, t, onWatch, onR
       <button class="panel-close" data-close aria-label="${t("album.close")}">✕</button>
       <h2>🎒 ${t("inv.title")}</h2>
       <p class="panel-sub">${t("inv.mode", { audience: t(`aud.${audience}`) })} · ${t("inv.count", { n: saved.length, total: stories.length })}</p>
+      ${explorerSection(explorer, t)}
       ${tools}
       ${empty}
       <p class="inv-nomatch" hidden>${t("inv.noMatch")}</p>
@@ -106,6 +122,7 @@ export function openInventory(layer, { stories, cards, audience, t, onWatch, onR
       applyFilter();
     }),
   );
+  layer.querySelectorAll("[data-equip]").forEach((btn) => btn.addEventListener("click", () => onEquip?.(btn.dataset.equip)));
   layer.querySelectorAll(".dyk-card.can-tilt").forEach(enableTilt);
   const runAction = (btn) => {
     close();

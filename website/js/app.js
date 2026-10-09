@@ -16,6 +16,8 @@ import { flagSvg } from "./ui/flags.js";
 import { openLanguageSheet, languageName } from "./ui/language-sheet.js";
 import { setupInstall } from "./ui/install.js";
 import { renderAdultHome, renderKidsBar } from "./ui/home.js";
+import { openMission } from "./ui/mission.js";
+import { completeMission, recordAttempt, recordHint, equip } from "./lib/progression.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
 import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
@@ -58,6 +60,8 @@ const linkedStoryId = linkParams.get("story");
 let profile = store.loadProfile(() => crypto.randomUUID());
 // Saved cards and the private learning record (migrated once from the old progress).
 let { collection, learning } = store.loadCollection(new Date().toISOString());
+// Outfits, equipment looks, workshop and mission state (independent app missions only).
+let explorer = store.loadExplorer();
 let sessions = new Map();
 let t = createTranslator(settings.lang);
 let stories = localizeAll();
@@ -129,6 +133,33 @@ async function changeCollection(operation) {
   updateHud();
   warnIfNotPersisted(result.persisted);
   return result.persisted;
+}
+
+async function changeExplorer(operation) {
+  const result = await withStorageLock(() => store.updateExplorer(operation));
+  explorer = result.explorer;
+  applyOutfit();
+  warnIfNotPersisted(result.persisted);
+  return result.persisted;
+}
+
+// Dexter wears the outfit the child chose (map, start screen, previews).
+function applyOutfit() {
+  document.querySelectorAll(".daxter, #start-daxter").forEach((el) => {
+    [...el.classList].filter((name) => name.startsWith("outfit-")).forEach((name) => el.classList.remove(name));
+    if (explorer.appearance.outfit) el.classList.add(`outfit-${explorer.appearance.outfit}`);
+  });
+}
+
+const SHADOW_MISSION = "missing-shadow";
+function showMission() {
+  openMission($("#mission-layer"), {
+    completed: Boolean(explorer.missions[SHADOW_MISSION]?.completedAt),
+    onAttempt: () => changeExplorer((state) => recordAttempt(state, SHADOW_MISSION, nowIso())),
+    onHint: () => changeExplorer((state) => recordHint(state, SHADOW_MISSION)),
+    onComplete: (choice) => changeExplorer((state) => equip(completeMission(state, SHADOW_MISSION, { choice }, nowIso()), choice)),
+    onClose: () => renderHome(),
+  });
 }
 
 async function changeLearning(operation) {
@@ -207,6 +238,8 @@ function showInventory() {
   openInventory($("#panel-layer"), {
     stories,
     cards: view().cards,
+    explorer: settings.audience === "kids" ? explorer : null,
+    onEquip: (itemId) => changeExplorer((state) => equip(state, itemId)).then(showInventory),
     audience: settings.audience,
     t,
     onWatch: (id) => watchStory(byId(id), { replay: true }),
@@ -283,7 +316,7 @@ function showLanguageSheet(then) {
 // ---------------------------------------------------------------- backup (this device only)
 
 function exportBackup() {
-  const backup = makeBackup({ collection, learning, settings }, nowIso());
+  const backup = makeBackup({ collection, learning, settings, explorer }, nowIso());
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" }));
   link.download = `dexty-backup-${nowIso().slice(0, 10)}.json`;
@@ -295,7 +328,9 @@ function exportBackup() {
 async function importBackup(file) {
   const result = parseBackup(await file.text(), STORIES.map((story) => story.card.id));
   if (!result.ok) return t("backup.bad");
-  const persisted = store.replaceCollection(result.data.collection) && store.replaceLearning(result.data.learning);
+  const persisted = store.replaceCollection(result.data.collection) && store.replaceLearning(result.data.learning) && store.replaceExplorer(result.data.explorer);
+  explorer = result.data.explorer;
+  applyOutfit();
   collection = result.data.collection;
   learning = result.data.learning;
   updateHud();
@@ -329,6 +364,7 @@ function handleHomeAction(event) {
   const story = stories.find((entry) => entry.id === btn.dataset.story);
   const action = btn.dataset.home;
   if (action === "collection") return showInventory();
+  if (action === "mission") return showMission();
   if (!story) return;
   if (action === "read") return openBook(story);
   if (action === "watch") return watchStory(story);
@@ -857,11 +893,14 @@ startScreen();
 window.addEventListener("storage", (event) => {
   if (event.key && !event.key.startsWith("dexty-")) return;
   ({ collection, learning } = store.loadCollection(nowIso()));
+  explorer = store.loadExplorer();
+  applyOutfit();
   world.render(view(), stories, t);
   refreshCoins();
   renderHome();
   updateHud();
 });
+applyOutfit();
 setupModalFocus();
 $("#adult-home").addEventListener("click", handleHomeAction);
 $("#kids-bar-host").addEventListener("click", handleHomeAction);
