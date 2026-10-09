@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Did You Know That? · Ep 1 Adults · The Re-Reading Trap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Fredoka:wght@500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/TextPlugin.min.js"></script>
+    <style>* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #121316; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Fredoka", system-ui, sans-serif; font-weight: 500; color: #ece8df; }
+.scene { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, #1d1f25, #121316 70%); }
+.scene > * { position: absolute; }
+svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.serif { font-family: "Cormorant Garamond", Georgia, serif; }
+.caption { left: 80px; bottom: 44px; font-size: 24px; color: rgba(236,232,223,.6); letter-spacing: .04em; opacity: 0; }
+
+/* title */
+.kicker { left: 0; right: 0; top: 300px; text-align: center; font-size: 28px; letter-spacing: .22em; text-transform: uppercase; color: #d4b06a; opacity: 0; }
+.title { left: 0; right: 0; top: 360px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 150px; letter-spacing: -0.01em; opacity: 0; }
+.dek { left: 0; right: 0; top: 600px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 48px; color: rgba(236,232,223,.8); opacity: 0; }
+
+/* case */
+.sheets { left: 0; right: 0; top: 200px; display: flex; justify-content: center; gap: 120px; }
+.sheet { width: 380px; height: 500px; padding: 40px; border-radius: 6px; background: #f3eee2; color: #1d1a16; box-shadow: 0 30px 60px rgba(0,0,0,.6); opacity: 0; }
+.sheet b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-size: 44px; margin-bottom: 26px; }
+.sheet i { display: block; height: 14px; margin: 18px 0; border-radius: 7px; background: #b9b0a0; }
+.sheet i:nth-child(3) { width: 80%; } .sheet i:nth-child(5) { width: 60%; }
+.fact-case { left: 0; right: 0; top: 110px; text-align: center; font-size: 30px; letter-spacing: .1em; text-transform: uppercase; color: #d4b06a; opacity: 0; }
+.conditions { left: 0; right: 0; top: 760px; display: flex; justify-content: center; gap: 120px; }
+.cond { width: 380px; text-align: center; padding: 16px 0; border-top: 2px solid #d4b06a; font-size: 34px; opacity: 0; }
+
+/* charts */
+.chart { left: 260px; top: 220px; width: 1400px; opacity: 0; }
+.chart h3 { margin-bottom: 36px; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 54px; }
+.bar { display: grid; grid-template-columns: 460px 1fr 150px; align-items: center; gap: 28px; margin: 22px 0; font-size: 36px; }
+.bar-track { display: block; height: 44px; border-radius: 22px; background: rgba(236,232,223,.08); overflow: hidden; }
+.bar-fill { display: block; height: 100%; width: calc(var(--v) * 100%); border-radius: 22px; background: #7fc8b5; transform-origin: 0 50%; }
+.bar.b1 .bar-fill { background: #b8b2a7; }
+.bar-value { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.names { left: 0; right: 0; bottom: 140px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-size: 44px; font-style: italic; color: rgba(236,232,223,.85); opacity: 0; }
+.ch-week1 { transform-origin: 0 0; }
+.ch-exp2 { top: 500px; }
+.readings { left: 260px; right: 260px; bottom: 70px; display: flex; justify-content: center; gap: 200px; opacity: 0; }
+.readings div { text-align: center; }
+.readings b { display: block; font-size: 90px; color: #b8b2a7; font-variant-numeric: tabular-nums; }
+.readings div:last-child b { color: #7fc8b5; }
+.readings span { font-size: 28px; color: rgba(236,232,223,.7); }
+.twin { left: 100px; right: 100px; top: 160px; display: flex; gap: 60px; }
+.twin .chart { position: relative; left: auto; top: auto; width: 50%; }
+.twin .bar { grid-template-columns: 260px 1fr 110px; font-size: 28px; }
+.trap { left: 0; right: 0; top: 700px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-size: 72px; line-height: 1.25; }
+.trap span { display: block; opacity: 0; }
+.trap span:last-child { color: #d4b06a; }
+
+/* mechanism */
+.memory { left: 0; right: 0; top: 220px; height: 520px; display: flex; justify-content: center; align-items: center; gap: 140px; opacity: 0; }
+.mem-box { position: relative; width: 420px; height: 420px; border: 3px solid rgba(236,232,223,.25); border-radius: 24px; display: grid; place-items: end center; padding-bottom: 20px; font-size: 32px; color: rgba(236,232,223,.6); }
+.mem-box .idea { position: absolute; left: 150px; top: 150px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #ffe6a8, #d4b06a); box-shadow: 0 0 60px rgba(212,176,106,.6); }
+.mem-path { width: 380px; padding: 28px 34px; border-radius: 18px; border: 2px solid rgba(236,232,223,.2); opacity: 0; }
+.mem-path b { display: block; font-size: 44px; }
+.mem-path span { font-size: 28px; color: rgba(236,232,223,.7); }
+.path-recall { border-color: #7fc8b5; }
+.dd { left: 0; right: 0; top: 780px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 64px; color: #d4b06a; opacity: 0; }
+.label-interp { left: 0; right: 0; top: 880px; text-align: center; font-size: 28px; color: rgba(236,232,223,.7); opacity: 0; }
+.tag { display: inline-block; margin-right: 14px; padding: 4px 16px; border: 1px solid #e0b25c; border-radius: 999px; color: #e0b25c; font-size: 22px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* limits */
+.chips { left: 0; right: 0; top: 380px; display: flex; justify-content: center; gap: 30px; }
+.chip { padding: 20px 36px; border: 2px dashed #b8b2a7; border-radius: 999px; font-size: 36px; color: #b8b2a7; opacity: 0; }
+.forest { left: 260px; top: 260px; width: 1400px; height: 420px; opacity: 0; }
+.axis { position: absolute; left: 50%; top: 0; bottom: 60px; width: 2px; background: rgba(236,232,223,.5); }
+.axis span { position: absolute; left: -10px; bottom: -40px; font-size: 24px; color: rgba(236,232,223,.6); }
+.dot { position: absolute; left: calc(50% + var(--x)); top: calc(var(--y) * 0.85); width: 18px; height: 18px; border-radius: 50%; background: #7fc8b5; }
+.dot.neg { background: #b8b2a7; }
+.forest-label { position: absolute; left: 0; right: 0; bottom: -20px; text-align: center; font-size: 28px; color: rgba(236,232,223,.8); opacity: 0; }
+.moderators { left: 0; right: 0; top: 760px; display: flex; justify-content: center; gap: 40px; font-size: 32px; opacity: 0; }
+.moderators span { padding: 14px 28px; border-radius: 12px; background: rgba(127,200,181,.15); color: #7fc8b5; }
+.moderators .off { background: rgba(184,178,167,.15); color: #b8b2a7; opacity: 0; }
+
+/* method */
+.steps { left: 260px; top: 200px; width: 900px; }
+.step { display: flex; align-items: center; gap: 30px; margin: 22px 0; font-size: 48px; opacity: 0; }
+.step span { width: 72px; height: 72px; border-radius: 50%; border: 2px solid #d4b06a; display: grid; place-items: center; color: #d4b06a; font-size: 34px; }
+.harder { left: 260px; top: 680px; width: 900px; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 44px; color: rgba(236,232,223,.85); opacity: 0; }
+.host { left: 1300px; bottom: 160px; width: 260px; height: 357px; opacity: 0; }
+.close-line { left: 1180px; right: 60px; bottom: 90px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-size: 44px; opacity: 0; }
+.close-line b { color: #d4b06a; }
+
+/* keep + closing */
+.card { left: 50%; top: 220px; width: 520px; margin-left: -260px; padding: 40px; border-radius: 22px; background: #1b1d22; border: 1px solid #d4b06a; box-shadow: 0 30px 80px rgba(0,0,0,.6); opacity: 0; }
+.card small { display: block; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: #d4b06a; }
+.card b { display: block; margin: 16px 0 20px; font-family: "Cormorant Garamond", Georgia, serif; font-size: 56px; line-height: 1.05; }
+.card p { font-size: 28px; line-height: 1.4; color: rgba(236,232,223,.85); }
+.card span { display: block; margin-top: 26px; font-size: 20px; color: rgba(236,232,223,.55); }
+.url { left: 0; right: 0; top: 800px; text-align: center; font-size: 64px; color: #d4b06a; opacity: 0; }
+.closing-logo { left: 50%; top: 240px; width: 260px; height: 260px; margin-left: -130px; opacity: 0; }
+.closing-logo img { width: 100%; height: 100%; object-fit: contain; }
+.closing-title { left: 0; right: 0; top: 540px; text-align: center; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 96px; opacity: 0; }
+.closing-sub { left: 0; right: 0; top: 680px; text-align: center; font-size: 36px; color: #d4b06a; letter-spacing: .06em; opacity: 0; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="191.499" data-width="1920" data-height="1080">
+      <section id="sc-title" class="clip scene bg-title" data-start="0" data-duration="4.500" data-track-index="0">
+    <p class="kicker">Did You Know That? · Case file 001</p>
+    <h1 class="title">The Re-Reading Trap</h1>
+    <p class="dek">Why does the study method that feels best lose to the one that feels worse?</p></section>
+      <section id="sc-case" class="clip scene bg-case" data-start="4.5" data-duration="19.279" data-track-index="0">
+    <div class="sheets"><div class="sheet s1"><b>The Sun</b><i></i><i></i><i></i><i></i></div><div class="sheet s2"><b>Sea Otters</b><i></i><i></i><i></i><i></i></div></div>
+    <p class="fact fact-case">2006 · Washington University in St. Louis · 120 students</p>
+    <div class="conditions"><div class="cond c1"><span>Read twice</span></div><div class="cond c2"><span>Read once → recall</span></div></div>
+    <p class="caption">Roediger & Karpicke (2006), Experiment 1</p></section>
+      <section id="sc-puzzle" class="clip scene bg-puzzle" data-start="23.779" data-duration="19.962" data-track-index="0">
+    <div class="chart ch-5min"><h3>Recalled after 5 minutes</h3><div class="bar b1"><span class="bar-label">Read twice</span><span class="bar-track"><i class="bar-fill" style="--v:0.81"></i></span><b class="bar-value">81%</b></div><div class="bar b2"><span class="bar-label">Read once, recalled</span><span class="bar-track"><i class="bar-fill" style="--v:0.75"></i></span><b class="bar-value">75%</b></div></div>
+    <p class="names">Henry Roediger &amp; Jeffrey Karpicke</p>
+    <p class="caption">Mean % of idea units recalled · Exp. 1 · R1d, R1e</p></section>
+      <section id="sc-flip" class="clip scene bg-flip" data-start="43.741" data-duration="36.741" data-track-index="0">
+    <div class="chart ch-week1"><h3>After one week (Exp. 1)</h3><div class="bar b1"><span class="bar-label">Read twice</span><span class="bar-track"><i class="bar-fill" style="--v:0.42"></i></span><b class="bar-value">42%</b></div><div class="bar b2"><span class="bar-label">Read once, recalled</span><span class="bar-track"><i class="bar-fill" style="--v:0.56"></i></span><b class="bar-value">56%</b></div></div>
+    <div class="chart ch-exp2"><h3>Experiment 2 · 180 students</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.83"></i></span><b class="bar-value">83%</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.71"></i></span><b class="bar-value">71%</b></div></div>
+    <div class="readings"><div><b class="n14">14.2</b><span>times read</span></div><div><b class="n3">3.4</b><span>times read</span></div></div>
+    <p class="caption">Mean % of idea units recalled · R1g, R2c, R2d, R2e</p></section>
+      <section id="sc-twist" class="clip scene bg-twist" data-start="80.482" data-duration="19.726" data-track-index="0">
+    <div class="twin">
+      <div class="chart ch-conf"><h3>Predicted memory (1–7)</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6857142857142857"></i></span><b class="bar-value">4.8</b></div><div class="bar b3"><span class="bar-label">Read 3×, recalled 1×</span><span class="bar-track"><i class="bar-fill" style="--v:0.6"></i></span><b class="bar-value">4.2</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.5714285714285714"></i></span><b class="bar-value">4</b></div></div>
+      <div class="chart ch-real"><h3>Actual recall, 1 week</h3><div class="bar b1"><span class="bar-label">Read 4×</span><span class="bar-track"><i class="bar-fill" style="--v:0.4"></i></span><b class="bar-value">40%</b></div><div class="bar b3"><span class="bar-label">Read 3×, recalled 1×</span><span class="bar-track"><i class="bar-fill" style="--v:0.56"></i></span><b class="bar-value">56%</b></div><div class="bar b2"><span class="bar-label">Read 1×, recalled 3×</span><span class="bar-track"><i class="bar-fill" style="--v:0.61"></i></span><b class="bar-value">61%</b></div></div>
+    </div>
+    <p class="trap"><span>Re-reading feels like learning.</span><span>That feeling is the trap.</span></p>
+    <p class="caption">Group means · R3</p></section>
+      <section id="sc-mechanism" class="clip scene bg-mechanism" data-start="100.208" data-duration="25.395" data-track-index="0">
+    <div class="memory">
+      <div class="mem-box"><span>memory</span><i class="idea"></i></div>
+      <div class="mem-path path-reread"><b>re-read</b><span>see it again</span></div>
+      <div class="mem-path path-recall"><b>recall</b><span>pull it out</span></div>
+    </div>
+    <p class="label-interp"><span class="tag">Interpretation</span>the authors' explanation, not a measured mechanism</p>
+    <p class="dd">“desirable difficulty”</p>
+    <p class="caption">R4a, R4b</p></section>
+      <section id="sc-limits" class="clip scene bg-limits" data-start="125.603" data-duration="35.798" data-track-index="0">
+    <div class="chips"><span class="chip">1 university</span><span class="chip">undergraduates 18–24</span><span class="chip">2 short passages</span><span class="chip">≤ 1 week</span></div>
+    <div class="forest">
+      <div class="axis"><i></i><span>0</span></div>
+      <i class="dot neg" style="--x:-8%;--y:0%"></i><i class="dot " style="--x:19%;--y:37%"></i><i class="dot " style="--x:32%;--y:74%"></i><i class="dot " style="--x:45%;--y:11%"></i><i class="dot " style="--x:58%;--y:48%"></i><i class="dot neg" style="--x:-23%;--y:85%"></i><i class="dot " style="--x:26%;--y:22%"></i><i class="dot " style="--x:39%;--y:59%"></i><i class="dot " style="--x:52%;--y:96%"></i><i class="dot " style="--x:7%;--y:33%"></i><i class="dot neg" style="--x:-18%;--y:70%"></i><i class="dot " style="--x:33%;--y:7%"></i><i class="dot " style="--x:46%;--y:44%"></i><i class="dot " style="--x:59%;--y:81%"></i><i class="dot " style="--x:14%;--y:18%"></i><i class="dot neg" style="--x:-13%;--y:55%"></i><i class="dot " style="--x:40%;--y:92%"></i><i class="dot " style="--x:53%;--y:29%"></i><i class="dot " style="--x:8%;--y:66%"></i><i class="dot " style="--x:21%;--y:3%"></i><i class="dot neg" style="--x:-8%;--y:40%"></i><i class="dot " style="--x:47%;--y:77%"></i><i class="dot " style="--x:60%;--y:14%"></i><i class="dot " style="--x:15%;--y:51%"></i><i class="dot " style="--x:28%;--y:88%"></i><i class="dot neg" style="--x:-23%;--y:25%"></i><i class="dot " style="--x:54%;--y:62%"></i><i class="dot " style="--x:9%;--y:99%"></i><i class="dot " style="--x:22%;--y:36%"></i><i class="dot " style="--x:35%;--y:73%"></i><i class="dot neg" style="--x:-18%;--y:10%"></i><i class="dot " style="--x:61%;--y:47%"></i><i class="dot " style="--x:16%;--y:84%"></i><i class="dot " style="--x:29%;--y:21%"></i><i class="dot " style="--x:42%;--y:58%"></i><i class="dot neg" style="--x:-13%;--y:95%"></i><i class="dot " style="--x:10%;--y:32%"></i><i class="dot " style="--x:23%;--y:69%"></i><i class="dot " style="--x:36%;--y:6%"></i><i class="dot " style="--x:49%;--y:43%"></i>
+      <p class="forest-label">159 comparisons · 61 studies · average effect favours testing · about 1 in 5 favours re-study</p>
+    </div>
+    <div class="moderators"><span>+ feedback</span><span>+ longer delays</span><span class="off">no feedback &amp; ≤ 50% recalled → no benefit</span></div>
+    <p class="caption">Rowland (2014), Psychological Bulletin · R4c, R5a–R5d, R5f</p></section>
+      <section id="sc-method" class="clip scene bg-method" data-start="161.401" data-duration="19.047" data-track-index="0">
+    <div class="steps">
+      <div class="step st0"><span>1</span><b>Close the book</b></div>
+      <div class="step st1"><span>2</span><b>Try to recall</b></div>
+      <div class="step st2"><span>3</span><b>Check what you missed</b></div>
+      <div class="step st3"><span>4</span><b>Come back another day</b></div>
+    </div>
+    <p class="harder">It will feel harder. That is not a sign it isn't working.</p>
+    <div class="host">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div>
+    <p class="close-line">Did you know that? <b>Now you do.</b></p></section>
+      <section id="sc-keep" class="clip scene bg-keep" data-start="180.448" data-duration="6.051" data-track-index="0">
+    <div class="card"><small>Case file 001</small><b>Desirable Difficulty</b><p>After a week: 61% recalled vs 40% re-read.</p><span>Sources · Roediger &amp; Karpicke 2006 · Rowland 2014</span></div>
+    <p class="url">dexty.live</p></section>
+      <section id="sc-closing" class="clip scene bg-closing" data-start="186.499" data-duration="5.000" data-track-index="0">
+    <div class="closing-logo"><img src="assets/logo.png" alt="" /></div>
+    <p class="closing-title">Did You Know That?</p>
+    <p class="closing-sub">Discover the story behind the surprise.</p></section>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="191.499" data-track-index="5" data-volume="0.5"></audio>
+      <audio id="vo-case" src="assets/vo/case.mp3" data-start="5.1" data-duration="17.879" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-puzzle" src="assets/vo/puzzle.mp3" data-start="24.179" data-duration="18.762" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-flip" src="assets/vo/flip.mp3" data-start="44.141" data-duration="35.341" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-twist" src="assets/vo/twist.mp3" data-start="80.882" data-duration="17.926" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-mechanism" src="assets/vo/mechanism.mp3" data-start="100.608" data-duration="24.195" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-limits" src="assets/vo/limits.mp3" data-start="126.003" data-duration="34.598" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-method" src="assets/vo/method.mp3" data-start="161.801" data-duration="17.647" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-keep" src="assets/vo/keep.mp3" data-start="180.748" data-duration="4.551" data-track-index="6" data-volume="1"></audio>
+    </div>
+    <script>
+      gsap.registerPlugin(TextPlugin);
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#sc-title .kicker", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 0.20);
+      tl.fromTo("#sc-title .title", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 0.60);
+      tl.fromTo("#sc-title .dek", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 1.40);
+      tl.to("#sc-title", {opacity:0, duration:0.6}, 3.9);
+tl.fromTo("#sc-case .sheet.s1", {x:-200, opacity:0, rotation:-4}, {x:0, opacity:1, rotation:-3, duration:0.8, ease:"power2.out"}, 11.90);
+      tl.fromTo("#sc-case .sheet.s2", {x:200, opacity:0, rotation:4}, {x:0, opacity:1, rotation:3, duration:0.8, ease:"power2.out"}, 13.10);
+      tl.fromTo("#sc-case .fact-case", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 4.80);
+      tl.fromTo("#sc-case .cond.c1", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 16.86);
+      tl.to("#sc-case .sheet.s1", {y:-10, duration:0.25, yoyo:true, repeat:3}, 16.86);
+      tl.fromTo("#sc-case .cond.c2", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 18.85);
+      tl.to("#sc-case .sheet.s2 i", {backgroundColor:"#d4b06a", duration:0.3, stagger:0.2}, 20.50);
+      tl.fromTo("#sc-case .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 5.50);
+tl.fromTo("#sc-puzzle .chart", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 24.18);
+      tl.fromTo("#sc-puzzle .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 29.73);
+      tl.fromTo("#sc-puzzle .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 32.27);
+      tl.fromTo("#sc-puzzle .names", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 39.91);
+      tl.fromTo("#sc-puzzle .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 24.78);
+tl.fromTo("#sc-flip .ch-week1", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 46.93);
+      tl.fromTo("#sc-flip .ch-week1 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 52.34);
+      tl.fromTo("#sc-flip .ch-week1 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 53.85);
+      tl.to("#sc-flip .ch-week1", {scale:0.62, y:-110, duration:0.8, ease:"power2.inOut"}, 55.25);
+      tl.fromTo("#sc-flip .ch-exp2", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 55.25);
+      tl.fromTo("#sc-flip .ch-exp2 .b1 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 65.38);
+      tl.fromTo("#sc-flip .ch-exp2 .b2 .bar-fill", {scaleX:0}, {scaleX:1, duration:1.0, ease:"power2.out"}, 66.60);
+      tl.to("#sc-flip .ch-exp2 h3", {text:"After one week (Exp. 2)", duration:0.01}, 67.92);
+      tl.to("#sc-flip .ch-exp2 .b1 .bar-fill", {scaleX:0.4819277108433735, duration:1.2, ease:"power2.inOut"}, 67.92);
+      tl.to("#sc-flip .ch-exp2 .b1 .bar-value", {text:"40%", duration:0.01}, 68.92);
+      tl.to("#sc-flip .ch-exp2 .b2 .bar-fill", {scaleX:0.8591549295774648, duration:1.2, ease:"power2.inOut"}, 68.73);
+      tl.to("#sc-flip .ch-exp2 .b2 .bar-value", {text:"61%", duration:0.01}, 69.53);
+      tl.to("#sc-flip .ch-exp2 .b2", {color:"#d4b06a", duration:0.4}, 68.73);
+      tl.fromTo("#sc-flip .readings", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 76.62);
+      tl.fromTo("#sc-flip .n14", {text:"0"}, {text:"14.2", duration:1.0}, 76.62);
+      tl.fromTo("#sc-flip .n3", {text:"0"}, {text:"3.4", duration:0.6}, 78.78);
+      tl.fromTo("#sc-flip .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 44.74);
+tl.fromTo("#sc-twist .ch-conf", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 86.71);
+      tl.fromTo("#sc-twist .ch-conf .bar-fill", {scaleX:0}, {scaleX:1, duration:1.2, ease:"power2.out", stagger:0.25}, 89.53);
+      tl.to("#sc-twist .ch-conf .b1", {color:"#d4b06a", duration:0.4}, 91.21);
+      tl.fromTo("#sc-twist .ch-real", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 92.78);
+      tl.fromTo("#sc-twist .ch-real .bar-fill", {scaleX:0}, {scaleX:1, duration:1.2, ease:"power2.out", stagger:0.25}, 93.08);
+      tl.to("#sc-twist .ch-real .b1", {color:"#b8b2a7", duration:0.4}, 93.88);
+      tl.to("#sc-twist .twin", {opacity:0.18, scale:0.96, duration:0.8}, 95.35);
+      tl.fromTo("#sc-twist .trap span:first-child", {opacity:0, y:20}, {opacity:1, y:0, duration:0.6}, 95.35);
+      tl.fromTo("#sc-twist .trap span:last-child", {opacity:0, y:20}, {opacity:1, y:0, duration:0.6}, 97.49);
+      tl.fromTo("#sc-twist .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 81.48);
+tl.fromTo("#sc-mechanism .memory", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 100.51);
+      tl.fromTo("#sc-mechanism .path-reread", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.6}, 102.84);
+      tl.fromTo("#sc-mechanism .path-recall", {opacity:0, x:40}, {opacity:1, x:0, duration:0.6}, 106.08);
+      tl.fromTo("#sc-mechanism .idea", {x:0, y:0, scale:1}, {x:380, y:-120, scale:1.3, duration:1.2, ease:"power2.inOut"}, 109.30);
+      tl.to("#sc-mechanism .path-recall", {scale:1.08, duration:0.5}, 109.30);
+      tl.fromTo("#sc-mechanism .dd", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 115.83);
+      tl.fromTo("#sc-mechanism .label-interp", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 104.47);
+      tl.fromTo("#sc-mechanism .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 101.21);
+tl.fromTo("#sc-limits .chip:nth-child(1)", {opacity:0, scale:0.8}, {opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}, 126.52);
+      tl.fromTo("#sc-limits .chip:nth-child(2)", {opacity:0, scale:0.8}, {opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}, 127.43);
+      tl.fromTo("#sc-limits .chip:nth-child(3)", {opacity:0, scale:0.8}, {opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}, 128.34);
+      tl.fromTo("#sc-limits .chip:nth-child(4)", {opacity:0, scale:0.8}, {opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}, 130.34);
+      tl.to("#sc-limits .chips", {y:-220, scale:0.8, duration:0.8, ease:"power2.inOut"}, 134.59);
+      tl.fromTo("#sc-limits .forest", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 134.59);
+      tl.fromTo("#sc-limits .dot", {scale:0}, {scale:1, duration:0.3, stagger:0.02, ease:"back.out(2)"}, 134.89);
+      tl.fromTo("#sc-limits .forest-label", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 141.83);
+      tl.fromTo("#sc-limits .moderators", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 143.20);
+      tl.fromTo("#sc-limits .moderators .off", {opacity:0}, {opacity:1, duration:0.5}, 151.70);
+      tl.to("#sc-limits .forest-label", {text:"Published studies show bigger effects than unpublished ones · the true average is probably a little smaller", duration:0.01}, 153.59);
+      tl.fromTo("#sc-limits .caption", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 126.60);
+tl.fromTo("#sc-method .st0", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.5, ease:"power2.out"}, 166.09);
+      tl.fromTo("#sc-method .st1", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.5, ease:"power2.out"}, 167.04);
+      tl.fromTo("#sc-method .st2", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.5, ease:"power2.out"}, 168.24);
+      tl.fromTo("#sc-method .st3", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.5, ease:"power2.out"}, 170.07);
+      tl.fromTo("#sc-method .harder", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 172.37);
+      tl.to("#sc-method .steps, #sc-method .harder", {opacity:0.2, duration:0.6}, 177.09);
+      tl.fromTo("#sc-method .host", {opacity:0, y:40}, {opacity:1, y:0, duration:0.5, ease:"back.out(1.6)"}, 177.09);
+      tl.to("#sc-method .host .daxter-head", {y:6, duration:0.18, yoyo:true, repeat:3, ease:"sine.inOut"}, 178.79);
+      tl.to("#sc-method .host .daxter-halo", {scale:1.3, svgOrigin:"80 58", duration:0.4}, 178.79);
+      tl.fromTo("#sc-method .close-line", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 177.09);
+tl.fromTo("#sc-keep .card", {rotationY:60, opacity:0, x:80}, {rotationY:0, opacity:1, x:0, duration:0.9, ease:"power2.out"}, 180.648);
+      tl.fromTo("#sc-keep .url", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 184.39);
+      tl.to("#sc-keep", {opacity:0, duration:0.6}, 185.899);
+tl.fromTo("#sc-closing .closing-logo", {scale:0.7, opacity:0}, {scale:1, opacity:1, duration:0.7, ease:"power2.out"}, 186.599);
+      tl.fromTo("#sc-closing .closing-title", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 187.10);
+      tl.fromTo("#sc-closing .closing-sub", {opacity:0, y:24}, {opacity:1, y:0, duration:0.6, ease:"power2.out"}, 187.80);
+      tl.to("#sc-closing", {opacity:0, duration:0.8}, 190.69899999999998);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

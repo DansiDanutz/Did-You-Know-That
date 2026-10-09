@@ -13,8 +13,6 @@ export default {
     "book.stop": "⏹ Oprește lectura",
     "inv.watch": "▶ Revezi video",
     "inv.read": "📖 Citește cartea",
-    "listen.limit": "Gata videoclipurile pe azi! 🌙 Du-te să te joci, să mănânci și să-ți vezi prietenii. Dexter te așteaptă mâine ✦",
-    "listen.left": "{n} din {max} videoclipuri rămase azi",
     "book.sparks": "✦ {n}/{max}",
     "hud.inventory": "Deschide inventarul",
     "inv.title": "Inventarul meu",
@@ -56,24 +54,12 @@ export default {
     "inside.title": "Cum câștigi această carte",
     "inside.step1": "<b>Citește</b> povestea și atinge cuvintele strălucitoare ca să găsești scântei ascunse ✦",
     "inside.step2": "<b>Citește-ți misiunea:</b> cele trei lucruri pe care te va întreba paznicul",
-    "inside.step3": "<b>Bonus:</b> găsește cuvântul magic pe cartea neon din videoclip și scrie-l la sigiliul de ceară",
-    "inside.step4": "<b>Salvează</b> cartea ✦ în rucsac. Întrebările Profesorului Hoot sunt exercițiu opțional, iar fiecare scânteie pe care o găsești e doar de distracție!",
+    "inside.step3": "<b>Salvează</b> cartea ✦ în rucsac. Întrebările Profesorului Hoot sunt exercițiu opțional, iar fiecare scânteie pe care o găsești e doar de distracție!",
     "story.didyouknow": "✦ Știai că?",
     "story.hint": "✦ O scânteie se ascunde pe această pagină…",
     "mission.kicker": "Misiunea ta",
     "mission.title": "Ce vei descoperi…",
     "mission.note": "Totul e în această carte, iar videoclipul spune și el povestea. Întrebările Profesorului Hoot sunt doar pentru exercițiu!",
-    "gate.title": "Sigiliul de ceară",
-    "gate.sealed": "Un cuvânt magic se ascunde pe cartea neon strălucitoare din mijlocul videoclipului. Găsește-l ca să rupi sigiliul și să primești o surpriză!",
-    "gate.listen": "▶ Urmărește povestea",
-    "gate.channel": "▶ Vizitează canalul",
-    "gate.secretLabel": "Ai găsit cuvântul magic? Scrie-l aici:",
-    "gate.secretPlaceholder": "Cuvânt secret",
-    "gate.break": "Rupe sigiliul",
-    "gate.wrong": "Nu chiar… caută cartea neon din mijlocul episodului!",
-    "gate.broken": "Sigiliul s-a rupt!",
-    "gate.brokenText": "Ai găsit cuvântul magic! Dexter face un dans de bucurie. Întoarce pagina: paznicul are trei întrebări pentru tine…",
-    "gate.toast": "Sigiliul s-a rupt! Întoarce pagina ✦",
     "quiz.asks": "Paznicul întreabă…",
     "quiz.first": "Briliant! +2 ✦",
     "quiz.second": "Corect! +1 ✦",
@@ -100,6 +86,7 @@ export default {
     "album.close": "Închide albumul",
     "listen.help": "Bucură-te de poveste! Tot ce te întreabă paznicul e și în cartea magică.",
     "listen.error": "Videoclipul nu a putut porni aici. Încearcă din nou sau deschide-l pe YouTube.",
+    "listen.channel": "▶ Vezi canalul",
     "listen.close": "Închide",
     "listen.soon": "Dexter încă filmează această poveste! 🎬 Ajunge foarte curând pe canalul nostru de YouTube.",
     "listen.replay": "Bucură-te din nou de poveste! ✦",
@@ -209,160 +196,182 @@ export default {
   stories: {
     "why-wonder": {
       kids: {
-        title: "Monstrul Scrollului",
-        teaser: "Știai că nimeni nu-i poate opri pe copii să dea scroll? Așa că am făcut scrollul isteț.",
+        title: "Cine tot apasă pe Play?",
+        teaser: "Dexter voia să vadă UN singur clip înainte de apus. Atunci cine tot apăsa pe Play?",
         card: {
-          name: "Îmblânzitorul de Scroll",
-          fact: "Copiii între 8 și 12 ani petrec peste 5½ ore pe zi în fața ecranelor, doar de distracție. Tu ai ales să-ți faci minutele să conteze!",
+          name: "Șeful Redării Automate",
+          fact: "Clipurile pot porni singure. Asta se numește redare automată. Cu un adult o poți opri, poți pune un cronometru și îi poți da ecranului o oră de culcare.",
         },
         mission: [
-          "Câte ore pe zi petrec în fața ecranelor copiii de vârsta ta",
-          "Câte videoclipuri pe zi te lasă Did You Know That? să urmărești",
-          "Cât timp la ecran spun experții că ar trebui să aibă cel mult copiii mici (2–5 ani)",
+          "Cine a apăsat de fapt pe Play când Dexter nu se putea opri",
+          "Cum se numește trucul care pornește singur clipul următor",
+          "Câte ore de somn au nevoie copiii de vârsta ta",
         ],
         pages: {
-          opening: { chapter: "Episodul I", heading: "Monstrul Scrollului" },
-          start: {
-            heading: "Apasă Start!",
-            text: [
-              "Știai că nimeni (nici părinții tăi, nici profesorii, nici măcar supereroii) nu-i poate opri pe copii să dea [[scroll]]?",
-              "Așa că Dexter a avut o idee trăsnită. Și dacă nu te-am opri, ci am face scrollul tău isteț? Apasă START, exploratorule!",
-            ],
-            note: "A da scroll înseamnă să-ți aluneci degetul pe ecran ca să vezi tot mai mult. Unele aplicații sunt făcute ca să nu ajungi niciodată la capăt!",
+          opening: {
+            "chapter": "Episodul 1",
+            "heading": "Cine tot apasă pe Play?"
           },
-          tower: {
-            heading: "Nivelul 1: Turnul Timpului la Ecran",
-            text: [
-              "Dexter urcă sărind un turn uriaș de ceasuri. [[Cercetătorii]] din America au întrebat mii de familii cât timp petrec copiii în fața ecranelor, doar de distracție. La 2–4 ani: cam două ore și jumătate pe zi. La 5–8 ani: mai mult de trei ore!",
-              "La 8–12 ani: cinci ore și jumătate. În fiecare zi. Zi de zi. Iar adolescenții? Aproape nouă ore. Mai mult decât o zi întreagă de școală!",
+          rocket: {
+            "heading": "Un singur clip",
+            "text": [
+              "Eu și Profesorul Hoot construim o rachetă! Trebuie s-o terminăm înainte de [[apus]]. Mă uit doar la UN clip scurt despre aripioarele rachetei…",
+              "Clipul se termină. „Urmează…” Pornește altul. Apoi încă unul. Stai… unde a dispărut soarele? Racheta noastră nu e gata!"
             ],
-            note: "Cercetătorii se numesc Common Sense Media. Ei întreabă familiile despre timpul petrecut la ecran de mai bine de zece ani.",
+            "note": "Apusul este momentul în care Soarele coboară după orizont. Vara vine târziu; iarna, devreme."
           },
-          videoland: {
-            heading: "Nivelul 2: Țara Videoclipurilor fără Sfârșit",
-            text: [
-              "Unde se duc atâtea ore? Într-un parc de distracții ascuns în telefon, unde videoclipurile și jocurile pornesc [[singure]] următorul. Nu apuci niciodată să te oprești!",
-              "Apoi pământul se cutremură… și din ascunziș apare căpetenia: Monstrul Scrollului! O felie pufoasă și mov, cu un ecran în loc de burtă și cu limba făcută din videoclipuri fără sfârșit.",
+          mystery: {
+            "heading": "Un mister",
+            "text": [
+              "Salut, eu sunt Dexter. Și am un [[mister]]: de ce nu m-am putut opri după UN clip?",
+              "Tu ce crezi? Eram pur și simplu slab la oprit… sau ceva tot apăsa pe Play? Gândește-te înainte să întorci pagina!"
             ],
-            note: "„Redarea automată” înseamnă că următorul videoclip pornește de la sine. Este unul dintre trucurile preferate ale Monstrului Scrollului!",
+            "note": "Un mister e o enigmă pe care n-a rezolvat-o nimeni încă. Exploratorii buni fac mai întâi o presupunere, apoi o testează."
           },
-          boss: {
-            heading: "Nivelul 3: Lupta cu Monstrul!",
-            text: [
-              "Monstrul Scrollului fură trei comori. Mai întâi îți ia cina: „doar încă un videoclip…”. Apoi îți fură [[somnul]]: copiii de vârsta ta au nevoie de 9 până la 12 ore, iar ecranele de seara târziu îți țin creierul treaz.",
-              "Apoi fură prietenii, cei adevărați, cu care poți juca fotbal! Dar Dexter se ferește, sare și câștigă înapoi toate comorile. Experții în sănătate spun că micuții de 2 până la 5 ani ar trebui să stea la ecran cel mult o oră pe zi.",
+          willpower: {
+            "heading": "Ideea mare a lui Dexter",
+            "text": [
+              "Știu! Îmi trebuie doar SUPER-[[voință]]! Fiți atenți. Un clip… și mă opresc.",
+              "Mă uit fix la ecran. Pumnii strânși. Clipul se termină. Pornește altul, de unul singur. Mă topesc în scaun ca o gelatină. Bine. N-a mers."
             ],
-            note: "Cât dormi, creierul tău pune în ordine tot ce ai învățat în ziua aceea, ca atunci când strângi o cameră plină de jucării!",
+            "note": "Voința înseamnă să te străduiești din greu să faci (sau să nu faci) ceva. Ajută, dar nu e magie."
           },
-          deal: {
-            heading: "Nivelul 4: Înțelegerea lui Dexter",
-            text: [
-              "Profesorul Hoot, bufnița, sosește în zbor cu o hartă strălucitoare: Drumul Minunilor! În Did You Know That? tot dai scroll, dar fiecare poveste te învață ceva [[adevărat]].",
-              "Citești cartea magică, urmărești povestea, îi răspunzi Profesorului Hoot și câștigi Cărți Speciale. Iar jocul te lasă să vezi doar 3 videoclipuri pe zi, așa că îți rămâne destul timp să te joci, să mănânci, să dormi și să-ți vezi prietenii.",
+          hint: {
+            "heading": "Indiciul Profesorului Hoot",
+            "text": [
+              "„Ce ai observat, Dexter… chiar la sfârșitul clipului?” Hai să ne uităm din nou la final, cu mare atenție. Uite! O numărătoare mică: „Urmează… trei, doi, unu.” Nimeni n-a apăsat pe Play. Aplicația a apăsat în locul meu!",
+              "Asta se numește [[redare automată]]: când un clip se termină, următorul pornește singur. Multe aplicații sunt făcute așa, de aceea e greu să te oprești, chiar și pentru adulți. Nu pentru că eu aș fi slab. Așa e construită."
             ],
-            note: "Fiecare carte pe care o salvezi rămâne în rucsacul tău 🎒, iar povestea ei o poți vedea din nou oricând!",
+            "note": "Redarea automată este o setare. În majoritatea aplicațiilor, un adult o găsește în meniul de setări și o poate opri."
           },
-          finale: {
-            heading: "Nivel încheiat!",
-            text: [
-              "Artificii! Ai terminat primul nivel al aventurii. Misiunea ta acum: salvează prima ta carte, Îmblânzitorul de Scroll, și încearcă cele trei întrebări ale Profesorului Hoot! Bonus: găsește [[cuvântul]] magic pe cartea neon strălucitoare din videoclip.",
-              "Știai asta? Acum ști. Ne vedem pe Drumul Minunilor!",
+          test: {
+            "heading": "Testul",
+            "text": [
+              "Hai să testăm! Profesorul Hoot atinge un buton: redare automată OPRITĂ. Clipul se termină… și ecranul pur și simplu așteaptă.",
+              "Ooo. Acum, când un clip se termină, nu se întâmplă nimic. Pot să [[aleg]]. Și aleg… racheta!"
             ],
-            note: "Cuvântul magic apare în videoclip, chiar la mijloc. Ține ochii larg deschiși!",
+            "note": "Așa lucrează oamenii de știință: presupun, testează, se uită la ce se întâmplă. Prima presupunere a lui Dexter a fost greșită, și e în regulă!"
+          },
+          bedtime: {
+            "heading": "Noapte bună, tabletă",
+            "text": [
+              "Știi când mai contează asta? La culcare. Copiii de vârsta noastră au nevoie de 9 până la 12 ore de [[somn]] în fiecare noapte. Oamenii de știință au descoperit că cei care folosesc ecrane la culcare dorm adesea mai puțin și sunt mai somnoroși a doua zi.",
+              "Așa că diseară pun un cronometru. Când sună, tableta merge la culcare prima. Noapte bună, tabletă!"
+            ],
+            "note": "Medicii somnului sunt de acord: copiii de 6–12 ani ar trebui să doarmă 9–12 ore pe noapte. În timp ce dormi, creierul face ordine în tot ce ai învățat!"
+          },
+          launch: {
+            "heading": "Trei, doi, unu…",
+            "text": [
+              "E dimineață! Racheta e gata. Numărătoarea… LANSARE! Am reușit. Deci, ce am descoperit? Clipurile pot merge singure mai departe, dar tu poți fi [[șeful]]: redare automată oprită, un cronometru și o oră de culcare pentru ecran.",
+              "Misiunea ta: împreună cu un adult, găsește butonul de redare automată într-o aplicație pe care o folosești și hotărâți împreună dacă stă pornit sau oprit. Știai asta? Acum știi!"
+            ],
+            "note": "Să fii șeful ecranului tău înseamnă că tu hotărăști când se oprește, nu aplicația."
           },
           q1: {
-            question: "Cam câte ore pe zi petrec în fața ecranelor, pentru distracție, copiii între 8 și 12 ani?",
-            choices: ["Cam o oră", "Cam 3 ore", "Mai mult de 5 ore"],
-            explain: "Mai mult de 5½ ore pe zi! Cât o zi întreagă de școală, în fiecare zi.",
+            question: "Când clipul lui Dexter s-a terminat, cine l-a pornit pe următorul?",
+            choices: ["Dexter, din greșeală", "Aplicația, de una singură", "Profesorul Hoot"],
+            explain: "Aplicația a apăsat pe Play în locul lui. Nimeni n-a atins ecranul!",
           },
           q2: {
-            question: "Câte videoclipuri pe zi te lasă Did You Know That? să urmărești?",
-            choices: ["1 videoclip", "3 videoclipuri", "20 de videoclipuri"],
-            explain: "Doar 3 videoclipuri scurte, ca să-ți rămână timp să te joci, să mănânci, să dormi și să-ți vezi prietenii.",
+            question: "Cum se numește când clipul următor pornește singur?",
+            choices: ["Redare automată", "Reluare", "Derulare înainte"],
+            explain: "Redare automată. E o setare, iar un adult o poate opri.",
           },
           q3: {
-            question: "Cât timp pe zi spun experții în sănătate că ar trebui să aibă cel mult copiii între 2 și 5 ani?",
-            choices: ["1 oră la ecran", "4 ore la ecran", "Cât vor ei"],
-            explain: "Organizația Mondială a Sănătății și pediatrii recomandă cel mult o oră pe zi pentru cei mici.",
+            question: "De câte ore de somn au nevoie copiii de 6–12 ani în fiecare noapte?",
+            choices: ["Cam 5 ore", "Cam 15 ore", "9 până la 12 ore"],
+            explain: "9 până la 12 ore. Asta recomandă medicii somnului pentru copiii de vârsta ta.",
           },
         },
       },
       adults: {
-        title: "Minutele de aur",
-        teaser: "Inventatorul derulării infinite a făcut calculul pentru propria sa invenție. Rezultatul este uluitor.",
+        title: "Capcana recitirii",
+        teaser: "De ce metoda de învățat care pare cea mai bună pierde în fața celei care pare mai grea?",
         card: {
-          name: "Minutul de aur",
-          fact: "În 1790, Benjamin Franklin a lăsat orașului Boston £1.000 pentru a fructifica timp de 200 de ani. Până în 1990, suma ajunsese la aproximativ 5 milioane de dolari.",
+          name: "Dificultate dezirabilă",
+          fact: "După o săptămână, studenții care au citit un text o dată și l-au reprodus din memorie de trei ori și-au amintit 61% din el. Cei care l-au citit de patru ori: 40%. Recitirea pare învățare; reamintirea este învățare.",
         },
         mission: [
-          "Câte vieți omenești irosește zilnic derularea infinită, potrivit propriului ei inventator",
-          "Ce sumă a lăsat Benjamin Franklin orașului Boston ca să fructifice 200 de ani",
-          "Cât au reținut după o săptămână cei care au recitit, față de studenții care s-au testat singuri",
+          "Ce s-a întâmplat cu rezultatele între cinci minute și o săptămână",
+          "Care grup a fost cel mai încrezător și cum s-a descurcat",
+          "Ce spun dovezile că ar trebui să faci după ce citești ceva",
         ],
         pages: {
-          opening: { chapter: "Episodul I", heading: "Minutele de aur" },
-          coldopen: {
-            heading: "Pagina fără fund",
-            text: [
-              "În 2006, un designer pe nume Aza Raskin a eliminat fundul internetului: a inventat derularea infinită, adică [[scrollul]] fără sfârșit. Conținutul avea să se încarce neîncetat, pentru totdeauna.",
-              "Ani mai târziu, a făcut calculul pentru propria invenție. Estimarea lui: irosește echivalentul a aproximativ 200.000 de vieți omenești, în fiecare zi.",
-            ],
-            note: "Raskin a cofondat ulterior Center for Humane Technology, care militează pentru un design mai puțin manipulator.",
+          opening: {
+            "chapter": "Episodul 1",
+            "heading": "Capcana recitirii"
           },
-          lever: {
-            heading: "Maneta",
-            text: [
-              "Gestul de tragere pentru reîmprospătare a fost inventat de Loren Brichter pentru o aplicație Twitter. Mai târziu, el a observat ceva neliniștitor: aparatele de jocuri de noroc ar crea mult mai puțină dependență dacă jucătorii nu ar trage singuri [[maneta]].",
-              "Degetul mare este maneta, iar recompensa este imprevizibilă. Rezultatul: utilizatorul mediu de internet este acum conectat aproximativ 6 ore și 38 de minute pe zi.",
+          case: {
+            "heading": "Două texte scurte",
+            "text": [
+              "În 2006, la Universitatea Washington din St. Louis, 120 de studenți au primit două texte scurte: unul despre Soare, altul despre [[vidrele]] de mare.",
+              "Instrucțiuni simple. Citește unul dintre ele de două ori. Pe celălalt citește-l o dată, apoi scrie tot ce îți amintești."
             ],
-            note: "Psihologii o numesc program de recompensă cu raport variabil. B. F. Skinner a descoperit că produce cel mai persistent comportament dintre toate tiparele de recompensă.",
+            "note": "Fiecare pasaj avea puțin peste 250 de cuvinte, luat dintr-o carte de pregătire pentru examene, și era punctat pe 30 de unități de idei (Roediger & Karpicke, 2006)."
           },
-          franklin: {
-            heading: "Experimentul lui Franklin",
-            text: [
-              "Când Benjamin Franklin a murit, în 1790, le-a lăsat orașelor Boston și Philadelphia câte £1.000, cu o singură regulă: să [[fructifice]], neatinse, timp de 200 de ani.",
-              "Până în 1990, partea Bostonului ajunsese la aproximativ cinci milioane de dolari; Philadelphia, care a administrat-o altfel, a încheiat aproape de două milioane. Aceeași sumă, același timp, alt sistem. Minutele se acumulează exact ca banii.",
+          puzzle: {
+            "heading": "Nicio surpriză",
+            "text": [
+              "Cinci minute mai târziu, toți au dat un test de memorie. Pasajul citit de [[două ori]] a câștigat: 81% din idei reamintite, față de 75%.",
+              "Nicio surpriză. Recitirea ar trebui să ajute. Atunci de ce au continuat cercetătorii, Henry Roediger și Jeffrey Karpicke, să testeze?"
             ],
-            note: "Franklin a conceput fondul ca împrumuturi de 5% pentru tinerii meșteșugari care își terminaseră ucenicia: capital de start, cu secole înainte de microfinanțare.",
+            "note": "Primul test de reamintire nu a oferit feedback: studenții au scris ce își aminteau și nu au văzut niciodată răspunsurile."
           },
-          testing: {
-            heading: "Efectul testării",
-            text: [
-              "În 2006, psihologii Henry Roediger și Jeffrey Karpicke au împărțit studenții în două grupuri. Unii au recitit un text de mai multe ori; ceilalți l-au citit o singură dată, apoi s-au [[testat]] singuri.",
-              "Cinci minute mai târziu, cei care recitiseră păreau mai pregătiți. După o săptămână, rezultatul s-a răsturnat: cei care se testaseră își aminteau cam 61%, cei care recitiseră, cam 40%. Recitirea dă senzația de învățare; recuperarea din memorie este învățarea însăși.",
+          flip: {
+            "heading": "Răsturnarea",
+            "text": [
+              "După două zile, rezultatul se inversase. După o săptămână, pasajul citit o singură dată și apoi [[reamintit]] era reținut mai bine: 56% față de 42%.",
+              "Au repetat experimentul, mai dur. Un grup a citit un pasaj de patru ori. Altul l-a citit o dată, apoi l-a reprodus de trei ori. După cinci minute, cititorii conduceau: 83 la 71. După o săptămână: 61% pentru grupul care reproducea, 40% pentru cel care citea. Iar cititorii trecuseră prin text de vreo paisprezece ori. Ceilalți, de vreo trei."
             ],
-            note: "De aceea fiecare poveste de aici se încheie cu întrebările Profesorului Hoot: răspunsul la ele face ca faptele să rămână.",
+            "note": "180 de studenți, câte 30 pe condiție. Numărul de citiri vine din propriile însemnări ale studenților (Tabelul 1 din articol)."
           },
-          minutes: {
-            heading: "Minutele de aur",
-            text: [
-              "Institutul Serviciului Extern al SUA estimează 600–750 de ore de curs pentru ca un vorbitor de engleză să ajungă la un nivel profesional în spaniolă sau franceză. Treizeci de minute concentrate pe zi vă duc acolo în trei–patru [[ani]].",
-              "Nu dând mai mult scroll. Ci dând scroll cu intenție și testându-vă pe ce ați văzut.",
+          twist: {
+            "heading": "Întorsătura",
+            "text": [
+              "Iată partea care ar trebui să-l neliniștească pe orice student. Înainte de testul final, cercetătorii au întrebat: cât de bine vei ține minte asta peste o săptămână? Cei care citiseră de patru ori erau cei mai [[încrezători]] dintre toți. Și-au amintit cel mai puțin.",
+              "Recitirea pare învățare. Senzația aceea este capcana."
             ],
-            note: "Institutul clasifică arabă, mandarină, japoneză și coreeană drept cele mai grele pentru vorbitorii de engleză: aproximativ 2.200 de ore de curs.",
+            "note": "Pe o scară de la 1 la 7, cititorii au prezis 4,8, iar cei care reproduceau 4,0. O săptămână mai târziu și-au amintit 40% și 61%. E o comparație între grupuri, nu predicția fiecăruia despre sine."
           },
-          invitation: {
-            heading: "Invitația",
-            text: [
-              "Pe asta se întemeiază Did You Know That?: povești spuse împreună cu dovezile lor, întrebări care ajută cunoștințele să se fixeze și Cărți Speciale care vă construiesc propria [[colecție]] de descoperiri.",
-              "Acum salvează cartea Minutul de Aur și testează-te cu întrebările paznicului. Bonus: videoclipul Episodului 1 ascunde un cuvânt special pe o carte neon; scrie-l la sigiliu pentru o surpriză.",
+          mechanism: {
+            "heading": "De ce funcționează (probabil)",
+            "text": [
+              "De ce ar bate efortul de a-ți aminti o recitire lină? Explicația autorilor: reamintirea exersează exact ce vei avea nevoie mai târziu, să scoți o idee din memorie. Iar efortul în sine pare să ajute; psihologii îi spun [[dificultate]] dezirabilă.",
+              "Nimeni nu le-a dat studenților răspunsurile în timp ce își aminteau, așa că avantajul nu venea pur și simplu din revederea textului."
             ],
-            note: "Fiecare carte pe care o salvezi rămâne în colecția ta, iar episodul ei îl poți vedea din nou oricând.",
+            "note": "Aceasta este interpretarea autorilor, oferită împreună cu mai multe teorii care se suprapun. Studiul a măsurat rezultatele, nu mecanismul."
+          },
+          limits: {
+            "heading": "Rezistă la verificare?",
+            "text": [
+              "A fost o singură universitate, studenți tineri, două pasaje scurte și, cel mult, o întârziere de o săptămână. Așa că cercetători ulteriori au [[cumulat]] 159 de comparații din 61 de studii.",
+              "În medie, testarea a bătut clar recitirea, dar nu de fiecare dată. A mers cel mai bine cu feedback și la intervale mai lungi. Când oamenii nu primeau feedback și își aminteau doar jumătate sau mai puțin la prima încercare, avantajul dispărea. Studiile publicate tind să arate efecte mai mari decât cele nepublicate, deci media reală e probabil puțin mai mică."
+            ],
+            "note": "Rowland (2014), Psychological Bulletin: efect cumulat g = 0,50; cam una din cinci comparații favoriza recitirea."
+          },
+          method: {
+            "heading": "Ce susțin dovezile",
+            "text": [
+              "Nu doar reciti. Închide cartea, încearcă să-ți amintești, apoi [[verifică]] ce ai ratat. Revino altă zi.",
+              "O să pară mai greu. Asta nu înseamnă că nu funcționează. Știai asta? Acum știi."
+            ],
+            "note": "Această rutină se bazează pe studiile de mai sus, fără să fi fost testată exact în această formă. Merge cel mai bine când îți poți aminti deja destul de mult."
           },
           q1: {
-            question: "Câte vieți omenești estima chiar inventatorul derulării infinite că irosește aceasta în fiecare zi?",
-            choices: ["Cam 2.000", "Cam 20.000", "Cam 200.000", "Cam 2 milioane"],
-            explain: "Estimarea lui Aza Raskin: aproximativ 200.000 de vieți pe zi, presupunând că derularea infinită adaugă 50% mai mult timp petrecut în fluxuri.",
+            question: "După o săptămână, care grup și-a amintit cel mai mult?",
+            choices: ["A citit o dată, apoi a reprodus de trei ori", "A citit de patru ori", "Ambele grupuri cam la fel", "Niciun grup nu și-a amintit mare lucru"],
+            explain: "Grupul care a reprodus: 61% față de 40%, deși citise textul de vreo trei ori în loc de paisprezece.",
           },
           q2: {
-            question: "Ce sumă a lăsat Benjamin Franklin orașului Boston în 1790, pentru a fructifica netulburată timp de 200 de ani?",
-            choices: ["£1.000", "£100", "£100.000", "£1 milion"],
-            explain: "Câte £1.000 pentru Boston și Philadelphia. Până în 1990, fondul din Boston valora cam 5 milioane de dolari, iar cel din Philadelphia, cam 2 milioane.",
+            question: "Înainte de testul final, care grup era cel mai sigur că își va aminti?",
+            choices: ["Grupul care reproducea", "Grupul cu un singur test", "Cei care citiseră de patru ori", "Toate grupurile la fel"],
+            explain: "Cei care citiseră de patru ori (4,8 din 7). O săptămână mai târziu și-au amintit cel mai puțin.",
           },
           q3: {
-            question: "După o săptămână, studenții care s-au testat singuri au reținut cam 61%. Cât au reținut cei care au recitit?",
-            choices: ["Cam 80%", "Tot cam 61%", "Cam 52%", "Cam 40%"],
-            explain: "Cam 40% (Roediger și Karpicke, 2006). Recitirea dă senzația de învățare; recuperarea din memorie este învățarea propriu-zisă.",
+            question: "În analiza din 2014 a 159 de comparații, când a dispărut avantajul testării?",
+            choices: ["Cu feedback și intervale lungi", "Fără feedback și cu jumătate sau mai puțin reamintit la început", "În toate studiile nepublicate", "Când studenții citeau de peste zece ori"],
+            explain: "Fără feedback și cu o reamintire inițială slabă (jumătate sau mai puțin), avantajul dispărea (Rowland, 2014).",
           },
         },
       },

@@ -3,10 +3,8 @@ import { LOCALES, createTranslator, detectLanguage } from "./i18n/index.js";
 import { localizeStory } from "./lib/localize.js";
 import { createStore, normalizeSettings } from "./lib/storage.js";
 import { withStorageLock } from "./lib/storage-lock.js";
-import { saveCard, isSaved, withCoin, recordQuiz, recordBonusWord, practisedStories, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
+import { saveCard, isSaved, withCoin, recordQuiz, practisedStories, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
 import { quizPoints, maxSparks } from "./lib/scoring.js";
-import { verifySecret } from "./lib/secret.js";
-import { emptyDays, todayKey, canWatch, registerVideo, videosLeft, DAILY_VIDEOS } from "./lib/daily-limit.js";
 import { currentHouseIndex, houseStatus } from "./lib/journey.js";
 import { createWorld } from "./ui/world.js";
 import { createBook } from "./ui/book.js";
@@ -96,7 +94,6 @@ function session(story) {
     sessions.get(sessionKey(story)) ?? {
       sparks: new Set(),
       quiz: {},
-      gateOpen: Boolean(learning[story.id]?.bonusWordAt),
       cardClaimed: isSaved(collection, settings.audience, story.card.id),
       gateMessage: "",
     }
@@ -209,32 +206,6 @@ function shake(el) {
   void el?.offsetWidth;
   el?.classList.add("shake");
 }
-
-// ---------------------------------------------------------------- daily videos + rarity ladder
-
-const DAYS_KEY = "dykt-daily-videos-v1";
-let watchDays = readDays();
-
-function readDays() {
-  try {
-    return JSON.parse(localStorage.getItem(DAYS_KEY)) ?? emptyDays();
-  } catch {
-    return emptyDays();
-  }
-}
-
-const mayWatch = (story) => canWatch(watchDays, todayKey(), story.id, settings.audience);
-
-function countVideo(story) {
-  watchDays = registerVideo(watchDays, todayKey(), story.id, settings.audience);
-  try {
-    localStorage.setItem(DAYS_KEY, JSON.stringify(watchDays));
-  } catch {
-    /* storage blocked: the limit still applies for this session */
-  }
-}
-
-const leftToday = () => ({ n: videosLeft(watchDays, todayKey(), settings.audience), max: DAILY_VIDEOS[settings.audience] });
 
 function showInventory() {
   const byId = (id) => stories.find((story) => story.id === id);
@@ -624,17 +595,6 @@ function refreshBook() {
   updateHud();
 }
 
-// The magic word is a bonus surprise: it breaks the seal for a celebration and
-// a badge in the library, never for points or a card.
-function unlockGate(story) {
-  setSession(story, { gateOpen: true, gateMessage: "" });
-  narratedFaces = new Set([...narratedFaces].filter((i) => currentFaces[i]?.type !== "gate"));
-  changeLearning((current) => recordBonusWord(current, story.id, nowIso()));
-  sfx.seal();
-  toast(t("gate.toast"));
-  refreshBook();
-}
-
 // Cards are saved freely: no playback, quiz or magic word is needed (master
 // plan §3). Saving shows the card and drops coins on the road; it never
 // starts the video.
@@ -683,37 +643,15 @@ async function handleBookAction(story, action, el) {
   }
   if (action === "answer") return answerQuiz(story, el.dataset.quiz, Number(el.dataset.choice));
   if (action === "listen") return watchStory(story);
-  if (action === "secret") {
-    const word = new FormData(el).get("secret");
-    // The magic word is a bonus: the word from either audience's episode works.
-    const base = STORIES.find((entry) => entry.id === story.id);
-    const accepted = typeof base?.secretHash === "object" ? Object.values(base.secretHash) : [story.secretHash];
-    if (await verifySecret(word, accepted)) return unlockGate(story);
-    setSession(story, { gateMessage: "gate.wrong" });
-    sfx.wrong();
-    refreshBook();
-    return shake(document.querySelector(".gate-page"));
-  }
   if (action === "reveal") return saveDiscoveryCard(story);
   if (action === "continue") return closeBook({ advance: true });
   if (action === "inventory") return showInventory();
 }
 
-// Every video plays inside the game, and watching is never measured or
-// rewarded. The daily limit (kids 3, adults 5) applies to new episodes; a
-// story whose card is already won (`replay`) can always be watched again.
+// Every video plays inside the game, and watching is never measured, limited
+// or rewarded. `replay` marks a story played again from the library.
 function watchStory(story, { replay = false } = {}) {
-  if (!replay && story.youtubeId && !mayWatch(story)) {
-    toast(t("listen.limit"));
-    return world.daxter.say(t("listen.limit"), 7000);
-  }
-  if (!replay && story.youtubeId) countVideo(story);
-  openListening($("#listen-layer"), story, {
-    channelUrl: CHANNEL_URL,
-    t,
-    left: leftToday(),
-    replay,
-  });
+  openListening($("#listen-layer"), story, { channelUrl: CHANNEL_URL, t, replay });
 }
 
 function answerQuiz(story, quizId, choice) {

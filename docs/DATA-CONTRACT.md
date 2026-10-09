@@ -1,6 +1,6 @@
 # Data contract (v1)
 
-Extends today's `website/js/data/stories.js` (`id`, `episode`, `house`, `youtubeId`, `secretHash`, `card`, `pages`, per-audience `{ kids, adults }` values) instead of replacing it. Validation lives in one pure module (`js/lib/episode-schema.js`, Phase B) and runs in the unit tests, so a malformed entry fails CI rather than the live site.
+Extends today's `website/js/data/stories.js` (`id`, `episode`, `house`, `youtubeId`, `card`, `pages`, per-audience `{ kids, adults }` values) instead of replacing it. Validation lives in one pure module (`js/lib/episode-schema.js`, Phase B) and runs in the unit tests, so a malformed entry fails CI rather than the live site.
 
 ## Episode (one per audience)
 
@@ -43,7 +43,7 @@ Extends today's `website/js/data/stories.js` (`id`, `episode`, `house`, `youtube
 ### Migration from `dykt-progress-v1`
 1. Every card in `cards.kids` / `cards.adults` becomes a saved card (`savedAt` = original `at`). Nothing earned is deleted.
 2. Old `rarity`, `sparks`, `slot`, points move to `legacy` on the saved entry and are shown as "earned in the first season" badges — not as proof of knowledge.
-3. `gates` (magic word found) becomes `learning[...].bonusWordAt`.
+3. `gates` (the retired magic word, found before 9 Oct 2026) becomes `learning[...].bonusWordAt`; kept read-only, nothing reads it any more.
 4. The old key is kept read-only for one release, then removed after a documented release note.
 5. The viewing-order rarity ladder and `daily-limit.js` ladder are retired; a migration test covers old → new for both audiences.
 

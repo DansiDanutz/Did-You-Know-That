@@ -19,14 +19,12 @@ const READERS = {
   title: (page) => join(`${page.chapter}.`, page.heading),
   story: (page) => join(`${page.heading}.`, ...page.text),
   mission: (_, story, s, t) => join(t("mission.kicker"), t("mission.title"), ...story.mission.map((m, i) => `${i + 1}. ${m}.`), t("mission.note")),
-  gate: (_, story, s, t) => (s.gateOpen ? join(t("gate.broken"), t("gate.brokenText")) : join(t("gate.title"), t("gate.sealed"))),
   quiz: (page, story, s, t) => quizText(page, t),
   reward: (_, story, s, t) => join(t("reward.kicker")),
   end: (_, story, s, t) => join(t("end.title"), t("end.forNow"), t("end.text")),
 };
 
 function keyFor(face, session) {
-  if (face.type === "gate") return session.gateOpen ? `${face.id}~open` : face.id;
   return face.id ?? face.type;
 }
 
@@ -49,10 +47,9 @@ export function narrationPath({ lang, audience, storyId, voice, key }) {
 // Every distinct page state of a story, for pre-generating audio.
 export function allNarrationItems(story, t) {
   const faces = [{ type: "cover" }, { type: "inside" }, ...story.pages];
-  const states = [{ gateOpen: false }, { gateOpen: true }];
   const byKey = new Map();
   faces.forEach((face) =>
-    states.forEach((session) => {
+    [{}].forEach((session) => {
       const item = narrationFor(face, story, session, t);
       if (item.text && !byKey.has(item.key)) byKey.set(item.key, item);
     }),

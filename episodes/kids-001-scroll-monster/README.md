@@ -3,7 +3,7 @@
 > **Revision 3 (9 Oct 2026):** rewritten story-first per the story/business brief — one interrupted activity (finishing a rocket before sunset), prediction, Dexter's wrong guess, Hoot's hint, autoplay investigation and test, bedtime application, resolved ending. Statistics tower and monster fight removed. The brief and change list below describe revision 2 and are kept for history.
 
 
-Production folder (template: `episodes/templates/kids-episode.md`). Status: **script + storyboard drafted; narration not yet recorded; motion test not yet made.** Nothing here is approved for publication.
+Production folder (template: `episodes/templates/kids-episode.md`). Status (9 Oct 2026, evening): **in-app book rewritten in 7 languages (website); app narration recorded; video narration recorded (Brian, 7 lines, 1,822 characters); composition built in `video/ep01-kids` (2:35, passes `hyperframes check`); render pending (disk hold), then QA receipt, captions, thumbnails.** Nothing here is approved for publication.
 
 | File | What it is | Status |
 |---|---|---|

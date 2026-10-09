@@ -2,7 +2,6 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import { quizPoints, rarityFor, maxSparks, RARITY } from "../js/lib/scoring.js";
-import { normalizeSecret, sha256Hex, verifySecret } from "../js/lib/secret.js";
 import { emptyProgress, withGateUnlocked, createStore } from "../js/lib/storage.js";
 import { spreadFor, pageCountPadded, canGoNext } from "../js/lib/book-math.js";
 
@@ -25,23 +24,6 @@ test("rarityFor maps the share of sparks to a rarity tier", () => {
   assert.equal(rarityFor(6, 10), RARITY.GOLD);
   assert.equal(rarityFor(2, 10), RARITY.SILVER);
   assert.equal(rarityFor(0, 0), RARITY.SILVER);
-});
-
-// ---------------------------------------------------------------- secret word
-
-test("normalizeSecret trims, uppercases and strips spaces", () => {
-  assert.equal(normalizeSecret("  nec tar "), "NECTAR");
-});
-
-test("sha256Hex matches the known digest", async () => {
-  assert.equal(await sha256Hex("NECTAR"), "36c58be3956c6dad24ccd962cb856d5374cd32bb8c33815159f5fa81bcd7f46e");
-});
-
-test("verifySecret accepts the right word in any case and rejects others", async () => {
-  const hash = "36c58be3956c6dad24ccd962cb856d5374cd32bb8c33815159f5fa81bcd7f46e";
-  assert.equal(await verifySecret("nectar", hash), true);
-  assert.equal(await verifySecret("honey", hash), false);
-  assert.equal(await verifySecret("", hash), false);
 });
 
 // ---------------------------------------------------------------- storage
@@ -90,16 +72,3 @@ test("canGoNext requires every visible page to be complete", () => {
   assert.equal(canGoNext([3, 4], done), false);
 });
 
-test("phone keyboards can't break the magic word: punctuation, emoji and case are ignored", async () => {
-  const sun = await sha256Hex("SUN");
-  for (const typed of ["SUN", "sun", " Sun.", "sun!", "Sun ☀️", "s u n"]) assert.equal(await verifySecret(typed, sun), true, typed);
-  assert.equal(await verifySecret("SUNNY", sun), false);
-  assert.equal(normalizeSecret("Sun ☀️."), "SUN");
-});
-
-test("either episode's magic word opens the seal (it is only a bonus)", async () => {
-  const hashes = [await sha256Hex("SUN"), await sha256Hex("GOLDEN")];
-  assert.equal(await verifySecret("golden", hashes), true);
-  assert.equal(await verifySecret("sun", hashes), true);
-  assert.equal(await verifySecret("moon", hashes), false);
-});

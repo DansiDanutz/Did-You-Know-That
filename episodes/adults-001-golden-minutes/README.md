@@ -3,7 +3,7 @@
 > **Revision 3 (9 Oct 2026):** one researched story — Roediger & Karpicke 2006 and its limits — with its own ledger `claims-retrieval.md` (27 claims, full paper + Rowland 2014 meta-analysis opened). Infinite scroll and Franklin's funds move to the backlog as separate stories (their verified material stays in `claims.md`). The brief below describes revision 2 and is kept for history.
 
 
-Production folder (template: `episodes/templates/adults-episode.md`). Status: **script + storyboard drafted; no narration, no video yet.** Nothing here is approved for publication.
+Production folder (template: `episodes/templates/adults-episode.md`). Status (9 Oct 2026, evening): **in-app book rewritten in 7 languages (website); app narration recorded; video narration recorded (Brian, 8 lines, 2,635 characters); composition built in `video/ep01-adults` (3:12, passes `hyperframes check`); render pending (disk hold), then QA receipt, captions, thumbnails.** Nothing here is approved for publication.
 
 | File | What it is | Status |
 |---|---|---|

@@ -19,7 +19,7 @@ function entryFor(locale, storyId, audience) {
   return entry[audience] ?? (entry.kids || entry.adults ? undefined : entry);
 }
 
-// Fields like `art` or `secretHash` may differ per audience: { kids, adults }.
+// Fields like `art` may differ per audience: { kids, adults }.
 const forAudience = (value, audience) =>
   value && typeof value === "object" && !Array.isArray(value) && audience in value ? value[audience] : value;
 
@@ -49,7 +49,6 @@ export function localizeStory(story, locale, fallback, audience) {
   const mission = own.mission ?? eng.mission ?? [];
   return {
     ...story,
-    secretHash: forAudience(story.secretHash, audience),
     youtubeId: playableVideoId(story, audience),
     publication: story.publication?.[audience],
     title: pick("title"),

@@ -6,14 +6,10 @@
 //   2. add its texts to every locale file (tests fail if one is missing),
 //   3. when the video is live: publication.<audience>.publicationStatus =
 //      "published", youtubeId and publishedAt (validated by the tests),
-//   4. show the special word on a neon card in the middle of the video and
-//      store its SHA-256 (per audience if the videos differ):
-//        printf 'WORD' | shasum -a 256
 //
-// Rule: teaser pages and spark notes must NEVER contain quiz answers; the
-// answers are only in the YouTube video.
-// Reading order: teaser pages → mission (what to find out in the video)
-// → gate (listen on YouTube) → the guardian's quiz → reward.
+// Reading order: story pages → mission (what you can find out) → the
+// guardian's optional questions → the free card. The book teaches everything
+// the questions ask; nothing depends on the video or on a word from it.
 // Kids quizzes have 3 choices, adult quizzes 4. In story text, wrap the
 // hidden spark word in [[double brackets]].
 
@@ -29,62 +25,54 @@ export const STORIES = Object.freeze([
     publication: {
       kids: {
         schemaVersion: 1,
-        episodeId: "kids-001-scroll-monster",
-        slug: "scroll-monster",
+        episodeId: "kids-001-who-keeps-pressing-play",
+        slug: "who-keeps-pressing-play",
         topic: "digital-life",
         publicationStatus: "draft",
         videoLanguage: "en",
         narrationLanguages: ["en", "ro", "es", "fr", "de", "it", "zh"],
-        durationSeconds: 298.5,
       },
       adults: {
         schemaVersion: 1,
-        episodeId: "adults-001-golden-minutes",
-        slug: "golden-minutes",
+        episodeId: "adults-001-re-reading-trap",
+        slug: "re-reading-trap",
         topic: "everyday-life",
         publicationStatus: "draft",
         videoLanguage: "en",
         narrationLanguages: ["en", "ro", "es", "fr", "de", "it", "zh"],
       },
     },
-    // Special word shown on the neon card in the MIDDLE of each video.
-    secretHash: {
-      kids: "d44fa953853bae3a2ab71f5d5236ede3b67f31aeff84aa56235be191d78f7eb5", // SUN (kids words are always simple everyday words)
-      adults: "18b1cb9d01d1298fb45e2ca9a181a08134c08d7722c88c3348a11ff2171da6cc", // GOLDEN
-    },
-    card: { id: "card-ep1-why", number: "001", art: { kids: "phone", adults: "hourglass" } },
-    // The book teaches everything the guardian asks. The magic word on the
-    // neon card is a bonus surprise; cards are won by learning, not by watching.
+    card: { id: "card-ep1-why", number: "001", art: { kids: "bolt", adults: "brain" } },
     pages: {
       kids: [
-        { id: "opening", type: "title", art: "phone" },
-        { id: "start", type: "story", art: "bulb", spark: "scrolling" },
-        { id: "tower", type: "story", art: "clocktower", spark: "scientists" },
-        { id: "videoland", type: "story", art: "monster", spark: "automatically" },
-        { id: "boss", type: "story", art: "treasure", spark: "sleep" },
-        { id: "deal", type: "story", art: "owl", spark: "real" },
-        { id: "finale", type: "story", art: "phone", spark: "word" },
+        { id: "opening", type: "title", art: "bolt" },
+        { id: "rocket", type: "story", art: "bolt", spark: "sunset" },
+        { id: "mystery", type: "story", art: "bulb", spark: "mystery" },
+        { id: "willpower", type: "story", art: "phone", spark: "willpower" },
+        { id: "hint", type: "story", art: "owl", spark: "autoplay" },
+        { id: "test", type: "story", art: "phone", spark: "choose" },
+        { id: "bedtime", type: "story", art: "hourglass", spark: "sleep" },
+        { id: "launch", type: "story", art: "bolt", spark: "boss" },
         { id: "mission", type: "mission" },
-        { id: "seal", type: "gate" },
-        { id: "q1", type: "quiz", answer: { kids: 2, adults: 2 } },
-        { id: "q2", type: "quiz", answer: { kids: 1, adults: 0 } },
-        { id: "q3", type: "quiz", answer: { kids: 0, adults: 3 } },
+        { id: "q1", type: "quiz", answer: { kids: 1, adults: 1 } },
+        { id: "q2", type: "quiz", answer: { kids: 0, adults: 0 } },
+        { id: "q3", type: "quiz", answer: { kids: 2, adults: 2 } },
         { id: "reward", type: "reward" },
         { id: "end", type: "end" },
       ],
       adults: [
-        { id: "opening", type: "title", art: "hourglass" },
-        { id: "coldopen", type: "story", art: "phone", spark: "scroll" },
-        { id: "lever", type: "story", art: "slot", spark: "lever" },
-        { id: "franklin", type: "story", art: "coins", spark: "compound" },
-        { id: "testing", type: "story", art: "brain", spark: "themselves" },
-        { id: "minutes", type: "story", art: "hourglass", spark: "years" },
-        { id: "invitation", type: "story", art: "bulb", spark: "collection" },
+        { id: "opening", type: "title", art: "brain" },
+        { id: "case", type: "story", art: "brain", spark: "otters" },
+        { id: "puzzle", type: "story", art: "hourglass", spark: "twice" },
+        { id: "flip", type: "story", art: "clocktower", spark: "recall" },
+        { id: "twist", type: "story", art: "bulb", spark: "confident" },
+        { id: "mechanism", type: "story", art: "brain", spark: "difficulty" },
+        { id: "limits", type: "story", art: "coins", spark: "pooled" },
+        { id: "method", type: "story", art: "bulb", spark: "check" },
         { id: "mission", type: "mission" },
-        { id: "seal", type: "gate" },
-        { id: "q1", type: "quiz", answer: { kids: 2, adults: 2 } },
-        { id: "q2", type: "quiz", answer: { kids: 1, adults: 0 } },
-        { id: "q3", type: "quiz", answer: { kids: 0, adults: 3 } },
+        { id: "q1", type: "quiz", answer: { kids: 0, adults: 0 } },
+        { id: "q2", type: "quiz", answer: { kids: 2, adults: 2 } },
+        { id: "q3", type: "quiz", answer: { kids: 1, adults: 1 } },
         { id: "reward", type: "reward" },
         { id: "end", type: "end" },
       ],
@@ -114,14 +102,12 @@ export const STORIES = Object.freeze([
         narrationLanguages: [],
       },
     },
-    secretHash: "36c58be3956c6dad24ccd962cb856d5374cd32bb8c33815159f5fa81bcd7f46e", // NECTAR
     card: { id: "card-001-eternal-honey", number: "002", art: "jar" },
     pages: [
       { id: "opening", type: "title", art: "pyramid" },
       { id: "tomb", type: "story", art: "pyramid", spark: "afterlife" },
       { id: "hive", type: "story", art: "bee", spark: "dance" },
       { id: "mission", type: "mission" },
-      { id: "seal", type: "gate" },
       { id: "q1", type: "quiz", answer: { kids: 1, adults: 1 } },
       { id: "q2", type: "quiz", answer: { kids: 2, adults: 0 } },
       { id: "q3", type: "quiz", answer: { kids: 0, adults: 2 } },

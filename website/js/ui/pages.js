@@ -41,7 +41,7 @@ const RENDERERS = {
       <p class="ex-libris">${t("inside.exlibris")}</p>
       <h3>${t("inside.title")}</h3>
       <ol class="quest-steps">
-        ${[1, 2, 3, 4].map((n) => `<li>${t(`inside.step${n}`)}</li>`).join("")}
+        ${[1, 2, 3].map((n) => `<li>${t(`inside.step${n}`)}</li>`).join("")}
       </ol>
       <p class="inside-teaser">“${escapeHtml(story.teaser)}”</p>
     </div>`,
@@ -79,34 +79,6 @@ const RENDERERS = {
       <p class="mission-note">${t("mission.note")}</p>
       ${folio(index - 1)}
     </div>`,
-
-  gate: ({ story, session, gate, index, t }) => {
-    if (session.gateOpen) {
-      return `
-        <div class="page-inner gate-page is-open">
-          <div class="seal-wrap broken">${art("seal", "art seal-half left")}${art("seal", "art seal-half right")}</div>
-          <h3>${t("gate.broken")}</h3>
-          <p>${t("gate.brokenText")}</p>
-          ${folio(index - 1)}
-        </div>`;
-    }
-    return `
-      <div class="page-inner gate-page">
-        <div class="seal-wrap">${art("seal")}</div>
-        <h3>${t("gate.title")}</h3>
-        <p>${t("gate.sealed")}</p>
-        <button class="btn-gold" data-action="listen">${t(story.youtubeId ? "gate.listen" : "gate.channel")}</button>
-        <form class="secret-form" data-action="secret">
-          <label for="secret-${story.id}">${t("gate.secretLabel")}</label>
-          <div class="secret-row">
-            <input id="secret-${story.id}" name="secret" autocomplete="off" placeholder="${t("gate.secretPlaceholder")}" maxlength="24" />
-            <button type="submit" class="btn-ink">${t("gate.break")}</button>
-          </div>
-          <p class="secret-msg" aria-live="polite">${gate.message ? t(gate.message) : ""}</p>
-        </form>
-        ${folio(index - 1)}
-      </div>`;
-  },
 
   quiz: ({ page, session, index, t }) => {
     const state = session.quiz[page.id] ?? { picked: [], solved: false };

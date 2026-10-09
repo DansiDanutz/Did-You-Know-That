@@ -74,11 +74,6 @@ export function practisedStories(learning, audience) {
   );
 }
 
-export function recordBonusWord(learning, storyId, at) {
-  if (learning[storyId]?.bonusWordAt) return learning;
-  return { ...learning, [storyId]: { ...learning[storyId], bonusWordAt: at } };
-}
-
 const fold = (text) => String(text ?? "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
 
 // `cards`: [{ cardId, title, summary, topic }]
