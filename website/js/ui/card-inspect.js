@@ -6,6 +6,7 @@ import { enableTilt, burst } from "./card.js";
 
 const FLY_IN_MS = 1100;
 const FLY_OUT_MS = 550;
+const RESTORE_FOCUS_MS = 60;
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function offsetFrom(sourceRect, targetEl) {
@@ -36,11 +37,11 @@ export function inspectCard(sourceCard, { actionsHtml, closeLabel = "Close", onS
       </div>
       <div class="inspect-actions">${actionsHtml}</div>
     </div>`;
-  document.body.appendChild(overlay);
-  // A real modal: everything behind it is unreachable until it closes.
-  const behind = [...document.body.children].filter((el) => el !== overlay && !el.inert);
-  behind.forEach((el) => (el.inert = true));
-  overlay.querySelector(".inspect-close").focus();
+  // Lives in #inspect-layer, a layer the shared modal manager (modal-focus.js)
+  // knows: it locks everything behind, keeps Tab inside and focuses this card.
+  const host = document.querySelector("#inspect-layer") ?? document.body;
+  host.appendChild(overlay);
+  if (host.id === "inspect-layer") host.hidden = false;
 
   const stage = overlay.querySelector(".inspect-stage");
   const flip = overlay.querySelector(".inspect-flip");
@@ -85,8 +86,12 @@ export function inspectCard(sourceCard, { actionsHtml, closeLabel = "Close", onS
       .finished.then(() => {
         sourceCard.classList.remove("is-lifted");
         overlay.remove();
-        behind.forEach((el) => (el.inert = false));
-        if (returnFocus?.isConnected) returnFocus.focus();
+        if (host.id === "inspect-layer") host.hidden = true;
+        // The modal manager unlocks the library on its next update; focus the
+        // card after that (an inert element cannot take focus).
+        setTimeout(() => {
+          if (returnFocus?.isConnected) returnFocus.focus();
+        }, RESTORE_FOCUS_MS);
       });
   }
 

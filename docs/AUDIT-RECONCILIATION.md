@@ -46,3 +46,11 @@ Branch `fix/audit-stage1`. Evidence from unit tests and browser checks on a prev
 | Generic social preview image, placeholder sources | **open** | Needs episode artwork and the finished claim ledgers (Phase C). |
 | Stale docs saying "preview only" | **fixed** | `docs/ACCEPTANCE.md` updated: Phase A/B live since 9 Oct 2026 (`1146cb5`). |
 | Stage 2–5 (video pilots, missions, parent corner, adoption, pilot study) | **open** | Not started; see the audit handoff. |
+
+## Story/business brief review of stage 1 (9 Oct 2026)
+
+| Concern raised | Status | Evidence |
+|---|---|---|
+| Web Locks fallback just runs the work | **verified + documented** | With Web Locks (all current major browsers, Safari since 15.4): browser test with two tabs starting in the same millisecond, 40 saves each → 80/80 kept. Without Web Locks: a single tab is safe; two tabs writing in the same instant could still collide (documented limit, `tests/storage-lock.test.mjs`). |
+| Expanded-card manual inert vs modal manager | **fixed** | The card overlay now lives in `#inspect-layer`, registered with `modal-focus.js`; browser: focus inside while open, library + top bar inert, focus returns to the card on close. |
+| Hidden journey map exposed in adult mode | **fixed** | `body.is-adults` hides the map, kids bar and walk controls from sight, keyboard and screen readers; browser: 0 map controls reachable. |
