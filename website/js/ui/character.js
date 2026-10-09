@@ -44,7 +44,7 @@ export const DAXTER_SVG = `
 
     <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
     <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
-    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat)"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat)"/>
     <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
     <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
 

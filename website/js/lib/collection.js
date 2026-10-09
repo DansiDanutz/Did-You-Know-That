@@ -2,6 +2,8 @@
 // Cards are saved freely: no playback, quiz or magic word is ever required.
 // Pure and immutable; storage and UI live elsewhere.
 
+import { normalizeExplorer } from "./progression.js";
+
 const AUDIENCES = ["kids", "adults"];
 const BACKUP_APP = "dexty";
 const BACKUP_VERSION = 1;
@@ -76,13 +78,14 @@ export function searchCards(cards, { query = "", topic = "" } = {}) {
   );
 }
 
-export const makeBackup = ({ collection, learning, settings }, at) => ({
+export const makeBackup = ({ collection, learning, settings, explorer }, at) => ({
   app: BACKUP_APP,
   version: BACKUP_VERSION,
   exportedAt: at,
   collection,
   learning,
   settings,
+  explorer: explorer ?? null,
 });
 
 // Validates a backup file before anything is replaced. Unknown card ids are
@@ -109,7 +112,8 @@ export function parseBackup(text, knownCardIds) {
   );
   const learning = isRecord(raw.learning) ? raw.learning : {};
   const settings = isRecord(raw.settings) ? raw.settings : null;
-  return { ok: true, dropped, data: { collection: { ...normalized, saved }, learning, settings } };
+  // Older backups have no explorer: they restore to an empty explorer.
+  return { ok: true, dropped, data: { collection: { ...normalized, saved }, learning, settings, explorer: normalizeExplorer(raw.explorer) } };
 }
 
 // The card style shown for a saved card: an old first-season card keeps the

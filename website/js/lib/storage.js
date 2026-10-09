@@ -1,11 +1,13 @@
 import { cardPoints } from "./points.js";
 import { LANGUAGES } from "../i18n/index.js";
 import { migrateProgress, normalizeCollection } from "./collection.js";
+import { normalizeExplorer } from "./progression.js";
 
 const STORAGE_KEY = "dykt-progress-v1";
 const SETTINGS_KEY = "dykt-settings-v1";
 const COLLECTION_KEY = "dexty-collection-v1";
 const LEARNING_KEY = "dexty-learning-v1";
+const EXPLORER_KEY = "dexty-explorer-v1";
 const LANG_CODES = LANGUAGES.map(({ code }) => code); // one source: the picker's own list
 const AUDIENCE_CODES = ["kids", "adults"];
 
@@ -145,6 +147,18 @@ export function createStore(backend) {
       const base = current.ok && current.value && typeof current.value === "object" && !Array.isArray(current.value) ? current.value : {};
       const next = operation(base);
       return { learning: next, persisted: writeJson(backend, LEARNING_KEY, next) };
+    },
+    // Explorer progression (outfits, equipment looks, workshop, mission state).
+    loadExplorer() {
+      const stored = readJson(backend, EXPLORER_KEY);
+      return normalizeExplorer(stored.ok ? stored.value : null);
+    },
+    updateExplorer(operation) {
+      const next = operation(this.loadExplorer());
+      return { explorer: next, persisted: writeJson(backend, EXPLORER_KEY, next) };
+    },
+    replaceExplorer(explorer) {
+      return writeJson(backend, EXPLORER_KEY, explorer);
     },
     // Replaces the collection wholesale (backup restore only).
     replaceCollection(collection) {
