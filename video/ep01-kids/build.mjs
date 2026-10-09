@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 import { art } from "../../website/js/ui/art.js";
 import { DAXTER_SVG } from "../../website/js/ui/character.js";
+import { startChoreography } from "./choreography.mjs";
 
 const lines = JSON.parse(readFileSync("vo-lines.json", "utf8")).lines;
 const dur = (path) => Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path]).toString());
@@ -39,7 +40,7 @@ add({ id: "tower", kind: "scene", level: 1, title: "THE SCREEN-TIME TOWER", leng
 add({ id: "videoland", kind: "scene", level: 2, title: "ENDLESS VIDEO LAND", length: TITLE + vo.videoland.len + 3, voAt: TITLE });
 add({ id: "neon", kind: "video", src: "assets/neon-kids.mp4", length: NEON });
 add({ id: "boss", kind: "scene", level: 3, title: "BOSS FIGHT!", length: TITLE + vo.boss.len + 1.5, voAt: TITLE });
-add({ id: "deal", kind: "scene", level: 4, title: "DAXTER'S DEAL", length: TITLE + vo.deal.len + 1, voAt: TITLE });
+add({ id: "deal", kind: "scene", level: 4, title: "DEXTER'S DEAL", length: TITLE + vo.deal.len + 1, voAt: TITLE });
 add({ id: "finale", kind: "scene", length: vo.finale.len + 3.5, voAt: 0.5 });
 add({ id: "end", kind: "video", src: "assets/endscreen.mp4", length: END });
 const TOTAL = +t.toFixed(3);
@@ -94,7 +95,7 @@ const BODY = {
     <div class="phone-big">${art("phone")}</div>
     <div class="press-start">PRESS START</div>
     ${daxter("dax-start")}
-    <div class="hello">Hi! I'm <b>DAXTER</b></div>
+    <div class="hello">Hi! I'm <b>DEXTER</b></div>
     <div class="question">My goal: turn your <b>screen time</b> into <b>brain time!</b></div>
     <div class="hint">✨ Watch for the glowing card with the <b>MAGIC WORD</b>! ✨</div>`,
   tower: (s) => `${hud(1)}${titleCard(s)}
@@ -155,7 +156,7 @@ const anim = (s) => {
       tl.fromTo("#sc-start .press-start", {opacity:0}, {opacity:1, duration:0.25, yoyo:true, repeat:10}, ${S});
       tl.fromTo("#sc-start .phone-big", {y:300, rotation:-10}, {y:0, rotation:0, duration:1, ease:"back.out(1.6)"}, ${S + 0.2});
       tl.fromTo("#sc-start .dax-start", {x:-700}, {x:0, duration:1.2, ease:"power3.out"}, ${S + 1});
-      tl.to("#sc-start .dax-start", {y:-40, duration:0.35, yoyo:true, repeat:13, ease:"sine.inOut"}, ${S + 2.2});
+      ${startChoreography(S, (phrase) => L("start", phrase), s.length)}
       tl.fromTo("#sc-start .hello", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, ${S + 1.6});
       tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, ${L("start", "My goal")});
       tl.to("#sc-start .question", {opacity:0, duration:0.4}, ${L("start", "And here's a secret")});
