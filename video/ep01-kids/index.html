@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Did You Know That? · Ep 1 Kids · The Scroll Monster</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>@font-face { font-family: "DYK Heavy"; src: url("assets/AvenirNext-Heavy.ttf") format("truetype"); }
+@font-face { font-family: "DYK Demi"; src: url("assets/AvenirNext-DemiBold.ttf") format("truetype"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "DYK Heavy", sans-serif; color: #fff; }
+.media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene { position: absolute; inset: 0; overflow: hidden; }
+.scene > * { position: absolute; }
+svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* backgrounds: bright cartoon game worlds */
+.bg-start { background: radial-gradient(circle at 50% 40%, #5b2ddb, #1a0a5c 70%); }
+.bg-tower { background: linear-gradient(180deg, #4fc3ff 0%, #8fd9ff 55%, #5ccf6a 55%, #34a853 100%); }
+.bg-videoland { background: radial-gradient(circle at 70% 30%, #ff5fb0, #6a1fb8 60%, #2a0a5c); }
+.bg-boss { background: radial-gradient(circle at 30% 60%, #ff7a3d, #8a1a4a 55%, #2a0820); }
+.bg-deal { background: linear-gradient(180deg, #1a2a7a 0%, #3d5bd6 60%, #f6c66b 60%, #e0a24a 100%); }
+.bg-finale { background: radial-gradient(circle at 50% 45%, #ffd84a, #ff8a1f 40%, #b8126a 80%); }
+
+/* game HUD */
+.hud { left: 0; right: 0; top: 0; height: 110px; display: flex; align-items: center; gap: 40px; padding: 0 60px; z-index: 20; }
+.xp { display: flex; align-items: center; gap: 14px; font-size: 34px; text-shadow: 0 4px 0 #2a1470; }
+.xp-bar { display: block; width: 420px; height: 34px; border-radius: 18px; background: rgba(0,0,0,.35); border: 4px solid #fff; overflow: hidden; }
+.xp-fill { display: block; height: 100%; width: 100%; transform-origin: 0 50%; background: linear-gradient(90deg, #3ee07a, #ffd84a); }
+.hearts { font-size: 40px; }
+.lvl { margin-left: auto; font-size: 44px; padding: 6px 26px; border-radius: 20px; background: #ff3fa4; border: 4px solid #fff; box-shadow: 0 6px 0 #8a1a5a; }
+.title-card { inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 30; background: rgba(20,8,60,.82); }
+.tc-level { font-size: 90px; color: #ffd84a; text-shadow: 0 8px 0 #b8780c, 0 0 40px #ffd84a; letter-spacing: .08em; }
+.tc-name { margin-top: 10px; font-size: 120px; text-shadow: 0 10px 0 #4b23c8, 0 0 50px #a040ff; }
+
+.dax { width: 300px; height: 412px; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+.source { left: 60px; bottom: 30px; font-family: "DYK Demi", sans-serif; font-size: 26px; color: rgba(255,255,255,.85); text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+
+/* start */
+.grid-floor { left: -10%; right: -10%; bottom: -10%; height: 55%; background: repeating-linear-gradient(90deg, rgba(255,255,255,.18) 0 4px, transparent 4px 120px), repeating-linear-gradient(0deg, rgba(255,255,255,.18) 0 4px, transparent 4px 80px); transform: perspective(600px) rotateX(55deg); }
+.phone-big { left: 50%; top: 170px; width: 560px; height: 560px; margin-left: -280px; }
+.press-start { left: 0; right: 0; top: 70px; text-align: center; font-size: 110px; color: #ffd84a; text-shadow: 0 8px 0 #b8780c, 0 0 60px #ffd84a; letter-spacing: .12em; }
+.dax-start { left: 230px; bottom: 120px; }
+.question { left: 0; right: 0; bottom: 70px; text-align: center; font-family: "DYK Demi", sans-serif; font-size: 52px; text-shadow: 0 4px 12px rgba(0,0,0,.6); }
+.question b { font-family: "DYK Heavy", sans-serif; color: #ffd84a; font-size: 64px; }
+
+/* level 1 tower */
+.tower { left: 220px; bottom: 120px; width: 520px; height: 640px; display: flex; flex-direction: column-reverse; gap: 14px; }
+.floor { height: 145px; border-radius: 24px; background: #3a2a8a; border: 6px solid #fff; display: flex; align-items: flex-end; padding: 14px 24px; box-shadow: 0 10px 0 rgba(0,0,0,.25); }
+.floor span { font-size: 40px; color: #fff; text-shadow: 0 3px 0 #1a0a5c; }
+.clock-art { right: 180px; top: 130px; width: 360px; height: 360px; }
+.dax-tower { left: 760px; bottom: 120px; }
+.score { right: 120px; display: flex; gap: 20px; align-items: baseline; padding: 14px 30px; border-radius: 22px; background: #fff; color: #2a1470; box-shadow: 0 8px 0 #2a1470; font-size: 40px; }
+.score b { font-size: 64px; color: #ff3fa4; }
+.s0 { top: 880px; } .s1 { top: 760px; } .s2 { top: 640px; } .s3 { top: 520px; background: #ffd84a; }
+
+/* level 2 video land */
+.belt { left: 0; right: 0; top: 230px; height: 260px; background: #2a0a5c; border-top: 10px solid #ffd84a; border-bottom: 10px solid #ffd84a; overflow: hidden; }
+.belt-track { display: flex; gap: 40px; padding: 30px 40px; width: 5000px; }
+.thumb { flex: none; width: 300px; height: 180px; border-radius: 22px; display: grid; place-items: center; font-size: 80px; border: 6px solid #fff; }
+.t0 { background: #ff3fa4; } .t1 { background: #3d7bff; } .t2 { background: #3ee07a; } .t3 { background: #ff8a1f; }
+.autoplay { left: 0; right: 0; top: 520px; text-align: center; font-size: 80px; color: #ffd84a; text-shadow: 0 6px 0 #b8780c; }
+.monster { right: 120px; bottom: -20px; width: 640px; height: 640px; }
+.dax-land { left: 120px; bottom: 60px; }
+
+/* level 3 boss */
+.boss-monster { left: 60px; bottom: 40px; width: 620px; height: 620px; }
+.chests { right: 120px; top: 260px; display: flex; gap: 40px; }
+.chest { width: 300px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.chest-art { width: 240px; height: 240px; display: grid; place-items: center; font-size: 130px; border-radius: 50%; background: radial-gradient(circle, #ffe58a, #e6a91f); border: 8px solid #fff; box-shadow: 0 0 50px #ffd84a, 0 10px 0 #9a5f0a; }
+.chest b { font-size: 40px; text-shadow: 0 4px 0 #2a0820; }
+.dax-boss { left: 760px; bottom: 60px; }
+.who { right: 120px; bottom: 120px; padding: 18px 34px; border-radius: 24px; background: #fff; color: #2a0820; font-family: "DYK Demi", sans-serif; font-size: 46px; box-shadow: 0 8px 0 #8a1a4a; }
+.who b { font-family: "DYK Heavy", sans-serif; color: #e2459a; }
+
+/* level 4 deal */
+.owl { left: 180px; top: 160px; width: 440px; height: 440px; }
+.road { left: 0; right: 0; bottom: 140px; height: 120px; display: flex; justify-content: space-around; align-items: center; background: #f7dfa8; border-top: 8px solid #b8702f; border-bottom: 8px solid #b8702f; }
+.house { font-size: 110px; }
+.deal-card { left: 50%; top: 170px; width: 300px; height: 420px; margin-left: -150px; padding: 26px; border-radius: 26px; border: 8px solid #ffd84a; background: radial-gradient(circle, #5a2ad8, #1a0a4a); display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 60px #ffd84a; }
+.deal-card b { font-size: 34px; color: #ffd84a; }
+.three { right: 160px; top: 200px; width: 340px; height: 340px; border-radius: 50%; background: #ff3fa4; border: 10px solid #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 70px; line-height: .95; box-shadow: 0 12px 0 #8a1a5a; }
+.three small { font-size: 46px; }
+.dax-deal { right: 180px; bottom: 120px; }
+
+/* finale */
+.stamp { left: 0; right: 0; top: 70px; text-align: center; font-size: 150px; color: #fff; text-shadow: 0 10px 0 #b8126a, 0 0 60px #fff; }
+.fireworks { left: 50%; top: 45%; width: 0; height: 0; }
+.fw { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%; transform-origin: 12px 12px; translate: calc(cos(var(--a)) * 600px) calc(sin(var(--a)) * 380px); }
+.fw0 { background: #3d7bff; } .fw1 { background: #a040ff; } .fw2 { background: #ff3fa4; } .fw3 { background: #ff8a1f; } .fw4 { background: #fff; } .fw5 { background: #3ee07a; }
+.reward { left: 50%; top: 290px; margin-left: -180px; }
+.reward-card { width: 360px; height: 500px; padding: 30px; border-radius: 30px; border: 10px solid #ffd84a; background: radial-gradient(circle, #5a2ad8, #1a0a4a); display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 0 80px #fff; }
+.reward-card b { font-size: 44px; color: #ffd84a; } .reward-card small { font-family: "DYK Demi", sans-serif; font-size: 28px; }
+.dax-finale { left: 260px; bottom: 80px; }
+.url { left: 0; right: 0; bottom: 50px; text-align: center; font-size: 52px; text-shadow: 0 4px 0 #8a1a5a; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="198.221" data-width="1920" data-height="1080">
+      <section id="sc-start" class="clip scene bg-start" data-start="0" data-duration="17.779" data-track-index="0">
+    <div class="grid-floor"></div>
+    <div class="phone-big"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="a1scr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3d7bff"/><stop offset=".5" stop-color="#a040ff"/><stop offset="1" stop-color="#ff3fa4"/>
+      </linearGradient>
+      <radialGradient id="a1glow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#a040ff" stop-opacity=".55"/><stop offset="1" stop-color="#a040ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="96" fill="url(#a1glow)"/>
+    <rect x="58" y="22" width="84" height="156" rx="16" fill="#1a1150"/>
+    <rect x="65" y="36" width="70" height="124" rx="8" fill="url(#a1scr)"/>
+    <rect x="88" y="27" width="24" height="4" rx="2" fill="#4b3d8f"/>
+    <g fill="#fff" opacity=".9">
+      <rect x="72" y="46" width="56" height="26" rx="5" opacity=".35"/>
+      <rect x="72" y="78" width="56" height="26" rx="5" opacity=".55"/>
+      <rect x="72" y="110" width="56" height="26" rx="5" opacity=".35"/>
+      <path d="M95 84 l12 7 l-12 7Z" fill="#a040ff"/>
+    </g>
+    <path d="M100 168 v22 M92 182 l8 8 l8 -8" stroke="#ffd44d" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="40" cy="60" r="5" fill="#ffd44d"/><circle cx="162" cy="140" r="4" fill="#3ee07a"/><circle cx="160" cy="44" r="3" fill="#ff8a1f"/></svg></div>
+    <div class="press-start">PRESS START</div>
+    <div class="dax dax-start">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-start" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-start" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-start" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-start" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-start" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-start)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-start)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-start)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-start)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-start)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-start)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div>
+    <div class="question">Nobody can stop kids from scrolling…<br/><b>so let's make scrolling SMART!</b></div></section>
+      <video id="v-intro" class="clip media" src="assets/intro.mp4" data-start="17.779" data-duration="7" data-track-index="1" data-has-audio="true" playsinline></video>
+      <section id="sc-tower" class="clip scene bg-tower" data-start="24.779" data-duration="38.680" data-track-index="0">
+  <div class="hud">
+    <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="1"></i></span></div>
+    <div class="hearts">❤️ ❤️ ❤️</div>
+    <div class="lvl">LEVEL 1/4</div>
+  </div><div class="title-card"><span class="tc-level">LEVEL 1</span><span class="tc-name">THE SCREEN-TIME TOWER</span></div>
+    <div class="tower"><div class="floor f0"><span>AGES 2–4</span></div><div class="floor f1"><span>AGES 5–8</span></div><div class="floor f2"><span>AGES 8–12</span></div><div class="floor f3"><span>TEENS</span></div></div>
+    <div class="clock-art"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="a2t" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a6cff"/><stop offset="1" stop-color="#4b23c8"/></linearGradient>
+    </defs>
+    <rect x="62" y="150" width="76" height="34" rx="6" fill="url(#a2t)" stroke="#2a1470" stroke-width="2"/>
+      <circle cx="100" cy="167" r="12" fill="#fff6d6" stroke="#ffd44d" stroke-width="3"/>
+      <path d="M100 167 v-7 M100 167 l5 3" stroke="#3a1d02" stroke-width="2.5" stroke-linecap="round"/><rect x="58" y="116" width="84" height="34" rx="6" fill="url(#a2t)" stroke="#2a1470" stroke-width="2"/>
+      <circle cx="100" cy="133" r="12" fill="#fff6d6" stroke="#ffd44d" stroke-width="3"/>
+      <path d="M100 133 v-7 M100 133 l6 3" stroke="#3a1d02" stroke-width="2.5" stroke-linecap="round"/><rect x="54" y="82" width="92" height="34" rx="6" fill="url(#a2t)" stroke="#2a1470" stroke-width="2"/>
+      <circle cx="100" cy="99" r="12" fill="#fff6d6" stroke="#ffd44d" stroke-width="3"/>
+      <path d="M100 99 v-7 M100 99 l7 3" stroke="#3a1d02" stroke-width="2.5" stroke-linecap="round"/><rect x="50" y="48" width="100" height="34" rx="6" fill="url(#a2t)" stroke="#2a1470" stroke-width="2"/>
+      <circle cx="100" cy="65" r="12" fill="#fff6d6" stroke="#ffd44d" stroke-width="3"/>
+      <path d="M100 65 v-7 M100 65 l8 3" stroke="#3a1d02" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M46 48 L100 14 L154 48Z" fill="#ff3fa4"/>
+    <text x="150" y="40" font-family="Fredoka, sans-serif" font-size="20" font-weight="700" fill="#ffd44d">8h39</text>
+    <g fill="#3ee07a"><circle cx="34" cy="150" r="5"/><circle cx="172" cy="120" r="4"/></g></svg></div>
+    <div class="dax dax-tower">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-tower" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-tower" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-tower" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-tower" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-tower" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-tower)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-tower)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-tower)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-tower)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-tower)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-tower)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div>
+    <div class="score s0"><span>Ages 2–4</span><b>≈ 2½ h</b></div><div class="score s1"><span>Ages 5–8</span><b>3+ h</b></div><div class="score s2"><span>Ages 8–12</span><b>5 h 33</b></div><div class="score s3"><span>Teens</span><b>8 h 39</b></div>
+    <div class="source">Source: Common Sense Media Census 2020 & 2021 (U.S.)</div></section>
+      <section id="sc-videoland" class="clip scene bg-videoland" data-start="63.459" data-duration="22.765" data-track-index="0">
+  <div class="hud">
+    <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="2"></i></span></div>
+    <div class="hearts">❤️ ❤️ ❤️</div>
+    <div class="lvl">LEVEL 2/4</div>
+  </div><div class="title-card"><span class="tc-level">LEVEL 2</span><span class="tc-name">ENDLESS VIDEO LAND</span></div>
+    <div class="belt"><div class="belt-track"><div class="thumb t0">▶</div><div class="thumb t1">▶</div><div class="thumb t2">▶</div><div class="thumb t3">▶</div><div class="thumb t0">▶</div><div class="thumb t1">▶</div><div class="thumb t2">▶</div><div class="thumb t3">▶</div><div class="thumb t0">▶</div><div class="thumb t1">▶</div><div class="thumb t2">▶</div><div class="thumb t3">▶</div><div class="thumb t0">▶</div><div class="thumb t1">▶</div></div></div>
+    <div class="autoplay">AUTOPLAY ▶▶</div>
+    <div class="monster"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="a3m" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#c58cff"/><stop offset="1" stop-color="#5a1fb8"/></radialGradient>
+    </defs>
+    <path d="M40 150 C20 90 50 40 100 40 C150 40 180 90 160 150 C150 176 130 168 120 180 C110 168 90 168 80 180 C70 168 50 176 40 150Z" fill="url(#a3m)"/>
+    <g fill="#fff"><circle cx="78" cy="82" r="16"/><circle cx="124" cy="78" r="20"/></g>
+    <g fill="#1a0630"><circle cx="82" cy="86" r="7"/><circle cx="128" cy="82" r="9"/></g>
+    <rect x="70" y="104" width="62" height="44" rx="8" fill="#1a1150" stroke="#ff3fa4" stroke-width="3"/>
+    <path d="M96 116 l14 8 l-14 8Z" fill="#ff3fa4"/>
+    <path d="M132 140 q30 10 34 40 q-14 -8 -22 -4" fill="#ff7ab8"/>
+    <g fill="#3a1470"><path d="M58 46 l-10 -22 l20 14Z"/><path d="M142 46 l10 -22 l-20 14Z"/></g></svg></div>
+    <div class="dax dax-land">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-land" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-land" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-land" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-land" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-land" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-land)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-land)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-land)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-land)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-land)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-land)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div></section>
+      <video id="v-neon" class="clip media" src="assets/neon-spark.mp4" data-start="86.223" data-duration="8" data-track-index="1" data-has-audio="true" playsinline></video>
+      <section id="sc-boss" class="clip scene bg-boss" data-start="94.223" data-duration="33.989" data-track-index="0">
+  <div class="hud">
+    <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="3"></i></span></div>
+    <div class="hearts">❤️ ❤️ ❤️</div>
+    <div class="lvl">LEVEL 3/4</div>
+  </div><div class="title-card"><span class="tc-level">LEVEL 3</span><span class="tc-name">BOSS FIGHT!</span></div>
+    <div class="monster boss-monster"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="a4m" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#c58cff"/><stop offset="1" stop-color="#5a1fb8"/></radialGradient>
+    </defs>
+    <path d="M40 150 C20 90 50 40 100 40 C150 40 180 90 160 150 C150 176 130 168 120 180 C110 168 90 168 80 180 C70 168 50 176 40 150Z" fill="url(#a4m)"/>
+    <g fill="#fff"><circle cx="78" cy="82" r="16"/><circle cx="124" cy="78" r="20"/></g>
+    <g fill="#1a0630"><circle cx="82" cy="86" r="7"/><circle cx="128" cy="82" r="9"/></g>
+    <rect x="70" y="104" width="62" height="44" rx="8" fill="#1a1150" stroke="#ff3fa4" stroke-width="3"/>
+    <path d="M96 116 l14 8 l-14 8Z" fill="#ff3fa4"/>
+    <path d="M132 140 q30 10 34 40 q-14 -8 -22 -4" fill="#ff7ab8"/>
+    <g fill="#3a1470"><path d="M58 46 l-10 -22 l20 14Z"/><path d="M142 46 l10 -22 l-20 14Z"/></g></svg></div>
+    <div class="chests"><div class="chest c0"><div class="chest-art">🍽️</div><b>DINNER</b></div><div class="chest c1"><div class="chest-art">🌙</div><b>SLEEP</b></div><div class="chest c2"><div class="chest-art">🤝</div><b>FRIENDS</b></div></div>
+    <div class="dax dax-boss">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-boss" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-boss" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-boss" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-boss" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-boss" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-boss)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-boss)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-boss)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-boss)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-boss)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-boss)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div>
+    <div class="who">Ages 2–5: <b>max 1 hour</b> of screens a day</div>
+    <div class="source">Source: WHO 2019 · American Academy of Pediatrics</div></section>
+      <section id="sc-deal" class="clip scene bg-deal" data-start="128.213" data-duration="35.951" data-track-index="0">
+  <div class="hud">
+    <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="4"></i></span></div>
+    <div class="hearts">❤️ ❤️ ❤️</div>
+    <div class="lvl">LEVEL 4/4</div>
+  </div><div class="title-card"><span class="tc-level">LEVEL 4</span><span class="tc-name">DAXTER'S DEAL</span></div>
+    <div class="owl"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="a5o" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#d9a066"/><stop offset="1" stop-color="#8a4f1f"/></radialGradient>
+    </defs>
+    <ellipse cx="100" cy="112" rx="56" ry="66" fill="url(#a5o)"/>
+    <path d="M52 62 l14 -26 l16 22Z M148 62 l-14 -26 l-16 22Z" fill="#8a4f1f"/>
+    <ellipse cx="100" cy="132" rx="34" ry="40" fill="#f3d9b0"/>
+    <g fill="#fff" stroke="#3a1d02" stroke-width="3"><circle cx="78" cy="88" r="18"/><circle cx="122" cy="88" r="18"/></g>
+    <g fill="#2a1406"><circle cx="80" cy="90" r="8"/><circle cx="124" cy="90" r="8"/></g>
+    <path d="M100 98 l-8 12 h16Z" fill="#ffb627"/>
+    <path d="M58 70 h84" stroke="#3a1d02" stroke-width="3"/>
+    <rect x="58" y="176" width="84" height="10" rx="5" fill="#7a3e12"/>
+    <path d="M150 40 l10 -6 l2 12Z" fill="#ffd44d"/></svg></div>
+    <div class="road"><span class="house h0">🏠</span><span class="house h1">🏛️</span><span class="house h2">🌊</span><span class="house h3">⚡</span></div>
+    <div class="deal-card"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="a6scr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3d7bff"/><stop offset=".5" stop-color="#a040ff"/><stop offset="1" stop-color="#ff3fa4"/>
+      </linearGradient>
+      <radialGradient id="a6glow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#a040ff" stop-opacity=".55"/><stop offset="1" stop-color="#a040ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="96" fill="url(#a6glow)"/>
+    <rect x="58" y="22" width="84" height="156" rx="16" fill="#1a1150"/>
+    <rect x="65" y="36" width="70" height="124" rx="8" fill="url(#a6scr)"/>
+    <rect x="88" y="27" width="24" height="4" rx="2" fill="#4b3d8f"/>
+    <g fill="#fff" opacity=".9">
+      <rect x="72" y="46" width="56" height="26" rx="5" opacity=".35"/>
+      <rect x="72" y="78" width="56" height="26" rx="5" opacity=".55"/>
+      <rect x="72" y="110" width="56" height="26" rx="5" opacity=".35"/>
+      <path d="M95 84 l12 7 l-12 7Z" fill="#a040ff"/>
+    </g>
+    <path d="M100 168 v22 M92 182 l8 8 l8 -8" stroke="#ffd44d" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="40" cy="60" r="5" fill="#ffd44d"/><circle cx="162" cy="140" r="4" fill="#3ee07a"/><circle cx="160" cy="44" r="3" fill="#ff8a1f"/></svg><b>SPECIAL CARD</b></div>
+    <div class="three">3 VIDEOS<br/><small>A DAY</small></div>
+    <div class="dax dax-deal">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-deal" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-deal" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-deal" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-deal" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-deal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-deal)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-deal)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-deal)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-deal)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-deal)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-deal)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div></section>
+      <section id="sc-finale" class="clip scene bg-finale" data-start="164.163" data-duration="19.057" data-track-index="0">
+    <div class="stamp">LEVEL COMPLETE!</div>
+    <div class="fireworks"><i class="fw fw0" style="--a:0deg"></i><i class="fw fw1" style="--a:15deg"></i><i class="fw fw2" style="--a:30deg"></i><i class="fw fw3" style="--a:45deg"></i><i class="fw fw4" style="--a:60deg"></i><i class="fw fw5" style="--a:75deg"></i><i class="fw fw0" style="--a:90deg"></i><i class="fw fw1" style="--a:105deg"></i><i class="fw fw2" style="--a:120deg"></i><i class="fw fw3" style="--a:135deg"></i><i class="fw fw4" style="--a:150deg"></i><i class="fw fw5" style="--a:165deg"></i><i class="fw fw0" style="--a:180deg"></i><i class="fw fw1" style="--a:195deg"></i><i class="fw fw2" style="--a:210deg"></i><i class="fw fw3" style="--a:225deg"></i><i class="fw fw4" style="--a:240deg"></i><i class="fw fw5" style="--a:255deg"></i><i class="fw fw0" style="--a:270deg"></i><i class="fw fw1" style="--a:285deg"></i><i class="fw fw2" style="--a:300deg"></i><i class="fw fw3" style="--a:315deg"></i><i class="fw fw4" style="--a:330deg"></i><i class="fw fw5" style="--a:345deg"></i></div>
+    <div class="reward"><div class="reward-card"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="a7scr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3d7bff"/><stop offset=".5" stop-color="#a040ff"/><stop offset="1" stop-color="#ff3fa4"/>
+      </linearGradient>
+      <radialGradient id="a7glow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#a040ff" stop-opacity=".55"/><stop offset="1" stop-color="#a040ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="96" fill="url(#a7glow)"/>
+    <rect x="58" y="22" width="84" height="156" rx="16" fill="#1a1150"/>
+    <rect x="65" y="36" width="70" height="124" rx="8" fill="url(#a7scr)"/>
+    <rect x="88" y="27" width="24" height="4" rx="2" fill="#4b3d8f"/>
+    <g fill="#fff" opacity=".9">
+      <rect x="72" y="46" width="56" height="26" rx="5" opacity=".35"/>
+      <rect x="72" y="78" width="56" height="26" rx="5" opacity=".55"/>
+      <rect x="72" y="110" width="56" height="26" rx="5" opacity=".35"/>
+      <path d="M95 84 l12 7 l-12 7Z" fill="#a040ff"/>
+    </g>
+    <path d="M100 168 v22 M92 182 l8 8 l8 -8" stroke="#ffd44d" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="40" cy="60" r="5" fill="#ffd44d"/><circle cx="162" cy="140" r="4" fill="#3ee07a"/><circle cx="160" cy="44" r="3" fill="#ff8a1f"/></svg><b>SCROLL TAMER</b><small>CARD #001</small></div></div>
+    <div class="dax dax-finale">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-finale" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-finale" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-finale" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-finale" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-finale" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-finale)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-finale)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-finale)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-finale)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-finale)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-finale)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div>
+    <div class="url">did-you-know-that-2026.vercel.app</div></section>
+      <video id="v-end" class="clip media" src="assets/endscreen.mp4" data-start="183.221" data-duration="15" data-track-index="1" data-has-audio="true" playsinline></video>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="198.221" data-track-index="5" data-volume="0.6"></audio>
+      <audio id="vo-start" src="assets/vo/start.mp3" data-start="1.5" data-duration="15.279" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-tower" src="assets/vo/tower.mp3" data-start="27.779" data-duration="34.180" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-videoland" src="assets/vo/videoland.mp3" data-start="66.459" data-duration="16.765" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-boss" src="assets/vo/boss.mp3" data-start="97.223" data-duration="29.489" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-deal" src="assets/vo/deal.mp3" data-start="131.213" data-duration="31.951" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-finale" src="assets/vo/finale.mp3" data-start="164.663" data-duration="15.557" data-track-index="6" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      
+      tl.fromTo("#sc-start .press-start", {opacity:0}, {opacity:1, duration:0.25, yoyo:true, repeat:10}, 0);
+      tl.fromTo("#sc-start .phone-big", {y:300, rotation:-10}, {y:0, rotation:0, duration:1, ease:"back.out(1.6)"}, 0.2);
+      tl.fromTo("#sc-start .dax-start", {x:-700}, {x:0, duration:1.2, ease:"power3.out"}, 1);
+      tl.to("#sc-start .dax-start", {y:-40, duration:0.35, yoyo:true, repeat:13, ease:"sine.inOut"}, 2.2);
+      tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, 10.15);
+      tl.to("#sc-start", {scale:1.6, opacity:0, duration:0.6, ease:"power2.in"}, 17.178729999999998);
+tl.fromTo("#sc-tower .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 24.879);
+       tl.to("#sc-tower .title-card", {opacity:0, y:-60, duration:0.4}, 27.279);
+       tl.fromTo("#sc-tower .xp-fill", {scaleX:0}, {scaleX:0.25, duration:37.679773, ease:"none"}, 25.279);
+      tl.to("#sc-tower .dax-tower", {y:-40, x:0, duration:0.6, ease:"back.out(2.5)"}, 38.28);
+        tl.fromTo("#sc-tower .floor.f0", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 38.68);
+        tl.fromTo("#sc-tower .score.s0", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 40.57);
+tl.to("#sc-tower .dax-tower", {y:-190, x:40, duration:0.6, ease:"back.out(2.5)"}, 43.33);
+        tl.fromTo("#sc-tower .floor.f1", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 43.73);
+        tl.fromTo("#sc-tower .score.s1", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 45.78);
+tl.to("#sc-tower .dax-tower", {y:-340, x:80, duration:0.6, ease:"back.out(2.5)"}, 47.67);
+        tl.fromTo("#sc-tower .floor.f2", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 48.07);
+        tl.fromTo("#sc-tower .score.s2", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 51.62);
+tl.to("#sc-tower .dax-tower", {y:-490, x:120, duration:0.6, ease:"back.out(2.5)"}, 55.09);
+        tl.fromTo("#sc-tower .floor.f3", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 55.49);
+        tl.fromTo("#sc-tower .score.s3", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 57.46);
+      tl.to("#sc-tower .clock-art", {rotation:4, duration:0.25, yoyo:true, repeat:7}, 57.46);
+tl.fromTo("#sc-videoland .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 63.559000000000005);
+       tl.to("#sc-videoland .title-card", {opacity:0, y:-60, duration:0.4}, 65.959);
+       tl.fromTo("#sc-videoland .xp-fill", {scaleX:0.25}, {scaleX:0.5, duration:21.764807, ease:"none"}, 63.959);
+      tl.fromTo("#sc-videoland .belt-track", {x:0}, {x:-2600, duration:22.764807, ease:"none"}, 63.459);
+      tl.fromTo("#sc-videoland .autoplay", {opacity:0.2}, {opacity:1, duration:0.4, yoyo:true, repeat:28}, 66.459);
+      tl.fromTo("#sc-videoland .dax-land", {x:-300}, {x:200, duration:2, ease:"power2.out"}, 66.459);
+      tl.fromTo("#sc-videoland .monster", {y:700, scale:0.6}, {y:0, scale:1, duration:1.4, ease:"back.out(1.4)"}, 81.82 - 0.4);
+      tl.fromTo("#sc-videoland", {x:0}, {x:16, duration:0.06, yoyo:true, repeat:15}, 81.82);
+      tl.to("#sc-videoland .dax-land", {x:-120, rotation:-12, duration:0.4}, 81.82);
+tl.fromTo("#sc-boss .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 94.323);
+       tl.to("#sc-boss .title-card", {opacity:0, y:-60, duration:0.4}, 96.723);
+       tl.fromTo("#sc-boss .xp-fill", {scaleX:0.5}, {scaleX:0.75, duration:32.989342, ease:"none"}, 94.723);
+      tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, 97.223);
+      tl.to("#sc-boss .boss-monster", {y:-20, duration:0.6, yoyo:true, repeat:28, ease:"sine.inOut"}, 98.223);
+      tl.to("#sc-boss .chest.c0", {x:-560, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 100.19);
+tl.to("#sc-boss .chest.c1", {x:-820, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 103.08);
+tl.to("#sc-boss .chest.c2", {x:-1080, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 110.45);
+      tl.fromTo("#sc-boss .who", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5}, 115.14);
+      tl.to("#sc-boss .chest", {x:0, y:0, scale:1, rotation:0, duration:0.8, ease:"back.out(1.6)", stagger:0.15}, 124.09);
+      tl.to("#sc-boss .dax-boss", {y:-120, rotation:360, duration:0.8, ease:"power2.out", yoyo:true, repeat:1}, 124.09);
+      tl.to("#sc-boss .boss-monster", {x:-900, rotation:-30, opacity:0, duration:1}, 124.09 + 0.4);
+tl.fromTo("#sc-deal .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 128.313);
+       tl.to("#sc-deal .title-card", {opacity:0, y:-60, duration:0.4}, 130.713);
+       tl.fromTo("#sc-deal .xp-fill", {scaleX:0.75}, {scaleX:1, duration:34.950658000000004, ease:"none"}, 128.713);
+      tl.fromTo("#sc-deal .owl", {x:900, y:-400, rotation:25}, {x:0, y:0, rotation:0, duration:1.4, ease:"power2.out"}, 131.21);
+      tl.fromTo("#sc-deal .road", {opacity:0, y:60}, {opacity:1, y:0, duration:0.8}, 134.27);
+      tl.fromTo("#sc-deal .house", {scale:0}, {scale:1, duration:0.4, ease:"back.out(3)", stagger:0.2}, 134.27 + 0.3);
+      tl.fromTo("#sc-deal .deal-card", {rotationY:180, scale:0.5, opacity:0}, {rotationY:0, scale:1, opacity:1, duration:0.9, ease:"back.out(1.6)"}, 147.33);
+      tl.fromTo("#sc-deal .three", {scale:0, rotation:-20}, {scale:1, rotation:0, duration:0.6, ease:"back.out(3)"}, 155.45);
+      tl.to("#sc-deal .dax-deal", {y:-30, duration:0.4, yoyo:true, repeat:44, ease:"sine.inOut"}, 131.213);
+
+      tl.fromTo("#sc-finale .stamp", {scale:3, opacity:0, rotation:-12}, {scale:1, opacity:1, rotation:-6, duration:0.5, ease:"back.out(2)"}, 164.46300000000002);
+      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out"}, 165.363);
+      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1.2, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out", immediateRender:false}, 169.163);
+      tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, 173.72);
+      tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, 175.25);
+      tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:27, ease:"sine.inOut"}, 164.663);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

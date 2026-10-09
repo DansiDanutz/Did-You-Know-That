@@ -1,0 +1,89 @@
+@font-face { font-family: "DYK Heavy"; src: url("assets/AvenirNext-Heavy.ttf") format("truetype"); }
+@font-face { font-family: "DYK Demi"; src: url("assets/AvenirNext-DemiBold.ttf") format("truetype"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "DYK Heavy", sans-serif; color: #fff; }
+.media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene { position: absolute; inset: 0; overflow: hidden; }
+.scene > * { position: absolute; }
+svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* backgrounds: bright cartoon game worlds */
+.bg-start { background: radial-gradient(circle at 50% 40%, #5b2ddb, #1a0a5c 70%); }
+.bg-tower { background: linear-gradient(180deg, #4fc3ff 0%, #8fd9ff 55%, #5ccf6a 55%, #34a853 100%); }
+.bg-videoland { background: radial-gradient(circle at 70% 30%, #ff5fb0, #6a1fb8 60%, #2a0a5c); }
+.bg-boss { background: radial-gradient(circle at 30% 60%, #ff7a3d, #8a1a4a 55%, #2a0820); }
+.bg-deal { background: linear-gradient(180deg, #1a2a7a 0%, #3d5bd6 60%, #f6c66b 60%, #e0a24a 100%); }
+.bg-finale { background: radial-gradient(circle at 50% 45%, #ffd84a, #ff8a1f 40%, #b8126a 80%); }
+
+/* game HUD */
+.hud { left: 0; right: 0; top: 0; height: 110px; display: flex; align-items: center; gap: 40px; padding: 0 60px; z-index: 20; }
+.xp { display: flex; align-items: center; gap: 14px; font-size: 34px; text-shadow: 0 4px 0 #2a1470; }
+.xp-bar { display: block; width: 420px; height: 34px; border-radius: 18px; background: rgba(0,0,0,.35); border: 4px solid #fff; overflow: hidden; }
+.xp-fill { display: block; height: 100%; width: 100%; transform-origin: 0 50%; background: linear-gradient(90deg, #3ee07a, #ffd84a); }
+.hearts { font-size: 40px; }
+.lvl { margin-left: auto; font-size: 44px; padding: 6px 26px; border-radius: 20px; background: #ff3fa4; border: 4px solid #fff; box-shadow: 0 6px 0 #8a1a5a; }
+.title-card { inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 30; background: rgba(20,8,60,.82); }
+.tc-level { font-size: 90px; color: #ffd84a; text-shadow: 0 8px 0 #b8780c, 0 0 40px #ffd84a; letter-spacing: .08em; }
+.tc-name { margin-top: 10px; font-size: 120px; text-shadow: 0 10px 0 #4b23c8, 0 0 50px #a040ff; }
+
+.dax { width: 300px; height: 412px; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+.source { left: 60px; bottom: 30px; font-family: "DYK Demi", sans-serif; font-size: 26px; color: rgba(255,255,255,.85); text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+
+/* start */
+.grid-floor { left: -10%; right: -10%; bottom: -10%; height: 55%; background: repeating-linear-gradient(90deg, rgba(255,255,255,.18) 0 4px, transparent 4px 120px), repeating-linear-gradient(0deg, rgba(255,255,255,.18) 0 4px, transparent 4px 80px); transform: perspective(600px) rotateX(55deg); }
+.phone-big { left: 50%; top: 170px; width: 560px; height: 560px; margin-left: -280px; }
+.press-start { left: 0; right: 0; top: 70px; text-align: center; font-size: 110px; color: #ffd84a; text-shadow: 0 8px 0 #b8780c, 0 0 60px #ffd84a; letter-spacing: .12em; }
+.dax-start { left: 230px; bottom: 120px; }
+.question { left: 0; right: 0; bottom: 70px; text-align: center; font-family: "DYK Demi", sans-serif; font-size: 52px; text-shadow: 0 4px 12px rgba(0,0,0,.6); }
+.question b { font-family: "DYK Heavy", sans-serif; color: #ffd84a; font-size: 64px; }
+
+/* level 1 tower */
+.tower { left: 220px; bottom: 120px; width: 520px; height: 640px; display: flex; flex-direction: column-reverse; gap: 14px; }
+.floor { height: 145px; border-radius: 24px; background: #3a2a8a; border: 6px solid #fff; display: flex; align-items: flex-end; padding: 14px 24px; box-shadow: 0 10px 0 rgba(0,0,0,.25); }
+.floor span { font-size: 40px; color: #fff; text-shadow: 0 3px 0 #1a0a5c; }
+.clock-art { right: 180px; top: 130px; width: 360px; height: 360px; }
+.dax-tower { left: 760px; bottom: 120px; }
+.score { right: 120px; display: flex; gap: 20px; align-items: baseline; padding: 14px 30px; border-radius: 22px; background: #fff; color: #2a1470; box-shadow: 0 8px 0 #2a1470; font-size: 40px; }
+.score b { font-size: 64px; color: #ff3fa4; }
+.s0 { top: 880px; } .s1 { top: 760px; } .s2 { top: 640px; } .s3 { top: 520px; background: #ffd84a; }
+
+/* level 2 video land */
+.belt { left: 0; right: 0; top: 230px; height: 260px; background: #2a0a5c; border-top: 10px solid #ffd84a; border-bottom: 10px solid #ffd84a; overflow: hidden; }
+.belt-track { display: flex; gap: 40px; padding: 30px 40px; width: 5000px; }
+.thumb { flex: none; width: 300px; height: 180px; border-radius: 22px; display: grid; place-items: center; font-size: 80px; border: 6px solid #fff; }
+.t0 { background: #ff3fa4; } .t1 { background: #3d7bff; } .t2 { background: #3ee07a; } .t3 { background: #ff8a1f; }
+.autoplay { left: 0; right: 0; top: 520px; text-align: center; font-size: 80px; color: #ffd84a; text-shadow: 0 6px 0 #b8780c; }
+.monster { right: 120px; bottom: -20px; width: 640px; height: 640px; }
+.dax-land { left: 120px; bottom: 60px; }
+
+/* level 3 boss */
+.boss-monster { left: 60px; bottom: 40px; width: 620px; height: 620px; }
+.chests { right: 120px; top: 260px; display: flex; gap: 40px; }
+.chest { width: 300px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.chest-art { width: 240px; height: 240px; display: grid; place-items: center; font-size: 130px; border-radius: 50%; background: radial-gradient(circle, #ffe58a, #e6a91f); border: 8px solid #fff; box-shadow: 0 0 50px #ffd84a, 0 10px 0 #9a5f0a; }
+.chest b { font-size: 40px; text-shadow: 0 4px 0 #2a0820; }
+.dax-boss { left: 760px; bottom: 60px; }
+.who { right: 120px; bottom: 120px; padding: 18px 34px; border-radius: 24px; background: #fff; color: #2a0820; font-family: "DYK Demi", sans-serif; font-size: 46px; box-shadow: 0 8px 0 #8a1a4a; }
+.who b { font-family: "DYK Heavy", sans-serif; color: #e2459a; }
+
+/* level 4 deal */
+.owl { left: 180px; top: 160px; width: 440px; height: 440px; }
+.road { left: 0; right: 0; bottom: 140px; height: 120px; display: flex; justify-content: space-around; align-items: center; background: #f7dfa8; border-top: 8px solid #b8702f; border-bottom: 8px solid #b8702f; }
+.house { font-size: 110px; }
+.deal-card { left: 50%; top: 170px; width: 300px; height: 420px; margin-left: -150px; padding: 26px; border-radius: 26px; border: 8px solid #ffd84a; background: radial-gradient(circle, #5a2ad8, #1a0a4a); display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 60px #ffd84a; }
+.deal-card b { font-size: 34px; color: #ffd84a; }
+.three { right: 160px; top: 200px; width: 340px; height: 340px; border-radius: 50%; background: #ff3fa4; border: 10px solid #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 70px; line-height: .95; box-shadow: 0 12px 0 #8a1a5a; }
+.three small { font-size: 46px; }
+.dax-deal { right: 180px; bottom: 120px; }
+
+/* finale */
+.stamp { left: 0; right: 0; top: 70px; text-align: center; font-size: 150px; color: #fff; text-shadow: 0 10px 0 #b8126a, 0 0 60px #fff; }
+.fireworks { left: 50%; top: 45%; width: 0; height: 0; }
+.fw { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%; transform-origin: 12px 12px; translate: calc(cos(var(--a)) * 600px) calc(sin(var(--a)) * 380px); }
+.fw0 { background: #3d7bff; } .fw1 { background: #a040ff; } .fw2 { background: #ff3fa4; } .fw3 { background: #ff8a1f; } .fw4 { background: #fff; } .fw5 { background: #3ee07a; }
+.reward { left: 50%; top: 290px; margin-left: -180px; }
+.reward-card { width: 360px; height: 500px; padding: 30px; border-radius: 30px; border: 10px solid #ffd84a; background: radial-gradient(circle, #5a2ad8, #1a0a4a); display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 0 80px #fff; }
+.reward-card b { font-size: 44px; color: #ffd84a; } .reward-card small { font-family: "DYK Demi", sans-serif; font-size: 28px; }
+.dax-finale { left: 260px; bottom: 80px; }
+.url { left: 0; right: 0; bottom: 50px; text-align: center; font-size: 52px; text-shadow: 0 4px 0 #8a1a5a; }
