@@ -41,7 +41,7 @@ export function character(id, { x, y, height, flip = false, mood = "neutral", po
   <g class="ch-pos ch-pos-${id}" transform="translate(${x} ${y})"><g class="ch-bob"><g class="ch-flip" transform="scale(${flip ? -1 : 1} 1)"><g class="ch ch-${id}">
     ${layers}
     <g class="ch-mouthbox" transform="translate(${place.x.toFixed(1)} ${place.y.toFixed(1)})"><g transform="scale(${ms.toFixed(3)})">
-      <ellipse rx="26" ry="15" fill="${base.skin}" opacity="0.96"/>
+      <ellipse rx="19" ry="11" fill="${base.skin}" opacity="0.9"/>
       <path class="ch-mouth" d="${MOUTH[mood]}" fill="#7a1f12" stroke="#3a2412" stroke-width="2.4" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
     </g></g>
   </g></g></g></g>`;
@@ -72,8 +72,8 @@ export function actor(scene, id, height = 600) {
       tl.to("${root} .ch", {rotation:3, svgOrigin:"0 0", duration:0.15, yoyo:true, repeat:${steps(dur)}, ease:"sine.inOut"}, ${f(at)});`,
     hop: (at, h = 40) => `tl.fromTo("${root} .ch-bob", {y:0}, {y:-${h}, duration:0.22, ease:"power2.out", immediateRender:false}, ${f(at)}); tl.to("${root} .ch-bob", {y:0, duration:0.22, ease:"bounce.out"}, ${f(at + 0.22)});`,
     slump: (at) => pose("sad", at, 0.5),
-    kneel: (at) => `tl.to("${root}", {scaleY:0.82, duration:0.5, ease:"power2.inOut"}, ${f(at)});`,
-    unkneel: (at) => `tl.to("${root}", {scaleY:1, duration:0.5, ease:"power2.inOut"}, ${f(at)});`,
+    kneel: (at) => `tl.to("${root} .ch-bob", {scaleY:0.82, svgOrigin:"0 0", duration:0.5, ease:"power2.inOut"}, ${f(at)});`,
+    unkneel: (at) => `tl.to("${root} .ch-bob", {scaleY:1, svgOrigin:"0 0", duration:0.5, ease:"power2.inOut"}, ${f(at)});`,
     blink: () => "",
     blinks: () => "",
     shake: (at) => `tl.to("${root} .ch", {rotation:4, svgOrigin:"0 0", duration:0.12, yoyo:true, repeat:5, ease:"sine.inOut"}, ${f(at)});`,

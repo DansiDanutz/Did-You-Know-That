@@ -19,7 +19,7 @@ const BG = (name) => `<image href="assets/art/${name}.png" x="0" y="0" width="19
 const TABLE_PROPS = `
   <g class="prop-paper"></g>
   <g class="prop-glass" style="transform-box: fill-box; transform-origin: 50% 100%;"><rect x="1600" y="566" width="50" height="74" rx="8" fill="#bfe6ff" stroke="#3a2412" stroke-width="4"/><rect x="1605" y="596" width="40" height="38" fill="#4fc3ff"/></g>
-  <ellipse class="prop-puddle" cx="1440" cy="640" rx="0" ry="0" fill="#4fc3ff" opacity=".7"/>`;
+  <ellipse class="prop-puddle" cx="1500" cy="636" rx="0" ry="0" fill="#4fc3ff" opacity=".55"/>`;
 const KITCHEN = (light = "morning") => (light === "afternoon" ? BG("kitchen-afternoon") : BG("kitchen-morning") + TABLE_PROPS);
 const LIVING = BG("living-room-evening");
 const DRAWING = (bigEars = false, heart = false, names = false, cls = "drawing") => `<g class="${cls}"><image href="assets/art/${bigEars ? "drawing-bigears" : "drawing-family"}.png" x="620" y="150" width="680" height="510" preserveAspectRatio="xMidYMid meet"/></g>`;
@@ -49,7 +49,7 @@ const SCENES = [
     id: "s2", bg: KITCHEN("morning"), mood: "tension",
     cast: [["mom", { x: 360, y: 1040, height: 760, mood: "neutral", flip: true }], ["emma", { x: 1120, y: 1050, height: 600, mood: "neutral" }], ["leo", { x: 860, y: 1055, height: 470, mood: "neutral" }]],
     beats: [
-      { wait: 1.4, act: (t, A) => [A.leo.look(6, 0, t), A.leo.arm("l", -70, t + 0.4, 0.8), `tl.to("#sc-s2 .prop-glass", {rotation:80, x:-90, duration:0.5, ease:"power2.in"}, ${f(t + 1.0)});`, `tl.to("#sc-s2 .prop-puddle", {attr:{rx:240, ry:34}, duration:0.6, ease:"power2.out"}, ${f(t + 1.3)});`, `tl.to("#sc-s2 .prop-paper", {opacity:0.5, fill:"#bfe6ff", duration:0.5}, ${f(t + 1.4)});`] },
+      { wait: 1.4, act: (t, A) => [A.leo.look(6, 0, t), A.leo.arm("l", -70, t + 0.4, 0.8), `tl.to("#sc-s2 .prop-glass", {rotation:80, x:-90, duration:0.5, ease:"power2.in"}, ${f(t + 1.0)});`, `tl.to("#sc-s2 .prop-puddle", {attr:{rx:130, ry:16}, duration:0.6, ease:"power2.out"}, ${f(t + 1.3)});`, `tl.to("#sc-s2 .prop-paper", {opacity:0.5, fill:"#bfe6ff", duration:0.5}, ${f(t + 1.4)});`] },
       { wait: 0.6 },
       { say: "s2-emma-1", act: (t, A) => [A.emma.hop(t - 0.1, 50), A.emma.mouth("angry", t), A.emma.brows(2, t, 12), A.emma.arm("l", -140, t), A.emma.arm("r", -140, t), A.leo.mouth("sad", t + 0.3), A.leo.brows(4, t + 0.3, -10), A.leo.move(760, t + 0.2, 0.5)] },
       { say: "s2-leo-1", act: (t, A) => [A.emma.arm("l", 0, t), A.emma.arm("r", 0, t), A.leo.arm("l", -40, t), A.leo.shake(t)] },

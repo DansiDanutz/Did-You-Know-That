@@ -54,10 +54,10 @@
     ],
     "mouth": [
       365,
-      375
+      363
     ],
     "mouthFound": true,
-    "skin": "#9d402f"
+    "skin": "#7b1b18"
   },
   "emma-neutral": {
     "file": "emma-neutral.png",
@@ -99,10 +99,10 @@
     ],
     "mouth": [
       332,
-      352
+      347
     ],
     "mouthFound": true,
-    "skin": "#cf796a"
+    "skin": "#cc796a"
   },
   "leo-neutral": {
     "file": "leo-neutral.png",
@@ -159,10 +159,10 @@
     ],
     "mouth": [
       281,
-      194
+      189
     ],
     "mouthFound": true,
-    "skin": "#f9b78c"
+    "skin": "#fbbe91"
   },
   "mom-sad": {
     "file": "mom-sad.png",
