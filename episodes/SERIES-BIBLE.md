@@ -8,6 +8,7 @@ Rules every episode must follow. Two versions of every episode: **Kids** and **T
 - Open with our 7 s intro sting; close with our 15 s end screen (`out/`).
 - **Kids' magic words are always very easy everyday words** (SUN, HOUSE, TREE, MOON…), called the "MAGIC WORD" on screen. Adults may get harder words.
 - **Repeat the hint (Episode 1 and every kids episode):** Daxter explains at the start that a glowing card will show a magic word to remember, warns just before the card, says the word again right after ("Sun! Like the big, bright sun in the sky"), and repeats it in the call to action.
+- **Explicit ending (every episode):** the call to action is a numbered mission board, each step on screen as Daxter says it: open **dexty.live** and pick the audience → walk to the house labelled with this episode → open the book, find the wax seal, type the magic word → answer the questions and win the named card → tap the backpack 🎒 to see the collection and rewatch.
 - **Neon Card:** 8 s clip, glowing neon margins, logo, ONE special word. The word unlocks the episode's magic book in the game. Different word for Kids and Adults.
 - **Quiz-safe:** the 3 game quiz answers must appear ONLY in the video (never in the book pages or the hidden-spark notes). List them in a "Facts used" table with sources.
 

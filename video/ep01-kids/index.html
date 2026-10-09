@@ -104,10 +104,22 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .hint b { font-family: "DYK Heavy", sans-serif; color: #ffd84a; }
 .word-banner { left: 50%; top: 380px; width: 1100px; margin-left: -550px; padding: 30px 0; text-align: center; font-size: 110px; border-radius: 40px; background: #1a0a4a; border: 10px solid #ffd84a; box-shadow: 0 0 80px #ffd84a; z-index: 25; }
 .word-banner b { color: #ffd84a; }
+
+/* finale mission board */
+.bg-finale .stamp { top: 30px; font-size: 120px; }
+.bg-finale .dax-finale { left: 40px; bottom: 120px; width: 260px; height: 357px; }
+.bg-finale .reward { left: 330px; top: 300px; margin-left: 0; transform: scale(0.8); transform-origin: 0 0; }
+.steps { left: 740px; right: 50px; top: 220px; list-style: none; display: flex; flex-direction: column; gap: 22px; }
+.step { display: flex; align-items: center; gap: 20px; padding: 14px 26px; border-radius: 28px; background: rgba(26,10,74,.82); border: 6px solid #fff; box-shadow: 0 8px 0 rgba(90,10,60,.5); opacity: 0; }
+.st-num { flex: none; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: #ff3fa4; font-size: 40px; border: 4px solid #fff; }
+.st-icon { flex: none; font-size: 54px; }
+.st-text { font-family: "DYK Demi", sans-serif; font-size: 42px; line-height: 1.15; }
+.st-text b { font-family: "DYK Heavy", sans-serif; color: #ffd84a; }
+.bg-finale .url { bottom: 34px; font-size: 64px; color: #fff; text-shadow: 0 6px 0 #8a1a5a, 0 0 30px #ffd84a; }
 </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="256.549" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="292.354" data-width="1920" data-height="1080">
       <section id="sc-start" class="clip scene bg-start" data-start="0" data-duration="43.646" data-track-index="0">
     <div class="grid-floor"></div>
     <div class="phone-big"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
@@ -769,7 +781,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     </g>
   </g>
 </svg></div></section>
-      <section id="sc-finale" class="clip scene bg-finale" data-start="219.148" data-duration="22.401" data-track-index="0">
+      <section id="sc-finale" class="clip scene bg-finale" data-start="219.148" data-duration="58.206" data-track-index="0">
     <div class="stamp">LEVEL COMPLETE!</div>
     <div class="fireworks"><i class="fw fw0" style="--a:0deg"></i><i class="fw fw1" style="--a:15deg"></i><i class="fw fw2" style="--a:30deg"></i><i class="fw fw3" style="--a:45deg"></i><i class="fw fw4" style="--a:60deg"></i><i class="fw fw5" style="--a:75deg"></i><i class="fw fw0" style="--a:90deg"></i><i class="fw fw1" style="--a:105deg"></i><i class="fw fw2" style="--a:120deg"></i><i class="fw fw3" style="--a:135deg"></i><i class="fw fw4" style="--a:150deg"></i><i class="fw fw5" style="--a:165deg"></i><i class="fw fw0" style="--a:180deg"></i><i class="fw fw1" style="--a:195deg"></i><i class="fw fw2" style="--a:210deg"></i><i class="fw fw3" style="--a:225deg"></i><i class="fw fw4" style="--a:240deg"></i><i class="fw fw5" style="--a:255deg"></i><i class="fw fw0" style="--a:270deg"></i><i class="fw fw1" style="--a:285deg"></i><i class="fw fw2" style="--a:300deg"></i><i class="fw fw3" style="--a:315deg"></i><i class="fw fw4" style="--a:330deg"></i><i class="fw fw5" style="--a:345deg"></i></div>
     <div class="reward"><div class="reward-card"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
@@ -898,15 +910,16 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     </g>
   </g>
 </svg></div>
-    <div class="url">dexty.live</div></section>
-      <video id="v-end" class="clip media" src="assets/endscreen.mp4" data-start="241.549" data-duration="15" data-track-index="1" data-has-audio="true" playsinline></video>
-      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="256.549" data-track-index="5" data-volume="0.6"></audio>
+    <ol class="steps"><li class="step st0"><span class="st-num">1</span><span class="st-icon">🌐</span><span class="st-text">Open <b>dexty.live</b> · pick <b>Kids</b> · press <b>Start</b></span></li><li class="step st1"><span class="st-num">2</span><span class="st-icon">🏠</span><span class="st-text">Walk <b>◀ ▶</b> to the house <b>Episode 1</b> · tap it</span></li><li class="step st2"><span class="st-num">3</span><span class="st-icon">📖</span><span class="st-text">Open the book · find the seal · type <b>SUN</b> ☀️</span></li><li class="step st3"><span class="st-num">4</span><span class="st-icon">🦉</span><span class="st-text">Answer <b>3 questions</b> · win the <b>Scroll Tamer</b></span></li><li class="step st4"><span class="st-num">5</span><span class="st-icon">🎒</span><span class="st-text">Tap the <b>backpack</b> · see your <b>collection</b></span></li></ol>
+    <div class="url">🌐 dexty.live</div></section>
+      <video id="v-end" class="clip media" src="assets/endscreen.mp4" data-start="277.354" data-duration="15" data-track-index="1" data-has-audio="true" playsinline></video>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="292.354" data-track-index="5" data-volume="0.6"></audio>
       <audio id="vo-start" src="assets/vo/start.mp3" data-start="1.5" data-duration="41.146" data-track-index="6" data-volume="1"></audio>
       <audio id="vo-tower" src="assets/vo/tower.mp3" data-start="53.646" data-duration="38.266" data-track-index="6" data-volume="1"></audio>
       <audio id="vo-videoland" src="assets/vo/videoland.mp3" data-start="96.412" data-duration="24.009" data-track-index="6" data-volume="1"></audio>
       <audio id="vo-boss" src="assets/vo/boss.mp3" data-start="134.422" data-duration="42.771" data-track-index="6" data-volume="1"></audio>
       <audio id="vo-deal" src="assets/vo/deal.mp3" data-start="181.693" data-duration="36.455" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-finale" src="assets/vo/finale.mp3" data-start="219.648" data-duration="18.901" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-finale" src="assets/vo/finale.mp3" data-start="219.648" data-duration="54.706" data-track-index="6" data-volume="1"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
@@ -973,9 +986,27 @@ tl.fromTo("#sc-deal .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, d
       tl.fromTo("#sc-finale .stamp", {scale:3, opacity:0, rotation:-12}, {scale:1, opacity:1, rotation:-6, duration:0.5, ease:"back.out(2)"}, 219.448);
       tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out"}, 220.34799999999998);
       tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1.2, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out", immediateRender:false}, 224.148);
-      tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, 231.12);
-      tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, 232.55);
-      tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:32, ease:"sine.inOut"}, 219.648);tl.fromTo("#sc-finale .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:169, ease:"sine.inOut"}, 219.648);
+      tl.to("#sc-finale .stamp", {scale:0.55, y:-40, duration:0.6, ease:"power2.inOut"}, 222.66);
+      tl.fromTo("#sc-finale .url", {opacity:0, scale:0.6}, {opacity:1, scale:1, duration:0.6, ease:"back.out(2)"}, 228.77);
+      tl.fromTo("#sc-finale .st0", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, 226.4);
+      tl.fromTo("#sc-finale .st0", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, 226.4 + 0.3);
+      
+tl.fromTo("#sc-finale .st1", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, 233);
+      tl.fromTo("#sc-finale .st1", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, 233 + 0.3);
+      tl.to("#sc-finale .st0", {borderColor:"#ffffff", scale:1, opacity:0.75, duration:0.3}, 233);
+tl.fromTo("#sc-finale .st2", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, 242.84);
+      tl.fromTo("#sc-finale .st2", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, 242.84 + 0.3);
+      tl.to("#sc-finale .st1", {borderColor:"#ffffff", scale:1, opacity:0.75, duration:0.3}, 242.84);
+tl.fromTo("#sc-finale .st3", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, 251.52);
+      tl.fromTo("#sc-finale .st3", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, 251.52 + 0.3);
+      tl.to("#sc-finale .st2", {borderColor:"#ffffff", scale:1, opacity:0.75, duration:0.3}, 251.52);
+tl.fromTo("#sc-finale .st4", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, 257.91);
+      tl.fromTo("#sc-finale .st4", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, 257.91 + 0.3);
+      tl.to("#sc-finale .st3", {borderColor:"#ffffff", scale:1, opacity:0.75, duration:0.3}, 257.91);
+      tl.fromTo("#sc-finale .st2 .st-text b", {color:"#ffd84a"}, {color:"#ffffff", duration:0.2, yoyo:true, repeat:5}, 249.37);
+      tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, 255.54);
+      tl.to("#sc-finale .step", {opacity:1, duration:0.4}, 268.97);
+      tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:83, ease:"sine.inOut"}, 219.648);tl.fromTo("#sc-finale .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:495, ease:"sine.inOut"}, 219.648);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>

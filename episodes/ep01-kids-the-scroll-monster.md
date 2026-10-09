@@ -68,13 +68,18 @@
 > Read the magic book, watch the story, answer Professor Hoot, and win **Special Cards**. Collect them, earn points, and climb the leaderboard!
 > And the best part: the game lets you watch only **30 minutes of videos a day**. Then it says: go eat, go sleep, go play with your friends. I'll wait for you tomorrow!
 
-## 4:20 – 4:45 · LEVEL COMPLETE
-**Visual:** "LEVEL COMPLETE" stamp, XP bar fills, fireworks. Neon arrow to the website URL and Subscribe. 15 s end screen.
+## 3:39 – 4:37 · LEVEL COMPLETE: HOW TO WIN YOUR CARD
+**Visual:** "LEVEL COMPLETE" stamp and fireworks, then a mission board where each numbered step slides in as Daxter says it: 1 🌐 open **dexty.live**, pick Kids, press Start · 2 🏠 walk ◀ ▶ to the house **Episode 1**, tap it · 3 📖 open the book, find the wax seal, type **SUN** · 4 🦉 answer 3 questions, win the **Scroll Tamer** · 5 🎒 tap the backpack to see your collection. **dexty.live** stays big at the bottom. Then the 15 s end screen.
 **🎵 Music:** victory fanfare → end-screen loop (our outro audio).
-**🔊 SFX:** XP fill "whirr" · fireworks · crowd cheer.
+**🔊 SFX:** fanfare · fireworks.
 **Daxter:**
-> Your mission: open the game, find my house, type the secret word, and win your first card: the **Scroll Tamer**!
-> Did you know that? Now you do. See you on the Road of Wonders!
+> Level one complete! High five, explorer! Now listen carefully, here's how to win your card.
+> Step one: ask a grown-up to open dexty dot live. Pick Kids, and press Start the adventure.
+> Step two: walk me along the road with the arrow buttons, to the first house… the one that says Episode One. Tap the house to go inside.
+> Step three: open the magic book, turn the pages to the wax seal, and type the magic word… SUN! Then press Break seal.
+> Step four: answer Professor Hoot's three questions, and the Scroll Tamer card is yours!
+> Step five: tap the backpack at the top of the screen. That's your collection! Every card you win stays there, and you can watch its video again anytime.
+> Did you know that? Now you do. See you on the Road of Wonders. Bye for now!
 
 ---
 

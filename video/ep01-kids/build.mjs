@@ -63,6 +63,16 @@ const voClips = scenes.filter((s) => s.voAt !== undefined).map((s) => ({ id: s.i
 writeFileSync("timeline.json", JSON.stringify({ total: TOTAL, scenes, vo: voClips, sfx, moods: {
   start: "play", tower: "play", videoland: "villain", boss: "battle", deal: "warm", finale: "victory" } }, null, 2));
 
+// Finale mission board: one row per spoken step (cue = phrase in the finale line).
+const FINALE_STEPS = [
+  ["🌐", "Open <b>dexty.live</b> · pick <b>Kids</b> · press <b>Start</b>"],
+  ["🏠", "Walk <b>◀ ▶</b> to the house <b>Episode 1</b> · tap it"],
+  ["📖", "Open the book · find the seal · type <b>SUN</b> ☀️"],
+  ["🦉", "Answer <b>3 questions</b> · win the <b>Scroll Tamer</b>"],
+  ["🎒", "Tap the <b>backpack</b> · see your <b>collection</b>"],
+];
+const FINALE_CUES = ["Step one", "Step two", "Step three", "Step four", "Step five"];
+
 // ---------------------------------------------------------------- scene markup
 const hud = (level) => `
   <div class="hud">
@@ -116,7 +126,8 @@ const BODY = {
     <div class="fireworks">${Array.from({ length: 24 }, (_, i) => `<i class="fw fw${i % 6}" style="--a:${i * 15}deg"></i>`).join("")}</div>
     <div class="reward"><div class="reward-card">${art("phone")}<b>SCROLL TAMER</b><small>CARD #001</small></div></div>
     ${daxter("dax-finale")}
-    <div class="url">dexty.live</div>`,
+    <ol class="steps">${FINALE_STEPS.map(([icon, html], i) => `<li class="step st${i}"><span class="st-num">${i + 1}</span><span class="st-icon">${icon}</span><span class="st-text">${html}</span></li>`).join("")}</ol>
+    <div class="url">🌐 dexty.live</div>`,
 };
 
 const sceneHtml = (s) => {
@@ -188,8 +199,14 @@ const anim = (s) => {
       tl.fromTo("#sc-finale .stamp", {scale:3, opacity:0, rotation:-12}, {scale:1, opacity:1, rotation:-6, duration:0.5, ease:"back.out(2)"}, ${S + 0.3});
       tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out"}, ${S + 1.2});
       tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1.2, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out", immediateRender:false}, ${S + 5});
+      tl.to("#sc-finale .stamp", {scale:0.55, y:-40, duration:0.6, ease:"power2.inOut"}, ${L("finale", "Now listen")});
+      tl.fromTo("#sc-finale .url", {opacity:0, scale:0.6}, {opacity:1, scale:1, duration:0.6, ease:"back.out(2)"}, ${L("finale", "dexty dot live")});
+      ${FINALE_CUES.map((p, i) => `tl.fromTo("#sc-finale .st${i}", {opacity:0, x:200}, {opacity:1, x:0, duration:0.5, ease:"back.out(1.8)"}, ${L("finale", p)});
+      tl.fromTo("#sc-finale .st${i}", {borderColor:"#ffffff", scale:1}, {borderColor:"#ffd84a", scale:1.04, duration:0.3}, ${L("finale", p)} + 0.3);
+      ${i > 0 ? `tl.to("#sc-finale .st${i - 1}", {borderColor:"#ffffff", scale:1, opacity:0.75, duration:0.3}, ${L("finale", p)});` : ""}`).join("\n")}
+      tl.fromTo("#sc-finale .st2 .st-text b", {color:"#ffd84a"}, {color:"#ffffff", duration:0.2, yoyo:true, repeat:5}, ${L("finale", "SUN!")});
       tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, ${L("finale", "the Scroll Tamer")});
-      tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, ${L("finale", "Did you know that?")});
+      tl.to("#sc-finale .step", {opacity:1, duration:0.4}, ${L("finale", "Did you know that?")});
       tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:${Math.floor(s.length / 0.7)}, ease:"sine.inOut"}, ${S + 0.5});`,
   };
   const talk = s.voAt === undefined ? "" : `tl.fromTo("#sc-${s.id} .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:${Math.floor(vo[s.id].len / 0.22) * 2 - 1}, ease:"sine.inOut"}, ${S + s.voAt});`;
