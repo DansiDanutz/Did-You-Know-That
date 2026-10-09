@@ -1,5 +1,5 @@
 {
-  "total": 296.813,
+  "total": 297.834,
   "scenes": [
     {
       "id": "start",
@@ -61,7 +61,7 @@
     {
       "id": "finale",
       "kind": "scene",
-      "length": 58.206213,
+      "length": 59.227891,
       "voAt": 0.5,
       "start": 223.606
     },
@@ -70,7 +70,7 @@
       "kind": "video",
       "src": "assets/endscreen.mp4",
       "length": 15,
-      "start": 281.813
+      "start": 282.834
     }
   ],
   "vo": [
@@ -102,7 +102,7 @@
     {
       "id": "finale",
       "start": 224.106,
-      "len": 54.706213
+      "len": 55.727891
     }
   ],
   "sfx": [

@@ -67,7 +67,7 @@ writeFileSync("timeline.json", JSON.stringify({ total: TOTAL, scenes, vo: voClip
 const FINALE_STEPS = [
   ["🌐", "Open <b>dexty.live</b> · pick <b>Kids</b> · press <b>Start</b>"],
   ["🏠", "Walk <b>◀ ▶</b> to the house <b>Episode 1</b> · tap it"],
-  ["📖", "Open the book · find the seal · type <b>SUN</b> ☀️"],
+  ["📖", "<b>Bonus:</b> find the seal · type <b>SUN</b> ☀️"],
   ["🦉", "Answer <b>3 questions</b> · win the <b>Scroll Tamer</b>"],
   ["🎒", "Tap the <b>backpack</b> · see your <b>collection</b>"],
 ];
