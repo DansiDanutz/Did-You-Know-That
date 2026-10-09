@@ -10,7 +10,7 @@
 //
 // Voices are resolved by name from your ElevenLabs library, so no ids are hardcoded.
 
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { mkdir, writeFile, access, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -94,13 +94,21 @@ async function synthesize(apiKey, voiceId, text) {
   return Buffer.from(await res.arrayBuffer());
 }
 
+// Lists every recording on disk (not just this run's --lang/--story filter),
+// so a partial run never drops other languages from the manifest.
+async function listRecordings(dir) {
+  const entries = await readdir(join(ROOT, dir), { withFileTypes: true });
+  const nested = await Promise.all(
+    entries.map((e) => (e.isDirectory() ? (e.name === "_samples" ? [] : listRecordings(`${dir}/${e.name}`)) : e.name.endsWith(".mp3") ? [`${dir}/${e.name}`] : [])),
+  );
+  return nested.flat();
+}
+
 async function writeManifest() {
-  const all = plannedItems();
-  const present = [];
-  for (const item of all) if (await exists(join(ROOT, item.path))) present.push(item.path);
+  const present = (await listRecordings("assets/narration")).sort();
   const file = join(ROOT, "assets/narration/manifest.json");
   await mkdir(dirname(file), { recursive: true });
-  await writeFile(file, JSON.stringify({ files: present.sort() }, null, 0));
+  await writeFile(file, JSON.stringify({ files: present }, null, 0));
   return present.length;
 }
 

@@ -11,7 +11,8 @@ import { fetchLeaderboard, submitScore } from "./api.js";
 import { createWorld } from "./ui/world.js";
 import { createBook } from "./ui/book.js";
 import { buildFaces, renderFace, isFaceComplete, BLOCKED_HINT } from "./ui/pages.js";
-import { openListening, storyWatchRatio } from "./ui/gate.js";
+import { openListening } from "./ui/gate.js";
+import { flagSvg } from "./ui/flags.js";
 import { revealCard } from "./ui/card.js";
 import { pickersMarkup, openInventory, openLeaderboard, openSettings } from "./ui/panels.js";
 import { DAXTER_SVG } from "./ui/character.js";
@@ -31,8 +32,9 @@ const VOICE_KEY = "dykt-voice";
 let reading = false;
 let voice = readVoice();
 let currentFaces = [];
-let rulesNarrated = false;
-const RULES_FACE = 1; // the "How to win this card" page right after the cover
+let narratedFaces = new Set(); // instruction pages already spoken in this book
+// Pages that explain what to do are always spoken, even with Read aloud off.
+const INSTRUCTION_FACES = new Set(["inside", "mission", "gate", "quiz", "reward"]);
 
 function readVoice() {
   try {
@@ -117,7 +119,7 @@ function updateHud() {
   $("#hud-cards").textContent = `${owned}/${STORIES.length}`;
   $("#hud-sound").textContent = sfx.muted ? "🔇" : "🔊";
   $("#hud-coins").textContent = `🪙 ${coinTotal(progress)}`;
-  $("#hud-lang").textContent = `${settings.lang.toUpperCase()} · ${settings.audience === "kids" ? "🧒" : "🎓"}`;
+  $("#hud-lang").innerHTML = `${flagSvg(settings.lang)} ${settings.lang.toUpperCase()} · ${settings.audience === "kids" ? "🧒" : "🎓"}`;
   if (openStory) {
     const { sparkCount, max } = score(openStory);
     $("#book-sparks").textContent = t("book.sparks", { n: sparkCount, max });
@@ -209,7 +211,7 @@ function showInventory() {
     cards: cardsFor(progress, settings.audience),
     audience: settings.audience,
     t,
-    onWatch: (id) => watchStory(byId(id)),
+    onWatch: (id) => watchStory(byId(id), { replay: true }),
     onSelect: () => sfx.unlock(),
     onRead: (id) => {
       if (book) closeBook();
@@ -232,7 +234,16 @@ function applySettings(patch) {
     daxterAt = currentHouseIndex(stories, view());
     world.placeAtHouse(daxterAt);
   }
+  if (openStory) reopenBook(openStory.id);
   updateHud();
+}
+
+// The language (or audience) can change while a book is open: re-open the
+// same book in the new language, keeping the reader's progress.
+function reopenBook(storyId) {
+  narrator.stop();
+  book?.destroy();
+  openBook(stories.find((story) => story.id === storyId));
 }
 
 function showSettings() {
@@ -368,23 +379,30 @@ function faceContext(story, index) {
     maxSparks: max,
     rarity,
     points,
-    gate: { ratio: storyWatchRatio(story), message: s.gateMessage },
+    gate: { message: s.gateMessage },
   };
 }
 
-// When the book opens, a narrator explains the rules once, even with Read aloud off.
-function narrateRulesOnce() {
-  if (rulesNarrated || reading || !book || !openStory || !book.visible().includes(RULES_FACE)) return;
+const visibleInstructions = () => book.visible().filter((i) => INSTRUCTION_FACES.has(currentFaces[i]?.type));
+
+// On every level the narrator speaks each instruction page the first time it
+// is shown (rules, mission, magic word, questions, card), even with Read aloud off.
+function narrateInstructions() {
+  if (reading || !book || !openStory) return;
+  const fresh = visibleInstructions().filter((i) => !narratedFaces.has(i));
+  if (fresh.length === 0) {
+    if (visibleInstructions().length === 0) narrator.stop();
+    return;
+  }
   const ctx = { lang: settings.lang, audience: settings.audience, storyId: openStory.id };
   const chosen = narrator.available({ ...ctx, voice }) ? voice : voice === "male" ? "female" : "male";
   if (!narrator.available({ ...ctx, voice: chosen })) return;
-  rulesNarrated = true;
-  narrator.read([narrationFor(currentFaces[RULES_FACE], openStory, session(openStory), t)], { ...ctx, voice: chosen });
+  narratedFaces = new Set([...narratedFaces, ...fresh]);
+  narrator.read(fresh.map((i) => narrationFor(currentFaces[i], openStory, session(openStory), t)), { ...ctx, voice: chosen });
 }
 
 function readVisiblePages() {
-  narrateRulesOnce();
-  if (!reading && book && !book.visible().includes(RULES_FACE)) narrator.stop();
+  narrateInstructions();
   if (!reading || !book || !openStory) return;
   const items = book.visible().map((i) => narrationFor(currentFaces[i], openStory, session(openStory), t));
   narrator.read(items, { lang: settings.lang, audience: settings.audience, storyId: openStory.id, voice });
@@ -405,9 +423,8 @@ function updateReadButtons() {
 
 function openBook(story) {
   openStory = story;
-  rulesNarrated = false;
+  narratedFaces = new Set();
   currentFaces = buildFaces(story);
-  $("#hud-lang").disabled = true;
   const layer = $("#book-layer");
   layer.hidden = false;
   requestAnimationFrame(() => layer.classList.add("is-open"));
@@ -435,7 +452,6 @@ function closeBook({ advance = false } = {}) {
   narrator.stop();
   const layer = $("#book-layer");
   layer.classList.remove("is-open");
-  $("#hud-lang").disabled = false;
   setTimeout(() => {
     layer.hidden = true;
     book?.destroy();
@@ -462,10 +478,11 @@ function refreshBook() {
   updateHud();
 }
 
+// The magic word is a bonus surprise: it breaks the seal for a celebration and
+// a badge in the library, never for points or a card.
 function unlockGate(story) {
-  if (!mayWatch(story)) return toast(t("listen.limit"));
-  countVideo(story);
   setSession(story, { gateOpen: true, gateMessage: "" });
+  narratedFaces = new Set([...narratedFaces].filter((i) => currentFaces[i]?.type !== "gate"));
   save(withGateUnlocked(progress, story.id));
   sfx.seal();
   toast(t("gate.toast"));
@@ -483,6 +500,8 @@ async function claimCard(story) {
   toast(`${nextRungMessage()}  ${t("coins.dropped", { n: COINS_PER_RARITY[rarity] })}`);
   const placed = await pushScore();
   if (placed) setTimeout(() => toast(t("lb.climbed", { rank: placed.rank })), 3000);
+  // The card is won: now the episode plays right here as the celebration.
+  if (story.youtubeId) watchStory(story, { replay: true });
 }
 
 async function handleBookAction(story, action, el) {
@@ -509,20 +528,20 @@ async function handleBookAction(story, action, el) {
   if (action === "inventory") return showInventory();
 }
 
-function watchStory(story) {
-  if (story.youtubeId && !mayWatch(story)) {
+// Every video plays inside the game, and watching is never measured or
+// rewarded. The daily limit (kids 3, adults 5) applies to new episodes; a
+// story whose card is already won (`replay`) can always be watched again.
+function watchStory(story, { replay = false } = {}) {
+  if (!replay && story.youtubeId && !mayWatch(story)) {
     toast(t("listen.limit"));
     return world.daxter.say(t("listen.limit"), 7000);
   }
-  if (story.youtubeId) countVideo(story);
+  if (!replay && story.youtubeId) countVideo(story);
   openListening($("#listen-layer"), story, {
     channelUrl: CHANNEL_URL,
     t,
     left: leftToday(),
-    onProgress: () => refreshBook(),
-    onUnlocked: () => {
-      if (!session(story).gateOpen) unlockGate(story);
-    },
+    replay,
   });
 }
 

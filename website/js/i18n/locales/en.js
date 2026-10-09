@@ -34,6 +34,9 @@ export default {
     "lb.save": "Join",
     "lb.change": "Change nickname",
     "lb.rules": "3–16 letters, numbers, spaces, _ or -. Never use your real name!",
+    "lb.kidsJoin": "Your secret explorer name:",
+    "lb.shuffle": "🎲 Another name",
+    "lb.kidsRules": "Explorers never use their real name. Pick a name you like and join!",
     "lb.badNick": "That nickname isn't allowed. Try another one.",
     "lb.offline": "The leaderboard is coming online soon!",
     "lb.empty": "No players yet. Be the first!",
@@ -41,7 +44,7 @@ export default {
     "lb.climbed": "You are now #{rank} on the leaderboard!",
     "reveal.points": "+{n} points",
     "start.sub": "The Road of Wonders",
-    "start.copy": "Walk with <b>Daxter</b> from house to house. In every house a magic book waits: read your mission, watch the story on YouTube, answer the guardian and unlock a collectible card!",
+    "start.copy": "Walk with <b>Daxter</b> from house to house. In every house a magic book waits: read the story, answer the guardian and unlock a collectible card. Then watch the episode right here in the game!",
     "start.lang": "Choose your language",
     "start.audience": "Who is playing?",
     "start.go": "Start the adventure",
@@ -71,30 +74,26 @@ export default {
     "inside.exlibris": "Ex Libris · Did You Know That?",
     "inside.title": "How to win this card",
     "inside.step1": "<b>Read</b> the story and tap the glowing words to find hidden sparks ✦",
-    "inside.step2": "<b>Read your mission:</b> what you must find out in the video",
-    "inside.step3": "<b>Watch</b> the story on YouTube and spot the special word on the neon card",
-    "inside.step4": "<b>Answer</b> the guardian and <b>collect</b> your card. Each new video you watch today wins a rarer card, from Silver to Gold to Legendary, and every spark adds points!",
+    "inside.step2": "<b>Read your mission:</b> the three things the guardian will ask you",
+    "inside.step3": "<b>Bonus:</b> spot the magic word on the neon card in the video and type it at the wax seal",
+    "inside.step4": "<b>Answer</b> the guardian and <b>collect</b> your card. Each new card you win today is rarer, from Silver to Gold to Legendary, and every spark adds points!",
     "story.didyouknow": "✦ Did you know?",
     "story.hint": "✦ A spark is hiding on this page…",
     "mission.kicker": "Your mission",
     "mission.title": "Find out in the video…",
-    "mission.note": "The answers are only in the video. Watch closely: the guardian will ask about each one!",
+    "mission.note": "Everything you need is in this book, and the video tells the story too. The guardian will ask about each one!",
     "gate.title": "The Wax Seal",
-    "gate.sealed": "This page is sealed. Only someone who has <b>watched the full story</b> can break it.",
+    "gate.sealed": "A magic word hides on the glowing neon card in the middle of the video. Find it to break the seal and get a surprise!",
     "gate.listen": "▶ Watch the story",
-    "gate.keep": "▶ Keep watching ({pct}%)",
     "gate.channel": "▶ Visit the channel",
-    "gate.secretLabel": "Spotted the special word on the glowing neon card in the video? Type it here:",
+    "gate.secretLabel": "Found the magic word? Type it here:",
     "gate.secretPlaceholder": "Secret word",
     "gate.break": "Break seal",
-    "gate.wrong": "Not quite… watch for the neon card in the middle of the episode!",
+    "gate.wrong": "Not quite… look for the neon card in the middle of the episode!",
     "gate.broken": "The seal is broken!",
-    "gate.brokenText": "You watched the whole story. The guardian is awake and has three questions for you…",
+    "gate.brokenText": "You found the magic word! Daxter does a happy dance. Turn the page: the guardian has three questions for you…",
     "gate.toast": "The seal is broken! Turn the page ✦",
     "quiz.asks": "The Guardian asks…",
-    "quiz.sleeps": "The Guardian sleeps…",
-    "quiz.sleepTitle": "Break the wax seal to wake the guardian.",
-    "quiz.sleepText": "Only those who watched the whole story may answer the guardian's questions.",
     "quiz.first": "Brilliant! +2 ✦",
     "quiz.second": "Got it! +1 ✦",
     "quiz.later": "Found it!",
@@ -107,7 +106,6 @@ export default {
     "end.text": "Daxter tucks the book into his backpack. Somewhere down the road, another house is glowing.",
     "end.continue": "Continue the journey →",
     "end.album": "Open my card album",
-    "blocked.gate": "Break the wax seal first: watch the story on YouTube.",
     "blocked.quiz": "The guardian is waiting for your answer!",
     "blocked.reward": "Tap the card to reveal it first.",
     "blocked.default": "Finish this page first!",
@@ -121,10 +119,11 @@ export default {
     "album.notFound": "Not found yet",
     "album.soon": "Coming soon",
     "album.close": "Close album",
-    "listen.help": "Watch the story to break the seal. Skipping ahead doesn't count!",
-    "listen.done": "✦ The seal cracks open! ✦",
+    "listen.help": "Enjoy the story! Everything the guardian asks is in the magic book too.",
     "listen.error": "The player couldn't load. Watch on YouTube and use the secret word instead.",
     "listen.close": "Close",
+    "listen.soon": "Daxter is still filming this story! 🎬 It arrives on our YouTube channel very soon.",
+    "listen.replay": "Enjoy the story again! ✦",
   },
 
   quips: {
@@ -211,15 +210,15 @@ export default {
               "Professor Hoot the owl flies in with a glowing map: the Road of Wonders! In Did You Know That? you still scroll, but every story teaches you something [[real]].",
               "Read the magic book, watch the story, answer Professor Hoot and win Special Cards. And the game lets you watch only 3 videos a day, so there is plenty of time left to play, eat, sleep and see your friends."
             ],
-            "note": "Each day, your first video wins a Silver card, the second a Gold card and the third a Legendary card!"
+            "note": "Each day, your first card is Silver, the second is Gold and the third is Legendary!"
           },
           finale: {
             "heading": "Level Complete!",
             "text": [
-              "Fireworks! You finished the first level of your adventure. Your mission now: watch the Episode 1 video, find the secret power-up [[word]] on the glowing neon card, and win your first card: the Scroll Tamer!",
+              "Fireworks! You finished the first level of your adventure. Your mission now: answer Professor Hoot's three questions and win your first card, the Scroll Tamer! Bonus: find the magic [[word]] on the glowing neon card in the video.",
               "Did you know that? Now you do. See you on the Road of Wonders!"
             ],
-            "note": "The secret word appears only in the video, right in the middle. Keep your eyes wide open!"
+            "note": "The magic word appears in the video, right in the middle. Keep your eyes wide open!"
           },
           q1: {
             question: "About how many hours a day do kids aged 8 to 12 spend on screens for fun?",
@@ -299,9 +298,9 @@ export default {
             "heading": "The Invitation",
             "text": [
               "That's what Did You Know That? is built on: stories you won't hear anywhere else, questions that lock knowledge in, and Special Cards that rank you on a global [[leaderboard]].",
-              "Now watch the Episode 1 video. Find the special word on the neon card, type it here to break the seal, and claim the Golden Minute card."
+              "Now answer the guardian's questions and claim the Golden Minute card. Bonus: the Episode 1 video hides a special word on a neon card; type it at the seal for a surprise."
             ],
-            "note": "You can watch up to 5 videos a day, and every extra video earns a bigger points bonus."
+            "note": "You can win up to 5 new cards a day, and each extra card you complete earns a bigger points bonus."
           },
           q1: {
             question: "Infinite scroll's own inventor estimated it wastes how many human lifetimes every day?",

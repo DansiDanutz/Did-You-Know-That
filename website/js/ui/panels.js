@@ -1,6 +1,8 @@
 // Overlay panels: language/audience pickers, inventory and leaderboard.
 
+import { kidNickname } from "../lib/kid-names.js";
 import { LANGUAGES } from "../i18n/index.js";
+import { flagSvg } from "./flags.js";
 import { cardMarkup, enableTilt } from "./card.js";
 import { inspectCard } from "./card-inspect.js";
 import { cardPoints, totalPoints } from "../lib/points.js";
@@ -11,9 +13,9 @@ const escapeHtml = (text) =>
 
 export function pickersMarkup(settings, t) {
   const langs = LANGUAGES.map(
-    ({ code, name, flag }) =>
+    ({ code, name }) =>
       `<button class="lang-btn${code === settings.lang ? " is-active" : ""}" data-lang="${code}" aria-pressed="${code === settings.lang}">
-        <span aria-hidden="true">${flag}</span>${name}</button>`,
+        ${flagSvg(code)}${name}</button>`,
   ).join("");
   const audience = (key, icon) => `
     <button class="aud-btn${settings.audience === key ? " is-active" : ""}" data-audience="${key}" aria-pressed="${settings.audience === key}">
@@ -113,7 +115,8 @@ function boardRows(data, t) {
   return `<ol class="lb-list">${rows}</ol>${me}`;
 }
 
-function joinForm(profile, t) {
+function joinForm(profile, t, audience) {
+  if (audience === "kids") return kidsJoinForm(profile, t);
   return `
     <form class="lb-join" data-join>
       <label for="lb-nick">${profile.nickname ? t("lb.change") : t("lb.join")}</label>
@@ -122,6 +125,23 @@ function joinForm(profile, t) {
         <button class="btn-gold" type="submit">${t("lb.save")}</button>
       </div>
       <small>${t("lb.rules")}</small>
+      <p class="lb-msg" aria-live="polite"></p>
+    </form>`;
+}
+
+// Kids pick a made-up explorer name; there is no text box to type into.
+function kidsJoinForm(profile, t) {
+  const name = profile.nickname || kidNickname();
+  return `
+    <form class="lb-join is-kids" data-join>
+      <label>${t("lb.kidsJoin")}</label>
+      <input type="hidden" name="nickname" value="${escapeHtml(name)}" />
+      <p class="lb-kid-name" aria-live="polite">${escapeHtml(name)}</p>
+      <div class="secret-row">
+        <button class="btn-ink" type="button" data-shuffle>${t("lb.shuffle")}</button>
+        <button class="btn-gold" type="submit">${t("lb.save")}</button>
+      </div>
+      <small>${t("lb.kidsRules")}</small>
       <p class="lb-msg" aria-live="polite"></p>
     </form>`;
 }
@@ -139,7 +159,7 @@ export function openLeaderboard(layer, { audience, profile, t, load, join }) {
         <button role="tab" data-board="adults">🎓 ${t("aud.adults")}</button>
       </div>
       <div class="lb-body" aria-live="polite"></div>
-      ${joinForm(profile, t)}
+      ${joinForm(profile, t, audience)}
     </div>`,
   );
   const body = layer.querySelector(".lb-body");
@@ -155,6 +175,11 @@ export function openLeaderboard(layer, { audience, profile, t, load, join }) {
       refresh();
     }),
   );
+  layer.querySelector("[data-shuffle]")?.addEventListener("click", () => {
+    const name = kidNickname();
+    layer.querySelector('[data-join] input[name="nickname"]').value = name;
+    layer.querySelector(".lb-kid-name").textContent = name;
+  });
   layer.querySelector("[data-join]").addEventListener("submit", async (event) => {
     event.preventDefault();
     const msg = layer.querySelector(".lb-msg");

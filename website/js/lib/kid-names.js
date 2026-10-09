@@ -1,0 +1,13 @@
+// Kids never type a nickname: they pick a made-up explorer name, so no real
+// name (or anything else personal) can reach the leaderboard.
+
+export const KID_ADJECTIVES = Object.freeze(["Brave", "Happy", "Clever", "Swift", "Lucky", "Sunny", "Cosmic", "Jolly", "Mighty", "Bright", "Witty", "Super"]);
+export const KID_NOUNS = Object.freeze(["Fox", "Owl", "Comet", "Tiger", "Panda", "Rocket", "Dragon", "Koala", "Star", "Otter", "Falcon", "Whale"]);
+
+const pick = (list, random) => list[Math.min(list.length - 1, Math.floor(random() * list.length))];
+
+// `random` returns a number in [0, 1), like Math.random.
+export function kidNickname(random = Math.random) {
+  const number = 10 + Math.min(89, Math.floor(random() * 90));
+  return `${pick(KID_ADJECTIVES, random)} ${pick(KID_NOUNS, random)} ${number}`;
+}

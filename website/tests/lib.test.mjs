@@ -1,47 +1,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { recordTime, watchRatio, hasWatchedEnough } from "../js/lib/watch-tracker.js";
 import { quizPoints, rarityFor, maxSparks, RARITY } from "../js/lib/scoring.js";
 import { normalizeSecret, sha256Hex, verifySecret } from "../js/lib/secret.js";
 import { emptyProgress, withGateUnlocked, createStore } from "../js/lib/storage.js";
 import { spreadFor, pageCountPadded, canGoNext } from "../js/lib/book-math.js";
 
 // ---------------------------------------------------------------- watch tracker
-
-test("recordTime adds each whole second once and never mutates the input", () => {
-  const start = new Set();
-  const a = recordTime(start, 3.2);
-  const b = recordTime(a, 3.9);
-  assert.equal(start.size, 0);
-  assert.deepEqual([...a], [3]);
-  assert.equal(b, a, "same second returns the same set");
-});
-
-test("skipping ahead does not count the skipped seconds", () => {
-  let watched = new Set();
-  [0, 1, 2, 50, 51].forEach((t) => (watched = recordTime(watched, t)));
-  assert.equal(watched.size, 5);
-  assert.equal(watchRatio(watched, 100), 0.05);
-});
-
-test("watchRatio is 0 for unknown duration and capped at 1", () => {
-  assert.equal(watchRatio(new Set([1, 2]), 0), 0);
-  assert.equal(watchRatio(new Set([0, 1, 2, 3]), 2.5), 1);
-});
-
-test("hasWatchedEnough compares against the required ratio", () => {
-  assert.equal(hasWatchedEnough(0.84, 0.85), false);
-  assert.equal(hasWatchedEnough(0.85, 0.85), true);
-});
-
-test("recordTime ignores invalid times", () => {
-  const s = new Set();
-  assert.equal(recordTime(s, NaN), s);
-  assert.equal(recordTime(s, -1), s);
-});
-
-// ---------------------------------------------------------------- scoring
 
 test("quizPoints rewards first tries most", () => {
   assert.equal(quizPoints(1), 2);

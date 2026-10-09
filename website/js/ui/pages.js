@@ -90,15 +90,12 @@ const RENDERERS = {
           ${folio(index - 1)}
         </div>`;
     }
-    const pct = Math.round(gate.ratio * 100);
-    let listenLabel = t("gate.channel");
-    if (story.youtubeId) listenLabel = pct > 0 ? t("gate.keep", { pct }) : t("gate.listen");
     return `
       <div class="page-inner gate-page">
-        <div class="seal-wrap" style="--seal-progress:${pct}">${art("seal")}<span class="seal-ring"></span></div>
+        <div class="seal-wrap">${art("seal")}</div>
         <h3>${t("gate.title")}</h3>
         <p>${t("gate.sealed")}</p>
-        <button class="btn-gold" data-action="listen">${listenLabel}</button>
+        <button class="btn-gold" data-action="listen">${t(story.youtubeId ? "gate.listen" : "gate.channel")}</button>
         <form class="secret-form" data-action="secret">
           <label for="secret-${story.id}">${t("gate.secretLabel")}</label>
           <div class="secret-row">
@@ -112,16 +109,6 @@ const RENDERERS = {
   },
 
   quiz: ({ page, session, index, t }) => {
-    if (!session.gateOpen) {
-      return `
-        <div class="page-inner quiz-page is-sleeping">
-          <div class="guardian sleeping" aria-hidden="true">🦉<span class="zzz">z z z</span></div>
-          <span class="chapter">${t("quiz.sleeps")}</span>
-          <h3>${t("quiz.sleepTitle")}</h3>
-          <p>${t("quiz.sleepText")}</p>
-          ${folio(index - 1)}
-        </div>`;
-    }
     const state = session.quiz[page.id] ?? { picked: [], solved: false };
     const choices = page.choices
       .map((choice, i) => {
@@ -178,14 +165,12 @@ export function renderFace(face, ctx) {
 }
 
 export function isFaceComplete(face, session) {
-  if (face.type === "gate") return session.gateOpen;
   if (face.type === "quiz") return Boolean(session.quiz[face.id]?.solved);
   if (face.type === "reward") return session.cardClaimed;
   return true;
 }
 
 export const BLOCKED_HINT = {
-  gate: "blocked.gate",
   quiz: "blocked.quiz",
   reward: "blocked.reward",
 };

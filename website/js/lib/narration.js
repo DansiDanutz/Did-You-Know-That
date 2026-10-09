@@ -20,14 +20,13 @@ const READERS = {
   story: (page) => join(`${page.heading}.`, ...page.text),
   mission: (_, story, s, t) => join(t("mission.kicker"), t("mission.title"), ...story.mission.map((m, i) => `${i + 1}. ${m}.`), t("mission.note")),
   gate: (_, story, s, t) => (s.gateOpen ? join(t("gate.broken"), t("gate.brokenText")) : join(t("gate.title"), t("gate.sealed"))),
-  quiz: (page, story, s, t) => (s.gateOpen ? quizText(page, t) : join(t("quiz.sleeps"), t("quiz.sleepTitle"), t("quiz.sleepText"))),
+  quiz: (page, story, s, t) => quizText(page, t),
   reward: (_, story, s, t) => join(t("reward.kicker")),
   end: (_, story, s, t) => join(t("end.title"), t("end.forNow"), t("end.text")),
 };
 
 function keyFor(face, session) {
   if (face.type === "gate") return session.gateOpen ? `${face.id}~open` : face.id;
-  if (face.type === "quiz") return session.gateOpen ? face.id : "quiz~sleep";
   return face.id ?? face.type;
 }
 

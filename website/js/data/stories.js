@@ -29,9 +29,9 @@ export const STORIES = Object.freeze([
       kids: "d44fa953853bae3a2ab71f5d5236ede3b67f31aeff84aa56235be191d78f7eb5", // SUN (kids words are always simple everyday words)
       adults: "18b1cb9d01d1298fb45e2ca9a181a08134c08d7722c88c3348a11ff2171da6cc", // GOLDEN
     },
-    requiredWatchRatio: 0.85,
     card: { id: "card-ep1-why", number: "001", art: { kids: "phone", adults: "hourglass" } },
-    // The book tells the WHOLE story (read aloud); the special word is only in the video.
+    // The book teaches everything the guardian asks. The magic word on the
+    // neon card is a bonus surprise; cards are won by learning, not by watching.
     pages: {
       kids: [
         { id: "opening", type: "title", art: "phone" },
@@ -73,7 +73,6 @@ export const STORIES = Object.freeze([
     house: "desert",
     youtubeId: "", // ← paste the YouTube video ID when the episode is published
     secretHash: "36c58be3956c6dad24ccd962cb856d5374cd32bb8c33815159f5fa81bcd7f46e", // NECTAR
-    requiredWatchRatio: 0.85,
     card: { id: "card-001-eternal-honey", number: "002", art: "jar" },
     pages: [
       { id: "opening", type: "title", art: "pyramid" },

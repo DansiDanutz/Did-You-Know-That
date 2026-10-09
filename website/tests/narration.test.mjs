@@ -25,15 +25,17 @@ test("the mission page reads every item in order", () => {
   ep1.mission.forEach((item) => assert.ok(text.includes(item)));
 });
 
-test("gate and quiz narration depend on whether the seal is broken", () => {
+test("the magic-word seal has its own closed and open narration", () => {
   assert.equal(narrationFor(page("seal"), ep1, sealed, t).key, "seal");
   assert.equal(narrationFor(page("seal"), ep1, open, t).key, "seal~open");
-  const sleeping = narrationFor(page("q1"), ep1, sealed, t);
-  assert.equal(sleeping.key, "quiz~sleep");
-  assert.doesNotMatch(sleeping.text, /5 hours/, "never reads quiz answers before the seal breaks");
-  const awake = narrationFor(page("q1"), ep1, open, t);
-  assert.equal(awake.key, "q1");
-  assert.match(awake.text, /A: .*B: .*C: /s);
+});
+
+test("the guardian's questions never wait for the video or the magic word", () => {
+  const before = narrationFor(page("q1"), ep1, sealed, t);
+  const after = narrationFor(page("q1"), ep1, open, t);
+  assert.equal(before.key, "q1");
+  assert.deepEqual(before, after);
+  assert.match(before.text, /A: .*B: .*C: /s);
 });
 
 test("cover, inside and end pages are narrated; blank pages are silent", () => {
@@ -54,8 +56,9 @@ test("allNarrationItems enumerates every page state once, for generation", () =>
   const items = allNarrationItems(ep1, t);
   const keys = items.map((i) => i.key);
   assert.equal(new Set(keys).size, keys.length, "no duplicates");
-  ["cover", "inside", "opening", "start", "tower", "videoland", "boss", "deal", "finale", "mission", "seal", "seal~open", "quiz~sleep", "q1", "q2", "q3", "end"].forEach((k) =>
+  ["cover", "inside", "opening", "start", "tower", "videoland", "boss", "deal", "finale", "mission", "seal", "seal~open", "q1", "q2", "q3", "end"].forEach((k) =>
     assert.ok(keys.includes(k), k),
   );
+  assert.ok(!keys.includes("quiz~sleep"), "the guardian never sleeps");
   assert.ok(items.every((i) => i.text.length > 0));
 });
