@@ -29,7 +29,7 @@ function discoveryCard(story, { t, saved, featured = false }) {
 
 export function renderAdultHome(host, { stories, isSaved, t }) {
   const episodes = stories.filter((story) => story.publication && !story.comingSoon);
-  // Today's discovery = the newest published episode; until something is
+  // Latest discovery = the newest published episode (no daily-release promise); until something is
   // published, the series starts at Episode 1 (drafts never pose as "new").
   const published = episodes.filter((story) => story.youtubeId).sort((a, b) => String(b.publication.publishedAt).localeCompare(String(a.publication.publishedAt)));
   const [today, ...rest] = published.length ? [published[0], ...episodes.filter((story) => story !== published[0])] : [...episodes].sort((a, b) => a.episode - b.episode);
@@ -41,6 +41,8 @@ export function renderAdultHome(host, { stories, isSaved, t }) {
         <div class="home-row">
           <button class="btn-gold" data-home="collection">🎒 ${t("home.collection")}</button>
         </div>
+        <h2 class="home-kicker">${t("home.archive")}</h2>
+        <a class="archive-link" href="/archive/re-reading-trap/"><b>The Re-Reading Trap</b><span>${t("home.archiveNote")}</span></a>
         ${topics.length ? `<h2 class="home-kicker">${t("home.explore")}</h2>` : ""}
         ${topics
           .map(

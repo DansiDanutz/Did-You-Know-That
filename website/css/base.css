@@ -958,3 +958,17 @@ body.is-adults .walk-controls {
 }
 
 .parents-link { margin: 12px 0 0; text-align: center; }
+
+.archive-link {
+  display: block;
+  margin: 0 0 8px;
+  padding: 16px 18px;
+  border: 1px solid rgba(212, 176, 106, 0.5);
+  border-radius: 14px;
+  background: #1b1d22;
+  color: #ece8df;
+  text-decoration: none;
+}
+
+.archive-link b { display: block; font-family: var(--font-book); font-size: 24px; color: #d4b06a; }
+.archive-link span { font-size: 15px; color: rgba(236, 232, 223, 0.8); }

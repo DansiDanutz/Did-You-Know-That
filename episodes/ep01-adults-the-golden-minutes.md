@@ -1,5 +1,8 @@
 # Episode 1 · ADULTS · "The Golden Minutes"
 
+> **SUPERSEDED (9 Oct 2026). Do not produce from this file.** It mixes four subjects, gates a "seal" behind a word shown only in the video (**GOLDEN**), and pitches a global leaderboard. All three conflict with the series rules: no video-only answers, no rewards for watching, and the leaderboard is retired. The replacement is one researched story, "The Re-Reading Trap": see `episodes/adults-001-golden-minutes/` (claim ledger `claims-retrieval.md`, PR #7) and the app pilot at `website/archive/re-reading-trap/`. Its Franklin and infinite-scroll figures are unverified here; they are backlog stories with their own ledgers.
+
+
 **Length:** 4:50 max · **Narrator:** calm, precise documentary voice · **Words:** ~660 (≈140 wpm)
 **Special word (neon card at 2:20):** **GOLDEN** · **Game:** website Episode 1 (Teens & Adults) · quiz answers come ONLY from this video
 
