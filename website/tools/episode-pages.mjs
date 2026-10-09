@@ -79,7 +79,7 @@ function page(story, publication, audience, related) {
           <button class="ep-btn" type="button" data-share>🔗 Share</button>
         </div>
         <p class="ep-msg" aria-live="polite"></p>
-        <p class="ep-note">No video, quiz or account needed. Cards are kept on this device.</p>
+        <p class="ep-note">Your card stays on this device; you can back it up in the app's Settings.</p>
       </section>
       <section class="ep-read" aria-labelledby="read-title">
         <h2 id="read-title">📖 Read the story</h2>
@@ -87,7 +87,7 @@ function page(story, publication, audience, related) {
       </section>
       <section class="ep-sources"><h2>Sources</h2><p>Being checked for publication; every source will be listed here with a link.</p></section>
       ${relatedHtml}
-      <p class="ep-open"><a class="ep-btn gold" href="/">Open the game with Dexter →</a></p>
+      <p class="ep-open"><a class="ep-btn gold" href="/?audience=${audience}&amp;story=${escape(story.id)}">Open this story in the app →</a></p>
     </main>
     <script type="module" src="/js/episode-page.js"></script>
   </body>

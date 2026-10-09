@@ -6,20 +6,30 @@
 const API_SRC = "https://www.youtube.com/iframe_api";
 let apiReady = null;
 
+const API_TIMEOUT_MS = 10000;
+
+// Loads YouTube's player API once, giving up after API_TIMEOUT_MS (blocked
+// networks, ad blockers) so the player can offer Retry / Open in YouTube.
 function loadYouTubeApi() {
   if (apiReady) return apiReady;
   apiReady = new Promise((resolve, reject) => {
     if (window.YT?.Player) return resolve(window.YT);
+    const fail = (message) => {
+      apiReady = null;
+      reject(new Error(message));
+    };
+    const timer = setTimeout(() => fail("YouTube player timed out"), API_TIMEOUT_MS);
     const previous = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
+      clearTimeout(timer);
       previous?.();
       resolve(window.YT);
     };
     const script = document.createElement("script");
     script.src = API_SRC;
     script.onerror = () => {
-      apiReady = null;
-      reject(new Error("YouTube player could not load"));
+      clearTimeout(timer);
+      fail("YouTube player could not load");
     };
     document.head.appendChild(script);
   });
@@ -62,7 +72,9 @@ export function openListening(overlay, story, { channelUrl, t, left, replay = fa
   requestAnimationFrame(() => overlay.classList.add("is-open"));
 
   let player = null;
+  let closed = false;
   const close = () => {
+    closed = true;
     player?.destroy?.();
     overlay.classList.remove("is-open");
     overlay.hidden = true;
@@ -71,15 +83,34 @@ export function openListening(overlay, story, { channelUrl, t, left, replay = fa
   overlay.querySelector("[data-close]").addEventListener("click", close, { once: true });
   if (!story.youtubeId) return;
 
-  loadYouTubeApi()
-    .then((YT) => {
-      player = new YT.Player("yt-player", {
-        videoId: story.youtubeId,
-        playerVars: { rel: 0, playsinline: 1, fs: 1 },
+  const watchUrl = `https://www.youtube.com/watch?v=${encodeURIComponent(story.youtubeId)}`;
+  const showFailure = () => {
+    if (closed) return;
+    const text = overlay.querySelector(".listen-text");
+    if (text) text.textContent = t("listen.error");
+    overlay.querySelector(".listen-fallback")?.remove();
+    overlay.querySelector(".listen-meter")?.insertAdjacentHTML(
+      "beforeend",
+      `<div class="listen-fallback"><button class="btn-ink" type="button" data-retry>${t("listen.retry")}</button>
+        <a class="btn-gold" href="${watchUrl}" target="_blank" rel="noopener">${t("listen.openYoutube")}</a></div>`,
+    );
+    overlay.querySelector("[data-retry]")?.addEventListener("click", mount, { once: true });
+  };
+  function mount() {
+    overlay.querySelector(".listen-fallback")?.remove();
+    loadYouTubeApi()
+      .then((YT) => {
+        if (closed) return; // closed before YouTube was ready: never attach a player
+        player = new YT.Player("yt-player", {
+          videoId: story.youtubeId,
+          playerVars: { rel: 0, playsinline: 1, fs: 1 },
+          events: { onError: showFailure },
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        showFailure();
       });
-    })
-    .catch((error) => {
-      console.error(error);
-      overlay.querySelector(".listen-text").textContent = t("listen.error");
-    });
+  }
+  mount();
 }

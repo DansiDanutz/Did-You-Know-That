@@ -6,6 +6,7 @@ import { enableTilt, burst } from "./card.js";
 
 const FLY_IN_MS = 1100;
 const FLY_OUT_MS = 550;
+const RESTORE_FOCUS_MS = 60;
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function offsetFrom(sourceRect, targetEl) {
@@ -17,13 +18,16 @@ function offsetFrom(sourceRect, targetEl) {
   };
 }
 
-export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
+export function inspectCard(sourceCard, { actionsHtml, closeLabel = "Close", onSettled, onAction }) {
+  const returnFocus = document.activeElement;
   const overlay = document.createElement("div");
   overlay.className = "card-inspect";
   overlay.setAttribute("role", "dialog");
   overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", sourceCard.querySelector(".dyk-card-name")?.textContent ?? "Card");
   overlay.innerHTML = `
     <div class="inspect-backdrop" data-dismiss></div>
+    <button class="inspect-close" type="button" data-dismiss aria-label="${closeLabel}">✕</button>
     <div class="inspect-stage">
       <span class="inspect-glow" aria-hidden="true"></span>
       <span class="inspect-shock" aria-hidden="true"></span>
@@ -33,7 +37,11 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
       </div>
       <div class="inspect-actions">${actionsHtml}</div>
     </div>`;
-  document.body.appendChild(overlay);
+  // Lives in #inspect-layer, a layer the shared modal manager (modal-focus.js)
+  // knows: it locks everything behind, keeps Tab inside and focuses this card.
+  const host = document.querySelector("#inspect-layer") ?? document.body;
+  host.appendChild(overlay);
+  if (host.id === "inspect-layer") host.hidden = false;
 
   const stage = overlay.querySelector(".inspect-stage");
   const flip = overlay.querySelector(".inspect-flip");
@@ -78,6 +86,12 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
       .finished.then(() => {
         sourceCard.classList.remove("is-lifted");
         overlay.remove();
+        if (host.id === "inspect-layer") host.hidden = true;
+        // The modal manager unlocks the library on its next update; focus the
+        // card after that (an inert element cannot take focus).
+        setTimeout(() => {
+          if (returnFocus?.isConnected) returnFocus.focus();
+        }, RESTORE_FOCUS_MS);
       });
   }
 
@@ -87,7 +101,7 @@ export function inspectCard(sourceCard, { actionsHtml, onSettled, onAction }) {
   document.addEventListener("keydown", onKey);
   overlay.addEventListener("click", (event) => {
     if (event.target.closest("[data-dismiss]")) return close();
-    const action = event.target.closest("[data-watch], [data-read]");
+    const action = event.target.closest("[data-watch], [data-read], [data-share]");
     if (action) {
       close();
       onAction(action);

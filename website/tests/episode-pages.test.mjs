@@ -24,7 +24,8 @@ test("draft episodes never show a Play button; the card is saveable without the 
   assert.doesNotMatch(html, /<iframe/);
   assert.match(html, /Coming soon/);
   assert.match(html, /data-save/);
-  assert.match(html, /No video, quiz or account needed/);
+  assert.match(html, /Your card stays on this device/);
+  assert.match(html, /href="\/\?audience=kids&amp;story=why-wonder"/, "opening the app keeps the story and audience");
 });
 
 test("public pages carry no personal state and no leaderboard", () => {

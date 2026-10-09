@@ -2,6 +2,7 @@ import { STORIES, CHANNEL_URL } from "./data/stories.js";
 import { LOCALES, createTranslator, detectLanguage } from "./i18n/index.js";
 import { localizeStory } from "./lib/localize.js";
 import { createStore, normalizeSettings } from "./lib/storage.js";
+import { withStorageLock } from "./lib/storage-lock.js";
 import { saveCard, isSaved, withCoin, recordQuiz, recordBonusWord, cardsView, makeBackup, parseBackup } from "./lib/collection.js";
 import { quizPoints, maxSparks } from "./lib/scoring.js";
 import { verifySecret } from "./lib/secret.js";
@@ -50,6 +51,10 @@ function readVoice() {
 }
 const store = createStore(safeLocalStorage());
 let settings = store.loadSettings(detectLanguage(navigator.languages));
+// A discovery page can link to /?audience=adults&story=<id>: keep that context.
+const linkParams = new URLSearchParams(location.search);
+if (["kids", "adults"].includes(linkParams.get("audience"))) settings = { ...settings, audience: linkParams.get("audience") };
+const linkedStoryId = linkParams.get("story");
 let profile = store.loadProfile(() => crypto.randomUUID());
 // Saved cards and the private learning record (migrated once from the old progress).
 let { collection, learning } = store.loadCollection(new Date().toISOString());
@@ -108,15 +113,29 @@ function score(story) {
 // before cards became free to save, otherwise the one discovery style.
 const cardStyle = (story) => view().cards[story.card.id]?.rarity ?? "gold";
 
-function saveCollection(next) {
-  collection = next;
-  store.saveCollection(collection);
-  updateHud();
+// Every change is applied to the latest stored data under a cross-tab lock
+// (another tab's saves are never overwritten). If the browser refuses to
+// store anything, the player is told once that saves last for this visit only.
+let storageWarned = false;
+function warnIfNotPersisted(persisted) {
+  if (persisted || storageWarned) return;
+  storageWarned = true;
+  toast(t("storage.sessionOnly"));
 }
 
-function saveLearning(next) {
-  learning = next;
-  store.saveLearning(learning);
+async function changeCollection(operation) {
+  const result = await withStorageLock(() => store.updateCollection(operation, nowIso()));
+  collection = result.collection;
+  updateHud();
+  warnIfNotPersisted(result.persisted);
+  return result.persisted;
+}
+
+async function changeLearning(operation) {
+  const result = await withStorageLock(() => store.updateLearning(operation));
+  learning = result.learning;
+  warnIfNotPersisted(result.persisted);
+  return result.persisted;
 }
 
 // ---------------------------------------------------------------- text + HUD
@@ -276,8 +295,11 @@ function exportBackup() {
 async function importBackup(file) {
   const result = parseBackup(await file.text(), STORIES.map((story) => story.card.id));
   if (!result.ok) return t("backup.bad");
-  saveCollection(result.data.collection);
-  saveLearning(result.data.learning);
+  const persisted = store.replaceCollection(result.data.collection) && store.replaceLearning(result.data.learning);
+  collection = result.data.collection;
+  learning = result.data.learning;
+  updateHud();
+  if (!persisted) return t("storage.sessionOnly");
   if (result.data.settings) applySettings(normalizeSettings(result.data.settings, settings.lang));
   world.render(view(), stories, t);
   refreshCoins();
@@ -320,7 +342,7 @@ const world = createWorld($("#world"), {
   onHouse: (index) => handleHouse(index),
   onStep: () => sfx.step(),
   onCoin: (id) => {
-    saveCollection(withCoin(collection, id));
+    changeCollection((current) => withCoin(current, id));
     sfx.coin();
     bumpCoins();
   },
@@ -565,15 +587,15 @@ function refreshBook() {
 function unlockGate(story) {
   setSession(story, { gateOpen: true, gateMessage: "" });
   narratedFaces = new Set([...narratedFaces].filter((i) => currentFaces[i]?.type !== "gate"));
-  saveLearning(recordBonusWord(learning, story.id, nowIso()));
+  changeLearning((current) => recordBonusWord(current, story.id, nowIso()));
   sfx.seal();
   toast(t("gate.toast"));
   refreshBook();
 }
 
 // Cards are saved freely: no playback, quiz or magic word is needed (master
-// plan §3). Saving shows the card, drops coins on the road and, when the
-// episode is published, opens it in the player.
+// plan §3). Saving shows the card and drops coins on the road; it never
+// starts the video.
 let savingCard = false;
 async function saveDiscoveryCard(story) {
   if (savingCard || isSaved(collection, settings.audience, story.card.id)) return;
@@ -581,10 +603,10 @@ async function saveDiscoveryCard(story) {
   try {
     await revealCard($("#reveal-layer"), story.card, cardStyle(story), sfx, { t });
     setSession(story, { cardClaimed: true });
-    saveCollection(saveCard(collection, settings.audience, story.card.id, nowIso()));
+    const persisted = await changeCollection((current) => saveCard(current, settings.audience, story.card.id, nowIso()));
     refreshBook();
-    toast(t("coins.dropped", { n: COINS_PER_CARD }));
-    if (story.youtubeId) watchStory(story, { replay: true });
+    // Save only saves: watching stays a separate, explicit choice (audit stage 1).
+    if (persisted) toast(t("coins.dropped", { n: COINS_PER_CARD }));
   } finally {
     savingCard = false;
   }
@@ -672,7 +694,7 @@ function recordQuizIfDone(story) {
   const answers = session(story).quiz;
   if (!quizPages.every((p) => answers[p.id]?.solved)) return;
   const correct = quizPages.filter((p) => answers[p.id].picked.length === 1).length;
-  saveLearning(recordQuiz(learning, `${story.id}:${settings.audience}`, { answered: quizPages.length, correct }, nowIso()));
+  changeLearning((current) => recordQuiz(current, `${story.id}:${settings.audience}`, { answered: quizPages.length, correct }, nowIso()));
 }
 
 // ---------------------------------------------------------------- start screen
@@ -749,6 +771,8 @@ function startScreen() {
       await walkDaxter(target);
       await spoken;
       world.daxter.say(nextStoryMessage(target), 8000);
+      const linked = stories.find((story) => story.id === linkedStoryId && !story.comingSoon);
+      if (linked) openBook(linked);
     },
     { once: true },
   );
@@ -829,6 +853,15 @@ world.render(view(), stories, t);
 world.placeAtStart();
 updateHud();
 startScreen();
+// Another tab (or a discovery page) saved something: show it here too.
+window.addEventListener("storage", (event) => {
+  if (event.key && !event.key.startsWith("dexty-")) return;
+  ({ collection, learning } = store.loadCollection(nowIso()));
+  world.render(view(), stories, t);
+  refreshCoins();
+  renderHome();
+  updateHud();
+});
 setupModalFocus();
 $("#adult-home").addEventListener("click", handleHomeAction);
 $("#kids-bar-host").addEventListener("click", handleHomeAction);

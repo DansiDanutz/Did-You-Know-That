@@ -52,7 +52,9 @@ export function setupInstall(button, sheet, { t, toast }) {
       sheet.innerHTML = `<b>${t("install.iosTitle")}</b><ol><li>${t("install.iosStep1")}</li><li>${t("install.iosStep2")}</li></ol>
         <button class="btn-gold" type="button" data-ios-done>${t("install.iosDone")}</button>`;
       sheet.hidden = !sheet.hidden;
-      sheet.querySelector("[data-ios-done]")?.addEventListener("click", installed, { once: true });
+      // Closing the steps is not proof of installing: just hide them. The app
+      // itself confirms installation when it opens in standalone mode.
+      sheet.querySelector("[data-ios-done]")?.addEventListener("click", () => (sheet.hidden = true), { once: true });
       return;
     }
     if (!deferred) return;
