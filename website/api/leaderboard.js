@@ -1,10 +1,10 @@
-import { createRedis, handleLeaderboard } from "./_leaderboard.js";
-
-export async function GET(request) {
-  const params = new URL(request.url).searchParams;
-  const { status, body } = await handleLeaderboard({
-    redis: createRedis(process.env),
-    query: { audience: params.get("audience"), player: params.get("player") },
-  });
-  return Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
+// Retired with /api/score (audit 9 Oct 2026): the board is no longer part of
+// the journey, so stored nicknames are not served either. Records stay
+// untouched in Redis; handleLeaderboard remains in _leaderboard.js should a
+// verified, server-owned identity design return.
+export async function GET() {
+  return Response.json(
+    { success: false, data: null, error: "retired" },
+    { status: 410, headers: { "Cache-Control": "no-store" } },
+  );
 }
