@@ -132,12 +132,12 @@ const RENDERERS = {
       </div>`;
   },
 
-  reward: ({ story, session, rarity, firstSeason, sparkCount, maxSparks, index, t }) => `
+  reward: ({ story, session, rarity, firstSeason, sparkCount, maxSparks, playerName, index, t }) => `
     <div class="page-inner reward-page">
       <span class="chapter">${t("reward.kicker")}</span>
       ${session.cardClaimed
         ? `<div class="mini-card">${cardMarkup(story.card, rarity, { t, firstSeason })}</div>
-           <p>${t("reward.saved")}</p>
+           <p>${playerName ? `${t("name.wellDone", { name: escapeHtml(playerName) })} ` : ""}${t("reward.saved")}</p>
            ${story.youtubeId ? `<button class="btn-gold" data-action="listen">${t("home.watch")}</button>` : ""}`
         : `<button class="card-back-btn" data-action="reveal" aria-label="${t("reward.aria")}">
              <span class="card-back-face"><img src="assets/logo.png" alt="" /></span>

@@ -17,6 +17,7 @@ import { openLanguageSheet, languageName } from "./ui/language-sheet.js";
 import { setupInstall } from "./ui/install.js";
 import { renderAdultHome, renderKidsBar } from "./ui/home.js";
 import { openMission } from "./ui/mission.js";
+import { cleanName, personalize } from "./lib/player-name.js";
 import { completeMission, recordAttempt, recordHint, equip } from "./lib/progression.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
 import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
@@ -155,6 +156,7 @@ const SHADOW_MISSION = "missing-shadow";
 function showMission() {
   openMission($("#mission-layer"), {
     completed: Boolean(explorer.missions[SHADOW_MISSION]?.completedAt),
+    playerName: settings.name,
     onAttempt: () => changeExplorer((state) => recordAttempt(state, SHADOW_MISSION, nowIso())),
     onHint: () => changeExplorer((state) => recordHint(state, SHADOW_MISSION)),
     onComplete: (choice) => changeExplorer((state) => equip(completeMission(state, SHADOW_MISSION, { choice }, nowIso()), choice)),
@@ -255,7 +257,7 @@ function showInventory() {
 // ---------------------------------------------------------------- settings
 
 function applySettings(patch) {
-  settings = { ...settings, ...patch };
+  settings = { ...settings, ...patch, ...("name" in patch ? { name: cleanName(patch.name) } : {}) };
   store.saveSettings(settings);
   t = createTranslator(settings.lang);
   stories = localizeAll();
@@ -492,6 +494,7 @@ function faceContext(story, index) {
     sparkCount,
     maxSparks: max,
     rarity: cardStyle(story),
+    playerName: settings.name,
     firstSeason: Boolean(view().cards[story.card.id]?.firstSeason),
     gate: { message: s.gateMessage },
   };
@@ -605,7 +608,7 @@ function closeBook({ advance = false } = {}) {
 
 async function celebrateAndMoveOn() {
   world.daxter.setState("cheer");
-  world.daxter.say(t("daxter.cheer"), CHEER_MS + 400);
+  world.daxter.say(withName(t("daxter.cheer")), CHEER_MS + 400);
   await new Promise((r) => setTimeout(r, CHEER_MS));
   world.daxter.setState("idle");
   const next = currentHouseIndex(stories, view());
@@ -741,6 +744,10 @@ function renderStartPickers() {
   $("#start-go").textContent = returning ? t("start.continue") : t("start.go");
 }
 
+// ---------------------------------------------------------------- the child's name
+// Dexter uses the child's optional name in his words (kept on this device only).
+const withName = (text) => personalize(text, settings.name, { words: t("name.explorerWords"), hello: t("name.hello") });
+
 // ---------------------------------------------------------------- Daxter's greeting
 
 const VISITS_KEY = "dyk-visits";
@@ -768,7 +775,7 @@ function stopGreeting() {
 // Start is what lets the phone play sound. Resolves when he has finished.
 function greetPlayer() {
   const key = greetingKey(nextVisit());
-  const text = t(`daxter.${key}`);
+  const text = withName(t(`daxter.${key}`));
   world.daxter.say(text, Math.min(GREETING_MAX_MS, 2500 + text.length * 70));
   if (sfx.muted) return new Promise((r) => setTimeout(r, 2500));
   stopGreeting();
@@ -788,15 +795,21 @@ function startScreen() {
   renderStartPickers();
   $("#start-pickers").addEventListener("click", (event) => {
     if (event.target.closest("[data-open-lang]")) return showLanguageSheet(renderStartPickers);
+    if (event.target.closest("[data-name]")) return;
     const btn = event.target.closest("[data-audience]");
     if (!btn) return;
     sfx.spark();
     applySettings({ audience: btn.dataset.audience });
     renderStartPickers();
   });
+  $("#start-pickers").addEventListener("change", (event) => {
+    if (event.target.matches("[data-name]")) applySettings({ name: event.target.value });
+  });
   $("#start-go").addEventListener(
     "click",
     async () => {
+      const typed = $("#start-pickers [data-name]")?.value;
+      if (typed !== undefined && cleanName(typed) !== settings.name) applySettings({ name: typed });
       sfx.right();
       applySettings({ chosen: true });
       $("#start-layer").classList.add("is-leaving");

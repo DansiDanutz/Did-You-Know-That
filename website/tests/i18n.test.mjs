@@ -83,13 +83,13 @@ test("localizeStory keeps language-neutral fields and does not mutate the base s
 // ---------------------------------------------------------------- settings
 
 test("normalizeSettings accepts valid values and repairs invalid ones", () => {
-  assert.deepEqual(normalizeSettings({ lang: "de", audience: "adults" }), { lang: "de", audience: "adults", chosen: false });
-  assert.deepEqual(normalizeSettings({ lang: "zz", audience: "aliens", chosen: true }, "fr"), { lang: "fr", audience: "kids", chosen: true });
+  assert.deepEqual(normalizeSettings({ lang: "de", audience: "adults" }), { lang: "de", audience: "adults", chosen: false, name: "" });
+  assert.deepEqual(normalizeSettings({ lang: "zz", audience: "aliens", chosen: true }, "fr"), { lang: "fr", audience: "kids", chosen: true, name: "" });
   assert.deepEqual(normalizeSettings(null, "en"), emptySettings("en"));
 });
 
 for (const { code } of LANGUAGES) {
-  test(`${code}: Daxter has every line, in this language`, () => {
+  test(`${code}: Dexter has every line, in this language`, () => {
     for (const kind of Object.keys(en.quips)) {
       const lines = LOCALES[code].quips?.[kind];
       assert.equal(lines?.length, en.quips[kind].length, `${kind} lines`);

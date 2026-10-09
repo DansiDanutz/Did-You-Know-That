@@ -1,4 +1,5 @@
 import { cardPoints } from "./points.js";
+import { cleanName } from "./player-name.js";
 import { LANGUAGES } from "../i18n/index.js";
 import { migrateProgress, normalizeCollection } from "./collection.js";
 import { normalizeExplorer } from "./progression.js";
@@ -12,7 +13,7 @@ const LANG_CODES = LANGUAGES.map(({ code }) => code); // one source: the picker'
 const AUDIENCE_CODES = ["kids", "adults"];
 
 export function emptySettings(lang = "en") {
-  return { lang, audience: "kids", chosen: false };
+  return { lang, audience: "kids", chosen: false, name: "" };
 }
 
 export function normalizeSettings(value, fallbackLang = "en") {
@@ -22,6 +23,7 @@ export function normalizeSettings(value, fallbackLang = "en") {
     lang: LANG_CODES.includes(value.lang) ? value.lang : base.lang,
     audience: AUDIENCE_CODES.includes(value.audience) ? value.audience : base.audience,
     chosen: value.chosen === true,
+    name: cleanName(value.name), // optional; stays on this device
   };
 }
 

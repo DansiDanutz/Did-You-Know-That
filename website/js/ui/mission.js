@@ -59,7 +59,7 @@ function outfitCard(id) {
       <span class="outfit-preview outfit-${id}">${DAXTER_SVG}</span><b>${escape(item.name)}</b></button>`;
 }
 
-export function openMission(layer, { onAttempt, onHint, onComplete, onClose, completed = false }) {
+export function openMission(layer, { onAttempt, onHint, onComplete, onClose, completed = false, playerName = "" }) {
   let light = { x: 300, y: 420 };
   let step = completed ? "replay" : "story";
   let tasks = { long: false, short: false };
@@ -175,7 +175,7 @@ export function openMission(layer, { onAttempt, onHint, onComplete, onClose, com
       ),
     finish: () =>
       frame(
-        "Mission complete!",
+        playerName ? `Mission complete, ${escape(playerName)}!` : "Mission complete!",
         `<p class="mission-text">Dexter moves the blanket back into the shade and enjoys the picnic. 🧺</p>
          <p class="mission-note">🌍 Try it for real (with a grown-up, on a sunny day): push a stick into the ground and mark the end of its shadow in the morning and again in the afternoon. What changed?</p>`,
         `<button class="btn-gold" data-close>Done</button>`,
