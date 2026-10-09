@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Did You Know That? Intro</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "DYK Heavy";
+        src: url("assets/AvenirNext-Heavy.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "DYK Demi";
+        src: url("assets/AvenirNext-DemiBold.ttf") format("truetype");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #050414;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(ellipse at 50% 45%, #120c3a 0%, #070520 55%, #030210 100%);
+      }
+      #scene {
+        position: absolute;
+        inset: 0;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .nebula {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0;
+      }
+      #neb-blue {
+        left: -260px;
+        top: 140px;
+        width: 1000px;
+        height: 620px;
+        background: radial-gradient(circle, rgba(40, 90, 255, 0.85), rgba(40, 90, 255, 0) 70%);
+      }
+      #neb-violet {
+        left: 80px;
+        top: 560px;
+        width: 1000px;
+        height: 560px;
+        background: radial-gradient(circle, rgba(150, 40, 255, 0.75), rgba(150, 40, 255, 0) 70%);
+      }
+      #neb-green {
+        right: -240px;
+        top: 80px;
+        width: 900px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(40, 220, 90, 0.6), rgba(40, 220, 90, 0) 70%);
+      }
+      #neb-orange {
+        right: 0px;
+        top: 560px;
+        width: 1000px;
+        height: 560px;
+        background: radial-gradient(circle, rgba(255, 100, 20, 0.7), rgba(255, 30, 90, 0) 70%);
+      }
+      .star,
+      .spark {
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        background: #fff;
+      }
+      .spark {
+        width: 10px;
+        height: 10px;
+        box-shadow: 0 0 18px 6px currentColor;
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #lockup {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        margin-top: -40px;
+      }
+      #logo-wrap {
+        position: relative;
+        display: block;
+        width: 430px;
+        height: 425px;
+        flex: none;
+      }
+      #rays {
+        position: absolute;
+        left: -285px;
+        top: -287px;
+        width: 1000px;
+        height: 1000px;
+        border-radius: 50%;
+        background: repeating-conic-gradient(
+          from 0deg,
+          rgba(255, 220, 120, 0.55) 0deg 4deg,
+          rgba(255, 220, 120, 0) 4deg 18deg
+        );
+        -webkit-mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0) 62%);
+        mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0) 62%);
+        opacity: 0;
+      }
+      #bulb-glow {
+        position: absolute;
+        left: 95px;
+        top: 160px;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 230, 140, 0.95), rgba(255, 160, 40, 0) 70%);
+        filter: blur(10px);
+        opacity: 0;
+      }
+      #logo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      #text-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .title-stack {
+        display: grid;
+      }
+      .title-stack > * {
+        grid-area: 1 / 1;
+      }
+      .title {
+        font-family: "DYK Heavy", sans-serif;
+        font-size: 158px;
+        line-height: 0.98;
+        letter-spacing: 0.005em;
+        color: #fff;
+        white-space: nowrap;
+        text-shadow:
+          0 0 18px rgba(255, 255, 255, 0.35),
+          0 0 46px rgba(170, 80, 255, 0.75),
+          0 6px 0 rgba(90, 30, 160, 0.55);
+      }
+      .line {
+        display: block;
+      }
+      .char {
+        display: inline-block;
+      }
+      #shine {
+        color: transparent;
+        text-shadow: none;
+        background: linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0.95) 50%,
+          rgba(255, 255, 255, 0) 60%
+        );
+        background-size: 300% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        opacity: 0;
+      }
+      #tagline {
+        display: block;
+        margin-top: 26px;
+        margin-left: 8px;
+        font-family: "DYK Demi", sans-serif;
+        font-size: 33px;
+        letter-spacing: 0.14em;
+        color: #fff;
+        white-space: nowrap;
+        text-shadow: 0 0 16px rgba(120, 160, 255, 0.6);
+      }
+      .word {
+        display: inline-block;
+      }
+      .dot {
+        display: inline-block;
+        margin: 0 18px;
+        color: #ffd36b;
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, #fffbe8 0%, #ffe6a0 30%, rgba(255, 200, 80, 0) 70%);
+        opacity: 0;
+      }
+      #blackout {
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="7"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="7" data-track-index="0">
+        <div id="nebulae" class="layer">
+          <div id="neb-blue" class="nebula"></div>
+          <div id="neb-violet" class="nebula"></div>
+          <div id="neb-green" class="nebula"></div>
+          <div id="neb-orange" class="nebula"></div>
+        </div>
+        <div id="stars" class="layer"></div>
+        <div id="sparks" class="layer"></div>
+        <div id="stage">
+          <div id="lockup">
+            <div id="logo-wrap">
+              <div id="rays"></div>
+              <div id="bulb-glow"></div>
+              <img id="logo" src="assets/logo.png" alt="Did You Know That? logo" />
+            </div>
+            <div id="text-block">
+              <div class="title-stack">
+                <div id="title" class="title">
+                  <span class="line" data-split>DID YOU</span>
+                  <span class="line" data-split>KNOW THAT?</span>
+                </div>
+                <div id="shine" class="title" aria-hidden="true">
+                  <span class="line">DID YOU</span>
+                  <span class="line">KNOW THAT?</span>
+                </div>
+              </div>
+              <div id="tagline">
+                <span class="word">AMAZING FACTS</span><span class="dot">•</span
+                ><span class="word">INCREDIBLE STORIES</span><span class="dot">•</span
+                ><span class="word">ENDLESS CURIOSITY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="flash"></div>
+        <div id="blackout"></div>
+      </div>
+      <audio
+        id="intro-audio"
+        src="assets/intro.wav"
+        data-start="0"
+        data-duration="7"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+    </div>
+    <script>
+      // Seeded PRNG so stars and sparks are identical on every render.
+      function mulberry32(seed) {
+        return function () {
+          seed |= 0;
+          seed = (seed + 0x6d2b79f5) | 0;
+          let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      const rand = mulberry32(2026);
+      const BRAND_COLORS = ["#3d7bff", "#a040ff", "#ff3fa4", "#ff8a1f", "#ffd84a", "#3ee07a"];
+      const STAR_COUNT = 110;
+      const SPARK_COUNT = 28;
+
+      function splitChars(el) {
+        const text = el.textContent;
+        el.textContent = "";
+        [...text].forEach((ch) => {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.textContent = ch === " " ? " " : ch;
+          el.appendChild(span);
+        });
+      }
+
+      function makeStars(container) {
+        return Array.from({ length: STAR_COUNT }, () => {
+          const star = document.createElement("span");
+          const size = 1 + rand() * 3;
+          star.className = "star";
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.left = `${rand() * 1920}px`;
+          star.style.top = `${rand() * 1080}px`;
+          star.style.opacity = "0";
+          container.appendChild(star);
+          return { el: star, peak: 0.3 + rand() * 0.7, phase: rand() };
+        });
+      }
+
+      function makeSparks(container) {
+        return Array.from({ length: SPARK_COUNT }, (_, i) => {
+          const spark = document.createElement("span");
+          const angle = (i / SPARK_COUNT) * Math.PI * 2 + rand() * 0.2;
+          const radius = 700 + rand() * 500;
+          spark.className = "spark";
+          spark.style.left = "957px";
+          spark.style.top = "537px";
+          spark.style.color = BRAND_COLORS[i % BRAND_COLORS.length];
+          spark.style.background = BRAND_COLORS[i % BRAND_COLORS.length];
+          container.appendChild(spark);
+          return { el: spark, x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, delay: rand() * 0.35 };
+        });
+      }
+
+      function build() {
+        document.querySelectorAll("[data-split]").forEach(splitChars);
+        const stars = makeStars(document.getElementById("stars"));
+        const sparks = makeSparks(document.getElementById("sparks"));
+
+        // Offset that puts the logo at the exact frame centre before it slides into the lockup.
+        const logoBox = document.getElementById("logo-wrap").getBoundingClientRect();
+        const toCenterX = 960 - (logoBox.left + logoBox.width / 2);
+        const toCenterY = 540 - (logoBox.top + logoBox.height / 2);
+
+        const tl = gsap.timeline({ paused: true });
+
+        // 0.0 – 1.5  space wakes up, sparks converge on the centre
+        tl.to(".nebula", { opacity: 1, duration: 1.6, ease: "sine.out", stagger: 0.15 }, 0);
+        tl.fromTo("#neb-blue", { x: -80 }, { x: 40, duration: 7, ease: "none" }, 0);
+        tl.fromTo("#neb-orange", { x: 80 }, { x: -40, duration: 7, ease: "none" }, 0);
+        tl.fromTo("#neb-violet", { scale: 0.9 }, { scale: 1.1, duration: 7, ease: "none" }, 0);
+        tl.fromTo("#neb-green", { scale: 1.1 }, { scale: 0.95, duration: 7, ease: "none" }, 0);
+        stars.forEach(({ el, peak, phase }) => {
+          tl.to(el, { opacity: peak, duration: 0.8, ease: "sine.out" }, phase * 1.2);
+          tl.to(el, { opacity: peak * 0.25, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.4 + phase * 1.5);
+        });
+        sparks.forEach(({ el, x, y, delay }) => {
+          tl.fromTo(
+            el,
+            { x, y, scale: 0.4, opacity: 0 },
+            { x: 0, y: 0, scale: 1.3, opacity: 1, duration: 1.15 - delay * 0.6, ease: "power3.in" },
+            delay,
+          );
+          tl.to(el, { opacity: 0, scale: 0.2, duration: 0.12 }, 1.45);
+        });
+
+        // 1.45  the lightbulb lands with a flash
+        tl.fromTo(
+          "#logo-wrap",
+          { x: toCenterX, y: toCenterY, scale: 0, rotation: -30 },
+          { scale: 1.18, rotation: 4, duration: 0.32, ease: "back.out(2.2)" },
+          1.42,
+        );
+        tl.to("#logo-wrap", { scale: 1, rotation: 0, duration: 0.25, ease: "power2.out" }, 1.74);
+        tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.85, duration: 0.08, ease: "none" }, 1.45);
+        tl.to("#flash", { opacity: 0, duration: 0.6, ease: "power2.out" }, 1.53);
+        tl.fromTo("#rays", { opacity: 0, scale: 0.4, rotation: 0 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 1.45);
+        tl.to("#rays", { rotation: 40, duration: 5, ease: "none" }, 1.45);
+        tl.to("#rays", { opacity: 0.35, duration: 1.2, ease: "sine.inOut" }, 2.0);
+        tl.fromTo("#scene", { x: 0 }, { x: 14, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, 1.45);
+
+        // 1.75  logo slides left, title slams in letter by letter
+        tl.to("#logo-wrap", { x: 0, y: 0, duration: 0.55, ease: "power3.inOut" }, 1.72);
+        const lines = document.querySelectorAll("#title .line");
+        [lines[0], lines[1]].forEach((line, i) => {
+          tl.fromTo(
+            line.querySelectorAll(".char"),
+            { y: 140, scale: 1.8, opacity: 0, filter: "blur(14px)" },
+            { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.42, ease: "back.out(1.8)", stagger: 0.035 },
+            1.78 + i * 0.3,
+          );
+        });
+
+        // 2.4  the bulb switches on (the "did you know?" moment)
+        tl.fromTo("#bulb-glow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.25, duration: 0.18, ease: "power2.out" }, 2.4);
+        tl.to("#bulb-glow", { opacity: 0.55, scale: 1, duration: 0.6, ease: "sine.inOut" }, 2.6);
+        tl.to("#bulb-glow", { opacity: 0.9, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 3.2);
+        tl.fromTo(
+          "#logo",
+          { filter: "brightness(1) drop-shadow(0 0 0px rgba(255,210,90,0))" },
+          {
+            filter: "brightness(1.45) drop-shadow(0 0 40px rgba(255,210,90,0.9))",
+            duration: 0.16,
+            ease: "power2.out",
+            yoyo: true,
+            repeat: 1,
+          },
+          2.4,
+        );
+        tl.to("#logo", { filter: "brightness(1.1) drop-shadow(0 0 24px rgba(255,200,90,0.55))", duration: 0.5 }, 2.75);
+
+        // 3.0  tagline, word by word
+        tl.fromTo(
+          "#tagline .word, #tagline .dot",
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.14 },
+          3.0,
+        );
+
+        // 2.4 – 5.8  slow push-in; 4.4 shine sweep
+        tl.fromTo("#stage", { scale: 1 }, { scale: 1.06, duration: 3.5, ease: "sine.inOut" }, 2.35);
+        tl.to("#logo-wrap", { y: -10, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 2 }, 2.6);
+        tl.set("#shine", { opacity: 1 }, 4.3);
+        tl.fromTo("#shine", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 1.1, ease: "power2.inOut" }, 4.3);
+
+        // 5.8 – 7.0  everything is pulled into the bulb, flash, cut to black
+        tl.to("#title .char, #tagline .word, #tagline .dot", {
+          x: -120,
+          opacity: 0,
+          filter: "blur(10px)",
+          duration: 0.45,
+          ease: "power2.in",
+          stagger: { each: 0.012, from: "end" },
+        }, 5.8);
+        tl.to("#logo-wrap", { scale: 7, opacity: 0, duration: 0.9, ease: "power3.in" }, 5.95);
+        tl.to("#flash", { opacity: 1, duration: 0.3, ease: "power2.in" }, 6.45);
+        tl.to("#blackout", { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 6.7);
+
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      }
+
+      document.fonts.ready.then(build);
+    </script>
+  </body>
+</html>

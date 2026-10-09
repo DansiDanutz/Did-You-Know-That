@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><title>Card showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,600&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/base.css" /><link rel="stylesheet" href="css/card.css" />
+<style>body{overflow:auto;background:radial-gradient(ellipse at 50% 0%,#2a1670,#050414 70%);min-height:100vh;display:flex;gap:36px;justify-content:center;align-items:center;flex-wrap:wrap;padding:40px}</style>
+</head><body>
+<script type="module">
+import { cardMarkup, enableTilt } from "./js/ui/card.js";
+import { createTranslator, LOCALES } from "./js/i18n/index.js";
+import { localizeStory } from "./js/lib/localize.js";
+import { STORIES } from "./js/data/stories.js";
+const t = createTranslator("en");
+const [ep1, honey] = STORIES;
+const kids = localizeStory(ep1, LOCALES.en, LOCALES.en, "kids");
+const adults = localizeStory(ep1, LOCALES.en, LOCALES.en, "adults");
+const h = localizeStory(honey, LOCALES.en, LOCALES.en, "kids");
+document.body.innerHTML = [cardMarkup(h.card, "silver", { tilt: true, t, points: 140 }), cardMarkup(kids.card, "gold", { tilt: true, t, points: 260 }), cardMarkup(adults.card, "legendary", { tilt: true, t, points: 960 })].join("");
+document.querySelectorAll(".dyk-card").forEach(enableTilt);
+</script></body></html>

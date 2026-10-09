@@ -1,0 +1,39 @@
+# Did You Know That? · Series Bible
+
+Rules every episode must follow. Two versions of every episode: **Kids** and **Teens & Adults**.
+
+## Format
+- **Max 5:00 per video** (target 4:40–4:50). ~135 wpm kids, ~140 wpm adults → 620–680 words.
+- Structure: Hook (≤25 s) → 3 story beats → **Neon Card at the midpoint (≈2:20)** → payoff → call to action → 15 s end screen.
+- Open with our 7 s intro sting; close with our 15 s end screen (`out/`).
+- **Neon Card:** 8 s clip, glowing neon margins, logo, ONE special word. The word unlocks the episode's magic book in the game. Different word for Kids and Adults.
+- **Quiz-safe:** the 3 game quiz answers must appear ONLY in the video (never in the book pages or the hidden-spark notes). List them in a "Facts used" table with sources.
+
+## Kids: "a cartoon you can play"
+- Looks and feels like a **video game**: START screen, LEVELS (4–5 per episode), XP bar, hearts, power-ups, a **boss** per episode, "LEVEL COMPLETE" stamps.
+- Bright saturated cartoon style, round shapes, squash-and-stretch, Pixar-inspired lighting.
+- Never shame or scare. Daxter is always on the kids' side. Jokes every ~30 s.
+- Facts simple but **real and sourced**; numbers shown as game scores.
+
+## Teens & Adults: "the documentary you didn't know you needed"
+- **Expert-level, specific, surprising.** No generic advice, no well-known clichés ("drink water", "the brain is complex"). Every claim named, dated and sourced on screen.
+- Prefer primary sources, named researchers, original documents, exact numbers, and counter-intuitive results (e.g. the testing effect's 5-minute vs 1-week reversal).
+- Premium look: dark backgrounds, neon accents, archival documents, kinetic data typography.
+
+## Cast
+| Character | Role | Look | Voice |
+|---|---|---|---|
+| **Daxter** | Hero & kids narrator; cameo for adults | Lightbulb head with question-mark filament, round glasses, purple coat, pink-orange scarf, backpack | Bright, curious, quick |
+| **Professor Hoot** | Owl guardian who asks the quiz | Wise owl, tiny spectacles, scholar's cape | Warm, slow, a little theatrical |
+| **Episode boss** (kids) | The problem as a goofy villain (e.g. the Scroll Monster) | Fuzzy, funny, never truly scary | Grumbly, comedic |
+| **Narrator** (adults) | Documentary voice | — | Calm, precise, intimate |
+
+## Sound design (mandatory)
+- **Music bed for every section**, changing with the mood (kids: chiptune-orchestral, platformer, villain pizzicato, boss battle, victory; adults: cinematic drone, minimal synth, period instruments when history appears).
+- **A sound effect for everything we explain**: numbers count up with dings, objects get foley (quill, coins, pages), transitions get whooshes, reveals get hits.
+- Neon Card: music cuts to silence → power-up shimmer (kids) / neon buzz + sub-bass (adults).
+- Mix: voice always on top (music ducked about −12 dB under VO), loudness ≈ −14 LUFS for YouTube.
+- Royalty-free only: our procedural sound library (`tools/make_audio.py`) or licensed stock. No copyrighted music.
+
+## Topic selection
+A topic qualifies only if it has (1) a jaw-drop fact most people have never heard, (2) a visual we can animate, (3) three quiz-able facts from reliable sources, and (4) a kids angle AND an adults angle.

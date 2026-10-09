@@ -1,0 +1,16 @@
+# Secrets and local platform links
+.env*
+.vercel/
+
+# Licensed fonts (Apple Avenir Next): fine locally, never publish
+*.ttf
+*.otf
+*.ttc
+
+# Dependencies, caches and temporary renders
+node_modules/
+renders/
+snapshots/
+out/_*
+website/assets/narration/_samples/
+.DS_Store
