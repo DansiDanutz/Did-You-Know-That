@@ -863,3 +863,42 @@ button.hud-chip:hover,
 }
 .panel.settings > .btn-gold { display: block; width: 100%; min-height: 52px; margin-top: 20px; }
 .book-toolbar .pill { min-height: 44px; }
+
+/* ---------------------------------------------------------------- no flicker on phones */
+/* Blurred-glass (backdrop-filter) on fixed controls and overlays forces the
+   phone to re-blur the animated map every frame, which flickers on Android.
+   Solid, slightly translucent backgrounds look the same and cost nothing. */
+.hud-brand,
+.hud-chip,
+.hud-icon,
+.hud-btn,
+.tool-btn,
+.kids-bar,
+.layer,
+.book-layer,
+.listen-layer,
+.start-layer,
+.panel-layer,
+.reveal-layer {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.hud-brand,
+.hud-chip,
+.hud-icon,
+.hud-btn { background: rgba(11, 7, 38, 0.88); }
+.kids-bar { background: rgba(11, 7, 38, 0.92); }
+.book-layer,
+.listen-layer { background-color: rgba(5, 4, 20, 0.96); }
+.start-layer { background: radial-gradient(ellipse at 50% 30%, rgba(60, 30, 160, 0.92), rgba(5, 4, 20, 0.97) 70%); }
+
+/* While a book, panel or player covers the map, its animations pause. */
+body.has-overlay #world,
+body.has-overlay #world * {
+  animation-play-state: paused !important;
+}
+
+/* Dexter's cheer: a calm glow pulse that stops, never a rapid flash. */
+.daxter.is-cheer .daxter-halo {
+  animation: halo 0.9s ease-in-out 3 !important;
+}
