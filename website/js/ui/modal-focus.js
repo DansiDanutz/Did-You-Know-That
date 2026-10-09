@@ -22,6 +22,7 @@ export function setupModalFocus(doc = document) {
   const update = () => {
     const top = layers.find(isOpen) ?? null;
     background.forEach((el) => (el.inert = Boolean(top)));
+    doc.body.classList.toggle("has-overlay", Boolean(top));
     layers.forEach((el) => (el.inert = Boolean(top) && el !== top && isOpen(el)));
     if (top === active) return;
     if (!active && top) returnTo = doc.activeElement;
