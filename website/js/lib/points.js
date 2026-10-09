@@ -6,9 +6,9 @@ import { maxSparks, RARITY_RANK } from "./scoring.js";
 
 export const POINTS = Object.freeze({ silver: 100, gold: 200, legendary: 400, perSpark: 10 });
 const ADULT_MULTIPLIER = 2;
-// Adults earn more for every extra video watched in a day (1st … 5th).
-const ADULT_STREAK_BONUS = Object.freeze([1, 1.25, 1.5, 1.75, 2]);
-const MAX_SLOT = ADULT_STREAK_BONUS.length - 1;
+// Legacy records carry a 0-4 "slot" (order of the day's videos). It is kept
+// only for old backups and never changes points: nothing rewards watching.
+const MAX_SLOT = 4;
 
 const clampSlot = (slot) => Math.min(MAX_SLOT, Math.max(0, Math.floor(Number(slot) || 0)));
 const NICK_MIN = 3;
@@ -22,7 +22,7 @@ export function cardPoints(card, audience) {
   const sparks = Math.max(0, Math.floor(Number(card.sparks) || 0));
   const base = POINTS[card.rarity] + sparks * POINTS.perSpark;
   if (audience !== "adults") return base;
-  return Math.round(base * ADULT_MULTIPLIER * ADULT_STREAK_BONUS[clampSlot(card.slot)]);
+  return base * ADULT_MULTIPLIER;
 }
 
 export function totalPoints(cards, audience) {

@@ -25,11 +25,14 @@ const GREETINGS = ["welcome", ...Array.from({ length: BACK_LINES }, (_, i) => `b
 const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, "").split("=")).map(([k, v]) => [k, v ?? true]));
 const exists = (path) => access(path).then(() => true, () => false);
 
-async function synthesize(apiKey, text) {
+// A two-word line on its own can make the model invent extra speech after the
+// name (seen in fr/it/es/ro). Giving it the line that follows as context
+// (next_text, not spoken) keeps the clip to the greeting.
+async function synthesize(apiKey, text, nextText) {
   const res = await fetch(`${API}/text-to-speech/${VOICE_ID}?output_format=mp3_44100_128`, {
     method: "POST",
     headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-    body: JSON.stringify({ text, model_id: "eleven_multilingual_v2", voice_settings: SETTINGS }),
+    body: JSON.stringify({ text, model_id: "eleven_multilingual_v2", voice_settings: SETTINGS, ...(nextText ? { next_text: nextText } : {}) }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${(await res.text()).slice(0, 200)}`);
   return Buffer.from(await res.arrayBuffer());
@@ -53,7 +56,7 @@ function plan(lists) {
       names,
       bodies,
       clips: [
-        ...names.map((n) => ({ path: `${NAME_CLIP_DIR}/${lang}/${n.file}`, text: hello.replace("{name}", n.name) })),
+        ...names.map((n) => ({ path: `${NAME_CLIP_DIR}/${lang}/${n.file}`, text: hello.replace("{name}", n.name), nextText: bodies[0]?.text })),
         ...bodies.map((b) => ({ path: `assets/voice/daxter/${lang}/${b.key}-body.mp3`, text: b.text })),
       ],
     });
@@ -80,7 +83,7 @@ for (const job of jobs) {
     const target = join(ROOT, clip.path);
     if (await exists(target)) continue;
     await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, await synthesize(apiKey, clip.text));
+    await writeFile(target, await synthesize(apiKey, clip.text, clip.nextText));
     made += 1;
     process.stdout.write(`\r${made} recorded`);
   }

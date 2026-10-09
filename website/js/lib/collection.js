@@ -63,6 +63,17 @@ export function recordQuiz(learning, key, { answered, correct }, at) {
   return { ...learning, [key]: { ...learning[key], quiz: { answered, correct, at } } };
 }
 
+// Story ids whose optional questions were tried in this audience. Only the
+// fact of practising is shown, never the number right.
+export function practisedStories(learning, audience) {
+  const suffix = `:${audience}`;
+  return new Set(
+    Object.entries(learning ?? {})
+      .filter(([key, entry]) => key.endsWith(suffix) && entry?.quiz)
+      .map(([key]) => key.slice(0, -suffix.length)),
+  );
+}
+
 export function recordBonusWord(learning, storyId, at) {
   if (learning[storyId]?.bonusWordAt) return learning;
   return { ...learning, [storyId]: { ...learning[storyId], bonusWordAt: at } };

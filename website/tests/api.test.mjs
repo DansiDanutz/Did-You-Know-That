@@ -113,3 +113,10 @@ test("the score write route is retired: nothing new is stored, old records are u
   assert.equal(res.status, 410);
   assert.equal((await res.json()).error, "retired");
 });
+
+test("the leaderboard read route is retired too: stored nicknames are no longer served", async () => {
+  const { GET } = await import("../api/leaderboard.js");
+  const res = await GET(new Request("https://dexty.live/api/leaderboard?audience=kids"));
+  assert.equal(res.status, 410);
+  assert.equal((await res.json()).error, "retired");
+});

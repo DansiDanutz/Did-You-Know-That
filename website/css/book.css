@@ -568,7 +568,6 @@
 .choice.is-wrong {
   border-color: #c62828;
   background: #fde0e0;
-  opacity: 0.75;
 }
 
 .choice.is-wrong .choice-letter {

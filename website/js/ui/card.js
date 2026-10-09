@@ -8,13 +8,10 @@ const BURST_COUNT = 36;
 const RARITY_GEMS = { silver: "◆", gold: "✦", legendary: "✸" };
 const SEASON = "S1";
 
-export function cardMarkup(card, rarity, { tilt = false, t, points, firstSeason = false } = {}) {
+export function cardMarkup(card, rarity, { tilt = false, t, firstSeason = false } = {}) {
   // Old cards keep their earned rarity as a first-season badge; new ones are discoveries.
   const label = !t ? rarity : firstSeason ? `${t(`rarity.${rarity}`)} · ${SEASON}` : t("card.discovery");
   const picture = card.image ? `<img src="${card.image}" alt="" loading="lazy" />` : art(card.art);
-  const pointsBadge = points
-    ? `<span class="dyk-card-points"><b>★</b>${t ? t("inv.points", { n: points }) : points}</span>`
-    : "";
   return `
     <div class="dyk-card rarity-${rarity}${tilt ? " can-tilt" : ""}">
       <div class="dyk-card-inner">
@@ -28,7 +25,6 @@ export function cardMarkup(card, rarity, { tilt = false, t, points, firstSeason 
           <span class="dyk-card-rays" aria-hidden="true"></span>
           ${picture}
           <span class="dyk-card-dust" aria-hidden="true"></span>
-          ${pointsBadge}
         </div>
         <div class="dyk-card-ribbon"><span>${label}</span></div>
         <p class="dyk-card-fact">${card.fact ?? ""}</p>
@@ -79,15 +75,14 @@ export function burst(container) {
 }
 
 // Shows the full-screen reveal; resolves when the player keeps the card.
-export function revealCard(overlay, card, rarity, sfx, { t, points }) {
+export function revealCard(overlay, card, rarity, sfx, { t }) {
   overlay.innerHTML = `
     <div class="reveal-stage">
       <p class="reveal-kicker">${t("reveal.kicker")}</p>
       <div class="reveal-flip">
         <div class="reveal-back"><img src="assets/logo.png" alt="" /></div>
-        <div class="reveal-front">${cardMarkup(card, rarity, { tilt: true, t, points })}</div>
+        <div class="reveal-front">${cardMarkup(card, rarity, { tilt: true, t })}</div>
       </div>
-      ${points ? `<p class="reveal-points">${t("reveal.points", { n: points })}</p>` : ""}
       <button class="btn-gold reveal-keep" data-keep>${t("reveal.keep")}</button>
     </div>`;
   overlay.hidden = false;

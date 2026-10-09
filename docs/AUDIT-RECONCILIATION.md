@@ -54,3 +54,39 @@ Branch `fix/audit-stage1`. Evidence from unit tests and browser checks on a prev
 | Web Locks fallback just runs the work | **verified + documented** | With Web Locks (all current major browsers, Safari since 15.4): browser test with two tabs starting in the same millisecond, 40 saves each → 80/80 kept. Without Web Locks: a single tab is safe; two tabs writing in the same instant could still collide (documented limit, `tests/storage-lock.test.mjs`). |
 | Expanded-card manual inert vs modal manager | **fixed** | The card overlay now lives in `#inspect-layer`, registered with `modal-focus.js`; browser: focus inside while open, library + top bar inert, focus returns to the card on close. |
 | Hidden journey map exposed in adult mode | **fixed** | `body.is-adults` hides the map, kids bar and walk controls from sight, keyboard and screen readers; browser: 0 map controls reachable. |
+
+---
+
+# Kimi audit of 9 Oct 2026 (`~/dexty-audit-2026-10-09.md`, clone at `6f65112`)
+
+Re-checked on 9 Oct 2026 against live dexty.live (= `main` `0ceb203`) and branch `fix/kimi-audit` (stacked on PR #9 → #8 → `main`).
+**Live** = served by dexty.live now. **Local** = committed on `fix/kimi-audit`, tested, not deployed. Nothing here was deployed to production.
+
+| Finding (Kimi §) | Evidence checked | Status | Action |
+|---|---|---|---|
+| Live CSS not reproducible from `main` (§2.4) | `shasum` of live vs `main`: `css/base.css`, `js/app.js`, `index.html`, `precache.js` identical; flicker fix is `1b68184` on `main` | **already fixed (live)** | — |
+| Score writes unauthenticated (§6.4) | `POST /api/score` → 410 live | **already fixed (live)** | — |
+| Leaderboard reads still served (§6.4) | `GET /api/leaderboard` → 200 live, served stored nicknames | **fixed (local)** | Route returns 410; test in `tests/api.test.mjs`; records untouched |
+| 112 stale narration clips (§2.2) | `make-narration.mjs --check`: 0 stale | **already fixed (live)** | Ep 2 narration was never recorded (364 clips, ≈59.6k characters): budget item |
+| `ADULT_STREAK_BONUS` pays per extra video (§6.3) | `js/lib/points.js` | **fixed (local)** | Removed; legacy `slot` ignored; test updated |
+| D1 Firefox mask covers the gate card | `base.css` had only `-webkit-mask` + `mask-composite` | **fixed (local), not verified in Firefox** | Standard `mask` added; computed `mask-composite: exclude` in Chromium; no Firefox on this Mac |
+| D2 Start below the fold at 375×667 / 844×390 | Reproduced and **worse** after the name field: button at 727–788 px of 667 | **fixed (local)** | Sticky Start on short screens + `scroll-padding-bottom`; verified 375×667 (button 570–631, focused name field clear of it) and 844×390 |
+| D3 wrong-answer contrast | `.choice.is-wrong { opacity: .75 }` | **fixed (local)** | Opacity removed, tint kept |
+| D4 gold focus ring on parchment | `base.css` focus rule | **fixed (local)** | Dark ring inside `.book` |
+| D5 "climb the leaderboard" in metadata | `index.html`, `manifest.webmanifest` on `main` | **already fixed (live)** | — |
+| D6 `--ink` defined twice | `base.css` vs `episode.css` | **fixed (local)** | Episode pages use `--text` |
+| D7 raw `inv.points` key | Only the dev showcase passed points | **fixed (local)** | Points badges removed (retired concept); new test fails on any `t("key")` missing from English |
+| D8 touch targets 36/40 px | `.chip`, `.kids-bar` buttons | **fixed (local)** | 44 px |
+| Obsolete leaderboard copy/code | `js/api.js`, `openLeaderboard`, 19 `lb.*`/`hud.leaderboard`/`reveal.points` strings ×7 | **fixed (local)** | Removed |
+| No privacy policy / parent surface (§6.4, §7.4) | none existed | **fixed (local), contact missing** | `/parents/`: age fit, sourcing, YouTube behaviour, on-device data, every outside request, name recordings, backup/delete, stopping, family activity. No owner/contact invented: flagged on the page. Not a legal review |
+| Quiz "mastery stars" (§4.2, §7.2) | — | **corrected** | No mastery claims: library shows "Saved" and "Tried Hoot's questions" (no score); missions show "Tried" / "Solved on your own" (tested) |
+| Coin shop / cosmetic currency (§4.2) | Brief: direct rewards, no shop or currency in the pilot | **rejected** | Mission rewards stay direct (PR #8) |
+| Find-of-the-day, Friday releases (§7.1) | Brief: no daily-release promise; spotlights labelled | **corrected** | "Today's discovery" → "Latest discovery" (×7); archive linked as "editor's pick" |
+| Weekly recap "This week Alex collected…" (§7.4) | Puts a child's name in shareable material | **corrected, deferred** | Any recap must describe activity only, never the name |
+| Parent PIN stats, og:image renders, album completion | — | **deferred** | After the pilots |
+| Golden Minutes conflicts (brief) | Old script: GOLDEN seal, leaderboard pitch, four subjects | **fixed in docs (local); app copy open** | Old script marked superseded; replacement "The Re-Reading Trap" is the archive pilot. The in-app adult book still has the magic-word bonus line and unverified Franklin figures: changing it makes 7 languages of narration stale (paid re-record) |
+| Adults identity split (§5.3) | — | **partly done (local)** | `/archive/re-reading-trap/`: documentary register, Measured / Interpretation / Limit tags, page citations, DOIs checked with Crossref, prediction with reasoned feedback, free save + private takeaway (tested) |
+| Ep 1 kids "3 videos a day" copy (§4.3) | `en.js` story + quiz question; daily limit still enforced | **open: decision 3** | Text change makes kids narration stale ×7 (paid) |
+| Ep 1 kids magic word | Video-only word gives a "surprise" | **open: decision 4** | Brief says never reward video-only answers; recommend removing the surprise or the seal |
+| "Ages 6–12" vs Bible "7–9 first" | App labels 6–12 | **open: your call** | Parent page states both |
+| Google Fonts request on every load | `index.html`, episode pages | **new finding, disclosed** | Self-hosting needs a font-file decision (repo is public) |
