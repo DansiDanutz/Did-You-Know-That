@@ -141,3 +141,68 @@ export const STORYBOOK = Object.freeze({
     { id: "treasure", heading: "The Real Treasure", text: "Evening. The family sits together on the sofa. “Dad?” says Leo. “Are we rich?” Dad looks surprised. “Why do you ask?” “Because Emma said treasures are things that are very special.” Dad smiles. “Well, we have something very special.” Emma looks around. “Where?” Mom gestures at all of them. “Right here. People who care about you are a wonderful kind of treasure.” Leo thinks. Then he grins. “Then I'm VERY rich!” Everyone laughs. Love grows through the little things we do every day." },
   ],
 });
+
+// ---------------------------------------------------------------- on-screen strings (English)
+export const UI_EN = Object.freeze({
+  meeting: "Meeting Dexter", hello: "Hello, {name}!", helloAnon: "Hello!", hint: "Dexter is talking… tap when you're ready.",
+  yes: "YES, DEXTER! ❤️", more: "TELL ME MORE!", worldKicker: "Our Adventure World", go: "LET'S GO TO THE FIRST HOUSE! 🏡",
+  episode: "Episode 1 · The House of Family", arriveTitle: "Family Is Where Love Begins", comeInside: "COME INSIDE 🚪",
+  insideTitle: "Inside the house", readAgain: "📖 Read the story again", backRoad: "Back to the road", theEnd: "THE END ✓",
+  afterTitle: "What a story!", letsPlay: "LET'S PLAY, DEXTER! 🎲", progress: "{n} of {total}",
+  rewardTitle: "The Heart of Kindness", friend: "Friend of Dexter", explorer: "Explorer", guardian: "Guardian of the Heart of Kindness",
+  completed: "Completed: The House of Family", cont: "CONTINUE ✦", kindTitle: "A tiny mission for real life",
+  kindText: "Today, tell someone in your family something you love about them.", kindYes: "I'LL TRY, DEXTER! 💛", later: "Maybe later",
+  done: "DONE ✓", next: "TO THE NEXT ADVENTURE! 🌟", leave: "Leave for now", dexterName: "Dexter", tapMe: "tap me",
+  tvLabel: "Turn on the television", houseLabel: "Inside the House of Family: a bedroom and bathroom upstairs, a kitchen and a living room with a television downstairs",
+  cottageLabel: "A cottage with flowers and a heart above the door",
+  notNow: "Not now, Leo.", oops: "Oops!", towerFell: "The tower fell…", manyBags: "Phew, so many bags!", canIPlay: "Emma, can I play too?",
+});
+
+// English lines that use the child's name (the recording is generic; the name is only shown on the device).
+export const namedEn = (name) => ({ "world-1": `${name}, look at this beautiful place! This is our Adventure World!`, "arrive-1": `${name}, we've arrived at our first house! This is the House of Family.`, "tv-1": `Look, ${name}! There's a television! I have a very special story for you. It's about a family, two children, and something really important.`, "after-1": `Wow, ${name}! That was such a beautiful story!`, "reward-1": `YOU DID IT, ${name}! I'm so proud of how carefully you listened!`, "retry-1": `Almost, ${name}! Let's think about what happened in our story.`, "kindness-1": `${name}, before we visit our next house, I have one tiny mission for you. Today, tell someone in your family something you love about them.`, "leave-1": `That was a wonderful first adventure, ${name}! Today, we learned that being part of a family means caring, helping, listening, and showing love.` });
+
+// ---------------------------------------------------------------- language packs
+// A pack is everything the House of Family says or shows in one language:
+// { lang, lines, challenges, story, ui, named }. Other languages live in
+// js/data/family-i18n/<lang>.js (same ids as above) and are loaded on demand;
+// anything a language file leaves out falls back to English.
+export const FAMILY_VOICE_LANGS = Object.freeze(["de", "es", "fr", "it", "ro", "zh"]);
+
+const challengeText = (c, raw = {}) => ({
+  ...c,
+  title: raw.title ?? c.title,
+  prompt: raw.prompt ?? c.prompt,
+  right: raw.right ?? c.right,
+  wrong: raw.wrong ?? c.wrong,
+  options: c.options.map((o) => ({ ...o, label: raw.options?.[o.id] ?? o.label })),
+});
+
+export function buildPack(lang, raw = {}) {
+  return Object.freeze({
+    lang,
+    lines: Object.freeze({ ...LINES, ...(raw.lines ?? {}) }),
+    challenges: Object.freeze(CHALLENGES.map((c) => challengeText(c, raw.challenges?.[c.id]))),
+    story: Object.freeze({
+      title: raw.story?.title ?? STORYBOOK.title,
+      scenes: Object.freeze(STORYBOOK.scenes.map((sc) => ({ ...sc, heading: raw.story?.scenes?.[sc.id]?.heading ?? sc.heading, text: raw.story?.scenes?.[sc.id]?.text ?? sc.text }))),
+    }),
+    ui: Object.freeze({ ...UI_EN, ...(raw.ui ?? {}) }),
+    named: lang === "en" ? namedEn : null,
+  });
+}
+
+export const PACK_EN = buildPack("en");
+
+/** The pack for a language; English when the language has none or it fails to load. */
+export async function loadFamilyPack(lang) {
+  if (!FAMILY_VOICE_LANGS.includes(lang)) return PACK_EN;
+  try {
+    const module = await import(`./family-i18n/${lang}.js`);
+    return buildPack(lang, module.default);
+  } catch {
+    return PACK_EN;
+  }
+}
+
+/** Voice clip folder for a language: assets/voice/daxter/<lang>/family/<id>.mp3 */
+export const familyVoicePath = (lang, id) => `assets/voice/daxter/${lang}/family/${id}.mp3`;

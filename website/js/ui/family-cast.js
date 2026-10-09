@@ -138,5 +138,8 @@ export const room = (inner, { rug = true } = {}) => `<svg class="fh-scene" viewB
   ${inner}
 </svg>`;
 
+// Rough text width: Latin letters are about 0.56 em wide, Chinese characters a full em.
+const textWidth = (text, size) => [...text].reduce((w, ch) => w + (ch.codePointAt(0) > 0x2e80 ? size : size * 0.56), 0);
+
 // A rounded speech bubble with a tail toward (tx, ty).
-export const bubble = (text, x, y, tx, ty, size = 24) => `<g><path d="M${tx} ${ty} L${x + 8} ${y + 10} L${x + 34} ${y + 10}Z" fill="#fff" stroke="${OUTLINE}" stroke-width="2.4" stroke-linejoin="round"/><rect x="${x - 10}" y="${y - 30}" width="${text.length * size * 0.56 + 24}" height="44" rx="14" fill="#fff" stroke="${OUTLINE}" stroke-width="2.4"/><path d="M${x + 12} ${y + 10} L${x + 30} ${y + 10}" stroke="#fff" stroke-width="4"/><text x="${x + 2}" y="${y}" font-size="${size}" font-family="Fredoka, sans-serif" fill="${OUTLINE}" font-weight="600">${text}</text></g>`;
+export const bubble = (text, x, y, tx, ty, size = 24) => `<g><path d="M${tx} ${ty} L${x + 8} ${y + 10} L${x + 34} ${y + 10}Z" fill="#fff" stroke="${OUTLINE}" stroke-width="2.4" stroke-linejoin="round"/><rect x="${x - 10}" y="${y - 30}" width="${textWidth(text, size) + 24}" height="44" rx="14" fill="#fff" stroke="${OUTLINE}" stroke-width="2.4"/><path d="M${x + 12} ${y + 10} L${x + 30} ${y + 10}" stroke="#fff" stroke-width="4"/><text x="${x + 2}" y="${y}" font-size="${size}" font-family="Fredoka, sans-serif" fill="${OUTLINE}" font-weight="600">${text}</text></g>`;
