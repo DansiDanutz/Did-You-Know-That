@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SHEETS = ROOT / "art" / "family" / "sheets"
 OUT = ROOT / "art" / "family" / "frame-test.png"
 WHITE_THRESHOLD = 236  # pixels brighter than this on all channels are background
+SHADOW_THRESHOLD = 205  # the sheets carry a soft grey ground shadow; treat it as background too
 FRAME = (1920, 1080)
 
 
@@ -27,7 +28,8 @@ def cutout(path: Path) -> Image.Image:
     for y in range(h):
         for x in range(w):
             r, g, b, _ = px[x, y]
-            if r > WHITE_THRESHOLD and g > WHITE_THRESHOLD and b > WHITE_THRESHOLD:
+            limit = SHADOW_THRESHOLD if y > h * 0.86 else WHITE_THRESHOLD
+            if r > limit and g > limit and b > limit and abs(r - b) < 18:
                 bgpx[x, y] = 255
     # keep only the white region connected to the border
     border = Image.new("L", (w, h), 0)
@@ -52,11 +54,12 @@ def place(canvas: Image.Image, sprite: Image.Image, feet_x: int, feet_y: int, he
 
 
 def main() -> None:
-    kitchen = Image.open(SHEETS / "kitchen.png").convert("RGBA").resize(FRAME, Image.LANCZOS)
-    place(kitchen, cutout(SHEETS / "mom.png"), 420, 1040, 760)
-    place(kitchen, cutout(SHEETS / "emma.png"), 1120, 1050, 620)
-    place(kitchen, cutout(SHEETS / "leo.png"), 820, 1055, 480)
-    place(kitchen, cutout(SHEETS / "dad.png"), 1640, 1040, 800)
+    bg = SHEETS / "kitchen-floor.png" if (SHEETS / "kitchen-floor.png").exists() else SHEETS / "kitchen.png"
+    kitchen = Image.open(bg).convert("RGBA").resize(FRAME, Image.LANCZOS)
+    place(kitchen, cutout(SHEETS / "mom.png"), 360, 1060, 780)
+    place(kitchen, cutout(SHEETS / "dad.png"), 1560, 1060, 820)
+    place(kitchen, cutout(SHEETS / "emma.png"), 1060, 1070, 600)
+    place(kitchen, cutout(SHEETS / "leo.png"), 760, 1070, 470)
     kitchen.convert("RGB").save(OUT, quality=92)
     print(f"wrote {OUT}")
 

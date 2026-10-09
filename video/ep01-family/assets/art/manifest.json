@@ -1,0 +1,182 @@
+{
+  "dad-happy": {
+    "file": "dad-happy.png",
+    "width": 686,
+    "height": 1110,
+    "feet": [
+      343,
+      1110
+    ],
+    "mouth": [
+      348,
+      297
+    ],
+    "mouthFound": true,
+    "skin": "#280104"
+  },
+  "dad-neutral": {
+    "file": "dad-neutral.png",
+    "width": 725,
+    "height": 1001,
+    "feet": [
+      362,
+      1001
+    ],
+    "mouth": [
+      358,
+      164
+    ],
+    "mouthFound": true,
+    "skin": "#725235"
+  },
+  "dad-sad": {
+    "file": "dad-sad.png",
+    "width": 489,
+    "height": 988,
+    "feet": [
+      244,
+      988
+    ],
+    "mouth": [
+      247,
+      198
+    ],
+    "mouthFound": true,
+    "skin": "#40351c"
+  },
+  "emma-happy": {
+    "file": "emma-happy.png",
+    "width": 705,
+    "height": 1057,
+    "feet": [
+      352,
+      1057
+    ],
+    "mouth": [
+      365,
+      375
+    ],
+    "mouthFound": true,
+    "skin": "#9d402f"
+  },
+  "emma-neutral": {
+    "file": "emma-neutral.png",
+    "width": 606,
+    "height": 988,
+    "feet": [
+      303,
+      988
+    ],
+    "mouth": [
+      310,
+      269
+    ],
+    "mouthFound": true,
+    "skin": "#ffd8ad"
+  },
+  "emma-sad": {
+    "file": "emma-sad.png",
+    "width": 411,
+    "height": 978,
+    "feet": [
+      205,
+      978
+    ],
+    "mouth": [
+      214,
+      333
+    ],
+    "mouthFound": true,
+    "skin": "#ffd9a8"
+  },
+  "leo-happy": {
+    "file": "leo-happy.png",
+    "width": 581,
+    "height": 1077,
+    "feet": [
+      290,
+      1077
+    ],
+    "mouth": [
+      332,
+      352
+    ],
+    "mouthFound": true,
+    "skin": "#cf796a"
+  },
+  "leo-neutral": {
+    "file": "leo-neutral.png",
+    "width": 600,
+    "height": 973,
+    "feet": [
+      300,
+      973
+    ],
+    "mouth": [
+      297,
+      252
+    ],
+    "mouthFound": true,
+    "skin": "#fbb483"
+  },
+  "leo-sad": {
+    "file": "leo-sad.png",
+    "width": 364,
+    "height": 971,
+    "feet": [
+      182,
+      971
+    ],
+    "mouth": [
+      193,
+      282
+    ],
+    "mouthFound": true,
+    "skin": "#f4a877"
+  },
+  "mom-happy": {
+    "file": "mom-happy.png",
+    "width": 644,
+    "height": 1089,
+    "feet": [
+      322,
+      1089
+    ],
+    "mouth": [
+      327,
+      297
+    ],
+    "mouthFound": true,
+    "skin": "#fdc096"
+  },
+  "mom-neutral": {
+    "file": "mom-neutral.png",
+    "width": 538,
+    "height": 1021,
+    "feet": [
+      269,
+      1021
+    ],
+    "mouth": [
+      281,
+      194
+    ],
+    "mouthFound": true,
+    "skin": "#f9b78c"
+  },
+  "mom-sad": {
+    "file": "mom-sad.png",
+    "width": 336,
+    "height": 1016,
+    "feet": [
+      168,
+      1016
+    ],
+    "mouth": [
+      143,
+      223
+    ],
+    "mouthFound": true,
+    "skin": "#f9b282"
+  }
+}

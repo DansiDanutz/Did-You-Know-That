@@ -32,13 +32,13 @@ export function character(id, { x, y, height, flip = false, mood = "neutral", po
   const mouthX = (mx - base.width / 2) * s, mouthY = (my - base.height) * s;
   const ms = Math.max(0.55, height / 520); // mouth overlay scale with the puppet
   return `
-  <g class="ch-pos ch-pos-${id}" transform="translate(${x} ${y})"><g class="ch-bob"><g class="ch ch-${id}" transform="scale(${flip ? -1 : 1} 1)">
+  <g class="ch-pos ch-pos-${id}" transform="translate(${x} ${y})"><g class="ch-bob"><g class="ch-flip" transform="scale(${flip ? -1 : 1} 1)"><g class="ch ch-${id}">
     ${layers}
     <g class="ch-mouthbox" transform="translate(${mouthX} ${mouthY}) scale(${ms})">
       <ellipse rx="26" ry="15" fill="${base.skin}" opacity="0.96"/>
       <path class="ch-mouth" d="${MOUTH[mood]}" fill="#7a1f12" stroke="#3a2412" stroke-width="2.4" stroke-linecap="round" style="transform-box: fill-box; transform-origin: 50% 0%;"/>
     </g>
-  </g></g></g>`;
+  </g></g></g></g>`;
 }
 
 export function actor(scene, id) {

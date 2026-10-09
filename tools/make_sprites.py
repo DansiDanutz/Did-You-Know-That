@@ -21,7 +21,8 @@ OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "video" / "ep01-family"
 WHITE = 232
 SHADOW_MIN = 150  # grey ground shadows are brighter than this on every channel …
 SHADOW_TINT = 28  # … and nearly neutral
-OVERRIDES_FILE = ROOT / "art" / "family" / "mouths.json"  # {"emma-neutral": [0.5, 0.21], ...}
+LIGHT_MIN = 192  # very pale pixels (tinted ground shadows) connected to the border are background too
+OVERRIDES_FILE = ROOT / "art" / "family" / "mouths.json"  # {"emma-neutral": [x, y]} in source-image pixels
 OVERRIDES = json.loads(OVERRIDES_FILE.read_text()) if OVERRIDES_FILE.exists() else {}
 
 
@@ -35,7 +36,7 @@ def background_mask(img: Image.Image) -> Image.Image:
         for x in range(w):
             r, g, b, _ = px[x, y]
             lo, hi = min(r, g, b), max(r, g, b)
-            if lo > WHITE or (lo > SHADOW_MIN and hi - lo < SHADOW_TINT):
+            if lo > WHITE or (lo > SHADOW_MIN and hi - lo < SHADOW_TINT) or lo > LIGHT_MIN:
                 bgpx[x, y] = 255
     for seed in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1), (w // 2, h - 1), (w // 2, 0)):
         if bg.getpixel(seed) == 255:
@@ -88,7 +89,7 @@ def main() -> None:
         # hand-measured overrides (fractions of the sprite) win over detection
         override = OVERRIDES.get(path.stem)
         if override:
-            mouth = (int(override[0] * sprite.width), int(override[1] * sprite.height))
+            mouth = (int(override[0]) - bbox[0], int(override[1]) - bbox[1])
         info = {
             "file": path.name,
             "width": sprite.width,

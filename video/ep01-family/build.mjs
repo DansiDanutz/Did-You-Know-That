@@ -24,7 +24,7 @@ const KITCHEN = (light = "morning") => (light === "afternoon" ? BG("kitchen-afte
 const LIVING = BG("living-room-evening");
 const DRAWING = (bigEars = false, heart = false, names = false, cls = "drawing") => `<g class="${cls}"><image href="assets/art/${bigEars ? "drawing-bigears" : "drawing-family"}.png" x="620" y="150" width="680" height="510" preserveAspectRatio="xMidYMid meet"/></g>`;
 const CARD = `<g class="card-prop"><rect x="800" y="300" width="340" height="240" rx="16" fill="#fff" stroke="#3a2412" stroke-width="6"/><text x="970" y="390" text-anchor="middle" font-size="40" font-family="Fredoka" font-weight="700" fill="#b8126a">WE LOVE</text><text x="970" y="445" text-anchor="middle" font-size="40" font-family="Fredoka" font-weight="700" fill="#b8126a">OUR FAMILY!</text><path d="M970 486 c-12 -26 -50 -8 -42 20 c8 20 42 36 42 36 c0 0 34 -16 42 -36 c8 -28 -30 -46 -42 -20Z" fill="#ff3fa4"/></g>`;
-const BAGS = `<g class="bags"><rect class="small-bag" x="1740" y="900" width="80" height="100" rx="14" fill="#3ee07a" stroke="#3a2412" stroke-width="6"/></g>`;
+const BAGS = `<g class="bags"><rect class="small-bag" x="150" y="880" width="80" height="100" rx="14" fill="#3ee07a" stroke="#3a2412" stroke-width="6"/></g>`;
 const TEDDY = "";
 const TOWEL = "";
 
@@ -103,14 +103,14 @@ const SCENES = [
   },
   {
     id: "s5", bg: KITCHEN("afternoon") + BAGS, mood: "warm",
-    cast: [["dad", { x: 1400, y: 1040, height: 800, mood: "neutral", flip: true }], ["emma", { x: 960, y: 1050, height: 600, mood: "happy" }], ["mom", { x: 360, y: 1040, height: 760, mood: "happy", flip: true }], ["leo", { x: 640, y: 1055, height: 470, mood: "happy" }]],
+    cast: [["dad", { x: 1400, y: 1040, height: 800, mood: "neutral", flip: true }], ["emma", { x: 960, y: 1050, height: 600, mood: "happy" }], ["mom", { x: 1250, y: 1040, height: 760, mood: "happy", flip: true }], ["leo", { x: 640, y: 1055, height: 470, mood: "happy" }]],
     beats: [
-      { wait: 1.2, act: (t, A) => [A.dad.arm("l", 40, t), A.dad.arm("r", -40, t), A.emma.move(1180, t, 1.0), A.emma.walk(t, 1.0), A.emma.arm("l", -80, t + 1.0), `tl.to("#sc-s5 .small-bag", {x:-520, y:-120, duration:0.6, ease:"power1.inOut"}, ${f(t + 1.2)});`] },
+      { wait: 1.2, act: (t, A) => [A.dad.arm("l", 40, t), A.dad.arm("r", -40, t), A.emma.move(420, t, 1.0), A.emma.walk(t, 1.0), A.emma.arm("l", -80, t + 1.0), `tl.to("#sc-s5 .small-bag", {x:880, y:-200, duration:0.8, ease:"power1.inOut"}, ${f(t + 1.2)});`] },
       { say: "s5-dad-1", act: (t, A) => [A.dad.head(6, t), A.dad.mouth("happy", t), A.emma.hop(t + 1, 20)] },
-      { wait: 0.6, act: (t, A) => [A.leo.move(560, t, 0.8), A.leo.walk(t, 0.8), A.leo.arm("l", -70, t + 0.8), `tl.fromTo("#sc-s5 .napkins rect", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.3, stagger:0.25}, ${f(t + 1.0)});`] },
+      { wait: 0.6, act: (t, A) => [A.leo.move(1120, t, 0.8), A.leo.walk(t, 0.8), A.leo.arm("l", -70, t + 0.8), `tl.fromTo("#sc-s5 .napkins rect", {opacity:0, y:-30}, {opacity:1, y:0, duration:0.3, stagger:0.25}, ${f(t + 1.0)});`] },
       { say: "s5-mom-1", act: (t, A) => [A.mom.head(-6, t), A.mom.arm("l", 40, t), A.leo.mouth("big", t + 0.5), A.leo.hop(t + 0.6, 30)] },
-      { say: "s5-emma-1", act: (t, A) => [A.emma.move(800, t - 0.5, 0.8), A.emma.walk(t - 0.5, 0.8), A.emma.head(8, t), A.emma.arm("r", -60, t), A.leo.look(6, 0, t)] },
-      { wait: 1.2, act: (t, A) => [`tl.fromTo("#sc-s5 .card-prop", {opacity:0, scale:0.4, svgOrigin:"970 500"}, {opacity:1, scale:1, duration:0.6, ease:"back.out(1.6)"}, ${f(t)});`, A.dad.move(1240, t + 0.2, 1.0), A.dad.walk(t + 0.2, 1.0), A.mom.move(600, t + 0.2, 1.0), A.mom.walk(t + 0.2, 1.0), A.dad.kneel(t + 1.3), A.mom.mouth("big", t + 1.3), A.mom.arm("l", 100, t + 1.3)] },
+      { say: "s5-emma-1", act: (t, A) => [A.emma.move(820, t - 0.5, 0.8), A.emma.walk(t - 0.5, 0.8), A.emma.head(8, t), A.emma.arm("r", -60, t), A.leo.look(6, 0, t)] },
+      { wait: 1.2, act: (t, A) => [`tl.fromTo("#sc-s5 .card-prop", {opacity:0, scale:0.4, svgOrigin:"970 500"}, {opacity:1, scale:1, duration:0.6, ease:"back.out(1.6)"}, ${f(t)});`, A.dad.move(1300, t + 0.2, 1.0), A.dad.walk(t + 0.2, 1.0), A.mom.move(1100, t + 0.2, 1.0), A.mom.walk(t + 0.2, 1.0), A.dad.kneel(t + 1.3), A.mom.mouth("big", t + 1.3), A.mom.arm("l", 100, t + 1.3)] },
       { say: "s5-dad-2", act: (t, A) => [A.dad.head(-6, t), A.dad.arm("l", 50, t)] },
       { say: "s5-leo-1", act: (t, A) => [A.leo.head(-8, t), A.leo.arm("l", -100, t)] },
       { say: "s5-emma-2", act: (t, A) => [A.emma.head(8, t), A.emma.arm("r", -90, t)] },
