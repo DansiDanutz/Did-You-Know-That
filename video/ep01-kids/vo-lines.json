@@ -1,36 +1,14 @@
 {
   "voice": "nPczCjzI2devNBz1zQrb",
-  "settings": {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.45,
-    "use_speaker_boost": true,
-    "speed": 0.97
-  },
+  "settings": { "stability": 0.45, "similarity_boost": 0.8, "style": 0.45, "use_speaker_boost": true, "speed": 0.97 },
+  "script": "../../episodes/kids-001-scroll-monster/script.md (revision 3)",
   "lines": [
-    {
-      "id": "start",
-      "text": "Hi! I'm Dexter, the brightest lightbulb on the Road of Wonders! <break time=\"0.6s\" /> And you? You're the explorer I've been waiting for. <break time=\"0.6s\" /> My goal is simple: to turn your screen time into brain time. <break time=\"0.8s\" /> Did you know that nobody… not your parents, not your teachers, not even superheroes… can stop kids from scrolling? <break time=\"0.8s\" /> So I had a crazy idea. What if we didn't stop you… what if we made your scrolling smart? <break time=\"0.7s\" /> And here's a secret, just for you: somewhere in this video, a glowing card will show you a magic word. Watch for it, and remember it! It's a bonus: type it in the game, and a secret surprise opens up. <break time=\"0.5s\" /> Ready, explorer? Let's go!"
-    },
-    {
-      "id": "tower",
-      "text": "Level one! Climb the Screen-Time Tower with me! <break time=\"0.5s\" /> Scientists in America asked thousands of families how long kids like you spend on screens, just for fun. <break time=\"0.7s\" /> Floor one: ages two to four. About two and a half hours a day! <break time=\"0.7s\" /> Floor two: ages five to eight. More than three hours! <break time=\"0.7s\" /> Floor three: ages eight to twelve. Hold on tight… five and a half hours. Every. Single. Day. <break time=\"0.7s\" /> And the top floor, teenagers? Almost nine hours! That's longer than a whole school day! <break time=\"0.6s\" /> Hmm… which floor are you on?"
-    },
-    {
-      "id": "videoland",
-      "text": "So where do all those hours go? Come on, I'll show you. <break time=\"0.5s\" /> This is Endless Video Land… where videos and games start the next one automatically. Did you notice? There's never a moment to stop! <break time=\"0.7s\" /> That's not an accident. It's a trick… and I know who's behind it. <break time=\"0.5s\" /> The Scroll Monster! <break time=\"0.8s\" /> Wait… look! The glowing card is coming. Remember the magic word!"
-    },
-    {
-      "id": "boss",
-      "text": "Did you remember the magic word? <break time=\"0.4s\" /> Sun! Like the big, bright sun in the sky. <break time=\"0.6s\" /> Now… boss fight! Stay close to me, explorer. <break time=\"0.4s\" /> The Scroll Monster is sneaky. He steals dinner… “just one more video”. <break time=\"0.6s\" /> He steals sleep. You need nine to twelve hours every night, and screens at bedtime keep your brain buzzing. <break time=\"0.6s\" /> And he steals friends. Real ones, the kind you play football with! <break time=\"0.7s\" /> Doctors and the World Health Organization say little kids, aged two to five, should have no more than one hour of screens a day. <break time=\"0.5s\" /> But you and me? We're smarter than him. Yoink! We win the treasures back!"
-    },
-    {
-      "id": "deal",
-      "text": "Look who's here! Professor Hoot, my wise owl friend, with a glowing map: the Road of Wonders! <break time=\"0.6s\" /> So here's my deal for you. In Did You Know That, you still scroll… but every story teaches you something real. <break time=\"0.6s\" /> Read the magic book, watch the story, answer Professor Hoot, and win Special Cards. Collect them, earn points, and climb the leaderboard! <break time=\"0.7s\" /> And the best part? The game lets you watch only three videos a day. Then I'll tell you: go eat, go sleep, go play with your friends. I'll wait for you tomorrow. Promise!"
-    },
-    {
-      "id": "finale",
-      "text": "Level one complete! High five, explorer! <break time=\"0.5s\" /> Now listen carefully, here's how to win your card. <break time=\"0.5s\" /> Step one: ask a grown-up to open dexty dot live. Pick Kids, and press Start the adventure. <break time=\"0.6s\" /> Step two: walk me along the road with the arrow buttons, to the first house… the one that says Episode One. Tap the house to go inside. <break time=\"0.6s\" /> Step three is a bonus! In the magic book, find the wax seal and type the magic word… <break time=\"0.3s\" /> SUN! <break time=\"0.4s\" /> Then press Break seal for a surprise. <break time=\"0.6s\" /> Step four: answer Professor Hoot's three questions, and the Scroll Tamer card is yours! <break time=\"0.6s\" /> Step five: tap the backpack at the top of the screen. That's your collection! Every card you win stays there, and you can watch its video again anytime. <break time=\"0.6s\" /> Did you know that? Now you do. See you on the Road of Wonders. Bye for now!"
-    }
+    { "id": "rocket", "text": "Professor Hoot and I are building a rocket! And we have to finish before sunset! <break time=\"0.5s\" /> I'll just watch ONE quick video about rocket fins… <break time=\"1.6s\" /> Up next? <break time=\"0.9s\" /> Oh, and this one! <break time=\"1.2s\" /> Wait… <break time=\"0.5s\" /> where did the sun go? <break time=\"0.4s\" /> Our rocket isn't finished!" },
+    { "id": "mystery", "text": "Hi, I'm Dexter. <break time=\"0.4s\" /> And I have a mystery: why couldn't I stop after ONE video? <break time=\"0.6s\" /> What do you think? <break time=\"0.4s\" /> Was it because I'm just bad at stopping… <break time=\"0.5s\" /> or did something keep pressing play? <break time=\"0.5s\" /> Have a think!" },
+    { "id": "willpower", "text": "I know! <break time=\"0.3s\" /> I just need SUPER willpower! <break time=\"0.4s\" /> Watch this. One video… and I stop. <break time=\"2.2s\" /> Okay. <break time=\"0.5s\" /> That didn't work." },
+    { "id": "hint", "text": "“What did you notice, Dexter… right at the end of the video?” <break time=\"0.7s\" /> Let's watch the end again, very closely. <break time=\"0.8s\" /> Look! A little countdown: “Up next… three, two, one.” <break time=\"0.4s\" /> Nobody pressed play. <break time=\"0.3s\" /> The app pressed it for me! <break time=\"0.7s\" /> That's called autoplay: when one video ends, the next one starts all by itself. <break time=\"0.4s\" /> Lots of apps are built that way, so it's hard for anyone to stop, even grown-ups. <break time=\"0.4s\" /> It's not because I'm bad. <break time=\"0.3s\" /> It's how it's built." },
+    { "id": "test", "text": "Let's test it. <break time=\"0.3s\" /> Professor Hoot, can you switch autoplay off? <break time=\"1.4s\" /> Ooh. <break time=\"0.4s\" /> Now when a video ends, nothing happens. <break time=\"0.4s\" /> I get to choose. <break time=\"0.5s\" /> And I choose… <break time=\"0.4s\" /> rocket!" },
+    { "id": "bedtime", "text": "And you know when else this matters? <break time=\"0.4s\" /> Bedtime. <break time=\"0.5s\" /> Kids our age need 9 to 12 hours of sleep every night, <break time=\"0.3s\" /> and scientists found that kids who use screens at bedtime often sleep less, and feel sleepier the next day. <break time=\"0.6s\" /> So tonight I'm setting a timer, <break time=\"0.3s\" /> and when it rings, my tablet goes to bed first. <break time=\"0.5s\" /> Goodnight, tablet!" },
+    { "id": "launch", "text": "Three… two… one… <break time=\"0.3s\" /> We did it! <break time=\"0.7s\" /> So, what did we discover? <break time=\"0.4s\" /> Videos can keep playing by themselves, but you can be the boss: <break time=\"0.3s\" /> switch autoplay off with a grown-up, <break time=\"0.3s\" /> use a timer, <break time=\"0.3s\" /> and give your screen a bedtime. <break time=\"0.7s\" /> Your mission: with a grown-up, find the autoplay switch on one app you use, and decide together if it should be on or off. <break time=\"0.7s\" /> Want to read this story again? It's at dexty dot live. <break time=\"0.7s\" /> Did you know that? <break time=\"0.4s\" /> Now you do. <break time=\"0.3s\" /> Bye for now!" }
   ]
 }

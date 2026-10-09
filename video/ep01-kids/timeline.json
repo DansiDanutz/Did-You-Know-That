@@ -1,214 +1,253 @@
 {
-  "total": 298.438,
+  "total": 154.616,
   "scenes": [
     {
-      "id": "start",
+      "id": "rocket",
       "kind": "scene",
-      "length": 48.70771,
-      "voAt": 1.5,
+      "length": 19.847,
+      "voAt": 1.2,
       "start": 0
     },
     {
-      "id": "intro",
-      "kind": "video",
-      "src": "assets/intro.mp4",
-      "length": 7,
-      "start": 48.708
-    },
-    {
-      "id": "tower",
+      "id": "mystery",
       "kind": "scene",
-      "level": 1,
-      "title": "THE SCREEN-TIME TOWER",
-      "length": 42.766485,
-      "voAt": 3,
-      "start": 55.708
-    },
-    {
-      "id": "videoland",
-      "kind": "scene",
-      "level": 2,
-      "title": "ENDLESS VIDEO LAND",
-      "length": 30.009433,
-      "voAt": 3,
-      "start": 98.474
-    },
-    {
-      "id": "neon",
-      "kind": "video",
-      "src": "assets/neon-kids.mp4",
-      "length": 8,
-      "start": 128.484
-    },
-    {
-      "id": "boss",
-      "kind": "scene",
-      "level": 3,
-      "title": "BOSS FIGHT!",
-      "length": 47.271156,
-      "voAt": 3,
-      "start": 136.484
-    },
-    {
-      "id": "deal",
-      "kind": "scene",
-      "level": 4,
-      "title": "DEXTER'S DEAL",
-      "length": 40.455329,
-      "voAt": 3,
-      "start": 183.755
-    },
-    {
-      "id": "finale",
-      "kind": "scene",
-      "length": 59.227891,
+      "length": 17.818,
       "voAt": 0.5,
-      "start": 224.21
+      "start": 19.847
     },
     {
-      "id": "end",
-      "kind": "video",
-      "src": "assets/endscreen.mp4",
-      "length": 15,
-      "start": 283.438
+      "id": "willpower",
+      "kind": "scene",
+      "length": 12.274,
+      "voAt": 0.5,
+      "start": 37.665
+    },
+    {
+      "id": "hint",
+      "kind": "scene",
+      "length": 32.568,
+      "voAt": 0.5,
+      "start": 49.939
+    },
+    {
+      "id": "test",
+      "kind": "scene",
+      "length": 13.728,
+      "voAt": 0.5,
+      "start": 82.507
+    },
+    {
+      "id": "bedtime",
+      "kind": "scene",
+      "length": 21.841,
+      "voAt": 0.5,
+      "start": 96.235
+    },
+    {
+      "id": "launch",
+      "kind": "scene",
+      "length": 31.54,
+      "voAt": 0.4,
+      "start": 118.076
+    },
+    {
+      "id": "closing",
+      "kind": "scene",
+      "length": 5,
+      "start": 149.616
     }
   ],
   "vo": [
     {
-      "id": "start",
-      "start": 1.5,
-      "len": 46.20771
+      "id": "rocket",
+      "start": 1.2,
+      "len": 17.647166
     },
     {
-      "id": "tower",
-      "start": 58.708,
-      "len": 38.266485
+      "id": "mystery",
+      "start": 20.347,
+      "len": 14.117732
     },
     {
-      "id": "videoland",
-      "start": 101.474,
-      "len": 24.009433
+      "id": "willpower",
+      "start": 38.165,
+      "len": 10.774059
     },
     {
-      "id": "boss",
-      "start": 139.484,
-      "len": 42.771156
+      "id": "hint",
+      "start": 50.439,
+      "len": 31.068299
     },
     {
-      "id": "deal",
-      "start": 186.755,
-      "len": 36.455329
+      "id": "test",
+      "start": 83.007,
+      "len": 12.027937
     },
     {
-      "id": "finale",
-      "start": 224.71,
-      "len": 55.727891
+      "id": "bedtime",
+      "start": 96.735,
+      "len": 20.34068
+    },
+    {
+      "id": "launch",
+      "start": 118.476,
+      "len": 30.139501
     }
   ],
   "sfx": [
     [
-      "coin",
-      0.2
-    ],
-    [
-      "whoosh",
-      48.10771
-    ],
-    [
-      "levelup",
-      55.808
-    ],
-    [
-      "levelup",
-      98.574
-    ],
-    [
-      "levelup",
-      136.584
-    ],
-    [
-      "levelup",
-      183.855
-    ],
-    [
-      "boing",
-      70.94
-    ],
-    [
-      "ding",
-      73.23
-    ],
-    [
-      "boing",
-      75.99
-    ],
-    [
-      "ding",
-      78.43
-    ],
-    [
-      "boing",
-      80.33
-    ],
-    [
-      "ding",
-      84.27
-    ],
-    [
-      "boing",
-      87.74
-    ],
-    [
-      "brass",
-      90.11
+      "tap",
+      7.31
     ],
     [
       "autoplay",
-      110.36
+      10.98
     ],
     [
-      "rumble",
-      119.53
+      "autoplay",
+      12.45
     ],
     [
-      "yoink",
-      150.86
+      "autoplay",
+      13.64
     ],
     [
-      "yoink",
-      153.99
-    ],
-    [
-      "yoink",
-      162.1
-    ],
-    [
-      "victory",
-      179.8
+      "sad",
+      15.64
     ],
     [
       "hoot",
-      187.96
+      20.05
+    ],
+    [
+      "pop",
+      29.21
+    ],
+    [
+      "pop",
+      31.25
+    ],
+    [
+      "tick",
+      34.665000000000006
+    ],
+    [
+      "tick",
+      35.665000000000006
+    ],
+    [
+      "tick",
+      36.665000000000006
+    ],
+    [
+      "brass",
+      40.03
+    ],
+    [
+      "autoplay",
+      44.879999999999995
+    ],
+    [
+      "deflate",
+      46.05
+    ],
+    [
+      "hoot",
+      50.5
+    ],
+    [
+      "tick",
+      61.2
+    ],
+    [
+      "tick",
+      61.7
+    ],
+    [
+      "tick",
+      62.2
+    ],
+    [
+      "pop",
+      64.34
+    ],
+    [
+      "ding",
+      66.84
+    ],
+    [
+      "click",
+      86.36
+    ],
+    [
+      "chime",
+      91.82
+    ],
+    [
+      "tap",
+      94.63
+    ],
+    [
+      "ding",
+      101.39
+    ],
+    [
+      "ring",
+      112.99
+    ],
+    [
+      "chime",
+      116.05
+    ],
+    [
+      "tick",
+      118.48
+    ],
+    [
+      "tick",
+      118.88
+    ],
+    [
+      "tick",
+      119.17
+    ],
+    [
+      "whoosh",
+      119.61999999999999
+    ],
+    [
+      "victory",
+      119.82
+    ],
+    [
+      "pop",
+      127.25
+    ],
+    [
+      "pop",
+      129.75
+    ],
+    [
+      "pop",
+      131.09
     ],
     [
       "card",
-      206.01
+      143.62
     ],
     [
       "fanfare",
-      224.51000000000002
-    ],
-    [
-      "fireworks",
-      225.41
+      149.816
     ]
   ],
   "moods": {
-    "start": "play",
-    "tower": "play",
-    "videoland": "villain",
-    "boss": "battle",
-    "deal": "warm",
-    "finale": "victory"
+    "rocket": "play",
+    "mystery": "curious",
+    "willpower": "play",
+    "hint": "curious",
+    "test": "warm",
+    "bedtime": "lullaby",
+    "launch": "victory",
+    "closing": "warm"
   }
 }

@@ -1,0 +1,245 @@
+{
+  "total": 191.499,
+  "scenes": [
+    {
+      "id": "title",
+      "kind": "scene",
+      "length": 4.5,
+      "start": 0
+    },
+    {
+      "id": "case",
+      "kind": "scene",
+      "length": 19.279,
+      "voAt": 0.6,
+      "start": 4.5
+    },
+    {
+      "id": "puzzle",
+      "kind": "scene",
+      "length": 19.962,
+      "voAt": 0.4,
+      "start": 23.779
+    },
+    {
+      "id": "flip",
+      "kind": "scene",
+      "length": 36.741,
+      "voAt": 0.4,
+      "start": 43.741
+    },
+    {
+      "id": "twist",
+      "kind": "scene",
+      "length": 19.726,
+      "voAt": 0.4,
+      "start": 80.482
+    },
+    {
+      "id": "mechanism",
+      "kind": "scene",
+      "length": 25.395,
+      "voAt": 0.4,
+      "start": 100.208
+    },
+    {
+      "id": "limits",
+      "kind": "scene",
+      "length": 35.798,
+      "voAt": 0.4,
+      "start": 125.603
+    },
+    {
+      "id": "method",
+      "kind": "scene",
+      "length": 19.047,
+      "voAt": 0.4,
+      "start": 161.401
+    },
+    {
+      "id": "keep",
+      "kind": "scene",
+      "length": 6.051,
+      "voAt": 0.3,
+      "start": 180.448
+    },
+    {
+      "id": "closing",
+      "kind": "scene",
+      "length": 5,
+      "start": 186.499
+    }
+  ],
+  "vo": [
+    {
+      "id": "case",
+      "start": 5.1,
+      "len": 17.879365
+    },
+    {
+      "id": "puzzle",
+      "start": 24.179,
+      "len": 18.761723
+    },
+    {
+      "id": "flip",
+      "start": 44.141,
+      "len": 35.340771
+    },
+    {
+      "id": "twist",
+      "start": 80.882,
+      "len": 17.925805
+    },
+    {
+      "id": "mechanism",
+      "start": 100.608,
+      "len": 24.195193
+    },
+    {
+      "id": "limits",
+      "start": 126.003,
+      "len": 34.597732
+    },
+    {
+      "id": "method",
+      "start": 161.801,
+      "len": 17.647166
+    },
+    {
+      "id": "keep",
+      "start": 180.748,
+      "len": 4.551111
+    }
+  ],
+  "sfx": [
+    [
+      "sting",
+      0.2
+    ],
+    [
+      "page",
+      16.86
+    ],
+    [
+      "page",
+      18.06
+    ],
+    [
+      "page",
+      18.85
+    ],
+    [
+      "tick",
+      29.73
+    ],
+    [
+      "tick",
+      32.27
+    ],
+    [
+      "low",
+      42.15
+    ],
+    [
+      "tick",
+      52.34
+    ],
+    [
+      "tick",
+      53.85
+    ],
+    [
+      "tick",
+      65.38
+    ],
+    [
+      "tick",
+      66.6
+    ],
+    [
+      "chime",
+      68.73
+    ],
+    [
+      "tick",
+      71.47
+    ],
+    [
+      "low",
+      83.41
+    ],
+    [
+      "tick",
+      91.21
+    ],
+    [
+      "sad",
+      93.08
+    ],
+    [
+      "sting",
+      97.49
+    ],
+    [
+      "page",
+      109.3
+    ],
+    [
+      "chime",
+      115.83
+    ],
+    [
+      "tick",
+      126.52
+    ],
+    [
+      "tick",
+      127.43
+    ],
+    [
+      "tick",
+      128.34
+    ],
+    [
+      "tick",
+      130.34
+    ],
+    [
+      "chime",
+      134.59
+    ],
+    [
+      "page",
+      166.09
+    ],
+    [
+      "tick",
+      168.24
+    ],
+    [
+      "sting",
+      178.79
+    ],
+    [
+      "card",
+      184.39
+    ],
+    [
+      "sting",
+      186.799
+    ]
+  ],
+  "moods": {
+    "title": "documentary",
+    "case": "documentary",
+    "puzzle": "documentary",
+    "flip": "tension",
+    "twist": "tension",
+    "mechanism": "documentary",
+    "limits": "documentary",
+    "method": "resolve",
+    "keep": "resolve",
+    "closing": "resolve"
+  }
+}
