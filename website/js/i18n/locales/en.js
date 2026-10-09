@@ -66,6 +66,10 @@ export default {
     "daxter.subscribe": "Subscribe",
     "daxter.locked": "Let's finish the glowing house first!",
     "daxter.cheer": "Card collected! Onward to the next house! ✦",
+    "daxter.welcome": "Hi, explorer! I'm Daxter, the brightest lightbulb on the Road of Wonders! Every house here hides a magic book full of amazing facts. Walk with me to the first house, and let's win your very first card together!",
+    "daxter.back1": "You're back! I was hoping you'd come! Ready for a new amazing fact? Let's go to the next house!",
+    "daxter.back2": "Hello again, explorer! Did you know that your brain grows stronger every time you learn something new? Let's feed it!",
+    "daxter.back3": "Yay, my favourite explorer is here! I wonder what's hiding in the next magic book… shall we find out?",
     "book.close": "✕ Close",
     "book.prev": "Previous page",
     "book.next": "Next page",
@@ -124,6 +128,12 @@ export default {
     "listen.close": "Close",
     "listen.soon": "Daxter is still filming this story! 🎬 It arrives on our YouTube channel very soon.",
     "listen.replay": "Enjoy the story again! ✦",
+    "install.button": "📲 Install the app",
+    "install.iosTitle": "Install on your iPhone or iPad",
+    "install.iosStep1": "In Safari, tap the Share button <b>⬆︎</b> at the bottom of the screen",
+    "install.iosStep2": "Scroll down, tap <b>Add to Home Screen</b>, then <b>Add</b>",
+    "install.iosDone": "Done, I added it ✓",
+    "install.installed": "The app is installed! Find Daxter on your home screen ✦",
   },
 
   quips: {

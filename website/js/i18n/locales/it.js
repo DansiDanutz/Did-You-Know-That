@@ -65,6 +65,10 @@ export default {
     "daxter.subscribe": "Iscriviti",
     "daxter.locked": "Prima finiamo la casa che brilla!",
     "daxter.cheer": "Carta raccolta! Avanti verso la prossima casa! ✦",
+    "daxter.welcome": "Ciao, esploratore! Sono Daxter, la lampadina più luminosa della Strada delle Meraviglie! Ogni casa qui nasconde un libro magico pieno di fatti incredibili. Vieni con me alla prima casa, e vinciamo insieme la tua primissima carta!",
+    "daxter.back1": "Sei tornato! Speravo proprio che venissi! Pronto per un nuovo fatto incredibile? Andiamo alla prossima casa!",
+    "daxter.back2": "Ciao di nuovo, esploratore! Lo sapevi che il tuo cervello diventa più forte ogni volta che impari qualcosa di nuovo? Diamogli da mangiare!",
+    "daxter.back3": "Evviva, il mio esploratore preferito è qui! Chissà cosa si nasconde nel prossimo libro magico… scopriamolo?",
     "book.close": "✕ Chiudi",
     "book.prev": "Pagina precedente",
     "book.next": "Pagina successiva",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "Chiudi",
     "listen.soon": "Daxter sta ancora girando questa storia! 🎬 Arriverà prestissimo sul nostro canale YouTube.",
     "listen.replay": "Goditi di nuovo la storia! ✦",
+    "install.button": "📲 Installa l'app",
+    "install.iosTitle": "Installa su iPhone o iPad",
+    "install.iosStep1": "In Safari, tocca il pulsante Condividi <b>⬆︎</b> in fondo allo schermo",
+    "install.iosStep2": "Scorri, tocca <b>Aggiungi alla schermata Home</b>, poi <b>Aggiungi</b>",
+    "install.iosDone": "Fatto, l'ho aggiunta ✓",
+    "install.installed": "L'app è installata! Trovi Daxter nella schermata Home ✦",
   },
 
   quips: {

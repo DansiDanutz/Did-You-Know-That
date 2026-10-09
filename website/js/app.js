@@ -13,6 +13,8 @@ import { createBook } from "./ui/book.js";
 import { buildFaces, renderFace, isFaceComplete, BLOCKED_HINT } from "./ui/pages.js";
 import { openListening } from "./ui/gate.js";
 import { flagSvg } from "./ui/flags.js";
+import { setupInstall } from "./ui/install.js";
+import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
 import { pickersMarkup, openInventory, openLeaderboard, openSettings } from "./ui/panels.js";
 import { DAXTER_SVG } from "./ui/character.js";
@@ -32,6 +34,7 @@ const VOICE_KEY = "dykt-voice";
 let reading = false;
 let voice = readVoice();
 let currentFaces = [];
+let install = null; // the "Install the app" button controller
 let narratedFaces = new Set(); // instruction pages already spoken in this book
 // Pages that explain what to do are always spoken, even with Read aloud off.
 const INSTRUCTION_FACES = new Set(["inside", "mission", "gate", "quiz", "reward"]);
@@ -235,6 +238,7 @@ function applySettings(patch) {
     world.placeAtHouse(daxterAt);
   }
   if (openStory) reopenBook(openStory.id);
+  install?.refresh();
   updateHud();
 }
 
@@ -422,6 +426,7 @@ function updateReadButtons() {
 }
 
 function openBook(story) {
+  stopGreeting();
   openStory = story;
   narratedFaces = new Set();
   currentFaces = buildFaces(story);
@@ -565,6 +570,48 @@ function renderStartPickers() {
   $("#start-go").textContent = returning ? t("start.continue") : t("start.go");
 }
 
+// ---------------------------------------------------------------- Daxter's greeting
+
+const VISITS_KEY = "dyk-visits";
+const GREETING_MAX_MS = 16000;
+let greetingAudio = null;
+
+function nextVisit() {
+  let visits = 0;
+  try {
+    visits = Number(localStorage.getItem(VISITS_KEY)) || 0;
+    localStorage.setItem(VISITS_KEY, String(visits + 1));
+  } catch {
+    /* storage blocked: Daxter just says the welcome */
+  }
+  return visits;
+}
+
+function stopGreeting() {
+  greetingAudio?.pause();
+  greetingAudio = null;
+}
+
+// Every time the game opens Daxter talks to the player in their language: a
+// welcome the first time, a different "welcome back" after that. The tap on
+// Start is what lets the phone play sound. Resolves when he has finished.
+function greetPlayer() {
+  const key = greetingKey(nextVisit());
+  const text = t(`daxter.${key}`);
+  world.daxter.say(text, Math.min(GREETING_MAX_MS, 2500 + text.length * 70));
+  if (sfx.muted) return new Promise((r) => setTimeout(r, 2500));
+  stopGreeting();
+  const audio = new Audio(greetingAudioPath(settings.lang, key));
+  greetingAudio = audio;
+  return new Promise((resolve) => {
+    const done = () => resolve();
+    audio.addEventListener("ended", done, { once: true });
+    audio.addEventListener("error", done, { once: true });
+    setTimeout(done, GREETING_MAX_MS);
+    audio.play().catch(done);
+  });
+}
+
 function startScreen() {
   $("#start-daxter").innerHTML = DAXTER_SVG;
   renderStartPickers();
@@ -583,9 +630,10 @@ function startScreen() {
       $("#start-layer").classList.add("is-leaving");
       setTimeout(() => ($("#start-layer").hidden = true), 600);
       const target = currentHouseIndex(stories, view());
-      world.daxter.say(t("daxter.hello"), 2600);
+      const spoken = greetPlayer();
       await new Promise((r) => setTimeout(r, 1200));
       await walkDaxter(target);
+      await spoken;
       world.daxter.say(nextStoryMessage(target), 8000);
     },
     { once: true },
@@ -651,4 +699,5 @@ world.render(view(), stories, t);
 world.placeAtStart();
 updateHud();
 startScreen();
+install = setupInstall($("#install-app"), $("#install-ios"), { t, toast });
 nudgeIdle();

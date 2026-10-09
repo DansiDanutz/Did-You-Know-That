@@ -567,3 +567,86 @@ input:focus-visible {
   align-items: center;
   gap: 6px;
 }
+
+/* ---------------------------------------------------------------- install the app */
+
+.install-btn {
+  display: block;
+  margin: 14px auto 0;
+  min-height: 48px;
+  padding: 0 22px;
+  font-size: 17px;
+}
+
+.install-btn[hidden],
+.install-ios[hidden] {
+  display: none;
+}
+
+.install-ios {
+  margin: 14px auto 0;
+  max-width: 420px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 212, 77, 0.4);
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.install-ios ol {
+  margin: 8px 0 12px;
+  padding-left: 1.3em;
+}
+
+.install-ios .btn-gold {
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------- start screen on phones */
+
+@media (max-width: 600px) {
+  .start-layer {
+    place-items: start center;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom));
+  }
+
+  .start-card {
+    padding: 22px 16px 26px;
+    border-radius: 26px;
+  }
+
+  .start-daxter {
+    top: 18px;
+    left: 14px;
+    right: auto;
+    bottom: auto;
+    width: 64px;
+    height: 88px;
+  }
+
+  .start-daxter svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .start-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .start-sub {
+    letter-spacing: 0.16em;
+    font-size: 14px;
+  }
+
+  .start-copy {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  #start-go {
+    width: 100%;
+  }
+}

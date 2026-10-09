@@ -65,6 +65,10 @@ export default {
     "daxter.subscribe": "订阅",
     "daxter.locked": "我们先把发光的房子玩完吧！",
     "daxter.cheer": "卡片收好啦！我们去下一间房子吧！✦",
+    "daxter.welcome": "你好，小探险家！我是达克斯特，奇迹之路上最亮的灯泡！这里的每一座房子里都藏着一本魔法书，里面全是神奇的知识。跟我一起走到第一座房子，我们一起赢得你的第一张卡片吧！",
+    "daxter.back1": "你回来啦！我一直盼着你来呢！准备好听一个新的神奇知识了吗？我们去下一座房子吧！",
+    "daxter.back2": "又见面啦，小探险家！你知道吗？每次你学到新东西，你的大脑都会变得更强大。我们去给它补充能量吧！",
+    "daxter.back3": "太好了，我最喜欢的探险家来啦！下一本魔法书里藏着什么呢……我们去看看好不好？",
     "book.close": "✕ 关闭",
     "book.prev": "上一页",
     "book.next": "下一页",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "关闭",
     "listen.soon": "达克斯特还在拍这个故事！🎬 它很快就会出现在我们的 YouTube 频道。",
     "listen.replay": "再听一遍这个故事吧！✦",
+    "install.button": "📲 安装应用",
+    "install.iosTitle": "在 iPhone 或 iPad 上安装",
+    "install.iosStep1": "在 Safari 中，点击屏幕底部的分享按钮 <b>⬆︎</b>",
+    "install.iosStep2": "向下滑动，点击<b>添加到主屏幕</b>，再点<b>添加</b>",
+    "install.iosDone": "好了，我已添加 ✓",
+    "install.installed": "应用已安装！在主屏幕上就能找到达克斯特 ✦",
   },
 
   quips: {

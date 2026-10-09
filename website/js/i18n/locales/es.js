@@ -65,6 +65,10 @@ export default {
     "daxter.subscribe": "Suscríbete",
     "daxter.locked": "¡Primero terminemos la casa que brilla!",
     "daxter.cheer": "¡Carta conseguida! ¡Adelante, a la siguiente casa! ✦",
+    "daxter.welcome": "¡Hola, explorador! Soy Daxter, la bombilla más brillante del Camino de las Maravillas. Cada casa esconde un libro mágico lleno de datos increíbles. ¡Camina conmigo hasta la primera casa y ganemos juntos tu primera carta!",
+    "daxter.back1": "¡Has vuelto! ¡Esperaba que vinieras! ¿Listo para un nuevo dato increíble? ¡Vamos a la siguiente casa!",
+    "daxter.back2": "¡Hola otra vez, explorador! ¿Sabías que tu cerebro se hace más fuerte cada vez que aprendes algo nuevo? ¡Vamos a alimentarlo!",
+    "daxter.back3": "¡Bien, mi explorador favorito está aquí! ¿Qué se esconderá en el próximo libro mágico…? ¿Lo descubrimos?",
     "book.close": "✕ Cerrar",
     "book.prev": "Página anterior",
     "book.next": "Página siguiente",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "Cerrar",
     "listen.soon": "¡Daxter todavía está grabando esta historia! 🎬 Llegará muy pronto a nuestro canal de YouTube.",
     "listen.replay": "¡Disfruta de la historia otra vez! ✦",
+    "install.button": "📲 Instalar la app",
+    "install.iosTitle": "Instálala en tu iPhone o iPad",
+    "install.iosStep1": "En Safari, toca el botón Compartir <b>⬆︎</b> en la parte de abajo de la pantalla",
+    "install.iosStep2": "Desplázate, toca <b>Añadir a pantalla de inicio</b> y luego <b>Añadir</b>",
+    "install.iosDone": "Listo, ya la añadí ✓",
+    "install.installed": "¡La app está instalada! Encuentra a Daxter en tu pantalla de inicio ✦",
   },
 
   quips: {

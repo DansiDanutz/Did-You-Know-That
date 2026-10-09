@@ -65,6 +65,10 @@ export default {
     "daxter.subscribe": "Abonne-toi",
     "daxter.locked": "Terminons d'abord la maison qui brille !",
     "daxter.cheer": "Carte collectée ! En route vers la prochaine maison ! ✦",
+    "daxter.welcome": "Salut, explorateur ! Je suis Daxter, l'ampoule la plus brillante de la Route des Merveilles ! Chaque maison cache un livre magique plein de faits incroyables. Viens avec moi jusqu'à la première maison, et gagnons ensemble ta toute première carte !",
+    "daxter.back1": "Tu es revenu ! J'espérais que tu viennes ! Prêt pour un nouveau fait incroyable ? Allons à la maison suivante !",
+    "daxter.back2": "Re-bonjour, explorateur ! Savais-tu que ton cerveau devient plus fort chaque fois que tu apprends quelque chose de nouveau ? Allons le nourrir !",
+    "daxter.back3": "Youpi, mon explorateur préféré est là ! Je me demande ce qui se cache dans le prochain livre magique… on va voir ?",
     "book.close": "✕ Fermer",
     "book.prev": "Page précédente",
     "book.next": "Page suivante",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "Fermer",
     "listen.soon": "Daxter est encore en train de filmer cette histoire ! 🎬 Elle arrive très bientôt sur notre chaîne YouTube.",
     "listen.replay": "Profite encore de l'histoire ! ✦",
+    "install.button": "📲 Installer l'appli",
+    "install.iosTitle": "Installer sur ton iPhone ou iPad",
+    "install.iosStep1": "Dans Safari, touche le bouton Partager <b>⬆︎</b> en bas de l'écran",
+    "install.iosStep2": "Fais défiler, touche <b>Sur l'écran d'accueil</b>, puis <b>Ajouter</b>",
+    "install.iosDone": "C'est fait, je l'ai ajoutée ✓",
+    "install.installed": "L'appli est installée ! Retrouve Daxter sur ton écran d'accueil ✦",
   },
 
   quips: {

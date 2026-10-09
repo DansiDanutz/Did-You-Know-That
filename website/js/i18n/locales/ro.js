@@ -65,6 +65,10 @@ export default {
     "daxter.subscribe": "Abonează-te",
     "daxter.locked": "Hai să terminăm mai întâi casa strălucitoare!",
     "daxter.cheer": "Carte colectată! Înainte, spre următoarea casă! ✦",
+    "daxter.welcome": "Salut, exploratorule! Eu sunt Daxter, cel mai luminos bec de pe Drumul Minunilor! Fiecare casă de aici ascunde o carte magică plină de lucruri uimitoare. Vino cu mine la prima casă și hai să câștigăm împreună prima ta carte!",
+    "daxter.back1": "Te-ai întors! Speram să vii! Ești gata pentru o nouă întâmplare uimitoare? Hai la următoarea casă!",
+    "daxter.back2": "Bună din nou, exploratorule! Știai că mintea ta devine mai puternică de fiecare dată când înveți ceva nou? Hai să o hrănim!",
+    "daxter.back3": "Ura, exploratorul meu preferat e aici! Oare ce se ascunde în următoarea carte magică… hai să aflăm?",
     "book.close": "✕ Închide",
     "book.prev": "Pagina anterioară",
     "book.next": "Pagina următoare",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "Închide",
     "listen.soon": "Daxter încă filmează această poveste! 🎬 Ajunge foarte curând pe canalul nostru de YouTube.",
     "listen.replay": "Bucură-te din nou de poveste! ✦",
+    "install.button": "📲 Instalează aplicația",
+    "install.iosTitle": "Instalează pe iPhone sau iPad",
+    "install.iosStep1": "În Safari, apasă butonul Partajează <b>⬆︎</b> din partea de jos a ecranului",
+    "install.iosStep2": "Derulează în jos, apasă <b>Adaugă pe ecranul principal</b>, apoi <b>Adaugă</b>",
+    "install.iosDone": "Gata, am adăugat-o ✓",
+    "install.installed": "Aplicația e instalată! Îl găsești pe Daxter pe ecranul principal ✦",
   },
 
   quips: {

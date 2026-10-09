@@ -63,6 +63,10 @@ export default {
     "daxter.subscribe": "Abonniere",
     "daxter.locked": "Lass uns zuerst das leuchtende Haus abschließen!",
     "daxter.cheer": "Karte gesammelt! Weiter zum nächsten Haus! ✦",
+    "daxter.welcome": "Hallo, Forscher! Ich bin Daxter, die hellste Glühbirne auf der Straße der Wunder! Jedes Haus hier versteckt ein Zauberbuch voller erstaunlicher Fakten. Komm mit mir zum ersten Haus, und lass uns zusammen deine allererste Karte gewinnen!",
+    "daxter.back1": "Du bist wieder da! Ich habe so gehofft, dass du kommst! Bereit für einen neuen erstaunlichen Fakt? Auf zum nächsten Haus!",
+    "daxter.back2": "Hallo noch mal, Forscher! Wusstest du, dass dein Gehirn jedes Mal stärker wird, wenn du etwas Neues lernst? Lass es uns füttern!",
+    "daxter.back3": "Juhu, mein Lieblingsforscher ist da! Was sich wohl im nächsten Zauberbuch versteckt… sollen wir nachsehen?",
     "book.close": "✕ Schließen",
     "book.prev": "Vorherige Seite",
     "book.next": "Nächste Seite",
@@ -123,6 +127,12 @@ export default {
     "listen.close": "Schließen",
     "listen.soon": "Daxter dreht diese Geschichte noch! 🎬 Sie kommt sehr bald auf unseren YouTube-Kanal.",
     "listen.replay": "Genieße die Geschichte noch einmal! ✦",
+    "install.button": "📲 App installieren",
+    "install.iosTitle": "Auf iPhone oder iPad installieren",
+    "install.iosStep1": "Tippe in Safari unten auf den Teilen-Knopf <b>⬆︎</b>",
+    "install.iosStep2": "Scrolle nach unten, tippe auf <b>Zum Home-Bildschirm</b> und dann auf <b>Hinzufügen</b>",
+    "install.iosDone": "Fertig, hinzugefügt ✓",
+    "install.installed": "Die App ist installiert! Du findest Daxter auf deinem Home-Bildschirm ✦",
   },
 
   quips: {
