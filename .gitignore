@@ -18,3 +18,5 @@ website/assets/narration/_samples/
 # Episode video projects: copies of out/ clips and regenerable audio beds
 video/*/assets/*.mp4
 video/*/assets/bed.wav
+# Final episode masters (large; distributed via YouTube)
+out/ep*.mp4
