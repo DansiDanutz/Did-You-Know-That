@@ -1,10 +1,10 @@
 {
-  "total": 198.221,
+  "total": 232.122,
   "scenes": [
     {
       "id": "start",
       "kind": "scene",
-      "length": 17.77873,
+      "length": 34.311338,
       "voAt": 1.5,
       "start": 0
     },
@@ -13,96 +13,96 @@
       "kind": "video",
       "src": "assets/intro.mp4",
       "length": 7,
-      "start": 17.779
+      "start": 34.311
     },
     {
       "id": "tower",
       "kind": "scene",
       "level": 1,
       "title": "THE SCREEN-TIME TOWER",
-      "length": 38.679773,
+      "length": 42.766485,
       "voAt": 3,
-      "start": 24.779
+      "start": 41.311
     },
     {
       "id": "videoland",
       "kind": "scene",
       "level": 2,
       "title": "ENDLESS VIDEO LAND",
-      "length": 22.764807,
+      "length": 25.458322,
       "voAt": 3,
-      "start": 63.459
+      "start": 84.078
     },
     {
       "id": "neon",
       "kind": "video",
       "src": "assets/neon-spark.mp4",
       "length": 8,
-      "start": 86.223
+      "start": 109.536
     },
     {
       "id": "boss",
       "kind": "scene",
       "level": 3,
       "title": "BOSS FIGHT!",
-      "length": 33.989342,
+      "length": 37.054376,
       "voAt": 3,
-      "start": 94.223
+      "start": 117.536
     },
     {
       "id": "deal",
       "kind": "scene",
       "level": 4,
       "title": "DAXTER'S DEAL",
-      "length": 35.950658000000004,
+      "length": 40.455329,
       "voAt": 3,
-      "start": 128.213
+      "start": 154.591
     },
     {
       "id": "finale",
       "kind": "scene",
-      "length": 19.05737,
+      "length": 22.075964,
       "voAt": 0.5,
-      "start": 164.163
+      "start": 195.046
     },
     {
       "id": "end",
       "kind": "video",
       "src": "assets/endscreen.mp4",
       "length": 15,
-      "start": 183.221
+      "start": 217.122
     }
   ],
   "vo": [
     {
       "id": "start",
       "start": 1.5,
-      "len": 15.27873
+      "len": 31.811338
     },
     {
       "id": "tower",
-      "start": 27.779,
-      "len": 34.179773
+      "start": 44.311,
+      "len": 38.266485
     },
     {
       "id": "videoland",
-      "start": 66.459,
-      "len": 16.764807
+      "start": 87.078,
+      "len": 19.458322
     },
     {
       "id": "boss",
-      "start": 97.223,
-      "len": 29.489342
+      "start": 120.536,
+      "len": 32.554376
     },
     {
       "id": "deal",
-      "start": 131.213,
-      "len": 31.950658
+      "start": 157.591,
+      "len": 36.455329
     },
     {
       "id": "finale",
-      "start": 164.663,
-      "len": 15.55737
+      "start": 195.546,
+      "len": 18.575964
     }
   ],
   "sfx": [
@@ -112,95 +112,95 @@
     ],
     [
       "whoosh",
-      17.178729999999998
+      33.711338
     ],
     [
       "levelup",
-      24.879
+      41.411
     ],
     [
       "levelup",
-      63.559000000000005
+      84.178
     ],
     [
       "levelup",
-      94.323
+      117.636
     ],
     [
       "levelup",
-      128.313
+      154.691
     ],
     [
       "boing",
-      38.28
+      56.54
     ],
     [
       "ding",
-      40.57
+      58.83
     ],
     [
       "boing",
-      43.33
+      61.59
     ],
     [
       "ding",
-      45.78
+      64.04
     ],
     [
       "boing",
-      47.67
+      65.93
     ],
     [
       "ding",
-      51.62
+      69.87
     ],
     [
       "boing",
-      55.09
+      73.35
     ],
     [
       "brass",
-      57.46
+      75.71
     ],
     [
       "autoplay",
-      73.84
+      96
     ],
     [
       "rumble",
-      81.82
+      105.2
     ],
     [
       "yoink",
-      100.19
+      125.22
     ],
     [
       "yoink",
-      103.08
+      128
     ],
     [
       "yoink",
-      110.45
+      135.2
     ],
     [
       "victory",
-      124.09
+      150.91
     ],
     [
       "hoot",
-      131.21
+      158.79
     ],
     [
       "card",
-      147.33
+      176.85
     ],
     [
       "fanfare",
-      164.46300000000002
+      195.346
     ],
     [
       "fireworks",
-      165.363
+      196.24599999999998
     ]
   ],
   "moods": {

@@ -41,7 +41,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .grid-floor { left: -10%; right: -10%; bottom: -10%; height: 55%; background: repeating-linear-gradient(90deg, rgba(255,255,255,.18) 0 4px, transparent 4px 120px), repeating-linear-gradient(0deg, rgba(255,255,255,.18) 0 4px, transparent 4px 80px); transform: perspective(600px) rotateX(55deg); }
 .phone-big { left: 50%; top: 170px; width: 560px; height: 560px; margin-left: -280px; }
 .press-start { left: 0; right: 0; top: 70px; text-align: center; font-size: 110px; color: #ffd84a; text-shadow: 0 8px 0 #b8780c, 0 0 60px #ffd84a; letter-spacing: .12em; }
-.dax-start { left: 230px; bottom: 120px; }
+.dax-start { left: 260px; bottom: 150px; width: 380px; height: 522px; }
 .question { left: 0; right: 0; bottom: 70px; text-align: center; font-family: "DYK Demi", sans-serif; font-size: 52px; text-shadow: 0 4px 12px rgba(0,0,0,.6); }
 .question b { font-family: "DYK Heavy", sans-serif; color: #ffd84a; font-size: 64px; }
 
@@ -71,7 +71,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .chest-art { width: 240px; height: 240px; display: grid; place-items: center; font-size: 130px; border-radius: 50%; background: radial-gradient(circle, #ffe58a, #e6a91f); border: 8px solid #fff; box-shadow: 0 0 50px #ffd84a, 0 10px 0 #9a5f0a; }
 .chest b { font-size: 40px; text-shadow: 0 4px 0 #2a0820; }
 .dax-boss { left: 760px; bottom: 60px; }
-.who { right: 120px; bottom: 120px; padding: 18px 34px; border-radius: 24px; background: #fff; color: #2a0820; font-family: "DYK Demi", sans-serif; font-size: 46px; box-shadow: 0 8px 0 #8a1a4a; }
+.who { right: 120px; top: 140px; padding: 18px 34px; border-radius: 24px; background: #fff; color: #2a0820; font-family: "DYK Demi", sans-serif; font-size: 46px; box-shadow: 0 8px 0 #8a1a4a; }
 .who b { font-family: "DYK Heavy", sans-serif; color: #e2459a; }
 
 /* level 4 deal */
@@ -94,11 +94,16 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .reward-card b { font-size: 44px; color: #ffd84a; } .reward-card small { font-family: "DYK Demi", sans-serif; font-size: 28px; }
 .dax-finale { left: 260px; bottom: 80px; }
 .url { left: 0; right: 0; bottom: 50px; text-align: center; font-size: 52px; text-shadow: 0 4px 0 #8a1a5a; }
+
+.daxter-mouth { transform-box: fill-box; transform-origin: 50% 0%; }
+.hello { left: 0; right: 0; top: 230px; text-align: center; font-size: 96px; text-shadow: 0 8px 0 #2a1470, 0 0 40px #a040ff; }
+.hello b { color: #ffd84a; }
+.bg-start .phone-big { left: auto; right: 180px; margin-left: 0; width: 460px; height: 460px; top: 330px; }
 </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="198.221" data-width="1920" data-height="1080">
-      <section id="sc-start" class="clip scene bg-start" data-start="0" data-duration="17.779" data-track-index="0">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="232.122" data-width="1920" data-height="1080">
+      <section id="sc-start" class="clip scene bg-start" data-start="0" data-duration="34.311" data-track-index="0">
     <div class="grid-floor"></div>
     <div class="phone-big"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
     <defs>
@@ -227,9 +232,10 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     </g>
   </g>
 </svg></div>
-    <div class="question">Nobody can stop kids from scrolling…<br/><b>so let's make scrolling SMART!</b></div></section>
-      <video id="v-intro" class="clip media" src="assets/intro.mp4" data-start="17.779" data-duration="7" data-track-index="1" data-has-audio="true" playsinline></video>
-      <section id="sc-tower" class="clip scene bg-tower" data-start="24.779" data-duration="38.680" data-track-index="0">
+    <div class="hello">Hi! I'm <b>DAXTER</b></div>
+    <div class="question">My goal: turn your <b>screen time</b> into <b>brain time!</b></div></section>
+      <video id="v-intro" class="clip media" src="assets/intro.mp4" data-start="34.311" data-duration="7" data-track-index="1" data-has-audio="true" playsinline></video>
+      <section id="sc-tower" class="clip scene bg-tower" data-start="41.311" data-duration="42.766" data-track-index="0">
   <div class="hud">
     <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="1"></i></span></div>
     <div class="hearts">❤️ ❤️ ❤️</div>
@@ -359,7 +365,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 </svg></div>
     <div class="score s0"><span>Ages 2–4</span><b>≈ 2½ h</b></div><div class="score s1"><span>Ages 5–8</span><b>3+ h</b></div><div class="score s2"><span>Ages 8–12</span><b>5 h 33</b></div><div class="score s3"><span>Teens</span><b>8 h 39</b></div>
     <div class="source">Source: Common Sense Media Census 2020 & 2021 (U.S.)</div></section>
-      <section id="sc-videoland" class="clip scene bg-videoland" data-start="63.459" data-duration="22.765" data-track-index="0">
+      <section id="sc-videoland" class="clip scene bg-videoland" data-start="84.078" data-duration="25.458" data-track-index="0">
   <div class="hud">
     <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="2"></i></span></div>
     <div class="hearts">❤️ ❤️ ❤️</div>
@@ -483,8 +489,8 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     </g>
   </g>
 </svg></div></section>
-      <video id="v-neon" class="clip media" src="assets/neon-spark.mp4" data-start="86.223" data-duration="8" data-track-index="1" data-has-audio="true" playsinline></video>
-      <section id="sc-boss" class="clip scene bg-boss" data-start="94.223" data-duration="33.989" data-track-index="0">
+      <video id="v-neon" class="clip media" src="assets/neon-spark.mp4" data-start="109.536" data-duration="8" data-track-index="1" data-has-audio="true" playsinline></video>
+      <section id="sc-boss" class="clip scene bg-boss" data-start="117.536" data-duration="37.054" data-track-index="0">
   <div class="hud">
     <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="3"></i></span></div>
     <div class="hearts">❤️ ❤️ ❤️</div>
@@ -609,7 +615,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
 </svg></div>
     <div class="who">Ages 2–5: <b>max 1 hour</b> of screens a day</div>
     <div class="source">Source: WHO 2019 · American Academy of Pediatrics</div></section>
-      <section id="sc-deal" class="clip scene bg-deal" data-start="128.213" data-duration="35.951" data-track-index="0">
+      <section id="sc-deal" class="clip scene bg-deal" data-start="154.591" data-duration="40.455" data-track-index="0">
   <div class="hud">
     <div class="xp"><b>XP</b><span class="xp-bar"><i class="xp-fill" data-level="4"></i></span></div>
     <div class="hearts">❤️ ❤️ ❤️</div>
@@ -756,7 +762,7 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
     </g>
   </g>
 </svg></div></section>
-      <section id="sc-finale" class="clip scene bg-finale" data-start="164.163" data-duration="19.057" data-track-index="0">
+      <section id="sc-finale" class="clip scene bg-finale" data-start="195.046" data-duration="22.076" data-track-index="0">
     <div class="stamp">LEVEL COMPLETE!</div>
     <div class="fireworks"><i class="fw fw0" style="--a:0deg"></i><i class="fw fw1" style="--a:15deg"></i><i class="fw fw2" style="--a:30deg"></i><i class="fw fw3" style="--a:45deg"></i><i class="fw fw4" style="--a:60deg"></i><i class="fw fw5" style="--a:75deg"></i><i class="fw fw0" style="--a:90deg"></i><i class="fw fw1" style="--a:105deg"></i><i class="fw fw2" style="--a:120deg"></i><i class="fw fw3" style="--a:135deg"></i><i class="fw fw4" style="--a:150deg"></i><i class="fw fw5" style="--a:165deg"></i><i class="fw fw0" style="--a:180deg"></i><i class="fw fw1" style="--a:195deg"></i><i class="fw fw2" style="--a:210deg"></i><i class="fw fw3" style="--a:225deg"></i><i class="fw fw4" style="--a:240deg"></i><i class="fw fw5" style="--a:255deg"></i><i class="fw fw0" style="--a:270deg"></i><i class="fw fw1" style="--a:285deg"></i><i class="fw fw2" style="--a:300deg"></i><i class="fw fw3" style="--a:315deg"></i><i class="fw fw4" style="--a:330deg"></i><i class="fw fw5" style="--a:345deg"></i></div>
     <div class="reward"><div class="reward-card"><svg class="art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
@@ -886,14 +892,14 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
   </g>
 </svg></div>
     <div class="url">did-you-know-that-2026.vercel.app</div></section>
-      <video id="v-end" class="clip media" src="assets/endscreen.mp4" data-start="183.221" data-duration="15" data-track-index="1" data-has-audio="true" playsinline></video>
-      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="198.221" data-track-index="5" data-volume="0.6"></audio>
-      <audio id="vo-start" src="assets/vo/start.mp3" data-start="1.5" data-duration="15.279" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-tower" src="assets/vo/tower.mp3" data-start="27.779" data-duration="34.180" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-videoland" src="assets/vo/videoland.mp3" data-start="66.459" data-duration="16.765" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-boss" src="assets/vo/boss.mp3" data-start="97.223" data-duration="29.489" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-deal" src="assets/vo/deal.mp3" data-start="131.213" data-duration="31.951" data-track-index="6" data-volume="1"></audio>
-      <audio id="vo-finale" src="assets/vo/finale.mp3" data-start="164.663" data-duration="15.557" data-track-index="6" data-volume="1"></audio>
+      <video id="v-end" class="clip media" src="assets/endscreen.mp4" data-start="217.122" data-duration="15" data-track-index="1" data-has-audio="true" playsinline></video>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="232.122" data-track-index="5" data-volume="0.6"></audio>
+      <audio id="vo-start" src="assets/vo/start.mp3" data-start="1.5" data-duration="31.811" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-tower" src="assets/vo/tower.mp3" data-start="44.311" data-duration="38.266" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-videoland" src="assets/vo/videoland.mp3" data-start="87.078" data-duration="19.458" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-boss" src="assets/vo/boss.mp3" data-start="120.536" data-duration="32.554" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-deal" src="assets/vo/deal.mp3" data-start="157.591" data-duration="36.455" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-finale" src="assets/vo/finale.mp3" data-start="195.546" data-duration="18.576" data-track-index="6" data-volume="1"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
@@ -902,61 +908,62 @@ svg { display: block; width: 100%; height: 100%; overflow: visible; }
       tl.fromTo("#sc-start .phone-big", {y:300, rotation:-10}, {y:0, rotation:0, duration:1, ease:"back.out(1.6)"}, 0.2);
       tl.fromTo("#sc-start .dax-start", {x:-700}, {x:0, duration:1.2, ease:"power3.out"}, 1);
       tl.to("#sc-start .dax-start", {y:-40, duration:0.35, yoyo:true, repeat:13, ease:"sine.inOut"}, 2.2);
-      tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, 10.15);
-      tl.to("#sc-start", {scale:1.6, opacity:0, duration:0.6, ease:"power2.in"}, 17.178729999999998);
-tl.fromTo("#sc-tower .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 24.879);
-       tl.to("#sc-tower .title-card", {opacity:0, y:-60, duration:0.4}, 27.279);
-       tl.fromTo("#sc-tower .xp-fill", {scaleX:0}, {scaleX:0.25, duration:37.679773, ease:"none"}, 25.279);
-      tl.to("#sc-tower .dax-tower", {y:-40, x:0, duration:0.6, ease:"back.out(2.5)"}, 38.28);
-        tl.fromTo("#sc-tower .floor.f0", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 38.68);
-        tl.fromTo("#sc-tower .score.s0", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 40.57);
-tl.to("#sc-tower .dax-tower", {y:-190, x:40, duration:0.6, ease:"back.out(2.5)"}, 43.33);
-        tl.fromTo("#sc-tower .floor.f1", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 43.73);
-        tl.fromTo("#sc-tower .score.s1", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 45.78);
-tl.to("#sc-tower .dax-tower", {y:-340, x:80, duration:0.6, ease:"back.out(2.5)"}, 47.67);
-        tl.fromTo("#sc-tower .floor.f2", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 48.07);
-        tl.fromTo("#sc-tower .score.s2", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 51.62);
-tl.to("#sc-tower .dax-tower", {y:-490, x:120, duration:0.6, ease:"back.out(2.5)"}, 55.09);
-        tl.fromTo("#sc-tower .floor.f3", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 55.49);
-        tl.fromTo("#sc-tower .score.s3", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 57.46);
-      tl.to("#sc-tower .clock-art", {rotation:4, duration:0.25, yoyo:true, repeat:7}, 57.46);
-tl.fromTo("#sc-videoland .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 63.559000000000005);
-       tl.to("#sc-videoland .title-card", {opacity:0, y:-60, duration:0.4}, 65.959);
-       tl.fromTo("#sc-videoland .xp-fill", {scaleX:0.25}, {scaleX:0.5, duration:21.764807, ease:"none"}, 63.959);
-      tl.fromTo("#sc-videoland .belt-track", {x:0}, {x:-2600, duration:22.764807, ease:"none"}, 63.459);
-      tl.fromTo("#sc-videoland .autoplay", {opacity:0.2}, {opacity:1, duration:0.4, yoyo:true, repeat:28}, 66.459);
-      tl.fromTo("#sc-videoland .dax-land", {x:-300}, {x:200, duration:2, ease:"power2.out"}, 66.459);
-      tl.fromTo("#sc-videoland .monster", {y:700, scale:0.6}, {y:0, scale:1, duration:1.4, ease:"back.out(1.4)"}, 81.82 - 0.4);
-      tl.fromTo("#sc-videoland", {x:0}, {x:16, duration:0.06, yoyo:true, repeat:15}, 81.82);
-      tl.to("#sc-videoland .dax-land", {x:-120, rotation:-12, duration:0.4}, 81.82);
-tl.fromTo("#sc-boss .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 94.323);
-       tl.to("#sc-boss .title-card", {opacity:0, y:-60, duration:0.4}, 96.723);
-       tl.fromTo("#sc-boss .xp-fill", {scaleX:0.5}, {scaleX:0.75, duration:32.989342, ease:"none"}, 94.723);
-      tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, 97.223);
-      tl.to("#sc-boss .boss-monster", {y:-20, duration:0.6, yoyo:true, repeat:28, ease:"sine.inOut"}, 98.223);
-      tl.to("#sc-boss .chest.c0", {x:-560, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 100.19);
-tl.to("#sc-boss .chest.c1", {x:-820, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 103.08);
-tl.to("#sc-boss .chest.c2", {x:-1080, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 110.45);
-      tl.fromTo("#sc-boss .who", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5}, 115.14);
-      tl.to("#sc-boss .chest", {x:0, y:0, scale:1, rotation:0, duration:0.8, ease:"back.out(1.6)", stagger:0.15}, 124.09);
-      tl.to("#sc-boss .dax-boss", {y:-120, rotation:360, duration:0.8, ease:"power2.out", yoyo:true, repeat:1}, 124.09);
-      tl.to("#sc-boss .boss-monster", {x:-900, rotation:-30, opacity:0, duration:1}, 124.09 + 0.4);
-tl.fromTo("#sc-deal .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 128.313);
-       tl.to("#sc-deal .title-card", {opacity:0, y:-60, duration:0.4}, 130.713);
-       tl.fromTo("#sc-deal .xp-fill", {scaleX:0.75}, {scaleX:1, duration:34.950658000000004, ease:"none"}, 128.713);
-      tl.fromTo("#sc-deal .owl", {x:900, y:-400, rotation:25}, {x:0, y:0, rotation:0, duration:1.4, ease:"power2.out"}, 131.21);
-      tl.fromTo("#sc-deal .road", {opacity:0, y:60}, {opacity:1, y:0, duration:0.8}, 134.27);
-      tl.fromTo("#sc-deal .house", {scale:0}, {scale:1, duration:0.4, ease:"back.out(3)", stagger:0.2}, 134.27 + 0.3);
-      tl.fromTo("#sc-deal .deal-card", {rotationY:180, scale:0.5, opacity:0}, {rotationY:0, scale:1, opacity:1, duration:0.9, ease:"back.out(1.6)"}, 147.33);
-      tl.fromTo("#sc-deal .three", {scale:0, rotation:-20}, {scale:1, rotation:0, duration:0.6, ease:"back.out(3)"}, 155.45);
-      tl.to("#sc-deal .dax-deal", {y:-30, duration:0.4, yoyo:true, repeat:44, ease:"sine.inOut"}, 131.213);
+      tl.fromTo("#sc-start .hello", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, 1.6);
+      tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, 10.61);
+      tl.to("#sc-start", {scale:1.6, opacity:0, duration:0.6, ease:"power2.in"}, 33.711338);tl.fromTo("#sc-start .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:287, ease:"sine.inOut"}, 1.5);
+tl.fromTo("#sc-tower .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 41.411);
+       tl.to("#sc-tower .title-card", {opacity:0, y:-60, duration:0.4}, 43.811);
+       tl.fromTo("#sc-tower .xp-fill", {scaleX:0}, {scaleX:0.25, duration:41.766485, ease:"none"}, 41.811);
+      tl.to("#sc-tower .dax-tower", {y:-40, x:0, duration:0.6, ease:"back.out(2.5)"}, 56.54);
+        tl.fromTo("#sc-tower .floor.f0", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 56.94);
+        tl.fromTo("#sc-tower .score.s0", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 58.83);
+tl.to("#sc-tower .dax-tower", {y:-190, x:40, duration:0.6, ease:"back.out(2.5)"}, 61.59);
+        tl.fromTo("#sc-tower .floor.f1", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 61.99);
+        tl.fromTo("#sc-tower .score.s1", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 64.04);
+tl.to("#sc-tower .dax-tower", {y:-340, x:80, duration:0.6, ease:"back.out(2.5)"}, 65.93);
+        tl.fromTo("#sc-tower .floor.f2", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 66.33000000000001);
+        tl.fromTo("#sc-tower .score.s2", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 69.87);
+tl.to("#sc-tower .dax-tower", {y:-490, x:120, duration:0.6, ease:"back.out(2.5)"}, 73.35);
+        tl.fromTo("#sc-tower .floor.f3", {backgroundColor:"#3a2a8a"}, {backgroundColor:"#ffd84a", duration:0.3}, 73.75);
+        tl.fromTo("#sc-tower .score.s3", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.45, ease:"back.out(3)"}, 75.71);
+      tl.to("#sc-tower .clock-art", {rotation:4, duration:0.25, yoyo:true, repeat:7}, 75.71);tl.fromTo("#sc-tower .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:345, ease:"sine.inOut"}, 44.311);
+tl.fromTo("#sc-videoland .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 84.178);
+       tl.to("#sc-videoland .title-card", {opacity:0, y:-60, duration:0.4}, 86.578);
+       tl.fromTo("#sc-videoland .xp-fill", {scaleX:0.25}, {scaleX:0.5, duration:24.458322, ease:"none"}, 84.578);
+      tl.fromTo("#sc-videoland .belt-track", {x:0}, {x:-2600, duration:25.458322, ease:"none"}, 84.078);
+      tl.fromTo("#sc-videoland .autoplay", {opacity:0.2}, {opacity:1, duration:0.4, yoyo:true, repeat:31}, 87.078);
+      tl.fromTo("#sc-videoland .dax-land", {x:-300}, {x:200, duration:2, ease:"power2.out"}, 87.078);
+      tl.fromTo("#sc-videoland .monster", {y:700, scale:0.6}, {y:0, scale:1, duration:1.4, ease:"back.out(1.4)"}, 105.2 - 0.4);
+      tl.fromTo("#sc-videoland", {x:0}, {x:16, duration:0.06, yoyo:true, repeat:15}, 105.2);
+      tl.to("#sc-videoland .dax-land", {x:-120, rotation:-12, duration:0.4}, 105.2);tl.fromTo("#sc-videoland .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:175, ease:"sine.inOut"}, 87.078);
+tl.fromTo("#sc-boss .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 117.636);
+       tl.to("#sc-boss .title-card", {opacity:0, y:-60, duration:0.4}, 120.036);
+       tl.fromTo("#sc-boss .xp-fill", {scaleX:0.5}, {scaleX:0.75, duration:36.054376, ease:"none"}, 118.036);
+      tl.fromTo("#sc-boss .boss-monster", {x:-500}, {x:0, duration:1, ease:"power2.out"}, 120.536);
+      tl.to("#sc-boss .boss-monster", {y:-20, duration:0.6, yoyo:true, repeat:30, ease:"sine.inOut"}, 121.536);
+      tl.to("#sc-boss .chest.c0", {x:-560, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 125.22);
+tl.to("#sc-boss .chest.c1", {x:-820, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 128);
+tl.to("#sc-boss .chest.c2", {x:-1080, y:-60, scale:0.55, rotation:-20, duration:0.7, ease:"power3.in"}, 135.2);
+      tl.fromTo("#sc-boss .who", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5}, 139.69);
+      tl.to("#sc-boss .chest", {x:0, y:0, scale:1, rotation:0, duration:0.8, ease:"back.out(1.6)", stagger:0.15}, 150.91);
+      tl.to("#sc-boss .dax-boss", {y:-120, rotation:360, duration:0.8, ease:"power2.out", yoyo:true, repeat:1}, 150.91);
+      tl.to("#sc-boss .boss-monster", {x:-900, rotation:-30, opacity:0, duration:1}, 150.91 + 0.4);tl.fromTo("#sc-boss .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:293, ease:"sine.inOut"}, 120.536);
+tl.fromTo("#sc-deal .title-card", {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:"back.out(2)"}, 154.691);
+       tl.to("#sc-deal .title-card", {opacity:0, y:-60, duration:0.4}, 157.091);
+       tl.fromTo("#sc-deal .xp-fill", {scaleX:0.75}, {scaleX:1, duration:39.455329, ease:"none"}, 155.091);
+      tl.fromTo("#sc-deal .owl", {x:900, y:-400, rotation:25}, {x:0, y:0, rotation:0, duration:1.4, ease:"power2.out"}, 158.79);
+      tl.fromTo("#sc-deal .road", {opacity:0, y:60}, {opacity:1, y:0, duration:0.8}, 162.76);
+      tl.fromTo("#sc-deal .house", {scale:0}, {scale:1, duration:0.4, ease:"back.out(3)", stagger:0.2}, 162.76 + 0.3);
+      tl.fromTo("#sc-deal .deal-card", {rotationY:180, scale:0.5, opacity:0}, {rotationY:0, scale:1, opacity:1, duration:0.9, ease:"back.out(1.6)"}, 176.85);
+      tl.fromTo("#sc-deal .three", {scale:0, rotation:-20}, {scale:1, rotation:0, duration:0.6, ease:"back.out(3)"}, 185.13);
+      tl.to("#sc-deal .dax-deal", {y:-30, duration:0.4, yoyo:true, repeat:50, ease:"sine.inOut"}, 157.591);tl.fromTo("#sc-deal .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:329, ease:"sine.inOut"}, 157.591);
 
-      tl.fromTo("#sc-finale .stamp", {scale:3, opacity:0, rotation:-12}, {scale:1, opacity:1, rotation:-6, duration:0.5, ease:"back.out(2)"}, 164.46300000000002);
-      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out"}, 165.363);
-      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1.2, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out", immediateRender:false}, 169.163);
-      tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, 173.72);
-      tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, 175.25);
-      tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:27, ease:"sine.inOut"}, 164.663);
+      tl.fromTo("#sc-finale .stamp", {scale:3, opacity:0, rotation:-12}, {scale:1, opacity:1, rotation:-6, duration:0.5, ease:"back.out(2)"}, 195.346);
+      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out"}, 196.24599999999998);
+      tl.fromTo("#sc-finale .fw", {scale:0, opacity:1}, {scale:1.2, opacity:0, duration:1.4, stagger:0.04, ease:"power2.out", immediateRender:false}, 200.046);
+      tl.fromTo("#sc-finale .reward-card", {rotationY:180, y:200, opacity:0}, {rotationY:0, y:0, opacity:1, duration:1, ease:"back.out(1.5)"}, 206.65);
+      tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, 208.08);
+      tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:31, ease:"sine.inOut"}, 195.546);tl.fromTo("#sc-finale .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:167, ease:"sine.inOut"}, 195.546);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>

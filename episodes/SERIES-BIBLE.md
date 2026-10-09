@@ -9,6 +9,13 @@ Rules every episode must follow. Two versions of every episode: **Kids** and **T
 - **Neon Card:** 8 s clip, glowing neon margins, logo, ONE special word. The word unlocks the episode's magic book in the game. Different word for Kids and Adults.
 - **Quiz-safe:** the 3 game quiz answers must appear ONLY in the video (never in the book pages or the hidden-spark notes). List them in a "Facts used" table with sources.
 
+## The narrator IS the character (both versions)
+- **Daxter narrates every episode himself**, in the first person, talking directly to the viewer ("you", "explorer"), never a detached voice-over.
+- **Episode openers:** he says who he is and his goal ("Hi! I'm Daxter… my goal is to turn your screen time into brain time").
+- **Stay connected:** at least one direct question or check-in per scene ("Ready?", "Which floor are you on?", "Stay close to me", "High five!").
+- Adults: the same Daxter, as a sharper, witty guide and expert host, still speaking to the viewer directly.
+- On screen his mouth moves while he speaks, so viewers always see who is talking.
+
 ## Kids: "a cartoon you can play"
 - Looks and feels like a **video game**: START screen, LEVELS (4–5 per episode), XP bar, hearts, power-ups, a **boss** per episode, "LEVEL COMPLETE" stamps.
 - Bright saturated cartoon style, round shapes, squash-and-stretch, Pixar-inspired lighting.

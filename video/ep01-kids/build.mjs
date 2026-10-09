@@ -84,7 +84,8 @@ const BODY = {
     <div class="phone-big">${art("phone")}</div>
     <div class="press-start">PRESS START</div>
     ${daxter("dax-start")}
-    <div class="question">Nobody can stop kids from scrolling…<br/><b>so let's make scrolling SMART!</b></div>`,
+    <div class="hello">Hi! I'm <b>DAXTER</b></div>
+    <div class="question">My goal: turn your <b>screen time</b> into <b>brain time!</b></div>`,
   tower: (s) => `${hud(1)}${titleCard(s)}
     <div class="tower">${[0, 1, 2, 3].map((i) => `<div class="floor f${i}"><span>${["AGES 2–4", "AGES 5–8", "AGES 8–12", "TEENS"][i]}</span></div>`).join("")}</div>
     <div class="clock-art">${art("clocktower")}</div>
@@ -142,7 +143,8 @@ const anim = (s) => {
       tl.fromTo("#sc-start .phone-big", {y:300, rotation:-10}, {y:0, rotation:0, duration:1, ease:"back.out(1.6)"}, ${S + 0.2});
       tl.fromTo("#sc-start .dax-start", {x:-700}, {x:0, duration:1.2, ease:"power3.out"}, ${S + 1});
       tl.to("#sc-start .dax-start", {y:-40, duration:0.35, yoyo:true, repeat:13, ease:"sine.inOut"}, ${S + 2.2});
-      tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, ${L("start", "So I had")});
+      tl.fromTo("#sc-start .hello", {scale:0, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(2.5)"}, ${S + 1.6});
+      tl.fromTo("#sc-start .question", {opacity:0, y:40}, {opacity:1, y:0, duration:0.6}, ${L("start", "My goal")});
       tl.to("#sc-${s.id}", {scale:1.6, opacity:0, duration:0.6, ease:"power2.in"}, ${S + s.length - 0.6});`,
     tower: `
       ${[0, 1, 2, 3].map((i) => {
@@ -183,7 +185,8 @@ const anim = (s) => {
       tl.fromTo("#sc-finale .url", {opacity:0}, {opacity:1, duration:0.6}, ${L("finale", "Did you know that?")});
       tl.to("#sc-finale .dax-finale", {y:-60, duration:0.35, yoyo:true, repeat:${Math.floor(s.length / 0.7)}, ease:"sine.inOut"}, ${S + 0.5});`,
   };
-  return common + (per[s.id] ?? "");
+  const talk = s.voAt === undefined ? "" : `tl.fromTo("#sc-${s.id} .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:${Math.floor(vo[s.id].len / 0.22) * 2 - 1}, ease:"sine.inOut"}, ${S + s.voAt});`;
+  return common + (per[s.id] ?? "") + talk;
 };
 
 const css = readFileSync("scenes.css", "utf8");
