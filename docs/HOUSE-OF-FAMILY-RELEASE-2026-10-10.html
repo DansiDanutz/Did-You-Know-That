@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>House of Family release check · 10 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f1ede5; --muted:#b4ada0; --line:#3a352b; } th { background:#241f17 !important; } code { background:#2a251b !important; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; } h2 { font-size: 20px; margin: 32px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .C{background:var(--c)} .H{background:var(--h)} .M{background:var(--m)} .L{background:var(--l)}
+  .fixed{color:var(--l); font-weight:600} .open{color:var(--c); font-weight:600}
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: var(--l); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>House of Family: release check</h1>
+<p class="meta">Dexty / Did You Know That? · 10 Oct 2026 · main <code>2c44b75</code> · live on https://dexty.live · scope: Episode 1 game flow only (no video)</p>
+
+<h2>What shipped</h2>
+<table>
+  <tr><th>PR</th><th>Content</th><th>Merge</th><th>Tests check</th></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/12">#12</a></td><td>Episode 1 as a game: Dexter's intro, adventure world, cottage, whole cut-away house, TV storybook, five challenges with gentle retries, Heart of Kindness certificate, kindness mission, next house unlocks. 53 recorded Dexter clips. Film pipeline and generated character art removed.</td><td><code>2092f94</code></td><td class="ok">pass (website, 14 s)</td></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/13">#13</a></td><td>Family cast (Emma, Leo, Mom, Dad, Grandma) redrawn to Dexter's standard for the five challenge scenes.</td><td><code>2c44b75</code></td><td class="ok">pass (website, 16 s)</td></tr>
+</table>
+
+<h2>Findings</h2>
+<table>
+  <tr><th>Sev</th><th>Finding</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td><span class="sev H">H</span></td><td>Challenge answers and the kindness button did not respond after an edit split the click handler.</td><td class="fixed">Fixed before merge</td><td>Caught in local browser run; clicks verified after fix, and again on the live site.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>Dexter's bubble kept the previous screen's line when the child moved on while narration was playing.</td><td class="fixed">Fixed</td><td>Narration now stops when its view is replaced; verified by stepping through all views.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>Story and challenge text was shown silently; only the intro lines had recorded audio.</td><td class="fixed">Fixed</td><td>Storybook scenes, prompts, right and wrong feedback now play their recorded clips (53 clips, one re-recorded).</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>"The film is being drawn" placeholder and a dead video path shipped in the first House of Family build.</td><td class="fixed">Fixed</td><td>No film text or poster path remains in served <code>family-house.js</code> (grep count 0 on live).</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Challenge-scene characters were too simple next to Dexter.</td><td class="fixed">Fixed (#13)</td><td>Live screenshots of all five scenes.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>Voice is English only; other six languages read silently.</td><td class="open">Open</td><td>By design for the pilot; recording the other languages needs a paid narration run.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>Adults have no Episode 1 yet; no adult explanation or example exists.</td><td class="open">Open</td><td>Out of scope of this release.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>External Greptile review was still pending on both PRs at merge time.</td><td class="open">Open</td><td>Not a required check; tests workflow was green.</td></tr>
+</table>
+
+<h2>Verification</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Unit tests (<code>node --test tests/*.test.mjs</code>)</td><td class="ok">207 pass, 0 fail</td></tr>
+  <tr><td>Page and precache check (<code>build-pages.mjs --check</code>)</td><td class="ok">pass</td></tr>
+  <tr><td>CI tests workflow on both PRs</td><td class="ok">pass</td></tr>
+  <tr><td>Deployment</td><td class="ok">Vercel production, aliased to dexty.live; new cast and house files served (HTTP 200)</td></tr>
+  <tr><td>Live flow, clean first-time session (test name "Maya")</td><td class="ok">intro, road, enter house, whole house, TV, storybook (6 scenes), one wrong answer with retry, five correct answers with the new cast, certificate, kindness mission, back to road with Episode 2 unlocked; no console errors</td></tr>
+  <tr><td>Not tested</td><td>Real devices, screen readers, sound output of the recorded clips (network requests returned 200/206 but audio was not heard), non-English languages</td></tr>
+</table>
+</main>
+</body>
+</html>
