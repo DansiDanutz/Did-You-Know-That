@@ -13,6 +13,10 @@ export function createBook(container, { faces, renderFace, isComplete, onAction,
   const leafCount = faces.length / 2;
   const lastPosition = faces.length - 2; // the final face is the outer back cover
   const mobile = window.matchMedia(MOBILE_QUERY);
+  // Every listener is tied to this book; destroy() removes them all, so a
+  // re-opened book never answers a tap twice.
+  const listeners = new AbortController();
+  const { signal } = listeners;
   let position = 0;
 
   container.innerHTML = `
@@ -59,9 +63,14 @@ export function createBook(container, { faces, renderFace, isComplete, onAction,
   }
 
   function refresh() {
+    const shown = visibleFaces();
     faceEls.forEach((el, i) => {
       el.innerHTML = renderFace(faces[i], i);
-      el.classList.toggle("is-visible", visibleFaces().includes(i));
+      const isVisible = shown.includes(i);
+      el.classList.toggle("is-visible", isVisible);
+      // Pages not on screen can't be tabbed to or read by screen readers.
+      el.inert = !isVisible;
+      el.setAttribute("aria-hidden", String(!isVisible));
     });
   }
 
@@ -102,28 +111,28 @@ export function createBook(container, { faces, renderFace, isComplete, onAction,
     if (!el || el.tagName === "FORM") return;
     if (el.dataset.action === "next") return go(1);
     onAction(el.dataset.action, el, event);
-  });
+  }, { signal });
   container.addEventListener("submit", (event) => {
     event.preventDefault();
     onAction(event.target.dataset.action, event.target, event);
-  });
+  }, { signal });
 
   let touchX = null;
-  container.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
+  container.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true, signal });
   container.addEventListener("touchend", (e) => {
     if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
     touchX = null;
     if (Math.abs(dx) > SWIPE_MIN_PX && !e.target.closest("input, button")) go(dx < 0 ? 1 : -1);
-  });
+  }, { signal });
 
   const onResize = () => {
     size();
     layout();
     refresh();
   };
-  window.addEventListener("resize", onResize);
-  mobile.addEventListener("change", onResize);
+  window.addEventListener("resize", onResize, { signal });
+  mobile.addEventListener("change", onResize, { signal });
   onResize();
 
   return {
@@ -137,8 +146,7 @@ export function createBook(container, { faces, renderFace, isComplete, onAction,
       return position >= lastPosition || (!mobile.matches && spreadFor(position).flipped >= leafCount - 1);
     },
     destroy() {
-      window.removeEventListener("resize", onResize);
-      mobile.removeEventListener("change", onResize);
+      listeners.abort();
       container.innerHTML = "";
     },
   };

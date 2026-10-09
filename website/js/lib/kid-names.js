@@ -11,3 +11,9 @@ export function kidNickname(random = Math.random) {
   const number = 10 + Math.min(89, Math.floor(random() * 90));
   return `${pick(KID_ADJECTIVES, random)} ${pick(KID_NOUNS, random)} ${number}`;
 }
+
+// True only for names this generator can produce ("Adjective Noun 10-99").
+export function isKidNickname(name) {
+  const match = /^(\p{L}+) (\p{L}+) ([1-9]\d)$/u.exec(String(name ?? ""));
+  return Boolean(match) && KID_ADJECTIVES.includes(match[1]) && KID_NOUNS.includes(match[2]);
+}

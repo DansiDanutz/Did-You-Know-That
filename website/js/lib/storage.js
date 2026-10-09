@@ -1,8 +1,9 @@
 import { cardPoints } from "./points.js";
+import { LANGUAGES } from "../i18n/index.js";
 
 const STORAGE_KEY = "dykt-progress-v1";
 const SETTINGS_KEY = "dykt-settings-v1";
-const LANG_CODES = ["en", "ro", "es", "fr", "de", "it"];
+const LANG_CODES = LANGUAGES.map(({ code }) => code); // one source: the picker's own list
 const AUDIENCE_CODES = ["kids", "adults"];
 
 export function emptySettings(lang = "en") {
