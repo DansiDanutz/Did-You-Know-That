@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Did You Know That? · Ep 1 Kids · How to play Dexty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Fredoka", "Avenir Next", sans-serif; font-weight: 700; color: #fff; }
+.scene { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 62% 45%, #5b2ddb, #1a0a5c 70%); }
+.scene > * { position: absolute; }
+svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* the real app on a phone, right of centre */
+.phone { left: 1040px; top: 40px; width: 462px; height: 1000px; padding: 16px; border-radius: 64px; background: #16102c; border: 6px solid #3b2d6b; box-shadow: 0 40px 80px rgba(0,0,0,.55), inset 0 0 0 2px rgba(255,255,255,.06); }
+.take { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 48px; background: #000; }
+.notch { position: absolute; left: 50%; top: 18px; width: 150px; height: 34px; margin-left: -75px; border-radius: 20px; background: #16102c; }
+
+/* Dexter beside the phone, pointing */
+.dax { left: 520px; bottom: 90px; width: 420px; height: 578px; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+.daxter-mouth { transform-box: fill-box; transform-origin: 50% 0%; }
+
+.step-label { left: 120px; top: 110px; padding: 18px 34px; border-radius: 999px; background: #ffd84a; color: #2a1470; font-size: 54px; box-shadow: 0 10px 0 #b8780c; opacity: 0; }
+.hook-title { left: 120px; top: 260px; font-size: 150px; line-height: 0.95; text-shadow: 0 10px 0 #2a1470, 0 0 50px #a040ff; opacity: 0; }
+.hook-title small { display: block; margin-top: 18px; font-size: 44px; font-weight: 600; color: #ffd84a; text-shadow: 0 4px 0 #2a1470; }
+
+.closing-logo { left: 50%; top: 240px; width: 280px; height: 280px; margin-left: -140px; }
+.closing-logo img { width: 100%; height: 100%; object-fit: contain; }
+.closing-title { left: 0; right: 0; top: 560px; text-align: center; font-size: 130px; text-shadow: 0 8px 0 #2a1470, 0 0 40px #ffd84a; }
+.closing-sub { left: 0; right: 0; top: 740px; text-align: center; font-size: 48px; font-weight: 600; color: #ffd84a; }
+</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="96.338" data-width="1920" data-height="1080">
+      <section id="sc-hook" class="clip scene" data-start="0" data-duration="11.649" data-track-index="0">
+  <div class="phone">
+    <video id="take-hook" class="take" src="assets/cap/take.mp4" data-start="0" data-duration="11.649" data-media-start="40.14" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-hook">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-hook" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-hook" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-hook" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-hook" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-hook" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-hook)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-hook)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-hook)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-hook)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-hook)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-hook)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label"></div><div class="hook-title">Dexty<small>Stories you can play</small></div></section>
+      <section id="sc-open" class="clip scene" data-start="11.649" data-duration="10.799" data-track-index="0">
+  <div class="phone">
+    <video id="take-open" class="take" src="assets/cap/take.mp4" data-start="11.649" data-duration="10.799" data-media-start="2.52" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-open">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-open" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-open" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-open" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-open" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-open" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-open)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-open)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-open)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-open)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-open)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-open)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">1 · Open dexty.live</div></section>
+      <section id="sc-road" class="clip scene" data-start="22.448" data-duration="10.009" data-track-index="0">
+  <div class="phone">
+    <video id="take-road" class="take" src="assets/cap/take.mp4" data-start="22.448" data-duration="10.009" data-media-start="10.36" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-road">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-road" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-road" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-road" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-road" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-road" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-road)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-road)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-road)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-road)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-road)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-road)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">2 · Walk to a house</div></section>
+      <section id="sc-book" class="clip scene" data-start="32.457" data-duration="14.375" data-track-index="0">
+  <div class="phone">
+    <video id="take-book" class="take" src="assets/cap/take.mp4" data-start="32.457" data-duration="14.375" data-media-start="15.57" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-book">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-book" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-book" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-book" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-book" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-book" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-book)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-book)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-book)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-book)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-book)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-book)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">3 · Read or listen</div></section>
+      <section id="sc-quiz" class="clip scene" data-start="46.832" data-duration="10.009" data-track-index="0">
+  <div class="phone">
+    <video id="take-quiz" class="take" src="assets/cap/take.mp4" data-start="46.832" data-duration="10.009" data-media-start="24.84" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-quiz">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-quiz" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-quiz" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-quiz" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-quiz" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-quiz" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-quiz)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-quiz)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-quiz)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-quiz)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-quiz)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-quiz)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">4 · Hoot's questions</div></section>
+      <section id="sc-card" class="clip scene" data-start="56.841" data-duration="10.009" data-track-index="0">
+  <div class="phone">
+    <video id="take-card" class="take" src="assets/cap/take.mp4" data-start="56.841" data-duration="10.009" data-media-start="38.94" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-card">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-card" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-card" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-card" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-card" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-card" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-card)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-card)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-card)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-card)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-card)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-card)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">5 · Your card</div></section>
+      <section id="sc-mission" class="clip scene" data-start="66.85" data-duration="13.771" data-track-index="0">
+  <div class="phone">
+    <video id="take-mission" class="take" src="assets/cap/take.mp4" data-start="66.85" data-duration="13.771" data-media-start="78.00" data-playback-rate="1" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-mission">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-mission" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-mission" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-mission" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-mission" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-mission" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-mission)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-mission)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-mission)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-mission)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-mission)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-mission)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">+ Mission</div></section>
+      <section id="sc-bye" class="clip scene" data-start="80.621" data-duration="11.717" data-track-index="0">
+  <div class="phone">
+    <video id="take-bye" class="take" src="assets/cap/take.mp4" data-start="80.621" data-duration="11.717" data-media-start="96.66" data-playback-rate="0.444" data-track-index="1" muted playsinline></video>
+    <div class="notch"></div>
+  </div><div class="dax dax-bye">
+<svg class="daxter-svg" viewBox="0 0 160 220" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="daxterGlass-dax-bye" cx=".42" cy=".38" r=".65">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".45" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#ffb627"/>
+    </radialGradient>
+    <radialGradient id="daxterHalo-dax-bye" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe27a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="daxterCoat-dax-bye" cx=".38" cy=".3" r=".85">
+      <stop offset="0" stop-color="#9a74ff"/>
+      <stop offset=".55" stop-color="#6236e8"/>
+      <stop offset="1" stop-color="#341597"/>
+    </radialGradient>
+    <radialGradient id="daxterIris-dax-bye" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#7fd0ff"/>
+      <stop offset=".6" stop-color="#2a7bd8"/>
+      <stop offset="1" stop-color="#123c86"/>
+    </radialGradient>
+    <linearGradient id="daxterScarf-dax-bye" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff3fa4"/>
+      <stop offset="1" stop-color="#ff8a1f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse class="daxter-shadow" cx="80" cy="212" rx="38" ry="7" fill="#000" opacity=".35"/>
+
+  <g class="daxter-body">
+    <g class="daxter-leg daxter-leg-back">
+      <rect x="62" y="160" width="14" height="36" rx="7" fill="#3a1d99"/>
+      <ellipse cx="66" cy="198" rx="14" ry="8" fill="#2a1406"/>
+    </g>
+    <g class="daxter-arm daxter-arm-back">
+      <rect x="40" y="118" width="13" height="40" rx="6.5" fill="#5a33d6"/>
+      <circle cx="46" cy="160" r="8" fill="#ffd9b8"/>
+    </g>
+
+    <path class="daxter-pack" d="M100 112 h18 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-18Z" fill="#b8662a"/>
+    <path d="M104 122 h20" stroke="#7a3e12" stroke-width="3"/>
+    <path class="daxter-coat" d="M52 112 h56 a10 10 0 0 1 10 10 v36 a14 14 0 0 1 -14 14 h-48 a14 14 0 0 1 -14 -14 v-36 a10 10 0 0 1 10 -10Z" fill="url(#daxterCoat-dax-bye)"/>
+    <circle cx="80" cy="136" r="3" fill="#ffd44d"/>
+    <circle cx="80" cy="150" r="3" fill="#ffd44d"/>
+
+    <g class="daxter-leg daxter-leg-front">
+      <rect x="84" y="160" width="14" height="36" rx="7" fill="#4b23c8"/>
+      <ellipse cx="94" cy="198" rx="14" ry="8" fill="#3a1d0a"/>
+    </g>
+
+    <path class="daxter-scarf" d="M50 108 q30 12 60 0 v10 q-30 12 -60 0Z" fill="url(#daxterScarf-dax-bye)"/>
+    <path class="daxter-scarf-tail" d="M58 114 q-18 6 -26 22 l10 4 q6 -14 20 -18Z" fill="#ff5a7a"/>
+
+    <g class="daxter-head">
+      <circle class="daxter-halo" cx="80" cy="58" r="62" fill="url(#daxterHalo-dax-bye)"/>
+      <rect x="66" y="92" width="28" height="18" rx="4" fill="#9aa3b8"/>
+      <path d="M66 98 h28 M66 104 h28" stroke="#6b7388" stroke-width="2.5"/>
+      <path d="M80 6 C112 6 128 30 124 56 C120 78 104 84 98 94 H62 C56 84 40 78 36 56 C32 30 48 6 80 6Z" fill="url(#daxterGlass-dax-bye)" stroke="#ffcf4a" stroke-width="2"/>
+      <path d="M70 30 c0 -10 22 -12 22 2 c0 10 -12 10 -12 20" stroke="#ff9a1f" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+      <circle cx="80" cy="60" r="3.2" fill="#ff9a1f" opacity=".75"/>
+      <ellipse cx="56" cy="34" rx="8" ry="14" fill="#fff" opacity=".7" transform="rotate(-25 56 34)"/>
+      <g class="daxter-brows">
+        <path d="M56 48 q9 -7 18 -1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M86 47 q9 -6 18 1" stroke="#7a3e12" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="daxter-eyes">
+        <ellipse cx="65" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <ellipse cx="95" cy="65" rx="11" ry="13" fill="#fff" stroke="#e8b54a" stroke-width="1.5"/>
+        <g class="daxter-pupils">
+          <circle cx="67" cy="67" r="8" fill="url(#daxterIris-dax-bye)"/>
+          <circle cx="97" cy="67" r="8" fill="url(#daxterIris-dax-bye)"/>
+          <circle cx="67" cy="67" r="4" fill="#120a04"/>
+          <circle cx="97" cy="67" r="4" fill="#120a04"/>
+          <circle cx="70" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="100" cy="63" r="2.8" fill="#fff"/>
+          <circle cx="64.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+          <circle cx="94.5" cy="70.5" r="1.3" fill="#fff" opacity=".85"/>
+        </g>
+        <g class="daxter-lids" fill="#ffd968">
+          <ellipse cx="65" cy="53" rx="12" ry="1"/>
+          <ellipse cx="95" cy="53" rx="12" ry="1"/>
+        </g>
+      </g>
+      <g class="daxter-glasses">
+        <circle cx="65" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <circle cx="95" cy="65" r="16" fill="#bfe6ff" fill-opacity=".18" stroke="#2a1406" stroke-width="4"/>
+        <path d="M80 62 q0 -5 0 0" stroke="#2a1406" stroke-width="4" fill="none"/>
+        <path d="M79 61 h2" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M49 62 l-10 -4 M111 62 l10 -4" stroke="#2a1406" stroke-width="4" stroke-linecap="round"/>
+        <path d="M56 56 q4 -4 9 -4 M86 56 q4 -4 9 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
+      <ellipse cx="50" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <ellipse cx="110" cy="80" rx="7" ry="4" fill="#ff7a6b" opacity=".5"/>
+      <path class="daxter-mouth" d="M70 82 q10 11 20 0 q-10 4 -20 0Z" fill="#7a1f12" stroke="#2a1406" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M38 52 C40 30 56 14 76 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".55"/>
+      <path d="M122 60 C120 74 110 82 102 90" stroke="#ff9a1f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <g class="daxter-arm daxter-arm-front">
+      <rect x="106" y="118" width="13" height="40" rx="6.5" fill="#6a40e6"/>
+      <circle cx="112" cy="160" r="8" fill="#ffe2c6"/>
+    </g>
+  </g>
+</svg></div><div class="step-label">dexty.live</div></section>
+      <section id="sc-closing" class="clip scene" data-start="92.338" data-duration="4.000" data-track-index="0"><div class="closing-logo"><img src="assets/logo.png" alt="" /></div><div class="closing-title">dexty.live</div><div class="closing-sub">Free · no account · stop whenever you like</div></section>
+      <audio id="bed" src="assets/bed.wav" data-start="0" data-duration="96.338" data-track-index="5" data-volume="0.45"></audio>
+      <audio id="vo-hook" src="assets/vo/hook.mp3" data-start="0.4" data-duration="10.449" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-open" src="assets/vo/open.mp3" data-start="12.049" data-duration="9.799" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-road" src="assets/vo/road.mp3" data-start="22.848" data-duration="9.009" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-book" src="assets/vo/book.mp3" data-start="32.857" data-duration="13.375" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-quiz" src="assets/vo/quiz.mp3" data-start="47.232" data-duration="9.009" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-card" src="assets/vo/card.mp3" data-start="57.241" data-duration="9.009" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-mission" src="assets/vo/mission.mp3" data-start="67.25" data-duration="12.771" data-track-index="6" data-volume="1"></audio>
+      <audio id="vo-bye" src="assets/vo/bye.mp3" data-start="80.921" data-duration="10.217" data-track-index="6" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#sc-hook .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 0);
+      tl.fromTo("#sc-hook .dax-hook", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 0);
+      tl.fromTo("#sc-hook .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 0.3);
+      tl.fromTo("#sc-hook .dax-hook .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:93, ease:"sine.inOut", immediateRender:false}, 0.40);
+      tl.to("#sc-hook .dax-hook .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 0.80);
+      tl.to("#sc-hook .dax-hook .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 4.50);
+      tl.to("#sc-hook .dax-hook .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 8.20);
+      tl.to("#sc-hook .dax-hook .daxter-arm-front", {rotation:-150, svgOrigin:"112.5 120", duration:0.25, ease:"back.out(2)"}, 0.40);
+      tl.to("#sc-hook .dax-hook .daxter-arm-front", {rotation:-120, svgOrigin:"112.5 120", duration:0.18, yoyo:true, repeat:5, ease:"sine.inOut"}, 0.65);
+      tl.to("#sc-hook .dax-hook .daxter-halo", {scale:1.3, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 1.69);
+      tl.to("#sc-hook .dax-hook .daxter-halo", {scale:1, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 2.49);
+      tl.to("#sc-hook .dax-hook .daxter-arm-front", {rotation:-60, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 4.56);
+      tl.to("#sc-hook .dax-hook", {y:-90, rotation:0, duration:0.35, ease:"power2.out"}, 5.67); tl.to("#sc-hook .dax-hook", {y:0, rotation:0, duration:0.3, ease:"bounce.out"}, 6.02);
+      tl.to("#sc-hook .dax-hook .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-brows", {y:-6, duration:0.2}, 7.70);
+      tl.to("#sc-hook .dax-hook .daxter-arm-front", {rotation:-95, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 8.79);
+      tl.fromTo("#sc-hook .hook-title", {opacity:0, x:40}, {opacity:1, x:0, duration:0.6}, 8.79);
+tl.fromTo("#sc-open .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 11.649);
+      tl.fromTo("#sc-open .dax-open", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 11.649);
+      tl.fromTo("#sc-open .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 11.949);
+      tl.fromTo("#sc-open .dax-open .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:87, ease:"sine.inOut", immediateRender:false}, 12.05);
+      tl.to("#sc-open .dax-open .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 12.45);
+      tl.to("#sc-open .dax-open .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 16.15);
+      tl.to("#sc-open .dax-open .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 19.85);
+      tl.to("#sc-open .dax-open .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 14.42);
+      tl.to("#sc-open .dax-open .daxter-arm-front", {rotation:-55, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 16.22);
+      tl.to("#sc-open .dax-open .daxter-pupils", {x:5, y:3, duration:0.2}, 16.22);
+      tl.to("#sc-open .dax-open .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 17.37);
+      tl.to("#sc-open .dax-open .daxter-arm-back", {rotation:165, svgOrigin:"46.5 120", duration:0.4, ease:"back.out(2)"}, 17.37);
+      tl.to("#sc-open .dax-open .daxter-pupils", {x:0, y:-4, duration:0.2}, 17.37);
+      tl.to("#sc-open .dax-open .daxter-head", {rotation:-8, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 17.37);
+      tl.to("#sc-open .dax-open .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open .daxter-arm-front", {rotation:-40, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 20.13);
+      tl.to("#sc-open .dax-open", {y:-70, rotation:0, duration:0.35, ease:"power2.out"}, 20.67); tl.to("#sc-open .dax-open", {y:0, rotation:0, duration:0.3, ease:"bounce.out"}, 21.02);
+tl.fromTo("#sc-road .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 22.448);
+      tl.fromTo("#sc-road .dax-road", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 22.448);
+      tl.fromTo("#sc-road .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 22.748);
+      tl.fromTo("#sc-road .dax-road .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:79, ease:"sine.inOut", immediateRender:false}, 22.85);
+      tl.to("#sc-road .dax-road .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 23.25);
+      tl.to("#sc-road .dax-road .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 26.95);
+      tl.to("#sc-road .dax-road .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 30.65);
+      tl.to("#sc-road .dax-road .daxter-arm-front", {rotation:-80, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 23.78);
+      tl.to("#sc-road .dax-road .daxter-arm-back", {rotation:70, svgOrigin:"46.5 120", duration:0.3, ease:"back.out(2)"}, 25.89);
+      tl.to("#sc-road .dax-road .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 25.89);
+      tl.to("#sc-road .dax-road .daxter-brows", {y:-6, duration:0.2}, 25.89);
+      tl.to("#sc-road .dax-road .daxter-arm-front", {rotation:-30, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 28.18);
+      tl.to("#sc-road .dax-road .daxter-head", {y:6, duration:0.18, yoyo:true, repeat:3, ease:"sine.inOut"}, 31.29);
+      tl.to("#sc-road .dax-road .daxter-arm-front", {rotation:-45, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 31.29);
+tl.fromTo("#sc-book .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 32.457);
+      tl.fromTo("#sc-book .dax-book", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 32.457);
+      tl.fromTo("#sc-book .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 32.757);
+      tl.fromTo("#sc-book .dax-book .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:119, ease:"sine.inOut", immediateRender:false}, 32.86);
+      tl.to("#sc-book .dax-book .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 33.26);
+      tl.to("#sc-book .dax-book .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 36.96);
+      tl.to("#sc-book .dax-book .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 40.66);
+      tl.to("#sc-book .dax-book .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 44.36);
+      tl.to("#sc-book .dax-book .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 33.92);
+      tl.to("#sc-book .dax-book .daxter-pupils", {x:5, y:2, duration:0.2}, 36.26);
+      tl.to("#sc-book .dax-book .daxter-arm-front", {rotation:-50, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 37.97);
+      tl.to("#sc-book .dax-book .daxter-halo", {scale:1.4, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 39.03);
+      tl.to("#sc-book .dax-book .daxter-halo", {scale:1, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 39.93);
+      tl.to("#sc-book .dax-book .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 43.41);
+      tl.to("#sc-book .dax-book .daxter-arm-back", {rotation:165, svgOrigin:"46.5 120", duration:0.4, ease:"back.out(2)"}, 43.41);
+      tl.to("#sc-book .dax-book .daxter-pupils", {x:0, y:-4, duration:0.2}, 43.41);
+      tl.to("#sc-book .dax-book .daxter-head", {rotation:-8, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 43.41);
+      tl.to("#sc-book .dax-book .daxter-head", {rotation:6, svgOrigin:"80 105", duration:0.2, yoyo:true, repeat:3, ease:"sine.inOut"}, 43.41);
+      tl.to("#sc-book .dax-book .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 44.88);
+      tl.to("#sc-book .dax-book .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 44.88);
+      tl.to("#sc-book .dax-book .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 44.88);
+      tl.to("#sc-book .dax-book .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 44.88);
+      tl.to("#sc-book .dax-book .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 44.88);
+      tl.to("#sc-book .dax-book .daxter-arm-front", {rotation:-95, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 44.88);
+tl.fromTo("#sc-quiz .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 46.832);
+      tl.fromTo("#sc-quiz .dax-quiz", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 46.832);
+      tl.fromTo("#sc-quiz .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 47.132);
+      tl.fromTo("#sc-quiz .dax-quiz .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:79, ease:"sine.inOut", immediateRender:false}, 47.23);
+      tl.to("#sc-quiz .dax-quiz .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 47.63);
+      tl.to("#sc-quiz .dax-quiz .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 51.33);
+      tl.to("#sc-quiz .dax-quiz .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 55.03);
+      tl.to("#sc-quiz .dax-quiz .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 48.18);
+      tl.to("#sc-quiz .dax-quiz .daxter-arm-back", {rotation:70, svgOrigin:"46.5 120", duration:0.3, ease:"back.out(2)"}, 53.12);
+      tl.to("#sc-quiz .dax-quiz .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 53.12);
+      tl.to("#sc-quiz .dax-quiz .daxter-brows", {y:-6, duration:0.2}, 53.12);
+      tl.to("#sc-quiz .dax-quiz .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 55.21);
+      tl.to("#sc-quiz .dax-quiz .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 55.21);
+      tl.to("#sc-quiz .dax-quiz .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 55.21);
+      tl.to("#sc-quiz .dax-quiz .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 55.21);
+      tl.to("#sc-quiz .dax-quiz .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 55.21);
+      tl.to("#sc-quiz .dax-quiz .daxter-head", {y:6, duration:0.18, yoyo:true, repeat:3, ease:"sine.inOut"}, 55.21);
+tl.fromTo("#sc-card .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 56.841);
+      tl.fromTo("#sc-card .dax-card", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 56.841);
+      tl.fromTo("#sc-card .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 57.141);
+      tl.fromTo("#sc-card .dax-card .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:79, ease:"sine.inOut", immediateRender:false}, 57.24);
+      tl.to("#sc-card .dax-card .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 57.64);
+      tl.to("#sc-card .dax-card .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 61.34);
+      tl.to("#sc-card .dax-card .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 65.04);
+      tl.to("#sc-card .dax-card .daxter-arm-front", {rotation:-55, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 58.40);
+      tl.to("#sc-card .dax-card", {y:-110, rotation:360, duration:0.35, ease:"power2.out"}, 60.85); tl.to("#sc-card .dax-card", {y:0, rotation:360, duration:0.3, ease:"bounce.out"}, 61.20);
+      tl.to("#sc-card .dax-card .daxter-halo", {scale:1.5, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 60.85);
+      tl.to("#sc-card .dax-card .daxter-halo", {scale:1, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 61.85);
+      tl.to("#sc-card .dax-card .daxter-arm-front", {rotation:-150, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 63.74);
+tl.fromTo("#sc-mission .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 66.85);
+      tl.fromTo("#sc-mission .dax-mission", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 66.85);
+      tl.fromTo("#sc-mission .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 67.14999999999999);
+      tl.fromTo("#sc-mission .dax-mission .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:115, ease:"sine.inOut", immediateRender:false}, 67.25);
+      tl.to("#sc-mission .dax-mission .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 67.65);
+      tl.to("#sc-mission .dax-mission .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 71.35);
+      tl.to("#sc-mission .dax-mission .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 75.05);
+      tl.to("#sc-mission .dax-mission .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 78.75);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:-60, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 68.70);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 72.46);
+      tl.to("#sc-mission .dax-mission .daxter-arm-back", {rotation:165, svgOrigin:"46.5 120", duration:0.4, ease:"back.out(2)"}, 72.46);
+      tl.to("#sc-mission .dax-mission .daxter-pupils", {x:0, y:-4, duration:0.2}, 72.46);
+      tl.to("#sc-mission .dax-mission .daxter-head", {rotation:-8, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 72.46);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:-60, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 73.85);
+      tl.to("#sc-mission .dax-mission", {y:-90, rotation:0, duration:0.35, ease:"power2.out"}, 77.06); tl.to("#sc-mission .dax-mission", {y:0, rotation:0, duration:0.3, ease:"bounce.out"}, 77.41);
+      tl.to("#sc-mission .dax-mission .daxter-halo", {scale:1.3, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 77.06);
+      tl.to("#sc-mission .dax-mission .daxter-halo", {scale:1, svgOrigin:"80 58", opacity:1, duration:0.4, ease:"power2.out"}, 77.96);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:-120, svgOrigin:"112.5 120", duration:0.25, ease:"back.out(2)"}, 78.65);
+      tl.to("#sc-mission .dax-mission .daxter-arm-front", {rotation:-90, svgOrigin:"112.5 120", duration:0.18, yoyo:true, repeat:3, ease:"sine.inOut"}, 78.90);
+tl.fromTo("#sc-bye .phone", {y:60, opacity:0}, {y:0, opacity:1, duration:0.5, ease:"power2.out"}, 80.621);
+      tl.fromTo("#sc-bye .dax-bye", {x:-300, opacity:0}, {x:0, opacity:1, duration:0.5, ease:"power3.out"}, 80.621);
+      tl.fromTo("#sc-bye .step-label", {opacity:0, y:20}, {opacity:1, y:0, duration:0.4}, 80.92099999999999);
+      tl.fromTo("#sc-bye .dax-bye .daxter-mouth", {scaleY:1}, {scaleY:0.35, duration:0.11, yoyo:true, repeat:91, ease:"sine.inOut", immediateRender:false}, 80.92);
+      tl.to("#sc-bye .dax-bye .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 81.42);
+      tl.to("#sc-bye .dax-bye .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 85.12);
+      tl.to("#sc-bye .dax-bye .daxter-lids ellipse", {attr:{ry:13, cy:62}, duration:0.07, yoyo:true, repeat:1}, 88.82);
+      tl.to("#sc-bye .dax-bye .daxter-head", {y:6, duration:0.18, yoyo:true, repeat:3, ease:"sine.inOut"}, 80.92);
+      tl.to("#sc-bye .dax-bye .daxter-arm-front", {rotation:-95, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 82.00);
+      tl.to("#sc-bye .dax-bye .daxter-arm-back", {rotation:70, svgOrigin:"46.5 120", duration:0.3, ease:"back.out(2)"}, 86.00);
+      tl.to("#sc-bye .dax-bye .daxter-arm-front", {rotation:-70, svgOrigin:"112.5 120", duration:0.3, ease:"back.out(2)"}, 86.00);
+      tl.to("#sc-bye .dax-bye .daxter-brows", {y:-6, duration:0.2}, 86.00);
+      tl.to("#sc-bye .dax-bye .daxter-arm-front", {rotation:0, svgOrigin:"112.5 120", duration:0.35, ease:"back.out(2)"}, 86.97);
+      tl.to("#sc-bye .dax-bye .daxter-arm-back", {rotation:0, svgOrigin:"46.5 120", duration:0.35, ease:"back.out(2)"}, 86.97);
+      tl.to("#sc-bye .dax-bye .daxter-leg-front", {rotation:0, svgOrigin:"91 162", duration:0.2, ease:"back.out(2)"}, 86.97);
+      tl.to("#sc-bye .dax-bye .daxter-leg-back", {rotation:0, svgOrigin:"69 162", duration:0.2, ease:"back.out(2)"}, 86.97);
+      tl.to("#sc-bye .dax-bye .daxter-head", {rotation:0, svgOrigin:"80 105", duration:0.35, ease:"back.out(2)"}, 86.97);
+      tl.to("#sc-bye .dax-bye .daxter-arm-front", {rotation:-150, svgOrigin:"112.5 120", duration:0.25, ease:"back.out(2)"}, 89.39);
+      tl.to("#sc-bye .dax-bye .daxter-arm-front", {rotation:-120, svgOrigin:"112.5 120", duration:0.18, yoyo:true, repeat:7, ease:"sine.inOut"}, 89.64);
+tl.fromTo("#sc-closing .closing-logo", {scale:0.6, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:"back.out(1.6)"}, 92.43799999999999);
+tl.fromTo("#sc-closing .closing-title", {opacity:0, y:30}, {opacity:1, y:0, duration:0.5}, 92.838);
+tl.fromTo("#sc-closing .closing-sub", {opacity:0}, {opacity:1, duration:0.5}, 93.43799999999999);
+tl.to("#sc-closing", {opacity:0, duration:0.6}, 95.738);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

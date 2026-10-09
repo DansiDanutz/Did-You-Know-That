@@ -96,6 +96,7 @@ export default {
     "name.hello": "Salut, {name} !",
     "name.explorerWords": "explorateur",
     "name.wellDone": "Bravo, {name} !",
+    "home.enter": "🏡 Entrer dans la maison",
     "home.mission": "Mission",
     "explorer.title": "Mon explorateur",
     "explorer.empty": "Termine une mission pour gagner une tenue pour Dexter et des décorations pour son atelier.",
@@ -194,6 +195,22 @@ export default {
   },
 
   stories: {
+    "house-of-family": {
+      kids: {
+        title: "La Maison de la Famille",
+        teaser: "La famille, c'est là où l'amour commence. Emma et Leo découvrent les petites choses qui font une famille.",
+        card: { name: "Cœur de Gentillesse", fact: "L'amour grandit grâce aux petites choses de chaque jour : prendre soin, aider, écouter et dire pardon." },
+        mission: ["Ce que Leo a ressenti quand Emma a crié, et ce qui l'a aidé", "Les mots gentils qui réparent les choses après une erreur", "Ce qui rend une famille spéciale, quelle que soit sa forme"],
+        pages: {},
+      },
+      adults: {
+        title: "La Maison de la Famille",
+        teaser: "La famille, c'est là où l'amour commence. Emma et Leo découvrent les petites choses qui font une famille.",
+        card: { name: "Cœur de Gentillesse", fact: "L'amour grandit grâce aux petites choses de chaque jour : prendre soin, aider, écouter et dire pardon." },
+        mission: ["Ce que Leo a ressenti quand Emma a crié, et ce qui l'a aidé", "Les mots gentils qui réparent les choses après une erreur", "Ce qui rend une famille spéciale, quelle que soit sa forme"],
+        pages: {},
+      },
+    },
     "why-wonder": {
       kids: {
         title: "Qui appuie sur Play ?",

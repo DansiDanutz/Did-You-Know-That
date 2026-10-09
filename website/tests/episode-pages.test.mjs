@@ -8,7 +8,7 @@ const pages = renderEpisodePages();
 
 test("every published-or-draft episode gets one public page per audience", () => {
   assert.deepEqual(Object.keys(pages).sort(), [
-    "e/ancient-honey/index.html", "e/honey-that-never-spoils/index.html", "e/re-reading-trap/index.html", "e/who-keeps-pressing-play/index.html",
+    "e/ancient-honey/index.html", "e/honey-that-never-spoils/index.html", "e/re-reading-trap/index.html", "e/the-little-things-that-make-a-family/index.html", "e/who-keeps-pressing-play/index.html",
   ]);
 });
 

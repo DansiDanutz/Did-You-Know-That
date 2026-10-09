@@ -1,6 +1,8 @@
 // Where Daxter stands on the map, derived purely from saved progress.
 
-const isDone = (story, progress) => Boolean(progress.cards[story.card.id]);
+// A house is done when its card is saved or, for a house with a challenge, when
+// the challenge was passed (progress.done, derived from the explorer state).
+const isDone = (story, progress) => Boolean(progress.cards[story.card.id] || progress.done?.[story.id]);
 
 export function currentHouseIndex(stories, progress) {
   const next = stories.findIndex((story) => story.comingSoon || !isDone(story, progress));

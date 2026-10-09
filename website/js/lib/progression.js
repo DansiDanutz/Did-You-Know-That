@@ -14,9 +14,18 @@ export const ITEMS = Object.freeze({
   "lamp-prism-gold": Object.freeze({ kind: "equipment", name: "Golden prism lamp" }),
   // Workshop decorations persist and never deteriorate.
   "deco-sundial": Object.freeze({ kind: "decoration", name: "Sundial (decoration)" }),
+  // Adventure Hearts: badges earned by understanding a house's story.
+  "heart-kindness": Object.freeze({ kind: "badge", name: "Heart of Kindness" }),
 });
 
 export const MISSIONS = Object.freeze({
+  // Episode 1: the House of Family. Passing the five scene challenges earns the
+  // Heart of Kindness (no choice to make); the next house then unlocks.
+  "house-of-family": Object.freeze({
+    id: "house-of-family",
+    loans: Object.freeze([]),
+    rewards: Object.freeze({ choose: Object.freeze([]), always: Object.freeze(["heart-kindness"]), workshop: null }),
+  }),
   "missing-shadow": Object.freeze({
     id: "missing-shadow",
     loans: Object.freeze(["lamp-prism"]),
@@ -30,7 +39,9 @@ export const MISSIONS = Object.freeze({
 
 const isRecord = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);
 
-export const emptyExplorer = () => ({ version: 1, owned: {}, appearance: { outfit: null }, workshop: [], missions: {} });
+export const emptyExplorer = () => ({ version: 1, owned: {}, appearance: { outfit: null }, workshop: [], missions: {}, journal: [] });
+
+const isJournalEntry = (entry) => isRecord(entry) && typeof entry.kind === "string" && typeof entry.id === "string" && typeof entry.title === "string" && typeof entry.at === "string";
 
 export function normalizeExplorer(value) {
   if (!isRecord(value)) return emptyExplorer();
@@ -47,6 +58,7 @@ export function normalizeExplorer(value) {
     appearance: { outfit: owned[outfit] && ITEMS[outfit].kind === "outfit" ? outfit : null },
     workshop: (Array.isArray(value.workshop) ? value.workshop : []).filter((id) => ITEMS[id]?.kind === "decoration" && owned[id]),
     missions,
+    journal: (Array.isArray(value.journal) ? value.journal : []).filter(isJournalEntry),
   };
 }
 
@@ -72,12 +84,14 @@ export function recordHint(state, missionId) {
 // a mission that is already complete returns the same state object.
 export function completeMission(state, missionId, { choice }, at) {
   const mission = MISSIONS[missionId];
-  if (!mission || !mission.rewards.choose.includes(choice)) return state;
+  if (!mission) return state;
+  const { choose, always, workshop: decoration } = mission.rewards;
+  if (choose.length && !choose.includes(choice)) return state;
   if (missionEntry(state, missionId).completedAt) return state;
-  const granted = [choice, ...mission.rewards.always].filter((id) => !state.owned[id]);
+  const granted = [...(choose.length ? [choice] : []), ...always].filter((id) => !state.owned[id]);
   const owned = { ...state.owned, ...Object.fromEntries(granted.map((id) => [id, { at, source: missionId }])) };
-  const workshop = state.workshop.includes(mission.rewards.workshop) ? state.workshop : [...state.workshop, mission.rewards.workshop];
-  return withMission({ ...state, owned, workshop }, missionId, { completedAt: at, choice });
+  const workshop = !decoration || state.workshop.includes(decoration) ? state.workshop : [...state.workshop, decoration];
+  return withMission({ ...state, owned, workshop }, missionId, { completedAt: at, choice: choose.length ? choice : null });
 }
 
 export function equip(state, itemId) {
@@ -98,4 +112,17 @@ export function missionStatus(state, missionId) {
   if (!MISSIONS[missionId] || !entry) return "new";
   if (entry.completedAt) return "solved";
   return entry.attempts > 0 ? "tried" : "new";
+}
+
+// The Adventure Journal: what the child did, in order. Never a score.
+export function addJournal(state, { kind, id, title }, at) {
+  return { ...state, journal: [...(state.journal ?? []), { kind, id, title, at }] };
+}
+
+// The optional real-life kindness mission ("tell someone in your family something
+// you love about them"): recorded once, on trust, no proof asked.
+export function recordKindness(state, at) {
+  if (state.missions["house-of-family"]?.kindnessAt) return state;
+  const next = withMission(state, "house-of-family", { kindnessAt: at });
+  return addJournal(next, { kind: "kindness", id: "kindness-family", title: "Kindness mission: I told someone what I love about them" }, at);
 }

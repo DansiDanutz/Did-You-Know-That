@@ -1,0 +1,58 @@
+/* Episode 1 · The House of Family (js/ui/family-house.js). Warm, touch-first. */
+.house-layer { z-index: 56; overflow-y: auto; padding: max(12px, env(safe-area-inset-top)) 12px 32px; background: radial-gradient(circle at 50% 0%, #3a1f8a, #0b0726 70%); }
+.house-layer[hidden] { display: none; }
+.house-layer.is-open .fh { animation: fh-in 320ms ease-out; }
+@keyframes fh-in { from { opacity: 0; transform: translateY(16px); } }
+
+.fh { position: relative; max-width: 620px; margin: 0 auto; padding: 16px 16px 20px; border-radius: 24px; background: #fff8ea; color: #3a2412; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+.fh-close { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--gold); color: #3a1d02; font-weight: 700; }
+.fh-kicker { margin: 0 52px 4px 0; color: #b8126a; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; }
+.fh h2 { margin: 0 52px 10px 0; font-family: var(--font-book); font-size: 28px; line-height: 1.1; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.fh-stage { display: flex; align-items: flex-end; gap: 10px; margin: 0 0 12px; }
+.fh-dexter { flex: none; width: 96px; height: 132px; }
+.fh-dexter .daxter-mouth { transform-box: fill-box; transform-origin: 50% 0%; }
+.fh-dexter.is-talking .daxter-mouth { animation: fh-talk 220ms ease-in-out infinite alternate; }
+@keyframes fh-talk { to { transform: scaleY(0.35); } }
+.fh-bubble { flex: 1; min-height: 3.2em; margin: 0; padding: 12px 14px; border-radius: 18px 18px 18px 4px; background: #fff; border: 2px solid #ffd44d; font-size: 18px; line-height: 1.4; }
+.fh-hint { margin: 0 0 10px; font-size: 14px; color: #6b4a2a; }
+
+.fh-scene, .fh-cottage, .fh-house { display: block; width: 100%; height: auto; border-radius: 16px; border: 3px solid #e8d3a8; }
+.fh-tv { cursor: pointer; }
+.fh-tv:focus-visible { outline: 4px solid #b8126a; outline-offset: 3px; }
+.fh-tap { transform-box: fill-box; transform-origin: center; animation: fh-pulse 1.1s ease-in-out infinite; }
+@keyframes fh-pulse { 0%, 100% { transform: scale(0.9); opacity: 0.5; } 50% { transform: scale(1.08); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .fh-tap { animation: none; } }
+.fh-world { display: flex; justify-content: space-around; font-size: 44px; padding: 10px 0 16px; }
+.fh-storybook { max-height: 52vh; overflow-y: auto; padding: 4px 6px; font-family: var(--font-book); font-size: 19px; line-height: 1.5; }
+.fh-storybook h3 { margin: 14px 0 4px; font-size: 22px; color: #b8126a; }
+.fh-storybook p { margin: 0 0 8px; }
+
+.fh-options { display: grid; gap: 10px; margin: 12px 0 6px; }
+.fh-option { display: flex; align-items: center; gap: 14px; min-height: 60px; padding: 10px 14px; border-radius: 18px; border: 3px solid #e8d3a8; background: #fff; color: #3a2412; font: inherit; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; }
+.fh-option:focus-visible { outline: 4px solid #b8126a; outline-offset: 2px; }
+.fh-option:disabled { opacity: 0.55; cursor: default; }
+.fh-option.is-right { border-color: #2f8f5b; background: #e6f7ea; opacity: 1; }
+.fh-option.is-wrong { border-color: #e0a24a; background: #fff1c9; }
+.fh-icon { flex: none; width: 48px; height: 48px; display: grid; place-items: center; font-size: 30px; border-radius: 50%; background: #fff4dc; }
+.fh-feedback { min-height: 1.5em; margin: 6px 0 0; font-size: 17px; line-height: 1.45; color: #6b4a2a; }
+
+.fh-reward { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 10px 0; }
+.fh-heart { font-size: 96px; animation: fh-float 2.4s ease-in-out infinite; filter: drop-shadow(0 0 24px rgba(255, 63, 164, 0.6)); }
+@keyframes fh-float { 50% { transform: translateY(-14px) scale(1.06); } }
+.fh-certificate { width: 100%; padding: 18px; border-radius: 16px; border: 4px double #e0a24a; background: #fffbf0; text-align: center; }
+.fh-certificate small { display: block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #b8126a; }
+.fh-certificate b { display: block; margin: 6px 0; font-family: var(--font-display); font-size: 32px; }
+.fh-certificate span { display: block; font-weight: 700; }
+.fh-certificate em { display: block; margin-top: 6px; font-size: 14px; color: #6b4a2a; }
+.fh-mission { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: #fff1c9; font-size: 18px; line-height: 1.4; }
+.fh-mission span { font-size: 44px; }
+.fh-mission p { margin: 0; }
+
+.fh-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+.fh-actions .big { width: 100%; min-height: 56px; font-size: 20px; }
+
+@media (prefers-reduced-motion: reduce) { .fh-heart, .fh-dexter.is-talking .daxter-mouth, .house-layer.is-open .fh { animation: none; } }
+.fh-storybook section { padding: 6px 10px; border-radius: 12px; transition: background 0.3s; }
+.fh-storybook section.is-reading { background: #fff1c9; }

@@ -1,0 +1,15 @@
+{
+  "voice": "nPczCjzI2devNBz1zQrb",
+  "settings": { "stability": 0.45, "similarity_boost": 0.8, "style": 0.45, "use_speaker_boost": true, "speed": 0.97 },
+  "purpose": "Episode 1 (Kids): how to play Dexty, shown on the real app. Opens on the payoff, then one step at a time.",
+  "lines": [
+    { "id": "hook", "text": "Hi, Maya! <break time=\"0.6s\" /> That's me, Dexter, saying YOUR name. <break time=\"0.5s\" /> And that <break time=\"0.3s\" /> is your very first card. <break time=\"0.6s\" /> Want one? <break time=\"0.4s\" /> Here's how. It takes two minutes." },
+    { "id": "open", "text": "Step one. <break time=\"0.3s\" /> On a phone or a tablet, open dexty dot live. <break time=\"0.5s\" /> Tap Kids. <break time=\"0.5s\" /> Type the name you want me to call you. <break time=\"0.4s\" /> Then tap Start the adventure!" },
+    { "id": "road", "text": "Step two. <break time=\"0.3s\" /> This is the Road of Wonders. <break time=\"0.4s\" /> Every house hides a magic book. <break time=\"0.4s\" /> Tap the arrows to walk, <break time=\"0.3s\" /> and when I'm at a door, tap Go in." },
+    { "id": "book", "text": "Step three. <break time=\"0.3s\" /> The book reads itself out loud. <break time=\"0.4s\" /> See the glowing words? <break time=\"0.3s\" /> Tap one <break time=\"0.3s\" /> and a spark tells you a secret. <break time=\"0.5s\" /> Turn the pages, and watch out: <break time=\"0.3s\" /> I guess wrong sometimes. See if you can beat me." },
+    { "id": "quiz", "text": "Step four. <break time=\"0.3s\" /> Professor Hoot asks three questions. <break time=\"0.4s\" /> Everything he asks is in the book, <break time=\"0.3s\" /> and if you're not sure, just try. <break time=\"0.4s\" /> Nobody keeps score." },
+    { "id": "card", "text": "Step five. <break time=\"0.3s\" /> Tap Reveal your card. <break time=\"0.8s\" /> Whoa! <break time=\"0.4s\" /> It's yours. Forever. <break time=\"0.4s\" /> It lives in your backpack, up here." },
+    { "id": "mission", "text": "And one more thing. <break time=\"0.3s\" /> Tap Mission. <break time=\"0.4s\" /> This one is called The Missing Shadow. <break time=\"0.4s\" /> You move the lamp, <break time=\"0.3s\" /> the shadow moves, <break time=\"0.3s\" /> and when you solve it, you choose a new coat for me! <break time=\"0.5s\" /> I'll wear it on the road." },
+    { "id": "bye", "text": "That's it. <break time=\"0.3s\" /> dexty dot live. <break time=\"0.3s\" /> Free, no account, and when you're done, you just stop. The road keeps your place. <break time=\"0.6s\" /> See you at the first house!" }
+  ]
+}

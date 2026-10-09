@@ -96,6 +96,7 @@ export default {
     "name.hello": "你好，{name}！",
     "name.explorerWords": "小探险家",
     "name.wellDone": "真棒，{name}！",
+    "home.enter": "🏡 进入房子",
     "home.mission": "任务",
     "explorer.title": "我的探险家",
     "explorer.empty": "完成一个任务，为德克斯特赢得一套服装和工作室装饰。",
@@ -194,6 +195,22 @@ export default {
   },
 
   stories: {
+    "house-of-family": {
+      kids: {
+        title: "家庭之屋",
+        teaser: "家是爱开始的地方。Emma 和 Leo 发现了让一个家成为家的小事。",
+        card: { name: "善良之心", fact: "爱在每天的小事里成长：关心、帮助、倾听，还有说“对不起”。" },
+        mission: ["Emma 大喊时 Leo 的感受，以及什么帮助了他", "犯错之后能让事情变好的善意话语", "无论什么样子，是什么让一个家特别"],
+        pages: {},
+      },
+      adults: {
+        title: "家庭之屋",
+        teaser: "家是爱开始的地方。Emma 和 Leo 发现了让一个家成为家的小事。",
+        card: { name: "善良之心", fact: "爱在每天的小事里成长：关心、帮助、倾听，还有说“对不起”。" },
+        mission: ["Emma 大喊时 Leo 的感受，以及什么帮助了他", "犯错之后能让事情变好的善意话语", "无论什么样子，是什么让一个家特别"],
+        pages: {},
+      },
+    },
     "why-wonder": {
       kids: {
         title: "是谁一直在按播放？",

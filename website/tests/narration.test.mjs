@@ -7,7 +7,7 @@ import { localizeStory } from "../js/lib/localize.js";
 import { STORIES } from "../js/data/stories.js";
 
 const t = createTranslator("en");
-const ep1 = localizeStory(STORIES[0], LOCALES.en, LOCALES.en, "kids");
+const ep1 = localizeStory(STORIES.find((s) => s.id === "why-wonder"), LOCALES.en, LOCALES.en, "kids");
 const page = (id) => ep1.pages.find((p) => p.id === id);
 const sealed = {};
 const open = {};

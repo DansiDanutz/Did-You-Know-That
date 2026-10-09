@@ -1,0 +1,24 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0726; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Fredoka", "Avenir Next", sans-serif; font-weight: 700; color: #fff; }
+.scene { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 62% 45%, #5b2ddb, #1a0a5c 70%); }
+.scene > * { position: absolute; }
+svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* the real app on a phone, right of centre */
+.phone { left: 1040px; top: 40px; width: 462px; height: 1000px; padding: 16px; border-radius: 64px; background: #16102c; border: 6px solid #3b2d6b; box-shadow: 0 40px 80px rgba(0,0,0,.55), inset 0 0 0 2px rgba(255,255,255,.06); }
+.take { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 48px; background: #000; }
+.notch { position: absolute; left: 50%; top: 18px; width: 150px; height: 34px; margin-left: -75px; border-radius: 20px; background: #16102c; }
+
+/* Dexter beside the phone, pointing */
+.dax { left: 520px; bottom: 90px; width: 420px; height: 578px; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+.daxter-mouth { transform-box: fill-box; transform-origin: 50% 0%; }
+
+.step-label { left: 120px; top: 110px; padding: 18px 34px; border-radius: 999px; background: #ffd84a; color: #2a1470; font-size: 54px; box-shadow: 0 10px 0 #b8780c; opacity: 0; }
+.hook-title { left: 120px; top: 260px; font-size: 150px; line-height: 0.95; text-shadow: 0 10px 0 #2a1470, 0 0 50px #a040ff; opacity: 0; }
+.hook-title small { display: block; margin-top: 18px; font-size: 44px; font-weight: 600; color: #ffd84a; text-shadow: 0 4px 0 #2a1470; }
+
+.closing-logo { left: 50%; top: 240px; width: 280px; height: 280px; margin-left: -140px; }
+.closing-logo img { width: 100%; height: 100%; object-fit: contain; }
+.closing-title { left: 0; right: 0; top: 560px; text-align: center; font-size: 130px; text-shadow: 0 8px 0 #2a1470, 0 0 40px #ffd84a; }
+.closing-sub { left: 0; right: 0; top: 740px; text-align: center; font-size: 48px; font-weight: 600; color: #ffd84a; }

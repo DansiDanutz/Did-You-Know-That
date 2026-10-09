@@ -17,9 +17,31 @@ export const CHANNEL_URL = "https://www.youtube.com/@Did-You-Know-that-2026";
 
 export const STORIES = Object.freeze([
   {
-    id: "why-wonder",
+    // Episode 1: the House of Family. Not a book: the house opens the family
+    // episode (js/ui/family-house.js) with the storybook on the television, the
+    // challenges and the Heart of Kindness.
+    id: "house-of-family",
+    kind: "house",
     episode: 1,
     house: "home",
+    publication: {
+      kids: {
+        schemaVersion: 1,
+        episodeId: "kids-001-house-of-family",
+        slug: "the-little-things-that-make-a-family",
+        topic: "family-friends",
+        publicationStatus: "draft",
+        videoLanguage: "en",
+        narrationLanguages: ["en"],
+      },
+    },
+    card: { id: "card-heart-kindness", number: "001", art: "flower" },
+    pages: { kids: [], adults: [] },
+  },
+  {
+    id: "why-wonder",
+    episode: 2,
+    house: "storm",
     // Publication data per audience (docs/DATA-CONTRACT.md). A video plays only
     // when status is "published" with a valid youtubeId and publishedAt.
     publication: {
@@ -42,7 +64,7 @@ export const STORIES = Object.freeze([
         narrationLanguages: ["en", "ro", "es", "fr", "de", "it", "zh"],
       },
     },
-    card: { id: "card-ep1-why", number: "001", art: { kids: "bolt", adults: "brain" } },
+    card: { id: "card-ep1-why", number: "002", art: { kids: "bolt", adults: "brain" } },
     pages: {
       kids: [
         { id: "opening", type: "title", art: "bolt" },
@@ -80,7 +102,7 @@ export const STORIES = Object.freeze([
   },
   {
     id: "eternal-honey",
-    episode: 2,
+    episode: 3,
     house: "desert",
     publication: {
       kids: {
@@ -102,7 +124,7 @@ export const STORIES = Object.freeze([
         narrationLanguages: [],
       },
     },
-    card: { id: "card-001-eternal-honey", number: "002", art: "jar" },
+    card: { id: "card-001-eternal-honey", number: "003", art: "jar" },
     pages: [
       { id: "opening", type: "title", art: "pyramid" },
       { id: "tomb", type: "story", art: "pyramid", spark: "afterlife" },
@@ -117,18 +139,18 @@ export const STORIES = Object.freeze([
   },
   {
     id: "three-hearts",
-    episode: 3,
+    episode: 4,
     house: "ocean",
     comingSoon: true,
-    card: { id: "card-002-three-hearts", number: "003", art: "octopus" },
+    card: { id: "card-002-three-hearts", number: "004", art: "octopus" },
     pages: [],
   },
   {
     id: "lightning",
-    episode: 4,
+    episode: 5,
     house: "storm",
     comingSoon: true,
-    card: { id: "card-003-lightning", number: "004", art: "bolt" },
+    card: { id: "card-003-lightning", number: "005", art: "bolt" },
     pages: [],
   },
 ]);

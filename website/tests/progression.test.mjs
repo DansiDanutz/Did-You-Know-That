@@ -70,7 +70,7 @@ test("stored data is normalized defensively; unknown items are dropped", () => {
 
 test("every mission reward and loan refers to a defined item", () => {
   Object.values(MISSIONS).forEach((mission) => {
-    [...mission.loans, ...mission.rewards.choose, ...mission.rewards.always, mission.rewards.workshop].forEach((id) => assert.ok(ITEMS[id], id));
+    [...mission.loans, ...mission.rewards.choose, ...mission.rewards.always, mission.rewards.workshop].filter(Boolean).forEach((id) => assert.ok(ITEMS[id], id));
   });
 });
 
@@ -102,4 +102,22 @@ test("missionStatus keeps tried and solved distinct", async () => {
   const solved = completeMission(tried, "missing-shadow", { choice: "outfit-sky" }, "2026-10-09T10:05:00Z");
   assert.equal(missionStatus(solved, "missing-shadow"), "solved");
   assert.equal(missionStatus(solved, "no-such-mission"), "new");
+});
+
+test("the House of Family awards the Heart of Kindness once, with a journal entry", async () => {
+  const { completeMission, addJournal, recordKindness, emptyExplorer, normalizeExplorer } = await import("../js/lib/progression.js");
+  const AT1 = "2026-10-09T18:00:00.000Z";
+  const done = completeMission(emptyExplorer(), "house-of-family", {}, AT1);
+  assert.ok(done.owned["heart-kindness"], "badge granted without a choice");
+  assert.equal(done.missions["house-of-family"].completedAt, AT1);
+  assert.equal(completeMission(done, "house-of-family", {}, "2026-10-10T18:00:00.000Z"), done, "idempotent");
+  const withEntry = addJournal(done, { kind: "house", id: "house-of-family", title: "The House of Family" }, AT1);
+  assert.deepEqual(withEntry.journal, [{ kind: "house", id: "house-of-family", title: "The House of Family", at: AT1 }]);
+  const kind = recordKindness(withEntry, AT1);
+  assert.equal(kind.missions["house-of-family"].kindnessAt, AT1);
+  assert.equal(kind.journal.length, 2, "the kindness mission is written in the journal");
+  assert.equal(recordKindness(kind, "2026-10-10T18:00:00.000Z"), kind, "only once");
+  const reloaded = normalizeExplorer(JSON.parse(JSON.stringify(kind)));
+  assert.deepEqual(reloaded, kind, "journal and badge survive a reload");
+  assert.deepEqual(normalizeExplorer({ journal: [{ kind: "x" }, "bad", { kind: "house", id: "a", title: "A", at: AT1 }] }).journal, [{ kind: "house", id: "a", title: "A", at: AT1 }]);
 });

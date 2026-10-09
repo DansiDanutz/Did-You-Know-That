@@ -13,7 +13,7 @@ const LANG_CODES = LANGUAGES.map(({ code }) => code); // one source: the picker'
 const AUDIENCE_CODES = ["kids", "adults"];
 
 export function emptySettings(lang = "en") {
-  return { lang, audience: "kids", chosen: false, name: "" };
+  return { lang, audience: "kids", chosen: false, name: "", introSeen: false };
 }
 
 export function normalizeSettings(value, fallbackLang = "en") {
@@ -23,6 +23,7 @@ export function normalizeSettings(value, fallbackLang = "en") {
     lang: LANG_CODES.includes(value.lang) ? value.lang : base.lang,
     audience: AUDIENCE_CODES.includes(value.audience) ? value.audience : base.audience,
     chosen: value.chosen === true,
+    introSeen: value.introSeen === true,
     name: cleanName(value.name), // optional; stays on this device
   };
 }

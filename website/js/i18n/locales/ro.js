@@ -96,6 +96,7 @@ export default {
     "name.hello": "Bună, {name}!",
     "name.explorerWords": "exploratorule",
     "name.wellDone": "Bravo, {name}!",
+    "home.enter": "🏡 Intră în casă",
     "home.mission": "Misiune",
     "explorer.title": "Exploratorul meu",
     "explorer.empty": "Termină o misiune ca să câștigi o ținută pentru Dexter și decorațiuni pentru atelierul lui.",
@@ -194,6 +195,22 @@ export default {
   },
 
   stories: {
+    "house-of-family": {
+      kids: {
+        title: "Casa Familiei",
+        teaser: "Familia este locul unde începe iubirea. Emma și Leo descoperă lucrurile mici care fac o familie.",
+        card: { name: "Inima Bunătății", fact: "Iubirea crește prin lucrurile mici pe care le facem în fiecare zi: grijă, ajutor, ascultare și „îmi pare rău”." },
+        mission: ["Cum s-a simțit Leo când Emma a țipat și ce l-a ajutat", "Cuvintele bune care repară lucrurile după o greșeală", "Ce face o familie specială, oricum ar arăta ea"],
+        pages: {},
+      },
+      adults: {
+        title: "Casa Familiei",
+        teaser: "Familia este locul unde începe iubirea. Emma și Leo descoperă lucrurile mici care fac o familie.",
+        card: { name: "Inima Bunătății", fact: "Iubirea crește prin lucrurile mici pe care le facem în fiecare zi: grijă, ajutor, ascultare și „îmi pare rău”." },
+        mission: ["Cum s-a simțit Leo când Emma a țipat și ce l-a ajutat", "Cuvintele bune care repară lucrurile după o greșeală", "Ce face o familie specială, oricum ar arăta ea"],
+        pages: {},
+      },
+    },
     "why-wonder": {
       kids: {
         title: "Cine tot apasă pe Play?",

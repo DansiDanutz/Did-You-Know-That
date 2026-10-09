@@ -97,6 +97,7 @@ export default {
     "name.hello": "Hi, {name}!",
     "name.explorerWords": "explorer",
     "name.wellDone": "Well done, {name}!",
+    "home.enter": "🏡 Enter the house",
     "home.mission": "Mission",
     "explorer.title": "My explorer",
     "explorer.empty": "Finish a mission to earn an outfit for Dexter and decorations for his workshop.",
@@ -195,6 +196,22 @@ export default {
   },
 
   stories: {
+    "house-of-family": {
+      kids: {
+        title: "The House of Family",
+        teaser: "Family is where love begins. Emma and Leo discover the little things that make a family.",
+        card: { name: "Heart of Kindness", fact: "Love grows through the little things we do every day: caring, helping, listening, and saying sorry." },
+        mission: ["How Leo felt when Emma shouted, and what helped", "Kind words that make things better after a mistake", "What makes a family special, whatever it looks like"],
+        pages: {},
+      },
+      adults: {
+        title: "The House of Family",
+        teaser: "Family is where love begins. Emma and Leo discover the little things that make a family.",
+        card: { name: "Heart of Kindness", fact: "Love grows through the little things we do every day: caring, helping, listening, and saying sorry." },
+        mission: ["How Leo felt when Emma shouted, and what helped", "Kind words that make things better after a mistake", "What makes a family special, whatever it looks like"],
+        pages: {},
+      },
+    },
     "why-wonder": {
       kids: {
         title: "Who Keeps Pressing Play?",
