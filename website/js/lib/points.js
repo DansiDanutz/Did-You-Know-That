@@ -15,7 +15,7 @@ const NICK_MIN = 3;
 const NICK_MAX = 16;
 const NICK_PATTERN = /^[\p{L}\p{N} _-]+$/u;
 // Small, deliberate blocklist; extend as moderation needs grow.
-const BLOCKED_WORDS = ["fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "dick", "pussy", "nazi", "hitler", "porn", "sex", "pula", "pizda", "muie"];
+export const BLOCKED_WORDS = ["fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "dick", "pussy", "nazi", "hitler", "porn", "sex", "pula", "pizda", "muie"];
 
 export function cardPoints(card, audience) {
   if (!RARITY_RANK[card?.rarity]) return 0;

@@ -22,7 +22,11 @@ export function pickersMarkup(settings, t) {
     <p class="picker-label">${t("start.lang")}</p>
     ${currentLanguageButton(settings.lang, t)}
     <p class="picker-label">${t("start.audience")}</p>
-    <div class="aud-grid">${audience("kids", "🧒")}${audience("adults", "🎓")}</div>`;
+    <div class="aud-grid">${audience("kids", "🧒")}${audience("adults", "🎓")}</div>
+    <label class="picker-label" for="player-name">${t("name.ask")}</label>
+    <input id="player-name" class="name-input" data-name type="text" maxlength="20" autocomplete="off" autocapitalize="words"
+      value="${(settings.name ?? "").replace(/"/g, "&quot;")}" placeholder="${t("name.placeholder")}" />
+    <p class="name-note">🔒 ${t("name.privacy")}</p>`;
 }
 
 function openLayer(layer, html, onClose) {
@@ -273,6 +277,7 @@ export function openSettings(layer, { settings, t, muted, onPick, onOpenLanguage
   });
   layer.querySelector("[data-open-lang]").addEventListener("click", onOpenLanguage);
   layer.querySelector("[data-sound]").addEventListener("click", onToggleSound);
+  layer.querySelector("[data-name]").addEventListener("change", (event) => onPick({ name: event.target.value }));
   layer.addEventListener("click", function pick(event) {
     const btn = event.target.closest("[data-audience]");
     if (!btn) return;

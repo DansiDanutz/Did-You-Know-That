@@ -17,9 +17,11 @@ import { openLanguageSheet, languageName } from "./ui/language-sheet.js";
 import { setupInstall } from "./ui/install.js";
 import { renderAdultHome, renderKidsBar } from "./ui/home.js";
 import { openMission } from "./ui/mission.js";
+import { cleanName, personalize } from "./lib/player-name.js";
+import { greetingClips, nameIndexPath } from "./lib/name-voice.js";
 import { completeMission, recordAttempt, recordHint, equip } from "./lib/progression.js";
 import { setupModalFocus } from "./ui/modal-focus.js";
-import { greetingKey, greetingAudioPath } from "./lib/greeting.js";
+import { greetingKey } from "./lib/greeting.js";
 import { revealCard } from "./ui/card.js";
 import { pickersMarkup, openInventory, openSettings } from "./ui/panels.js";
 import { DAXTER_SVG } from "./ui/character.js";
@@ -155,6 +157,7 @@ const SHADOW_MISSION = "missing-shadow";
 function showMission() {
   openMission($("#mission-layer"), {
     completed: Boolean(explorer.missions[SHADOW_MISSION]?.completedAt),
+    playerName: settings.name,
     onAttempt: () => changeExplorer((state) => recordAttempt(state, SHADOW_MISSION, nowIso())),
     onHint: () => changeExplorer((state) => recordHint(state, SHADOW_MISSION)),
     onComplete: (choice) => changeExplorer((state) => equip(completeMission(state, SHADOW_MISSION, { choice }, nowIso()), choice)),
@@ -255,7 +258,7 @@ function showInventory() {
 // ---------------------------------------------------------------- settings
 
 function applySettings(patch) {
-  settings = { ...settings, ...patch };
+  settings = { ...settings, ...patch, ...("name" in patch ? { name: cleanName(patch.name) } : {}) };
   store.saveSettings(settings);
   t = createTranslator(settings.lang);
   stories = localizeAll();
@@ -268,6 +271,7 @@ function applySettings(patch) {
   }
   if (openStory) reopenBook(openStory.id);
   install?.refresh();
+  if (patch.lang) loadNameVoice(settings.lang);
   renderHome();
   updateHud();
 }
@@ -492,6 +496,7 @@ function faceContext(story, index) {
     sparkCount,
     maxSparks: max,
     rarity: cardStyle(story),
+    playerName: settings.name,
     firstSeason: Boolean(view().cards[story.card.id]?.firstSeason),
     gate: { message: s.gateMessage },
   };
@@ -605,7 +610,7 @@ function closeBook({ advance = false } = {}) {
 
 async function celebrateAndMoveOn() {
   world.daxter.setState("cheer");
-  world.daxter.say(t("daxter.cheer"), CHEER_MS + 400);
+  world.daxter.say(withName(t("daxter.cheer")), CHEER_MS + 400);
   await new Promise((r) => setTimeout(r, CHEER_MS));
   world.daxter.setState("idle");
   const next = currentHouseIndex(stories, view());
@@ -741,10 +746,14 @@ function renderStartPickers() {
   $("#start-go").textContent = returning ? t("start.continue") : t("start.go");
 }
 
+// ---------------------------------------------------------------- the child's name
+// Dexter uses the child's optional name in his words (kept on this device only).
+const withName = (text) => personalize(text, settings.name, { words: t("name.explorerWords"), hello: t("name.hello") });
+
 // ---------------------------------------------------------------- Daxter's greeting
 
 const VISITS_KEY = "dyk-visits";
-const GREETING_MAX_MS = 16000;
+const GREETING_MAX_MS = 18000; // name clip + greeting
 let greetingAudio = null;
 
 function nextVisit() {
@@ -768,19 +777,55 @@ function stopGreeting() {
 // Start is what lets the phone play sound. Resolves when he has finished.
 function greetPlayer() {
   const key = greetingKey(nextVisit());
-  const text = t(`daxter.${key}`);
+  const text = withName(t(`daxter.${key}`));
   world.daxter.say(text, Math.min(GREETING_MAX_MS, 2500 + text.length * 70));
   if (sfx.muted) return new Promise((r) => setTimeout(r, 2500));
   stopGreeting();
-  const audio = new Audio(greetingAudioPath(settings.lang, key));
-  greetingAudio = audio;
-  return new Promise((resolve) => {
-    const done = () => resolve();
-    audio.addEventListener("ended", done, { once: true });
-    audio.addEventListener("error", done, { once: true });
-    setTimeout(done, GREETING_MAX_MS);
-    audio.play().catch(done);
+  const voice = nameVoice[settings.lang];
+  const clips = greetingClips({
+    lang: settings.lang,
+    key,
+    name: settings.name,
+    voiced: { [settings.lang]: voice?.names },
+    hasBody: (lang, greeting) => Boolean(nameVoice[lang]?.bodies.has(greeting)),
   });
+  return playInOrder(clips);
+}
+
+// Plays clips one after another ("Hi, Sienna!" then the greeting). The first
+// starts inside the Start tap, which is what lets a phone play sound.
+function playInOrder(paths) {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, GREETING_MAX_MS);
+    const finish = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+    const playAt = (index) => {
+      if (index >= paths.length || (index > 0 && !greetingAudio)) return finish();
+      const audio = new Audio(paths[index]);
+      greetingAudio = audio;
+      audio.addEventListener("ended", () => playAt(index + 1), { once: true });
+      audio.addEventListener("error", () => playAt(index + 1), { once: true });
+      audio.play().catch(() => playAt(index + 1));
+    };
+    playAt(0);
+  });
+}
+
+// Which names Dexter can say, per language (generic recordings, see
+// tools/make-name-voice.mjs). Loaded ahead of the Start tap.
+const nameVoice = {};
+async function loadNameVoice(lang) {
+  if (nameVoice[lang]) return;
+  try {
+    const res = await fetch(nameIndexPath(lang));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const index = await res.json();
+    nameVoice[lang] = { names: new Map(Object.entries(index.names ?? {})), bodies: new Set(index.bodies ?? []) };
+  } catch {
+    nameVoice[lang] = { names: new Map(), bodies: new Set() }; // no recordings yet: the normal greeting plays
+  }
 }
 
 function startScreen() {
@@ -788,15 +833,21 @@ function startScreen() {
   renderStartPickers();
   $("#start-pickers").addEventListener("click", (event) => {
     if (event.target.closest("[data-open-lang]")) return showLanguageSheet(renderStartPickers);
+    if (event.target.closest("[data-name]")) return;
     const btn = event.target.closest("[data-audience]");
     if (!btn) return;
     sfx.spark();
     applySettings({ audience: btn.dataset.audience });
     renderStartPickers();
   });
+  $("#start-pickers").addEventListener("change", (event) => {
+    if (event.target.matches("[data-name]")) applySettings({ name: event.target.value });
+  });
   $("#start-go").addEventListener(
     "click",
     async () => {
+      const typed = $("#start-pickers [data-name]")?.value;
+      if (typed !== undefined && cleanName(typed) !== settings.name) applySettings({ name: typed });
       sfx.right();
       applySettings({ chosen: true });
       $("#start-layer").classList.add("is-leaving");
@@ -901,6 +952,7 @@ window.addEventListener("storage", (event) => {
   updateHud();
 });
 applyOutfit();
+loadNameVoice(settings.lang);
 setupModalFocus();
 $("#adult-home").addEventListener("click", handleHomeAction);
 $("#kids-bar-host").addEventListener("click", handleHomeAction);
