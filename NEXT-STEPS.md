@@ -2,6 +2,7 @@
 
 The "Next Step" mod shows the first unchecked item above the prompt. Full plan status: `docs/ACCEPTANCE.md`.
 
+- [ ] David reviews branch `feat/channel-website` (channel website replaces the kids game; leaderboard API removed), merges and redeploys dexty.live from `main`
 - [x] Phase A: audit reconciliation, data contract, templates, Series Bible/README/NEXT-STEPS, asset inventory, open decisions
 - [ ] David answers `docs/OPEN-DECISIONS.md` (ladder, leaderboard, daily limit, magic word, card saving, font, rights, budget)
 - [x] Phase B: companion flow on preview — free card saving, discovery pages, homes, collection search, backup, leaderboard retired, offline shell, browser checks (production deploy waits for David)
