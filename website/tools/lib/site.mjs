@@ -42,3 +42,13 @@ export function thumbnailSources(thumbnail) {
   return { fallback: thumbnail, webp: `${base}.webp`, webpSmall: `${base}-640.webp` };
 }
 export const isLocalAsset = (path) => typeof path === "string" && path.startsWith("/assets/");
+
+/**
+ * The episode the home page puts front and center: the newest published one; before anything is
+ * published, the next to premiere (the lowest-numbered draft) as "Premieres soon".
+ */
+export function featuredEpisode(catalog) {
+  const published = latestPublished(catalog);
+  if (published) return published;
+  return [...catalog.episodes].sort((a, b) => a.number - b.number)[0] ?? null;
+}

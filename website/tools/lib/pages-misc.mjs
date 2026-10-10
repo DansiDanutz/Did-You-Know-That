@@ -11,6 +11,7 @@ export function collectionPage(catalog) {
   <p class="section-kicker">Your collection</p>
   <h1 id="collection-title" class="section-title">“Did you know that…” cards</h1>
   <p class="section-lede">Lock a guess on an episode, watch, then check the answer — its cards land here. Everything stays in this browser: no account, no tracking.</p>
+  <p class="profile-greeting" data-profile-greeting hidden></p>
   <div class="rank-panel" data-rank-panel>
     <p class="rank-title">Explorer rank: <strong data-rank-name>${RANKS[0].name}</strong></p>
     <p class="rank-progress"><span data-collected>0</span> of ${total} cards collected</p>
@@ -32,6 +33,7 @@ ${catalog.episodes.map((episode) => html`<section class="wrap collection-set" ar
   <button class="btn btn-ghost btn-small" type="button" data-forget>Forget my progress</button>
 </section>`;
   return page({
+    newsletter: catalog.newsletter,
     title: `Your collection · ${SITE.name}`,
     description: "Collect the “Did you know that…” cards from every episode of Did You Know That? Guess first, watch, check.",
     path: "/collection/",
@@ -40,14 +42,26 @@ ${catalog.episodes.map((episode) => html`<section class="wrap collection-set" ar
   });
 }
 
-export function notFoundPage() {
+export function notFoundPage(catalog) {
   const main = html`<section class="wrap not-found" data-not-found>
   <p class="section-kicker">404</p>
   <h1 class="section-title">Did you know that… this page doesn’t exist?</h1>
   <p class="section-lede" data-not-found-message>Try a subject word instead.</p>
   <p class="cta-row"><a class="btn btn-primary" href="/#map">${icon("search")}<span>Search by subject</span></a><a class="btn btn-ghost" href="/">Home</a></p>
 </section>`;
-  return page({ title: `Page not found · ${SITE.name}`, description: "This page does not exist.", path: "/404.html", noindex: true, main });
+  return page({ newsletter: catalog.newsletter, title: `Page not found · ${SITE.name}`, description: "This page does not exist.", path: "/404.html", noindex: true, main });
+}
+
+/** Served by the service worker when a page is requested offline and not in the cache. */
+export function offlinePage(catalog) {
+  const main = html`<section class="wrap not-found offline">
+  <img class="offline-bulb" src="/assets/brand/avatar-384.webp" width="192" height="192" alt="">
+  <p class="section-kicker">Offline</p>
+  <h1 class="section-title">Did you know that… you’re offline?</h1>
+  <p class="section-lede">This page isn’t saved on your device yet. Pages you’ve opened before still work — and your guesses and cards are safe in this browser.</p>
+  <p class="cta-row"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/collection/">Your collection</a></p>
+</section>`;
+  return page({ newsletter: catalog.newsletter, title: `Offline · ${SITE.name}`, description: "You are offline.", path: "/offline/", noindex: true, main });
 }
 
 export function sitemap(catalog) {

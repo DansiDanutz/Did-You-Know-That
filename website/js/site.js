@@ -7,6 +7,9 @@ const features = [
   ["[data-quiz]", () => import("./ui/quiz.js")],
   ["[data-collection-scope], [data-rank-badge]", () => import("./ui/collection.js")],
   ["[data-not-found]", () => import("./ui/not-found.js")],
+  ["[data-surprise]", () => import("./ui/surprise.js")],
+  ["[data-profile-open]", () => import("./ui/profile.js")],
+  ["[data-install]", () => import("./ui/install.js")],
 ];
 
 for (const [selector, load] of features) {
@@ -31,3 +34,10 @@ function useThumbnailFallback(img) {
   if (img.complete && img.naturalWidth === 0) fail();
 }
 document.querySelectorAll("img[data-thumb-fallback]").forEach(useThumbnailFallback);
+
+// Installable app: the service worker caches the app shell and serves a branded offline page.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch((error) => console.error("Service worker registration failed", error));
+  });
+}

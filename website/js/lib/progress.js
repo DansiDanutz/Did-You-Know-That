@@ -12,6 +12,7 @@ export const RANKS = [
 ];
 
 const emptyState = () => ({ guesses: {}, revealed: {} });
+const OWNER_PATTERN = /^[0-9a-f-]{36}$/;
 const isPlainObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 
 /** Parses stored JSON defensively; anything unexpected becomes an empty state. */
@@ -25,11 +26,14 @@ export function parseState(rawValue) {
     const revealed = Object.fromEntries(
       Object.entries(isPlainObject(data.revealed) ? data.revealed : {}).filter(([, v]) => v === true),
     );
-    return { guesses, revealed };
+    return { guesses, revealed, ...(OWNER_PATTERN.test(data.owner ?? "") ? { owner: data.owner } : {}) };
   } catch {
     return emptyState();
   }
 }
+
+/** Attaches this browser's progress to the local profile that signed in (see profile.js). */
+export const attachTo = (state, playerId) => (state.owner === playerId ? state : { ...state, owner: playerId });
 
 export const lockGuess = (state, slug, optionIndex) => ({ ...state, guesses: { ...state.guesses, [slug]: optionIndex } });
 

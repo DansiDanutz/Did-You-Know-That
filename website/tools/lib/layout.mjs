@@ -2,17 +2,18 @@
 import { html, raw, jsonLd } from "./html.mjs";
 import { SITE, SUBSCRIBE_URL, HANDLE_URL, absolute } from "./site.mjs";
 import { icon } from "./components.mjs";
+import { newsletterBlock, newsletterPrivacy, resolveNewsletter } from "./newsletter.mjs";
 
 const FONT_PRELOADS = ["montserrat-latin-900-normal", "inter-latin-400-normal"];
 const NAV = [
+  ["/#featured", "Watch"],
+  ["/#series", "Episodes"],
   ["/#map", "Subjects"],
-  ["/#series", "Series"],
-  ["/#rule", "The rule"],
   ["/collection/", "Collection"],
   ["/#about", "About"],
 ];
 
-function head({ title, description, path, ogType = "website", image = SITE.ogImage, noindex = false, structuredData = [] }) {
+function head({ title, description, path, ogType = "website", image = SITE.ogImage, noindex = false, structuredData = [], preloads = [] }) {
   const canonical = absolute(path);
   const imageUrl = image.startsWith("http") ? image : absolute(image);
   return html`<head>
@@ -24,11 +25,16 @@ ${noindex ? raw('<meta name="robots" content="noindex">') : html`<link rel="cano
 <meta name="theme-color" content="#060818">
 <meta name="color-scheme" content="dark">
 ${FONT_PRELOADS.map((font) => html`<link rel="preload" href="/fonts/${font}.woff2" as="font" type="font/woff2" crossorigin>
+`)}${preloads.map((p) => html`<link rel="preload" as="image" type="${p.type}" imagesrcset="${p.srcset}" imagesizes="${p.sizes}" media="${p.media}" fetchpriority="high">
 `)}<link rel="stylesheet" href="/css/site.css">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/assets/icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dexty">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:site_name" content="${SITE.name}">
 <meta property="og:type" content="${ogType}">
 <meta property="og:title" content="${title}">
@@ -62,13 +68,62 @@ function header(currentPath) {
       <span class="rank-dot" aria-hidden="true"></span><span data-rank-name>Curious</span>
       <span class="rank-count" data-rank-count></span>
     </a>
+    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span></button>
     <a class="btn btn-sub btn-small" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe</span></a>
   </div>
 </header>`;
 }
 
-function footer() {
+/** The local sign-in sheet (js/ui/profile.js). Nothing here leaves the browser. */
+const profileSheet = (newsletter) => html`<dialog class="sheet" id="profile-sheet" aria-labelledby="profile-title" data-profile-sheet>
+  <div class="sheet-head">
+    <h2 class="sheet-title" id="profile-title" data-profile-title>Sign in on this device</h2>
+    <button class="sheet-close" type="button" data-profile-close aria-label="Close">×</button>
+  </div>
+  <form class="profile-form" data-profile-form novalidate>
+    <p class="sheet-lede">No account, no email, no password. Your profile, guesses and cards stay in this browser.</p>
+    <fieldset class="aud-grid">
+      <legend class="sheet-label">Who is playing?</legend>
+      <label class="aud-option"><input type="radio" name="audience" value="kids"><span><strong>Kids</strong><small>Ages 6–12 · pick an explorer name</small></span></label>
+      <label class="aud-option"><input type="radio" name="audience" value="adults"><span><strong>Teens &amp; Adults</strong><small>A first name or nickname</small></span></label>
+    </fieldset>
+    <div class="kid-name" data-kid-panel hidden>
+      <p class="sheet-label" id="kid-name-label">Your explorer name</p>
+      <p class="kid-name-value" data-kid-name aria-labelledby="kid-name-label" aria-live="polite"></p>
+      <button class="btn btn-ghost btn-small" type="button" data-kid-shuffle>Shuffle</button>
+    </div>
+    <div data-adult-panel hidden>
+      <label class="sheet-label" for="profile-name">What should we call you?</label>
+      <input class="nl-input profile-input" id="profile-name" name="name" type="text" maxlength="20" autocomplete="nickname" autocapitalize="words" spellcheck="false" placeholder="First name or nickname" aria-describedby="profile-name-note">
+      <p class="sheet-note" id="profile-name-note">It stays on this device. We never send it anywhere.</p>
+    </div>
+    <p class="sheet-error" role="alert" data-profile-error></p>
+    <p class="cta-row"><button class="btn btn-primary" type="submit">Sign in</button><button class="btn btn-ghost" type="button" data-profile-close>Not now</button></p>
+  </form>
+  <div class="profile-card" data-profile-card hidden>
+    <p class="sheet-lede"><span data-profile-audience></span> · profile on this device</p>
+    <dl class="profile-stats">
+      <div><dt>Rank</dt><dd data-profile-rank>Curious</dd></div>
+      <div><dt>Cards</dt><dd data-profile-cards>0</dd></div>
+      <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
+    </dl>
+    <p class="profile-notify">${icon("bulb")}<span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — ${newsletter.provider ? "by email, with the newsletter." : "by email, once the newsletter launches (soon)."}</span></p>
+    <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
+    <p class="sheet-note">Signing out keeps your cards on this device. “Forget my progress” on the collection page clears them.</p>
+  </div>
+</dialog>`;
+
+/** "Install the app" suggestion (js/ui/install.js); shown only where the browser can install. */
+const installBar = () => html`<aside class="install-bar" data-install hidden aria-labelledby="install-title">
+  <img src="/assets/icons/icon-192.png" width="44" height="44" alt="" loading="lazy">
+  <div class="install-copy"><p class="install-title" id="install-title">Install the app</p><p class="install-text" data-install-text>Dexty on your home screen — full screen, works offline.</p></div>
+  <button class="btn btn-primary btn-small" type="button" data-install-go hidden>Install</button>
+  <button class="install-close" type="button" data-install-dismiss aria-label="Dismiss the install suggestion">×</button>
+</aside>`;
+
+function footer(newsletter) {
   return html`<footer class="site-footer">
+  <div class="wrap">${newsletterBlock(newsletter, { id: "footer", className: "newsletter-footer" })}</div>
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <img src="/assets/brand/avatar-192.webp" width="56" height="56" alt="" loading="lazy">
@@ -83,14 +138,18 @@ function footer() {
         <li><a href="/collection/">Your collection</a></li>
       </ul>
     </nav>
-    <p class="privacy" id="privacy"><strong>Privacy.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+    <section class="privacy" id="privacy" aria-labelledby="privacy-title">
+      <h2 class="privacy-title" id="privacy-title">Privacy</h2>
+      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+      ${newsletterPrivacy(newsletter)}
+    </section>
   </div>
   <p class="wrap footer-legal">© Did You Know That? · ${SITE.handle}</p>
 </footer>`;
 }
 
 /** A complete HTML document. */
-export function page({ main, currentPath = "", ...meta }) {
+export function page({ main, currentPath = "", newsletter = resolveNewsletter(null), ...meta }) {
   return `<!doctype html>
 <html lang="en">
 ${head(meta)}
@@ -99,7 +158,9 @@ ${header(currentPath)}
 <main id="main" tabindex="-1">
 ${main}
 </main>
-${footer()}
+${footer(newsletter)}
+${profileSheet(newsletter)}
+${installBar()}
 </body>
 </html>
 `;

@@ -15,6 +15,10 @@
 <link rel="icon" href="/assets/icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dexty">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:site_name" content="Did You Know That?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="No. 02 — The Sun · Did You Know That?">
@@ -39,13 +43,14 @@
     </a>
     <nav class="main-nav" aria-label="Main">
       <ul>
-        <li><a href="/#map">Subjects</a></li><li><a href="/#series">Series</a></li><li><a href="/#rule">The rule</a></li><li><a href="/collection/">Collection</a></li><li><a href="/#about">About</a></li>
+        <li><a href="/#featured">Watch</a></li><li><a href="/#series">Episodes</a></li><li><a href="/#map">Subjects</a></li><li><a href="/collection/">Collection</a></li><li><a href="/#about">About</a></li>
       </ul>
     </nav>
     <a class="rank-badge" href="/collection/" data-rank-badge hidden>
       <span class="rank-dot" aria-hidden="true"></span><span data-rank-name>Curious</span>
       <span class="rank-count" data-rank-count></span>
     </a>
+    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span></button>
     <a class="btn btn-sub btn-small" href="https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q?sub_confirmation=1" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg><span>Subscribe</span></a>
   </div>
 </header>
@@ -58,7 +63,7 @@
     <p class="ep-hook">Every time you look at the Sun, you are looking into the past.</p>
     <p class="ep-question">Did you know that the Sun you see is not the Sun as it is right now?</p>
   </header>
-  <section class="quiz wrap" aria-labelledby="quiz-title" data-quiz data-slug="the-sun" data-answer="1" data-published="false">
+  <section class="quiz wrap" id="guess" aria-labelledby="quiz-title" data-quiz data-slug="the-sun" data-answer="1" data-published="false">
   <p class="section-kicker">Guess before you watch</p>
   <form class="quiz-form" data-quiz-form>
     <fieldset>
@@ -186,6 +191,24 @@
 </article>
 </main>
 <footer class="site-footer">
+  <div class="wrap"><section class="newsletter newsletter-footer" aria-labelledby="nl-title-footer">
+  <div class="nl-copy">
+    <h2 class="nl-title" id="nl-title-footer">Get the next mystery first</h2>
+    <p class="nl-lede">One email when a new episode lands — with its question, so you can guess before you watch.</p>
+  </div>
+  <div class="nl-body">
+  <form class="nl-form is-off" data-newsletter="off"><fieldset class="nl-fieldset" disabled>
+    <legend class="visually-hidden">Newsletter signup (not open yet)</legend>
+    <label class="nl-label" for="nl-email-footer">Email address</label>
+    <span class="nl-row">
+      <input class="nl-input" id="nl-email-footer" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="nl-consent-footer nl-state-footer">
+      <button class="btn btn-primary nl-submit" type="submit">Newsletter launching soon</button>
+    </span>
+  </fieldset></form>
+  <p class="nl-consent" id="nl-consent-footer">We’ll email you when a new episode is out. Unsubscribe anytime. <a href="#privacy">Privacy</a></p>
+  <p class="nl-state" id="nl-state-footer">Not open yet: this form is switched off and collects nothing. Meanwhile, <a href="https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q?sub_confirmation=1" rel="noopener">subscribe on YouTube</a>.</p>
+  </div>
+</section></div>
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <img src="/assets/brand/avatar-192.webp" width="56" height="56" alt="" loading="lazy">
@@ -200,9 +223,56 @@
         <li><a href="/collection/">Your collection</a></li>
       </ul>
     </nav>
-    <p class="privacy" id="privacy"><strong>Privacy.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+    <section class="privacy" id="privacy" aria-labelledby="privacy-title">
+      <h2 class="privacy-title" id="privacy-title">Privacy</h2>
+      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+      <p><strong>Newsletter.</strong> Not open yet. The signup form is switched off and no email addresses are collected or stored anywhere.</p>
+    </section>
   </div>
   <p class="wrap footer-legal">© Did You Know That? · @Did-You-Know-that-2026</p>
 </footer>
+<dialog class="sheet" id="profile-sheet" aria-labelledby="profile-title" data-profile-sheet>
+  <div class="sheet-head">
+    <h2 class="sheet-title" id="profile-title" data-profile-title>Sign in on this device</h2>
+    <button class="sheet-close" type="button" data-profile-close aria-label="Close">×</button>
+  </div>
+  <form class="profile-form" data-profile-form novalidate>
+    <p class="sheet-lede">No account, no email, no password. Your profile, guesses and cards stay in this browser.</p>
+    <fieldset class="aud-grid">
+      <legend class="sheet-label">Who is playing?</legend>
+      <label class="aud-option"><input type="radio" name="audience" value="kids"><span><strong>Kids</strong><small>Ages 6–12 · pick an explorer name</small></span></label>
+      <label class="aud-option"><input type="radio" name="audience" value="adults"><span><strong>Teens &amp; Adults</strong><small>A first name or nickname</small></span></label>
+    </fieldset>
+    <div class="kid-name" data-kid-panel hidden>
+      <p class="sheet-label" id="kid-name-label">Your explorer name</p>
+      <p class="kid-name-value" data-kid-name aria-labelledby="kid-name-label" aria-live="polite"></p>
+      <button class="btn btn-ghost btn-small" type="button" data-kid-shuffle>Shuffle</button>
+    </div>
+    <div data-adult-panel hidden>
+      <label class="sheet-label" for="profile-name">What should we call you?</label>
+      <input class="nl-input profile-input" id="profile-name" name="name" type="text" maxlength="20" autocomplete="nickname" autocapitalize="words" spellcheck="false" placeholder="First name or nickname" aria-describedby="profile-name-note">
+      <p class="sheet-note" id="profile-name-note">It stays on this device. We never send it anywhere.</p>
+    </div>
+    <p class="sheet-error" role="alert" data-profile-error></p>
+    <p class="cta-row"><button class="btn btn-primary" type="submit">Sign in</button><button class="btn btn-ghost" type="button" data-profile-close>Not now</button></p>
+  </form>
+  <div class="profile-card" data-profile-card hidden>
+    <p class="sheet-lede"><span data-profile-audience></span> · profile on this device</p>
+    <dl class="profile-stats">
+      <div><dt>Rank</dt><dd data-profile-rank>Curious</dd></div>
+      <div><dt>Cards</dt><dd data-profile-cards>0</dd></div>
+      <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
+    </dl>
+    <p class="profile-notify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — by email, once the newsletter launches (soon).</span></p>
+    <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
+    <p class="sheet-note">Signing out keeps your cards on this device. “Forget my progress” on the collection page clears them.</p>
+  </div>
+</dialog>
+<aside class="install-bar" data-install hidden aria-labelledby="install-title">
+  <img src="/assets/icons/icon-192.png" width="44" height="44" alt="" loading="lazy">
+  <div class="install-copy"><p class="install-title" id="install-title">Install the app</p><p class="install-text" data-install-text>Dexty on your home screen — full screen, works offline.</p></div>
+  <button class="btn btn-primary btn-small" type="button" data-install-go hidden>Install</button>
+  <button class="install-close" type="button" data-install-dismiss aria-label="Dismiss the install suggestion">×</button>
+</aside>
 </body>
 </html>

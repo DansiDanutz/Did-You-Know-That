@@ -4,7 +4,7 @@ import { page } from "./layout.mjs";
 import {
   SITE, SUBSCRIBE_URL, CHANNEL_URL, episodeNumber, episodePath, subjectPath, watchUrl, embedUrl, isPublished, absolute, commentUrl,
 } from "./site.mjs";
-import { icon, statusPill, episodeCard, factCard, keywordChips, thumbnailImage } from "./components.mjs";
+import { icon, statusPill, episodeCard, factCard, keywordChips, thumbnailImage, videoFacade } from "./components.mjs";
 
 const breadcrumbs = (items) => ({
   "@context": "https://schema.org",
@@ -26,7 +26,7 @@ const videoObject = (episode) => ({
 
 function quiz(episode) {
   const published = isPublished(episode);
-  return html`<section class="quiz wrap" aria-labelledby="quiz-title" data-quiz data-slug="${episode.slug}" data-answer="${episode.quiz.answerIndex}" data-published="${published ? "true" : "false"}">
+  return html`<section class="quiz wrap" id="guess" aria-labelledby="quiz-title" data-quiz data-slug="${episode.slug}" data-answer="${episode.quiz.answerIndex}" data-published="${published ? "true" : "false"}">
   <p class="section-kicker">Guess before you watch</p>
   <form class="quiz-form" data-quiz-form>
     <fieldset>
@@ -70,10 +70,7 @@ function player(episode) {
 </section>`;
   }
   return html`<section class="player wrap" id="player" aria-label="Video">
-  <div class="facade" data-facade data-embed="${embedUrl(episode)}" data-title="${episode.title}">
-    ${thumbnailImage(episode, { lazy: false })}
-    <button class="facade-play" type="button" data-play>${icon("play")}<span class="visually-hidden">Play “${episode.title}” (loads the YouTube player)</span></button>
-  </div>
+  ${videoFacade(episode)}
   <p class="player-note">Nothing loads from YouTube until you press play (privacy-enhanced youtube-nocookie.com). <a href="${watchUrl(episode)}" rel="noopener">Watch on YouTube</a></p>
 </section>`;
 }
@@ -142,6 +139,7 @@ export function episodePage(catalog, episode) {
   ${neighbours(catalog, episode)}
 </article>`;
   return page({
+    newsletter: catalog.newsletter,
     title: `No. ${episodeNumber(episode)} — ${episode.title} · ${SITE.name}`,
     description: `${episode.hook} ${episode.question}`,
     path: episodePath(episode),
@@ -167,6 +165,7 @@ export function subjectPageForEpisode(catalog, episode) {
   <p class="cta-row"><a class="btn btn-ghost" href="/#map">${icon("search")}<span>Search another subject</span></a></p>
 </section>`;
   return page({
+    newsletter: catalog.newsletter,
     title: `${episode.subject} — Did You Know That? No. ${episodeNumber(episode)}`,
     description: `${episode.subject}: ${episode.hook}`,
     path: subjectPath(episode.subjectSlug),
@@ -191,6 +190,7 @@ export function subjectPageForRequest(catalog, request) {
   </div>
 </section>`;
   return page({
+    newsletter: catalog.newsletter,
     title: `${request.subject} — vote for the next episode · ${SITE.name}`,
     description: `${request.subject}: ${request.pitch} Vote in the YouTube comments to make it a future episode.`,
     path: subjectPath(request.slug),

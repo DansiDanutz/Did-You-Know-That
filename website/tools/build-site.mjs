@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Generates every HTML page and sitemap.xml from data/episodes.json. No dependencies.
+// Generates every HTML page and sitemap.xml from data/episodes.json (+ data/site.json for the
+// newsletter), and keeps the CSP form-action in vercel.json in step with it. No dependencies.
 //   node tools/build-site.mjs            write the pages
 //   node tools/build-site.mjs --check    exit 1 if any generated file is missing or out of date (CI)
 //   --root <dir>                          build another copy of the site (used by tests / dry runs)
@@ -11,7 +12,9 @@ import { validateCatalog, isLocalThumbnail } from "./lib/catalog.mjs";
 import { thumbnailSources } from "./lib/site.mjs";
 import { homePage } from "./lib/pages-home.mjs";
 import { episodePage, subjectPageForEpisode, subjectPageForRequest } from "./lib/pages-episode.mjs";
-import { collectionPage, notFoundPage, sitemap } from "./lib/pages-misc.mjs";
+import { collectionPage, notFoundPage, offlinePage, sitemap } from "./lib/pages-misc.mjs";
+import { validateSiteConfig, resolveNewsletter, withFormAction } from "./lib/newsletter.mjs";
+import { precacheList, shellVersion, stampServiceWorker } from "./lib/pwa.mjs";
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const GENERATED_DIRS = ["episodes", "subject"];
@@ -29,11 +32,23 @@ export function loadCatalog(root) {
   return catalog;
 }
 
+/** data/site.json (optional; without it the newsletter is switched off). */
+export function loadSiteConfig(root) {
+  const path = join(root, "data", "site.json");
+  if (!existsSync(path)) return {};
+  const site = JSON.parse(readFileSync(path, "utf8"));
+  const errors = validateSiteConfig(site);
+  if (errors.length) throw new Error(`data/site.json is invalid:\n- ${errors.join("\n- ")}`);
+  return site;
+}
+
 /** Every generated file as { "relative/path": contents }. */
-export function renderSite(catalog) {
+export function renderSite(baseCatalog, site = {}) {
+  const catalog = { ...baseCatalog, newsletter: resolveNewsletter(site) };
   return {
     "index.html": homePage(catalog),
-    "404.html": notFoundPage(),
+    "404.html": notFoundPage(catalog),
+    "offline/index.html": offlinePage(catalog),
     "collection/index.html": collectionPage(catalog),
     "sitemap.xml": sitemap(catalog),
     ...Object.fromEntries(catalog.episodes.map((e) => [`episodes/${e.slug}/index.html`, episodePage(catalog, e)])),
@@ -52,8 +67,24 @@ function staleDirs(root, files) {
   });
 }
 
+/** vercel.json with its CSP form-action matching the newsletter provider (skipped if there is no vercel.json). */
+function vercelConfig(root, site) {
+  const path = join(root, "vercel.json");
+  return existsSync(path) ? { "vercel.json": withFormAction(readFileSync(path, "utf8"), resolveNewsletter(site)) } : {};
+}
+
+/** sw.js with the precache list and shell version of this build (skipped if there is no sw.js). */
+function serviceWorker(root, files) {
+  const path = join(root, "sw.js");
+  if (!existsSync(path)) return {};
+  const precache = precacheList(root);
+  return { "sw.js": stampServiceWorker(readFileSync(path, "utf8"), { version: shellVersion(root, files, precache), precache }) };
+}
+
 export function buildSite(root = DEFAULT_ROOT, { check = false } = {}) {
-  const files = renderSite(loadCatalog(root));
+  const site = loadSiteConfig(root);
+  const pages = { ...renderSite(loadCatalog(root), site), ...vercelConfig(root, site) };
+  const files = { ...pages, ...serviceWorker(root, pages) };
   const outdated = Object.entries(files)
     .filter(([path, contents]) => !existsSync(join(root, path)) || readFileSync(join(root, path), "utf8") !== contents)
     .map(([path]) => path);

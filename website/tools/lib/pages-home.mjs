@@ -1,31 +1,82 @@
-// The home page: hero, subject search + map, series grid, the rule, about.
+// The home page: banner hero, featured episode + newsletter, episode rail, subject search + map, the rule, about.
 import { html } from "./html.mjs";
 import { page } from "./layout.mjs";
-import { SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute } from "./site.mjs";
-import { icon, episodeCard, subjectBoard } from "./components.mjs";
+import {
+  SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute, featuredEpisode, isPublished, episodeNumber, episodePath, watchUrl,
+} from "./site.mjs";
+import { icon, episodeCard, subjectBoard, videoFacade, thumbnailImage } from "./components.mjs";
+import { newsletterBlock } from "./newsletter.mjs";
 
-const RULER_YEARS = ["1500", "1600", "1700", "1800", "1900", "Today", "2100"];
 const SEARCH_EXAMPLES = ["time", "sun", "sleep", "weekend", "phone"];
+
+// The real channel banner is the hero. Phones get a tighter crop so the wordmark stays legible;
+// both sources are preloaded by media query so the LCP image starts downloading with the HTML.
+const BANNER = {
+  mobile: { media: "(max-width: 639px)", srcset: "/assets/brand/hero-mobile-800.webp 800w, /assets/brand/hero-mobile-1200.webp 1200w", sizes: "100vw", width: 1200, height: 272 },
+  wide: { media: "(min-width: 640px)", srcset: "/assets/brand/hero-1600.webp 1600w, /assets/brand/hero-2560.webp 2560w", sizes: "143vw", width: 1600, height: 238 },
+};
+const heroPreloads = [BANNER.mobile, BANNER.wide].map(({ media, srcset, sizes }) => ({ type: "image/webp", media, srcset, sizes }));
 
 const hero = () => html`<section class="hero" aria-labelledby="hero-title">
   <div class="hero-sky" aria-hidden="true"><span class="nebula n1"></span><span class="nebula n2"></span><span class="nebula n3"></span><canvas class="hero-dust" data-dust></canvas></div>
+  <h1 id="hero-title" class="hero-banner">
+    <span class="hero-glow" aria-hidden="true"></span>
+    <picture>
+      <source type="image/webp" media="${BANNER.mobile.media}" srcset="${BANNER.mobile.srcset}" sizes="${BANNER.mobile.sizes}" width="${BANNER.mobile.width}" height="${BANNER.mobile.height}">
+      <source type="image/jpeg" media="${BANNER.mobile.media}" srcset="/assets/brand/hero-mobile-1200.jpg" width="${BANNER.mobile.width}" height="${BANNER.mobile.height}">
+      <source type="image/webp" srcset="${BANNER.wide.srcset}" sizes="${BANNER.wide.sizes}" width="${BANNER.wide.width}" height="${BANNER.wide.height}">
+      <img class="hero-banner-img" src="/assets/brand/hero-1600.jpg" width="${BANNER.wide.width}" height="${BANNER.wide.height}" alt="Did You Know That?" fetchpriority="high" decoding="async">
+    </picture>
+  </h1>
   <div class="wrap hero-inner">
-    <div class="bulb">
-      <span class="bulb-ring" aria-hidden="true"></span>
-      <span class="bulb-glow" aria-hidden="true"></span>
-      <img class="bulb-img" src="/assets/brand/avatar-384.webp" srcset="/assets/brand/avatar-192.webp 192w, /assets/brand/avatar-384.webp 384w, /assets/brand/avatar-640.webp 640w" sizes="(min-width: 900px) 220px, 156px" width="384" height="384" alt="The Did You Know That? logo: a glowing question mark shaped like a light bulb" fetchpriority="high">
-    </div>
-    <p class="eyebrow">A YouTube series · 1500 → today → 2100</p>
-    <h1 id="hero-title" class="wordmark"><span class="wordmark-line">Did you</span> <span class="wordmark-line">know that?</span></h1>
     <p class="tagline">Amazing facts <span aria-hidden="true">•</span> Incredible stories <span aria-hidden="true">•</span> Endless curiosity</p>
-    <p class="lede">One subject per episode. Seven centuries of how people really lived with it — then the year 2100, built only on real data. Guess first. Stay to the end. Check.</p>
+    <p class="lede">One subject per episode, traced from 1500 to today — then to 2100 on real data. Guess first. Stay to the end. Check.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a>
-      <a class="btn btn-ghost" href="#series">${icon("play")}<span>Watch the series</span></a>
+      <a class="btn btn-ghost" href="#featured">${icon("play")}<span>Watch the series</span></a>
     </div>
   </div>
-  <ol class="ruler" aria-hidden="true">${RULER_YEARS.map((year) => html`<li>${year}</li>`)}</ol>
 </section>`;
+
+function featuredMedia(episode) {
+  if (isPublished(episode)) return videoFacade(episode, { sizes: FEATURE_SIZES });
+  const art = episode.thumbnail
+    ? html`<span class="poster-art" aria-hidden="true">${thumbnailImage(episode, { lazy: false, sizes: FEATURE_SIZES })}</span>`
+    : html`<span class="poster-word" aria-hidden="true">${episode.subject}</span>`;
+  return html`<div class="poster featured-poster${episode.thumbnail ? " has-art" : ""}">${art}<span class="pill pill-soon">Premieres soon</span></div>`;
+}
+
+const FEATURE_SIZES = "(min-width: 1200px) 720px, (min-width: 960px) 60vw, 100vw";
+
+function featured(catalog) {
+  const episode = featuredEpisode(catalog);
+  if (!episode) return "";
+  const published = isPublished(episode);
+  return html`<section class="section section-featured" id="featured" aria-labelledby="featured-title">
+  <div class="wrap featured">
+    <div class="featured-media">${featuredMedia(episode)}</div>
+    <div class="featured-body">
+      <p class="section-kicker">${published ? "Newest episode" : "Premieres soon"} · No. ${episodeNumber(episode)}</p>
+      <h2 id="featured-title" class="featured-title">${episode.title}</h2>
+      <p class="featured-hook">${episode.hook}</p>
+      <p class="featured-question">${episode.question}</p>
+      <p class="cta-row">
+        ${published
+          ? html`<a class="btn btn-primary" href="${episodePath(episode)}#guess">${icon("bulb")}<span>Guess, then watch</span></a><a class="btn btn-ghost" href="${watchUrl(episode)}" rel="noopener">${icon("youtube")}<span>Watch on YouTube</span></a>`
+          : html`<a class="btn btn-primary" href="${episodePath(episode)}#guess">${icon("bulb")}<span>Guess before it premieres</span></a><a class="btn btn-ghost" href="${episodePath(episode)}"><span>Episode details</span></a>`}
+      </p>
+      ${published ? html`<p class="player-note">Nothing loads from YouTube until you press play (youtube-nocookie.com).</p>` : ""}
+    </div>
+  </div>
+  <div class="wrap">${newsletterBlock(catalog.newsletter, { id: "home", className: "newsletter-home" })}</div>
+</section>`;
+}
+
+/** Where "Surprise me" sends people before anything is published: the next premiere's guess. */
+const nextGuessUrl = (catalog) => {
+  const episode = featuredEpisode(catalog);
+  return episode ? `${episodePath(episode)}#guess` : "/#featured";
+};
 
 const subjects = (catalog) => html`<section class="section section-map" id="map" aria-labelledby="map-title">
   <div class="wrap">
@@ -41,6 +92,10 @@ const subjects = (catalog) => html`<section class="section section-map" id="map"
       </div>
       <p class="search-hint" id="search-hint">Try ${SEARCH_EXAMPLES.map((word, i) => html`${i ? ", " : ""}<a href="/?q=${word}#map" data-example="${word}">${word}</a>`)}.</p>
     </form>
+    <div class="surprise" data-surprise data-next="${nextGuessUrl(catalog)}">
+      <button class="btn btn-ghost btn-small" type="button" data-surprise-button hidden>${icon("bulb")}<span>Surprise me</span></button>
+      <p class="surprise-out" role="status" aria-live="polite" data-surprise-out></p>
+    </div>
     <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
     <ul class="results" id="search-results" aria-label="Search results" hidden></ul>
     ${subjectBoard(catalog)}
@@ -49,10 +104,10 @@ const subjects = (catalog) => html`<section class="section section-map" id="map"
 
 const series = (catalog) => html`<section class="section section-series" id="series" aria-labelledby="series-title">
   <div class="wrap">
-    <p class="section-kicker">The series</p>
+    <p class="section-kicker">All episodes</p>
     <h2 id="series-title" class="section-title">Every episode, one subject</h2>
     <p class="section-lede">From 1500 to today, then on to 2100 — seven mornings, seven lives, one question you will want to answer before the end.</p>
-    <ul class="cards">
+    <ul class="cards rail" aria-label="All episodes">
       ${catalog.episodes.map(episodeCard)}
       <li class="card card-next">
         <a class="card-link" href="#rule">
@@ -94,10 +149,10 @@ const rule = (catalog) => html`<section class="section section-rule" id="rule" a
 
 const about = () => html`<section class="section section-about" id="about" aria-labelledby="about-title">
   <div class="wrap about-grid">
-    <picture class="about-banner">
-      <source type="image/webp" srcset="/assets/brand/banner-1600.webp 1600w, /assets/brand/banner-2560.webp 2560w" sizes="(min-width: 1000px) 560px, 100vw">
-      <img src="/assets/brand/banner-1600.jpg" alt="Channel banner: “Did You Know That?” in heavy white letters beside the neon question-mark bulb, with the tagline Amazing facts, incredible stories, endless curiosity" width="1600" height="265" loading="lazy" decoding="async">
-    </picture>
+    <div class="about-bulb" aria-hidden="true">
+      <span class="bulb-glow"></span>
+      <img src="/assets/brand/avatar-384.webp" srcset="/assets/brand/avatar-384.webp 384w, /assets/brand/avatar-640.webp 640w" sizes="(min-width: 1000px) 320px, 220px" width="384" height="384" alt="" loading="lazy" decoding="async">
+    </div>
     <div>
       <p class="section-kicker">About</p>
       <h2 id="about-title" class="section-title">Questions you never asked. Answers you won’t forget.</h2>
@@ -133,6 +188,8 @@ export function homePage(catalog) {
     description: SITE.description,
     path: "/",
     structuredData,
-    main: html`${hero()}${subjects(catalog)}${series(catalog)}${rule(catalog)}${about()}`,
+    preloads: heroPreloads,
+    newsletter: catalog.newsletter,
+    main: html`${hero()}${featured(catalog)}${series(catalog)}${subjects(catalog)}${rule(catalog)}${about()}`,
   });
 }
