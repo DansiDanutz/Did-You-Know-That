@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dexty local cleanup · 10 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f1ede5; --muted:#b4ada0; --line:#3a352b; } th { background:#241f17 !important; } code { background:#2a251b !important; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; } h2 { font-size: 20px; margin: 32px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .M{background:var(--m)} .L{background:var(--l)}
+  .fixed{color:var(--l); font-weight:600} .open{color:var(--c); font-weight:600}
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: var(--l); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>Dexty local cleanup</h1>
+<p class="meta">Dexty / Did You Know That? · 10 Oct 2026 · main <code>f0f5d35</code> · scope: disk space used on the Mac Studio by this project, following the JEV-MAC project lifecycle policy (verify recovery, delete only what can be recreated, never delete a repository, log the result)</p>
+
+<h2>Result</h2>
+<table>
+  <tr><th>Measure</th><th>Value</th></tr>
+  <tr><td>Freed by the cleanup script (measured by the script)</td><td class="ok">10,976 MB (16,484 MB to 27,460 MB free); its dry run had estimated 12,013 MB</td></tr>
+  <tr><td>Freed inside the checkout</td><td class="ok">331 MB of ignored files (23 files) plus 78 MB of tracked video-era folders hidden with a sparse checkout</td></tr>
+  <tr><td>Free space on the Mac, whole cleanup</td><td class="ok">16.7 GiB to 26.80 GiB (a later reading, 26.79 GiB)</td></tr>
+  <tr><td>Still below the disk reserve</td><td class="open">reserve is 46.04 GiB</td></tr>
+</table>
+
+<h2>What shipped</h2>
+<table>
+  <tr><th>PR</th><th>Content</th><th>Merge</th><th>Tests check</th></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/21">#21</a></td><td>Instructions file <code>docs/LOCAL-CLEANUP-AND-RESTORE.md</code> (where everything lives, rebuild from nothing, disk rules, how to verify) and <code>tools/clean-local.sh</code> (dry run by default; removes only project-created, re-creatable local items).</td><td><code>5cbd404</code></td><td class="ok">pass (website)</td></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/22">#22</a></td><td>Section 3 of the instructions updated with the measured result.</td><td><code>f0f5d35</code></td><td class="ok">pass (website)</td></tr>
+</table>
+<p class="meta">Catalog record: <code>~/.codex/project-catalog/did-you-know-that-88dd21e3d9/</code> (README and SKILL, listed in the catalog index). Cleanup log line added to <code>~/README.md</code>. Both carry the same measured numbers. The project is active, not parked.</p>
+
+<h2>Findings</h2>
+<table>
+  <tr><th>Sev</th><th>Finding</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td><span class="sev M">M</span></td><td>About 12 GB of re-creatable project files sat on a disk that is below its reserve: mflux environment (1.1 GB), FLUX image model (9.2 GB), hyperframes extract cache (1.1 GB), six npx caches (0.6 GB), plus 331 MB of ignored renders, audio beds and font copies.</td><td class="fixed">Fixed</td><td>All nine outside targets verified absent afterwards; Hugging Face cache 9.1 GB to 100 MB with the other cached models intact; ignored files deleted from an exact manifest. The agent's delete outside the repo was refused by the safety classifier, so David ran the script himself.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td><code>.git</code> is still about 866 MB, because history holds old audio and video that does not compress.</td><td class="open">Open</td><td><code>git gc</code> only reduced the pack to 856 MiB. A partial re-clone would shrink it and needs approval; rewriting history is not allowed on this machine.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>No clean-room clone at the recorded commit has been run, which the policy requires before a checkout may be parked.</td><td class="open">Open</td><td>The disk guard classified the clone as high-growth and held it (free 26.80 GiB, reserve 46.04 GiB). Not bypassed.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The instructions file said the outside-repo cleanup was still waiting for approval after it had been done.</td><td class="fixed">Fixed (#22)</td><td>Section 3 rewritten with the measured numbers; catalog record and README log match.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>David's first run of the cleanup script deleted nothing; the cause is unknown (his Terminal output was not visible). The second run worked.</td><td class="open">Open</td><td>Free space and folder dates showed no change after the first run; the script's running-process guard matched nothing when checked.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The script prints "skipped unexpected path" lines for model blobs stored inside the model folder. They are deleted by the folder removal that follows, but the message looks like a failure.</td><td class="open">Open</td><td>Cosmetic; documented in section 3. The blob-by-blob step could be dropped or reworded.</td></tr>
+</table>
+
+<h2>Verification</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Checkout state</td><td class="ok">clean working tree; no stashes or tags; one worktree; no submodules or LFS</td></tr>
+  <tr><td>GitHub parity (live remote query)</td><td class="ok">all 15 local branches identical to the remote before anything was deleted</td></tr>
+  <tr><td>Tests and precache check after the in-repo cleanup</td><td class="ok">227 pass; precache current</td></tr>
+  <tr><td>CI tests workflow on PRs #21 and #22</td><td class="ok">pass</td></tr>
+  <tr><td>Outside-repo targets after the second run</td><td class="ok">all nine absent</td></tr>
+  <tr><td>Not tested</td><td>Clean-room clone and a restore test; the effect on other agents' tools that might reuse the removed caches (they re-download on demand)</td></tr>
+</table>
+</main>
+</body>
+</html>
