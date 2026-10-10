@@ -55,8 +55,9 @@ test("resolveNewsletter fills in provider defaults and lets config override them
 });
 
 test("the CSP form-action allows only 'self' plus the configured provider origin", () => {
-  const vercel = readFileSync(join(SITE_ROOT, "vercel.json"), "utf8");
-  assert.match(withFormAction(vercel, resolveNewsletter({})), /form-action 'self';/);
+  // baseline = the policy with the newsletter OFF, whatever the committed site.json says
+  const vercel = withFormAction(readFileSync(join(SITE_ROOT, "vercel.json"), "utf8"), resolveNewsletter({}));
+  assert.match(vercel, /form-action 'self';/);
   const configured = withFormAction(vercel, resolveNewsletter(BUTTONDOWN));
   assert.match(configured, /form-action 'self' https:\/\/buttondown\.com;/);
   assert.equal(withFormAction(configured, resolveNewsletter({})), vercel, "switching off restores the original policy");
