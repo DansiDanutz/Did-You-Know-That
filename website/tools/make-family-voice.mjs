@@ -6,7 +6,9 @@
 //   node tools/make-family-voice.mjs --dry-run                 all six translated languages
 //   node tools/make-family-voice.mjs --dry-run --lang=de,en    chosen languages
 //   ELEVENLABS_API_KEY=… node tools/make-family-voice.mjs      record what is missing
-// Existing clips are never re-recorded; delete a file to redo it.
+// New clips are written to --out=<dir> (default .voice-out, not tracked) as <lang>/family/<id>.mp3,
+// then published with tools/upload-family-voice.mjs. A clip that is already in the
+// public store is never re-recorded (to redo one, bump FAMILY_VOICE_VERSION).
 import { mkdir, writeFile, access } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,7 +23,11 @@ const SETTINGS = { stability: 0.45, similarity_boost: 0.8, style: 0.45, use_spea
 const dry = process.argv.includes("--dry-run");
 const langArg = process.argv.find((a) => a.startsWith("--lang="))?.slice(7);
 const langs = langArg ? langArg.split(",").map((l) => l.trim()).filter(Boolean) : [...FAMILY_VOICE_LANGS];
+const outArg = process.argv.find((a) => a.startsWith("--out="))?.slice(6);
+const OUT = outArg ? join(process.cwd(), outArg) : join(ROOT, ".voice-out");
+const localPath = (lang, id) => join(OUT, lang, "family", `${id}.mp3`);
 const exists = (path) => access(path).then(() => true, () => false);
+const inStore = async (lang, id) => (await fetch(familyVoicePath(lang, id), { method: "HEAD" })).ok;
 
 const clipsFor = (pack) => [
   ...Object.entries(pack.lines).map(([id, text]) => ({ id, text })),
@@ -35,7 +41,7 @@ for (const lang of langs) {
   if (pack.lang !== lang) throw new Error(`No language pack for "${lang}" (known: en, ${FAMILY_VOICE_LANGS.join(", ")}).`);
   const clips = clipsFor(pack);
   const todo = [];
-  for (const clip of clips) if (!(await exists(join(ROOT, familyVoicePath(lang, clip.id))))) todo.push(clip);
+  for (const clip of clips) if (!(await exists(localPath(lang, clip.id))) && !(await inStore(lang, clip.id))) todo.push(clip);
   plan.push({ lang, clips, todo });
 }
 
@@ -64,7 +70,7 @@ if (!apiKey) throw new Error("ELEVENLABS_API_KEY is not set.");
 
 let made = 0;
 for (const { lang, todo } of plan) {
-  await mkdir(join(ROOT, dirname(familyVoicePath(lang, "x"))), { recursive: true });
+  await mkdir(dirname(localPath(lang, "x")), { recursive: true });
   for (const clip of todo) {
     const res = await fetch(`${API}/text-to-speech/${VOICE_ID}?output_format=mp3_44100_128`, {
       method: "POST",
@@ -72,9 +78,9 @@ for (const { lang, todo } of plan) {
       body: JSON.stringify({ text: clip.text, model_id: MODEL_ID, voice_settings: SETTINGS }),
     });
     if (!res.ok) throw new Error(`ElevenLabs ${res.status} for ${lang}/${clip.id}: ${(await res.text()).slice(0, 200)}`);
-    await writeFile(join(ROOT, familyVoicePath(lang, clip.id)), Buffer.from(await res.arrayBuffer()));
+    await writeFile(localPath(lang, clip.id), Buffer.from(await res.arrayBuffer()));
     made += 1;
     process.stdout.write(`\r${made} recorded (${lang}/${clip.id})        `);
   }
 }
-console.log(`\n${made} clips recorded.`);
+console.log(`\n${made} clips recorded in ${OUT}. Next: BLOB_READ_WRITE_TOKEN=… node tools/upload-family-voice.mjs ${OUT}`);

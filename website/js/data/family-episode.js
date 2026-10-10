@@ -204,5 +204,12 @@ export async function loadFamilyPack(lang) {
   }
 }
 
-/** Voice clip folder for a language: assets/voice/daxter/<lang>/family/<id>.mp3 */
-export const familyVoicePath = (lang, id) => `assets/voice/daxter/${lang}/family/${id}.mp3`;
+// Dexter's recorded clips live in a public Vercel Blob store, not in git (about
+// 55 MB). The version segment is part of every URL because clips are cached for
+// a year: re-record a clip, bump the version and run tools/upload-family-voice.mjs.
+export const FAMILY_VOICE_ORIGIN = "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com";
+export const FAMILY_VOICE_VERSION = "v1";
+export const FAMILY_VOICE_BASE = `${FAMILY_VOICE_ORIGIN}/family/${FAMILY_VOICE_VERSION}`;
+
+/** URL of one clip: <origin>/family/<version>/<lang>/<id>.mp3 */
+export const familyVoicePath = (lang, id) => `${FAMILY_VOICE_BASE}/${lang}/${id}.mp3`;
