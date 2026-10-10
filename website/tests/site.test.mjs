@@ -154,3 +154,52 @@ test("the build removes pages for subjects that left the catalog", () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("the home hero is the real banner: art-directed, preloaded, sized, and the page h1", () => {
+  const home = renderSite(loadCatalog())["index.html"];
+  assert.match(home, /<h1 id="hero-title" class="hero-banner">/);
+  assert.match(home, /<img class="hero-banner-img" src="\/assets\/brand\/hero-1600\.jpg" width="1600" height="238" alt="Did You Know That\?" fetchpriority="high"/);
+  assert.match(home, /<source type="image\/webp" media="\(max-width: 639px\)" srcset="\/assets\/brand\/hero-mobile-800\.webp 800w/);
+  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-mobile-800\.webp[^"]*" imagesizes="100vw" media="\(max-width: 639px\)"/);
+  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-1600\.webp[^"]*" imagesizes="143vw" media="\(min-width: 640px\)"/);
+  assert.match(home, /href="https:\/\/www\.youtube\.com\/channel\/UC7j29XhArv5tlRqQj2qAb4Q\?sub_confirmation=1"[^>]*>.*Subscribe on YouTube/);
+  for (const file of ["hero-1600.jpg", "hero-1600.webp", "hero-2560.webp", "hero-mobile-800.webp", "hero-mobile-1200.webp", "hero-mobile-1200.jpg"]) {
+    assert.ok(existsSync(join(SITE_ROOT, "assets", "brand", file)), file);
+  }
+  assert.doesNotMatch(renderSite(loadCatalog())["collection/index.html"], /rel="preload" as="image"/, "only the home page preloads the banner");
+});
+
+test("videos come first: featured episode, then the rail of all episodes, then search, rule and about", () => {
+  const home = renderSite(loadCatalog())["index.html"];
+  const order = ['id="hero-title"', 'id="featured"', 'id="series"', 'id="map"', 'id="rule"', 'id="about"'].map((marker) => home.indexOf(marker));
+  assert.ok(order.every((at, i) => at > 0 && (i === 0 || at > order[i - 1])), `section order ${order}`);
+  const railCards = home.slice(home.indexOf('class="cards rail"'), home.indexOf("card-next")).match(/class="card accent/g) ?? [];
+  assert.equal(railCards.length, loadCatalog().episodes.length, "the rail lists every episode");
+});
+
+test("before anything is published, the next premiere is featured as Premieres soon with its artwork", () => {
+  const home = renderSite(loadCatalog())["index.html"];
+  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));
+  assert.match(featured, /Premieres soon · No\. 01/);
+  assert.match(featured, /Time, Compressed/);
+  assert.match(featured, /\/assets\/episodes\/time-compressed\/thumb-640\.webp/);
+  assert.match(featured, /href="\/episodes\/time-compressed\/#guess"[^>]*>.*Guess before it premieres/);
+  assert.doesNotMatch(featured, /data-facade|youtube/);
+  assert.match(renderSite(loadCatalog())["episodes/time-compressed/index.html"], /<section class="quiz wrap" id="guess"/);
+});
+
+test("once published, the newest episode is featured with a large click-to-play facade", () => {
+  let catalog = addVideo(loadCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
+  catalog = addVideo(catalog, "the-sun", "TESTID00001", new Date("2026-10-19T00:00:00Z"));
+  const home = renderSite(catalog)["index.html"];
+  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));
+  assert.match(featured, /Newest episode · No\. 02/);
+  assert.match(featured, /<div class="facade" data-facade data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/TESTID00001"/);
+  assert.doesNotMatch(featured, /<iframe/);
+  assert.match(featured, /Watch on YouTube/);
+});
+
+test("featuredEpisode handles an empty catalog", async () => {
+  const { featuredEpisode } = await import("../tools/lib/site.mjs");
+  assert.equal(featuredEpisode({ episodes: [] }), null);
+});
