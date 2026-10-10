@@ -1,12 +1,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-import { FAMILY_VOICE_LANGS, PACK_EN, UI_EN, LINES, CHALLENGES, STORYBOOK, loadFamilyPack, familyVoicePath } from "../js/data/family-episode.js";
+import { FAMILY_VOICE_LANGS, FAMILY_VOICE_BASE, FAMILY_VOICE_VERSION, PACK_EN, UI_EN, LINES, CHALLENGES, STORYBOOK, loadFamilyPack, familyVoicePath } from "../js/data/family-episode.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+// The clips live in the public Blob store; tools/upload-family-voice.mjs records what it uploaded here.
+const MANIFEST = JSON.parse(readFileSync(join(ROOT, "assets/voice/family-voice-manifest.json"), "utf8"));
 const clipIds = (pack) => [
   ...Object.keys(pack.lines),
   ...pack.challenges.flatMap((c) => [`${c.id}-prompt`, `${c.id}-right`, `${c.id}-wrong`]),
@@ -42,13 +44,13 @@ for (const lang of FAMILY_VOICE_LANGS) {
     }
   });
 
-  test(`${lang}: has a recording for every clip`, async () => {
-    const pack = await loadFamilyPack(lang);
-    const missing = clipIds(pack).filter((id) => !existsSync(join(ROOT, familyVoicePath(lang, id))));
-    assert.deepEqual(missing, [], `${lang} is missing clips`);
+  test(`${lang}: every clip of the pack is in the voice manifest, and nothing else`, async () => {
+    const ids = clipIds(await loadFamilyPack(lang)).sort();
+    const uploaded = Object.keys(MANIFEST.clips[lang] ?? {}).sort();
+    assert.deepEqual(uploaded, ids, `${lang}: manifest and pack differ; record and upload the missing clips`);
+    for (const id of ids) assert.ok(MANIFEST.clips[lang][id].bytes > 10000, `${lang}/${id} looks truncated`);
   });
 }
-
 test("English clip ids are the same set as every other language", async () => {
   const en = clipIds(PACK_EN).sort();
   for (const lang of FAMILY_VOICE_LANGS) assert.deepEqual(clipIds(await loadFamilyPack(lang)).sort(), en);
@@ -62,4 +64,11 @@ test("an unknown language falls back to English", async () => {
 test("the English pack keeps showing the child's name, other languages do not", async () => {
   assert.match(PACK_EN.named("Maya")["world-1"], /Maya/);
   assert.equal((await loadFamilyPack("de")).named, null);
+});
+
+test("clips are served from the versioned Blob store, not from the repo", () => {
+  assert.equal(MANIFEST.version, FAMILY_VOICE_VERSION);
+  assert.equal(MANIFEST.base, FAMILY_VOICE_BASE);
+  assert.match(familyVoicePath("de", "intro-1"), /^https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com\/family\/v\d+\/de\/intro-1\.mp3$/);
+  assert.equal(familyVoicePath("zh", "story-morning"), `${FAMILY_VOICE_BASE}/zh/story-morning.mp3`);
 });
