@@ -1,0 +1,63 @@
+// Collection page, 404 page, sitemap.xml.
+import { html } from "./html.mjs";
+import { page } from "./layout.mjs";
+import { SITE, episodeNumber, episodePath, subjectPath, absolute } from "./site.mjs";
+import { icon, factCard } from "./components.mjs";
+import { RANKS } from "../../js/lib/progress.js";
+
+export function collectionPage(catalog) {
+  const total = catalog.episodes.reduce((sum, e) => sum + e.facts.length, 0);
+  const main = html`<section class="wrap collection-hero" aria-labelledby="collection-title">
+  <p class="section-kicker">Your collection</p>
+  <h1 id="collection-title" class="section-title">“Did you know that…” cards</h1>
+  <p class="section-lede">Lock a guess on an episode, watch, then check the answer — its cards land here. Everything stays in this browser: no account, no tracking.</p>
+  <div class="rank-panel" data-rank-panel>
+    <p class="rank-title">Explorer rank: <strong data-rank-name>${RANKS[0].name}</strong></p>
+    <p class="rank-progress"><span data-collected>0</span> of ${total} cards collected</p>
+    <progress class="rank-meter" max="${total}" value="0" data-rank-meter aria-label="Cards collected">0</progress>
+    <ol class="rank-ladder">${RANKS.map((rank) => html`<li data-rank-step="${rank.min}"><strong>${rank.name}</strong> <span>${rank.min === 0 ? "start" : `${rank.min}+ cards`}</span></li>`)}</ol>
+  </div>
+</section>
+<section class="wrap shared-card" data-shared-card hidden aria-labelledby="shared-title">
+  <h2 id="shared-title" class="small-title">Someone shared a card with you</h2>
+  <ul class="fact-grid fact-grid-single" data-shared-slot></ul>
+  <p class="cta-row"><a class="btn btn-primary" href="/#series" data-shared-play>Play the episode and collect it</a></p>
+</section>
+${catalog.episodes.map((episode) => html`<section class="wrap collection-set" aria-labelledby="set-${episode.slug}">
+  <h2 id="set-${episode.slug}" class="small-title">No. ${episodeNumber(episode)} · <a href="${episodePath(episode)}">${episode.title}</a></h2>
+  <ul class="fact-grid" data-collection-scope="${episode.slug}">${episode.facts.map((card) => factCard(card, episode, { locked: true }))}</ul>
+</section>`)}
+<section class="wrap collection-tools">
+  <p class="collection-status" role="status" aria-live="polite" data-collection-status></p>
+  <button class="btn btn-ghost btn-small" type="button" data-forget>Forget my progress</button>
+</section>`;
+  return page({
+    title: `Your collection · ${SITE.name}`,
+    description: "Collect the “Did you know that…” cards from every episode of Did You Know That? Guess first, watch, check.",
+    path: "/collection/",
+    currentPath: "/collection/",
+    main,
+  });
+}
+
+export function notFoundPage() {
+  const main = html`<section class="wrap not-found" data-not-found>
+  <p class="section-kicker">404</p>
+  <h1 class="section-title">Did you know that… this page doesn’t exist?</h1>
+  <p class="section-lede" data-not-found-message>Try a subject word instead.</p>
+  <p class="cta-row"><a class="btn btn-primary" href="/#map">${icon("search")}<span>Search by subject</span></a><a class="btn btn-ghost" href="/">Home</a></p>
+</section>`;
+  return page({ title: `Page not found · ${SITE.name}`, description: "This page does not exist.", path: "/404.html", noindex: true, main });
+}
+
+export function sitemap(catalog) {
+  const paths = [
+    "/",
+    "/collection/",
+    ...catalog.episodes.map(episodePath),
+    ...catalog.episodes.map((e) => subjectPath(e.subjectSlug)),
+    ...(catalog.requested ?? []).map((r) => subjectPath(r.slug)),
+  ];
+  const urls = paths.map((path) => `  <url><loc>${absolute(path)}</loc></url>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}

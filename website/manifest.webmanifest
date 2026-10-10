@@ -1,0 +1,14 @@
+{
+  "name": "Did You Know That?",
+  "short_name": "Did You Know",
+  "description": "One subject per episode, from 1500 to today to 2100. Guess first, stay to the end, check.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#060818",
+  "theme_color": "#060818",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
