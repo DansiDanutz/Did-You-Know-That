@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>House of Family narration to Blob storage · 10 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f1ede5; --muted:#b4ada0; --line:#3a352b; } th { background:#241f17 !important; } code { background:#2a251b !important; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; } h2 { font-size: 20px; margin: 32px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .M{background:var(--m)} .L{background:var(--l)}
+  .fixed{color:var(--l); font-weight:600} .open{color:var(--c); font-weight:600}
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: var(--l); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<h1>House of Family narration moved to Blob storage</h1>
+<p class="meta">Dexty / Did You Know That? · 10 Oct 2026 · main <code>84a032e</code> · live on https://dexty.live · scope: the 371 House of Family clips (English plus six languages)</p>
+
+<h2>What shipped</h2>
+<table>
+  <tr><th>PR</th><th>Content</th><th>Merge</th><th>Tests check</th></tr>
+  <tr><td><a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/18">#18</a></td><td>371 clips (54.8 MB) moved out of git into a public Vercel Blob store. <code>familyVoicePath</code> now builds versioned Blob URLs (<code>family/v1/&lt;lang&gt;/&lt;id&gt;.mp3</code>). New uploader tool and per-clip manifest (bytes, sha256). Recorder writes to an untracked folder and skips clips already stored. Tests check the manifest instead of local files.</td><td><code>84a032e</code></td><td class="ok">pass (website)</td></tr>
+</table>
+<p class="meta">The store was created on the existing Vercel account (public access, region iad1) and connected to the development environment only; production settings were not changed.</p>
+
+<h2>Findings</h2>
+<table>
+  <tr><th>Sev</th><th>Finding</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td><span class="sev M">M</span></td><td>About 55 MB of narration audio was tracked in a public repository.</td><td class="fixed">Fixed in the working tree</td><td>371 files removed from git; the repository tree no longer carries them.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>History size caveat: the old clips remain in git history, so a fresh clone is not smaller. <code>.git</code> is still about 876 MB.</td><td class="open">Open</td><td>Shrinking it needs a history rewrite and force-push to main, which the working rules forbid. Not done.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>The larger bulk is the book narration in <code>website/assets/narration</code> (148 MB, about half of the 316 MB tracked tree); the family clips were about 17%.</td><td class="open">Open</td><td>Out of scope of this change; same approach would apply.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The Vercel CLI wrote a <code>.env.local</code> with tokens (Blob, KV, Redis, OIDC) into the repository folder when the store was created.</td><td class="fixed">Fixed</td><td>Moved out of the repository immediately; it is gitignored and was never staged; deleted after the upload. No secret was printed or committed.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The CLI ignored its no-random-suffix option and created differently named test blobs.</td><td class="fixed">Fixed</td><td>Test blobs deleted (store was empty before the real upload); uploads use the upload endpoint directly with stable names. Clips are cached for a year, so the path carries a version to avoid stale audio.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Playback now depends on an external host being reachable.</td><td class="open">Open</td><td>Clips were already not cached offline, and a failing clip is skipped, but there is no monitoring of the store.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Storage and transfer cost of the Blob store was not checked against the plan.</td><td class="open">Open</td><td>About 55 MB stored; each language session transfers about 8 MB.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The store is in one US region (iad1); listeners far away may see slower first-clip starts.</td><td class="open">Open</td><td>Not measured.</td></tr>
+</table>
+
+<h2>Verification</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Unit tests (<code>node --test tests/*.test.mjs</code>)</td><td class="ok">224 pass, 0 fail</td></tr>
+  <tr><td>CI tests workflow on PR #18</td><td class="ok">pass</td></tr>
+  <tr><td>Upload integrity</td><td class="ok">all 371 clips re-downloaded from the store: sha256 and audio/mpeg match the originals</td></tr>
+  <tr><td>Live site serves the new code</td><td class="ok">served script uses the Blob host; the old local clip path returns 404</td></tr>
+  <tr><td>All clips on the live site, as audio in the browser</td><td class="ok">318 of 318 clips in the six languages, plus 53 of 53 English, load with a duration of at least 1.3 s</td></tr>
+  <tr><td>In-game playback, German and Chinese</td><td class="ok">full house loop in each; 22 and 20 audio elements, every one from the Blob host, none from the site, no audio errors; first clips played to their full length; certificate shown</td></tr>
+  <tr><td>Console</td><td class="ok">no site errors; the single 404 in the log was the test's own check of the old local path</td></tr>
+  <tr><td>Not tested</td><td>Listening to the audio, real devices, Spanish, French, Italian and Romanian in-game after the move (their clips were covered by the all-clips check), latency from other regions</td></tr>
+</table>
+</main>
+</body>
+</html>
