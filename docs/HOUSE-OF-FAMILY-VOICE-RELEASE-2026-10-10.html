@@ -41,7 +41,7 @@
   <tr><td><span class="sev L">L</span></td><td>Speech bubbles in the pictures were sized for Latin letters and would clip Chinese text.</td><td class="fixed">Fixed</td><td>Chinese bubbles fit in the browser run.</td></tr>
   <tr><td><span class="sev L">L</span></td><td>Only English shows the child's name in Dexter's lines; the recordings are generic.</td><td class="open">Open</td><td>By design; personalised name clips for these lines were not recorded.</td></tr>
   <tr><td><span class="sev L">L</span></td><td>The journal entry written when the house is completed still has an English title.</td><td class="open">Open</td><td>Set in <code>app.js</code> at completion; not part of this scope.</td></tr>
-  <tr><td><span class="sev L">L</span></td><td>Spanish, French, Italian and Romanian were not run in a browser on the live site.</td><td class="open">Open</td><td>Their 53 clips each resolve with HTTP 200 on the local server, and their text packs pass the completeness tests.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Spanish, French, Italian and Romanian were not run in a browser on the live site.</td><td class="fixed">Fixed (verified live later the same day)</td><td>Full loop run on dexty.live in each language: Spanish 21 clip requests, French 19, Italian 19, Romanian 19, none failed, certificate shown. A sweep of all 318 clips on the live site found every one served as audio.</td></tr>
   <tr><td><span class="sev L">L</span></td><td>The recorded audio was not listened to; verification is by network requests, clip timing against the on-screen lines, and file validity.</td><td class="open">Open</td><td>MP3 headers and durations checked (for example German story scene 24.8 s).</td></tr>
   <tr><td><span class="sev L">L</span></td><td>About 47 MB of audio was added to the public repository.</td><td class="open">Open</td><td>Consider moving narration to storage outside git before more languages or episodes are added.</td></tr>
 </table>
@@ -56,7 +56,10 @@
   <tr><td>Deployment</td><td class="ok">Vercel production aliased to dexty.live; language files, <code>app.js</code> and sample clips served with HTTP 200</td></tr>
   <tr><td>Live, German, clean session (test name "Maya")</td><td class="ok">intro, whole house, TV, storybook with the current scene highlighted, five challenges, certificate; 22 clip requests, all from the German folder, none failed</td></tr>
   <tr><td>Live, Chinese, clean session</td><td class="ok">the same full loop; 21 clip requests from the Chinese folder, none failed; no console errors</td></tr>
-  <tr><td>Not tested</td><td>Sound output, real devices, screen readers, Spanish, French, Italian and Romanian in a live browser, console errors in the German run</td></tr>
+    <tr><td>Live, Spanish, French, Italian, Romanian (follow-up run)</td><td class="ok">intro, whole house, TV, storybook with the current scene highlighted, five challenges, certificate, all on-screen text in the right language; 21, 19, 19 and 19 clip requests, none failed</td></tr>
+  <tr><td>All clips on the live site</td><td class="ok">318 of 318 served as audio over 10 KB (53 per language, about 8 MB each); no clip missing</td></tr>
+  <tr><td>Console errors, follow-up run</td><td class="ok">none from the site; the browser log held one entry caused by the test script itself (a click helper called on an SVG element), which showed again after each reload</td></tr>
+  <tr><td>Not tested</td><td>Sound output (nobody listened to the audio), real devices, screen readers, console errors in the German run, the Chinese run beyond the first load</td></tr>
 </table>
 </main>
 </body>
