@@ -1,7 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { narrationFor, narrationPath, allNarrationItems } from "../js/lib/narration.js";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+import { narrationFor, narrationPath, narrationUrl, NARRATION_VERSION, allNarrationItems } from "../js/lib/narration.js";
+import { VOICE_STORE_ORIGIN } from "../js/lib/voice-store.js";
 import { createTranslator, LOCALES } from "../js/i18n/index.js";
 import { localizeStory } from "../js/lib/localize.js";
 import { STORIES } from "../js/data/stories.js";
@@ -74,4 +78,29 @@ test("stale recordings are detected from the manifest", async () => {
   assert.equal(isFresh(manifest, "b.mp3", "now", "male"), false, "text changed since recording");
   assert.equal(isFresh(manifest, "c.mp3", "now", "male"), true, "legacy files without a fingerprint still play");
   assert.equal(isFresh(manifest, "d.mp3", "now", "male"), false, "missing file");
+});
+
+// ---------------------------------------------------------------- recordings live in the voice Blob store
+const readJson = (path) => JSON.parse(readFileSync(fileURLToPath(new URL(path, import.meta.url)), "utf8"));
+
+test("narrationUrl maps a logical path to a versioned Blob URL", () => {
+  const path = "assets/narration/ro/kids/why-wonder/female/seal~open.mp3";
+  assert.equal(narrationUrl(path), `${VOICE_STORE_ORIGIN}/narration/${NARRATION_VERSION}/ro/kids/why-wonder/female/seal~open.mp3`);
+  assert.match(narrationUrl(path), /^https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com\/narration\/v\d+\//);
+});
+
+test("narrationUrl refuses anything that is not a narration path", () => {
+  assert.throws(() => narrationUrl("assets/voice/daxter/de/family/intro-1.mp3"), /Not a narration path/);
+});
+
+test("every recording the site may play has been uploaded to the store", () => {
+  const manifest = readJson("../assets/narration/manifest.json");
+  const store = readJson("../assets/narration/store-manifest.json");
+  assert.equal(store.version, NARRATION_VERSION);
+  assert.equal(store.origin, VOICE_STORE_ORIGIN);
+  assert.deepEqual(Object.keys(store.clips).sort(), [...manifest.files].sort(), "store manifest and manifest.json differ; run tools/upload-narration.mjs");
+  for (const [path, { bytes, sha256 }] of Object.entries(store.clips)) {
+    assert.ok(bytes > 10000, `${path} looks truncated`);
+    assert.match(sha256, /^[0-9a-f]{64}$/);
+  }
 });

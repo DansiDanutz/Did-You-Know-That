@@ -1,6 +1,8 @@
 // What the book narrator says for each page, plus where its pre-recorded
 // audio lives. Pure functions shared by the browser and the generator script.
 
+import { VOICE_STORE_ORIGIN } from "./voice-store.js";
+
 const LETTERS = "ABCD";
 const stripHtml = (text) => String(text).replace(/<[^>]+>/g, "");
 const stripSparks = (text) => String(text).replace(/\[\[(.+?)\]\]/g, "$1");
@@ -40,8 +42,20 @@ export function speechText(item) {
   return item.parts.join(` ${PAUSE_BETWEEN_PARTS} `);
 }
 
+// The logical path of a recording. It is the key used in manifest.json and for
+// freshness checks; the audio itself is served from the voice store (narrationUrl).
+export const NARRATION_PREFIX = "assets/narration/";
 export function narrationPath({ lang, audience, storyId, voice, key }) {
-  return `assets/narration/${lang}/${audience}/${storyId}/${voice}/${key}.mp3`;
+  return `${NARRATION_PREFIX}${lang}/${audience}/${storyId}/${voice}/${key}.mp3`;
+}
+
+// Recordings live in the public Blob store, not in git. The version is part of
+// every URL because clips are cached for a year: re-record, bump it, upload
+// with tools/upload-narration.mjs.
+export const NARRATION_VERSION = "v1";
+export function narrationUrl(path) {
+  if (!path.startsWith(NARRATION_PREFIX)) throw new Error(`Not a narration path: ${path}`);
+  return `${VOICE_STORE_ORIGIN}/narration/${NARRATION_VERSION}/${path.slice(NARRATION_PREFIX.length)}`;
 }
 
 // Every distinct page state of a story, for pre-generating audio.
