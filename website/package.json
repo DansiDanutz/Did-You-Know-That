@@ -2,7 +2,11 @@
   "name": "did-you-know-that-website",
   "private": true,
   "type": "module",
+  "engines": { "node": ">=22" },
   "scripts": {
+    "build:site": "node tools/build-site.mjs",
+    "check:site": "node tools/build-site.mjs --check",
+    "add-video": "node tools/add-video.mjs",
     "test": "node --test --experimental-test-coverage tests/*.test.mjs",
     "dev": "python3 -m http.server 4173"
   }

@@ -1,8 +1,8 @@
 tests
+tools
 node_modules
 *.md
 .env*
 .vercel
-card-showcase.html
-tools
-_samples
+assets/narration
+package.json

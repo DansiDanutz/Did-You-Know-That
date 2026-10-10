@@ -1,19 +1,14 @@
 {
-  "id": "/",
-  "name": "Did You Know That? · The Road of Wonders",
+  "name": "Did You Know That?",
   "short_name": "Did You Know",
-  "description": "Short stories with Dexter: discover something surprising, read or watch the episode, and keep a card of what you learned. For kids and adults, in 7 languages.",
-  "start_url": "/?source=app",
+  "description": "One subject per episode, from 1500 to today to 2100. Guess first, stay to the end, check.",
+  "start_url": "/",
   "scope": "/",
-  "display": "standalone",
-  "orientation": "any",
-  "background_color": "#0b0726",
-  "theme_color": "#0b0726",
-  "categories": ["education", "kids", "games"],
+  "display": "browser",
+  "background_color": "#060818",
+  "theme_color": "#060818",
   "icons": [
-    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ],
-  "related_applications": [{ "platform": "webapp", "url": "https://dexty.live/manifest.webmanifest" }]
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
 }

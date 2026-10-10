@@ -1,0 +1,352 @@
+{
+  "episodes": [
+    {
+      "number": 1,
+      "slug": "time-compressed",
+      "title": "Time, Compressed",
+      "subject": "Time",
+      "subjectSlug": "time",
+      "keywords": [
+        "time",
+        "clock",
+        "clocks",
+        "sleep",
+        "first sleep",
+        "second sleep",
+        "weekend",
+        "saturday",
+        "saint monday",
+        "work",
+        "working hours",
+        "four-day week",
+        "factory",
+        "coffee",
+        "coffeehouse",
+        "newspaper",
+        "telegraph",
+        "railroad",
+        "time zones",
+        "noon",
+        "ford",
+        "assembly line",
+        "keynes",
+        "phone",
+        "internet",
+        "online",
+        "busy",
+        "memory",
+        "holiday paradox",
+        "ai",
+        "2100"
+      ],
+      "hook": "We have saved more time than any generation in history. So why does every one of us feel like we are running out of it?",
+      "question": "Did you know that time itself has been compressing for five hundred years?",
+      "guess": "Where did all the time we saved actually go? Write your guess in the comments before you press play.",
+      "summary": "Seven centuries, seven mornings: from a village that wakes at midnight to a phone checked before your feet touch the floor — and what the year 2100 is about to take next.",
+      "status": "draft",
+      "youtubeId": null,
+      "publishedAt": null,
+      "thumbnail": "/assets/episodes/time-compressed/thumb.png",
+      "quiz": {
+        "question": "Did time really speed up over 500 years?",
+        "options": [
+          "Yes — clocks run faster now",
+          "No — we pack more into it and remember less",
+          "Only for people in cities"
+        ],
+        "answerIndex": 1,
+        "reveal": "A second in 1500 lasted exactly as long as one today. What changed is how much we pack into it — and how little we remember."
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "A village",
+          "line": "It is midnight. Pitch black. And the whole village is awake."
+        },
+        {
+          "year": "1652",
+          "place": "London",
+          "line": "The air smells of smoke — and of something new."
+        },
+        {
+          "year": "1760",
+          "place": "A workshop",
+          "line": "Monday morning, and half the workshop is empty."
+        },
+        {
+          "year": "1883",
+          "place": "A small American town",
+          "line": "At midday the church clock strikes twelve. Then it is noon again."
+        },
+        {
+          "year": "1914",
+          "place": "Near Detroit",
+          "line": "The line of people looking for work stretches down the street."
+        },
+        {
+          "year": "Today",
+          "place": "Your bedroom",
+          "line": "Before your feet touch the floor, you have already checked your phone."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning has not happened yet. But we can follow the evidence.",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "time-1500",
+          "year": "1500",
+          "fact": "For centuries, people slept twice a night. Historians have found hundreds of references to a “first sleep” and a “second sleep”.",
+          "source": "A. Roger Ekirch, At Day’s Close (2005)"
+        },
+        {
+          "id": "time-1652",
+          "year": "1652",
+          "fact": "England’s first coffeehouses were nicknamed “penny universities”: one penny bought coffee, the news and hours of argument with strangers.",
+          "source": "Historic UK · English coffeehouses"
+        },
+        {
+          "id": "time-1760",
+          "year": "1760",
+          "fact": "For generations, workers simply took Mondays off. They called it “Saint Monday”.",
+          "source": "E. P. Thompson, Past & Present 38 (1967)"
+        },
+        {
+          "id": "time-1850",
+          "year": "1850",
+          "fact": "The weekend began with half a Saturday: an 1850 British law ended mill work for women and children at 2 p.m. on Saturdays.",
+          "source": "Factory Act 1850"
+        },
+        {
+          "id": "time-1914",
+          "year": "1914",
+          "fact": "Henry Ford more than doubled his workers’ pay, to $5 a day — and cut the working day to eight hours.",
+          "source": "The Henry Ford"
+        },
+        {
+          "id": "time-today",
+          "year": "Today",
+          "fact": "The average internet user now spends 6 hours 38 minutes online, every single day.",
+          "source": "DataReportal, Digital 2025"
+        }
+      ],
+      "commentPrompt": "If you could wake up in any century, from 1500 to 2100, which would you choose — and why?"
+    },
+    {
+      "number": 2,
+      "slug": "the-sun",
+      "title": "The Sun",
+      "subject": "The Sun",
+      "subjectSlug": "sun",
+      "keywords": [
+        "sun",
+        "the sun",
+        "sunlight",
+        "light",
+        "sunrise",
+        "8 minutes",
+        "sunspots",
+        "galileo",
+        "copernicus",
+        "telescope",
+        "newton",
+        "infrared",
+        "herschel",
+        "tan",
+        "suntan",
+        "sunscreen",
+        "parasol",
+        "solar",
+        "solar power",
+        "solar panel",
+        "electricity",
+        "parker solar probe",
+        "space",
+        "photosynthesis",
+        "2100"
+      ],
+      "hook": "Every time you look at the Sun, you are looking into the past.",
+      "question": "Did you know that the Sun you see is not the Sun as it is right now?",
+      "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
+      "summary": "We went from fearing the Sun, to measuring it, to wearing it, to flying toward it. Five centuries of how humans changed their behaviour toward the star that never changed for us.",
+      "status": "draft",
+      "youtubeId": null,
+      "publishedAt": null,
+      "thumbnail": null,
+      "quiz": {
+        "question": "How old is the sunlight hitting your eyes right now?",
+        "options": [
+          "Brand new — light arrives instantly",
+          "About 8 minutes and 20 seconds old",
+          "About a day old"
+        ],
+        "answerIndex": 1,
+        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance. You have never seen the Sun as it is — only as it was."
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "A field at dawn",
+          "line": "Your day starts with the Sun, not with a clock."
+        },
+        {
+          "year": "1610s",
+          "place": "Padua",
+          "line": "A new instrument, pointed at the sky — and a forbidden view."
+        },
+        {
+          "year": "1700s",
+          "place": "Under a parasol",
+          "line": "In your world, pale skin is a sign of wealth."
+        },
+        {
+          "year": "1800s",
+          "place": "An observatory",
+          "line": "A prism, three blackened thermometers — and light no one can see."
+        },
+        {
+          "year": "1920s",
+          "place": "A beach",
+          "line": "The new weekend, spent in the sunshine."
+        },
+        {
+          "year": "Today",
+          "place": "Your morning",
+          "line": "Your phone charged overnight. Maybe by sunlight."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "What happens when we stop waiting for the Sun to rise?",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "sun-1500",
+          "year": "1500",
+          "fact": "For 1,400 years, Europe was taught that the Sun travels around the Earth — until Copernicus put the Sun at the centre in 1543.",
+          "source": "Copernicus, De revolutionibus (1543)"
+        },
+        {
+          "id": "sun-1613",
+          "year": "1613",
+          "fact": "The Sun has spots — and they move. Galileo published them in 1613; Thomas Harriot had sketched them in 1610.",
+          "source": "Galileo, Letters on Sunspots (1613)"
+        },
+        {
+          "id": "sun-1700s",
+          "year": "1700s",
+          "fact": "Pale skin was a sign of wealth. A tan meant you worked outside.",
+          "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
+        },
+        {
+          "id": "sun-1800",
+          "year": "1800",
+          "fact": "William Herschel found invisible light beyond red — infrared — using a prism and blackened thermometers.",
+          "source": "NASA / IPAC"
+        },
+        {
+          "id": "sun-1954",
+          "year": "1954",
+          "fact": "Bell Labs’ first practical silicon solar cell turned about 6% of sunlight into electricity.",
+          "source": "American Physical Society"
+        },
+        {
+          "id": "sun-today",
+          "year": "Today",
+          "fact": "In December 2024, Parker Solar Probe passed 6.1 million km from the Sun — the fastest object humans have ever built.",
+          "source": "NASA"
+        }
+      ],
+      "commentPrompt": "In which century would you rather watch the Sun rise?"
+    }
+  ],
+  "requested": [
+    {
+      "subject": "Money",
+      "slug": "money",
+      "status": "idea",
+      "keywords": [
+        "money",
+        "coins",
+        "banks",
+        "cash",
+        "gold",
+        "paper money"
+      ],
+      "pitch": "From a handful of coins to money you never touch."
+    },
+    {
+      "subject": "Night",
+      "slug": "night",
+      "status": "idea",
+      "keywords": [
+        "night",
+        "dark",
+        "darkness",
+        "street lights",
+        "candles",
+        "electric light"
+      ],
+      "pitch": "How we pushed back the dark, one lamp at a time."
+    },
+    {
+      "subject": "Food",
+      "slug": "food",
+      "status": "idea",
+      "keywords": [
+        "food",
+        "eating",
+        "meals",
+        "breakfast",
+        "cooking",
+        "fridge"
+      ],
+      "pitch": "What was on your plate in 1500 — and in 2100."
+    },
+    {
+      "subject": "Music",
+      "slug": "music",
+      "status": "idea",
+      "keywords": [
+        "music",
+        "songs",
+        "concerts",
+        "records",
+        "streaming"
+      ],
+      "pitch": "From music you heard once in a lifetime to music that never stops."
+    },
+    {
+      "subject": "Water",
+      "slug": "water",
+      "status": "idea",
+      "keywords": [
+        "water",
+        "drinking water",
+        "baths",
+        "washing",
+        "rivers"
+      ],
+      "pitch": "The one thing we never stopped needing, and never stopped changing."
+    },
+    {
+      "subject": "Medicine",
+      "slug": "medicine",
+      "status": "idea",
+      "keywords": [
+        "medicine",
+        "doctors",
+        "health",
+        "illness",
+        "vaccines",
+        "hospitals"
+      ],
+      "pitch": "How a visit to the doctor changed, century by century."
+    }
+  ]
+}
