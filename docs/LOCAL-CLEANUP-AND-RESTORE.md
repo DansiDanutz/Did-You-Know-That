@@ -1,7 +1,7 @@
 # Did You Know That? (Dexty): keep the Mac light, restore from GitHub
 
 Everything that matters about this project lives off this Mac. This file says where, what was
-cleaned on 10 Oct 2026, what is still waiting for approval, and how to rebuild a working copy.
+cleaned on 10 Oct 2026, what was measured, what is still open, and how to rebuild a working copy.
 Written for the Mac Studio (JEV-MAC) cleanup policy: verify recovery first, delete only what can
 be recreated, never delete a repository, log the result.
 
@@ -30,30 +30,39 @@ Video and YouTube production for Dexty was stopped on 10 Oct 2026; the project i
 - `git gc` packed the repository (the pack is still about 856 MB, see section 5).
 - All 227 tests and the precache check pass after the cleanup.
 
-## 3. Still waiting for approval (about 12 GB outside the repo)
+## 3. Caches outside the repo (done by David, 10,976 MB freed)
 
-The deletion of caches outside the repository was blocked by the safety classifier, so it is a
-step for you. Dry run first, then apply, from your own Terminal:
+Deleting caches outside the repository was blocked for the agent by the safety classifier, so David ran it
+from his own Terminal on 10 Oct 2026. The first attempt deleted nothing (cause unknown); the second worked:
 
 ```bash
 cd ~/Projects/Did-You-Know-That
-tools/clean-local.sh            # lists the items and sizes, deletes nothing
-tools/clean-local.sh --apply    # deletes them
+tools/clean-local.sh            # dry run: lists the items and sizes, deletes nothing
+tools/clean-local.sh --apply 2>&1 | tee ~/clean-local-run.log
 ```
 
-It removes only these, all created for this project, all re-creatable:
+Measured result: the script reported free space 16,484 MB to 27,460 MB, **10,976 MB freed** (the dry run had
+estimated 12,013 MB). A later check showed 26.80 GiB free. Across the whole cleanup, free space went from
+16.7 GiB to 26.80 GiB. All nine targets were verified gone, and the other cached models were intact.
+
+What it removed (all created for this project, all re-creatable):
 
 | Item | Size | Why it is safe |
 |---|---|---|
 | `~/.venvs/mflux` | 1.1 GB | image-generation venv; the painted-art pipeline was dropped |
-| `~/.cache/huggingface/hub/models--mflux-community--flux-1-schnell-mflux-q4` and its 16 blobs | 9.2 GB | FLUX model; other models in that cache are kept; downloads again if ever needed |
+| `~/.cache/huggingface/hub/models--mflux-community--flux-1-schnell-mflux-q4` and its blobs | 9.2 GB | FLUX model; the Hugging Face cache went from 9.1 GB to 100 MB and the other models were kept; downloads again if ever needed |
 | `$TMPDIR/hyperframes-extract-cache-501` | 1.1 GB | frame cache of the video renders |
 | `~/.npm/_npx/<hash>` folders holding `hyperframes` (5) or `playwright-core` (1) | 0.6 GB | npx re-downloads on demand |
-| `.voice-out/`, `.narration-out/` in the checkout | 0 MB now | recorder output that has already been uploaded |
+| `.voice-out/`, `.narration-out/` in the checkout | 0 MB | recorder output that has already been uploaded |
 
-The script refuses to run while mflux, hyperframes or a render is active, and prints free space
-before and after. It never touches tracked files, git history, `~/.claude`, `~/.openclaw`,
-`~/.paperclip`, the Trash, or caches shared with other projects (Playwright browsers, uv, Homebrew).
+The script prints a few `skipped unexpected path` lines for model blobs that live inside the model folder;
+that is expected, the folder removal that follows deletes them. The script refuses to run while mflux,
+hyperframes or a render is active, and prints free space before and after. It never touches tracked files, git
+history, `~/.claude`, `~/.openclaw`, `~/.paperclip`, the Trash, or caches shared with other projects
+(Playwright browsers, uv, Homebrew). It stays in the repo for the next cleanup.
+
+Still open after the cleanup: free space (26.80 GiB) is below the 46 GiB reserve, so the disk guard still
+holds a clean-room clone, and `.git` is still about 866 MB (section 5).
 
 ## 4. Rebuild a working copy from nothing
 
