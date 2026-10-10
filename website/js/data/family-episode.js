@@ -9,6 +9,8 @@
 // The story on the television is the illustrated storybook below (STORYBOOK),
 // read scene by scene inside the game. There is no video.
 
+import { VOICE_STORE_ORIGIN } from "../lib/voice-store.js";
+
 export const FAMILY_HOUSE_ID = "house-of-family";
 
 // ---------------------------------------------------------------- Dexter's lines
@@ -207,7 +209,7 @@ export async function loadFamilyPack(lang) {
 // Dexter's recorded clips live in a public Vercel Blob store, not in git (about
 // 55 MB). The version segment is part of every URL because clips are cached for
 // a year: re-record a clip, bump the version and run tools/upload-family-voice.mjs.
-export const FAMILY_VOICE_ORIGIN = "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com";
+export const FAMILY_VOICE_ORIGIN = VOICE_STORE_ORIGIN;
 export const FAMILY_VOICE_VERSION = "v1";
 export const FAMILY_VOICE_BASE = `${FAMILY_VOICE_ORIGIN}/family/${FAMILY_VOICE_VERSION}`;
 

@@ -1,3 +1,4 @@
 .vercel
 .env*
 .voice-out/
+.narration-out/

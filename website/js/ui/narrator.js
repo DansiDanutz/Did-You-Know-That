@@ -1,8 +1,8 @@
 // Reads book pages aloud using ONLY the pre-recorded ElevenLabs narration
-// (listed in assets/narration/manifest.json). There is deliberately no
+// (listed in assets/narration/manifest.json, served from the voice Blob store). There is deliberately no
 // robotic browser-voice fallback: without recordings the feature stays hidden.
 
-import { narrationPath, speechText, isFresh } from "../lib/narration.js";
+import { narrationPath, narrationUrl, speechText, isFresh } from "../lib/narration.js";
 
 const MANIFEST_URL = "assets/narration/manifest.json";
 
@@ -28,7 +28,7 @@ export function createNarrator({ onReady } = {}) {
     const path = narrationPath({ ...ctx, key: item.key });
     // Skip pages whose words changed since they were recorded (stale audio).
     if (!item.text || !isFresh(manifest, path, speechText(item), ctx.voice)) return playNext(current, ctx);
-    audio = new Audio(path);
+    audio = new Audio(narrationUrl(path));
     audio.onended = () => playNext(current, ctx);
     audio.onerror = () => playNext(current, ctx);
     audio.play().catch(() => playNext(current, ctx));

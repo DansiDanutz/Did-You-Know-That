@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 // Generates the book narration with ElevenLabs (PAID API, run only with an
 // approved budget). Every page state × language × audience × voice becomes
-// assets/narration/<lang>/<audience>/<story>/<voice>/<key>.mp3, plus a
-// manifest.json the site uses to know which recordings exist.
+// assets/narration/<lang>/<audience>/<story>/<voice>/<key>.mp3 (written under
+// .narration-out/, which is not tracked), plus a manifest.json the site uses to
+// know which recordings exist. The audio itself is served from the voice Blob
+// store: after recording, publish with  node tools/upload-narration.mjs
+// (a recording already listed in manifest.json counts as done, so nothing is re-recorded).
 //
 //   node tools/make-narration.mjs --dry-run            # count characters, no API calls
 //   ELEVENLABS_API_KEY=… node tools/make-narration.mjs  # generate (skips existing files)
@@ -26,6 +29,7 @@ import { localizeStory, AUDIENCES } from "../js/lib/localize.js";
 import { allNarrationItems, narrationPath, speechText, narrationFingerprint, NARRATION_MODEL, NARRATION_SETTINGS } from "../js/lib/narration.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OUT = join(ROOT, ".narration-out"); // new recordings land here until uploaded
 const API = "https://api.elevenlabs.io/v1";
 const MODEL_ID = NARRATION_MODEL;
 // Brian = ElevenLabs' original premade voice; Jane = mature British audiobook
@@ -100,10 +104,11 @@ async function synthesize(apiKey, voiceId, text) {
   return Buffer.from(await res.arrayBuffer());
 }
 
-// Lists every recording on disk (not just this run's --lang/--story filter),
+// Lists every recording (those already published, from the previous manifest, plus
+// the new ones in .narration-out), not just this run's --lang/--story filter,
 // so a partial run never drops other languages from the manifest.
 async function listRecordings(dir) {
-  const entries = await readdir(join(ROOT, dir), { withFileTypes: true });
+  const entries = await readdir(join(OUT, dir), { withFileTypes: true }).catch(() => []);
   const nested = await Promise.all(
     entries.map((e) => (e.isDirectory() ? (e.name === "_samples" ? [] : listRecordings(`${dir}/${e.name}`)) : e.name.endsWith(".mp3") ? [`${dir}/${e.name}`] : [])),
   );
@@ -123,7 +128,7 @@ async function readManifest() {
 // Fingerprints are kept from the previous manifest and set for recordings
 // made (or baselined) in this run, so a stale file stays marked stale.
 async function writeManifest(previous, fresh) {
-  const present = (await listRecordings("assets/narration")).sort();
+  const present = [...new Set([...(previous.files ?? []), ...(await listRecordings("assets/narration"))])].sort();
   const fingerprints = Object.fromEntries(
     present.flatMap((path) => {
       const fingerprint = fresh[path] ?? previous.fingerprints?.[path];
@@ -140,7 +145,7 @@ async function main() {
   const items = plannedItems().map((item) => ({ ...item, fingerprint: narrationFingerprint(speechText(item), item.voice) }));
   const status = await Promise.all(
     items.map(async (item) => {
-      if (!(await exists(join(ROOT, item.path)))) return "missing";
+      if (!previous.files?.includes(item.path) && !(await exists(join(OUT, item.path)))) return "missing";
       const recorded = previous.fingerprints?.[item.path];
       return recorded && recorded !== item.fingerprint ? "stale" : "ok";
     }),
@@ -161,14 +166,14 @@ async function main() {
   const voiceIds = await resolveVoices(apiKey);
   const fresh = {};
   for (const item of todo) {
-    const target = join(ROOT, item.path);
+    const target = join(OUT, item.path);
     await mkdir(dirname(target), { recursive: true });
     await writeFile(target, await synthesize(apiKey, voiceIds[item.voice], speechText(item)));
     fresh[item.path] = item.fingerprint;
     process.stdout.write(`\r${Object.keys(fresh).length} recorded`);
   }
-  if (args.sample) return console.log("\nSamples saved in assets/narration/_samples/ for listening.");
-  console.log(`\nManifest lists ${await writeManifest(previous, fresh)} recordings.`);
+  if (args.sample) return console.log("\nSamples saved in .narration-out/assets/narration/_samples/ for listening.");
+  console.log(`\nManifest lists ${await writeManifest(previous, fresh)} recordings. Next: BLOB_READ_WRITE_TOKEN=… node tools/upload-narration.mjs`);
 }
 
 main().catch((error) => {
