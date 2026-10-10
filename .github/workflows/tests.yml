@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check every module
-        run: find js api tools sw.js \( -name "*.js" -o -name "*.mjs" \) | xargs -n1 node --check
-      - name: Episode pages and offline list are up to date
-        run: node tools/build-pages.mjs --check
+        run: find js tools sw.js \( -name "*.js" -o -name "*.mjs" \) | xargs -n1 node --check
+      - name: Generated pages match data/episodes.json
+        run: node tools/build-site.mjs --check
       - name: Unit tests
         run: node --test tests/*.test.mjs
