@@ -53,17 +53,16 @@ test("the shipped site references no test video ids, and only published episodes
     assert.doesNotMatch(contents, /TESTID/, path);
     for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
   }
-  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "XSQmwP_GSEM"], "episodes 01 and 02 are live");
+  assert.deepEqual(liveIds, ["Sw1xP57TNTk"], "episode 01 is live; episode 02 is held until its v2 id");
   assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Sw1xP57TNTk"/);
-  assert.match(files["episodes/the-sun/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/XSQmwP_GSEM"/);
-  for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /WI9P4hHcSoc/, `${path} still names the obsolete episode 01 upload`);
+  assert.doesNotMatch(files["episodes/the-sun/index.html"], /data-embed=/, "no player for the held episode");
+  for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /WI9P4hHcSoc|XSQmwP_GSEM/, `${path} still names a removed upload`);
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/the-sun\//);
   assert.match(files["subject/sun/index.html"], /href="\/episodes\/the-sun\/"/, "the Sun subject page links to episode 02");
-  assert.doesNotMatch(files["subject/sun/index.html"], /Coming soon/);
-  assert.match(files["index.html"], /Newest episode · No\. 02/);
-  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=XSQmwP_GSEM"/, "comment buttons point at episode 02");
+  assert.match(files["index.html"], /Newest episode · No\. 01/);
+  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=Sw1xP57TNTk"/, "comment buttons point at episode 01");
   assert.match(files["collection/index.html"], /sun-answer/);
-  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html"]) assert.doesNotMatch(files[page], /Coming soon|Quiz coming soon/, page);
+  assert.doesNotMatch(files["episodes/time-compressed/index.html"], /Coming soon|Quiz coming soon/);
 });
 
 test("before launch, the site references no video at all", () => {

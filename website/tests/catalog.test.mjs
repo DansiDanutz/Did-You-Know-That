@@ -142,13 +142,12 @@ test("every question of episodes 01 and 02 is traceable to RESEARCH.md and has e
   }
 });
 
-test("the shipped catalog has two live episodes with their real YouTube ids", () => {
+test("the shipped catalog has episode 01 live and episode 02 held as a draft", () => {
   const live = loadCatalog().episodes.filter((e) => e.status === "published");
-  assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
-    ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
-    ["the-sun", "XSQmwP_GSEM", "2026-10-11"],
-  ]);
-  assert.ok(live.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "both episodes ship their own artwork");
-  assert.ok(!JSON.stringify(loadCatalog()).includes("WI9P4hHcSoc"), "the obsolete episode 01 upload is gone");
+  assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [["time-compressed", "Sw1xP57TNTk", "2026-10-11"]]);
+  const sun = loadCatalog().episodes.find((e) => e.slug === "the-sun");
+  assert.deepEqual([sun.status, sun.youtubeId, sun.publishedAt], ["draft", null, null], "episode 02 waits for its v2 upload");
+  assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "both episodes ship their own artwork");
+  for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
   assert.equal(loadCatalog().requested[0].slug, "school", "episode 03 (School) leads the upcoming subjects");
 });
