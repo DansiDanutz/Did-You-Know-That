@@ -1,7 +1,7 @@
 # dexty.live — the "Did You Know That?" channel website
 
 A static, dependency-free site for the YouTube series [Did You Know That?](https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q)
-(@Did-You-Know-that-2026), with a light game layer: guess before you watch, collect "Did you know that…" cards, climb an explorer rank.
+(@Did-You-Know-that-2026), with a light game layer: guess before you watch, answer the episode quiz, collect "Did you know that…" cards, earn knowledge points and climb an explorer rank.
 
 ## Everything comes from one file
 
@@ -18,7 +18,16 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
     "status": "draft",                                  // draft | published
     "youtubeId": null, "publishedAt": null,              // set by tools/add-video.mjs
     "thumbnail": "/assets/episodes/time-compressed/thumb.png",   // our artwork (or null)
-    "quiz": { "question": "…", "options": ["…", "…", "…"], "answerIndex": 1, "reveal": "…" },
+    "quiz": {                                           // "guess before you watch" + the per-era quiz
+      "question": "…", "options": ["…", "…", "…"], "answerIndex": 1, "reveal": "…",
+      "questions": [{                                   // optional; no questions = "quiz coming soon"
+        "id": "q1500", "era": "1500", "question": "…",
+        "options": ["…", "…", "…", "…"], "answerIndex": 0,   // 3–4 unique options, exactly one right
+        "reveal": "…",                                  // shown with the card after a right answer
+        "card": "time-1500",                            // the fact card this answer unlocks
+        "source": "F18"                                 // fact number in the episode's RESEARCH.md
+      }]
+    },
     "eras": [{ "year": "1500", "place": "A village", "line": "…", "prediction": false }],
     "facts": [{ "id": "time-1500", "year": "1500", "fact": "…", "source": "…" }]  // collectible cards
   }],
@@ -30,6 +39,11 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
 
 `requested[].status` is `idea` (our suggestion, shown "Locked · vote in the comments") or `requested`
 (viewers really asked for it, shown "Requested · vote in the comments"). Only use `requested` for real requests.
+
+The build validates `quiz.questions`: unique ids, 3–4 unique options, `answerIndex` on one of them, a `reveal`,
+a `source` like `F18`, and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
+one question (so the "all cards" bonus is reachable). Every question must trace to a verified fact in the
+episode's `RESEARCH.md`; 2100 predictions are never quiz facts.
 
 ## Publish a video (the only routine task)
 
@@ -46,7 +60,7 @@ It sets `status: "published"`, `youtubeId` and `publishedAt` (today unless `--da
 `thumbnail` is kept; only an episode without artwork gets `https://i.ytimg.com/vi/<id>/maxresdefault.jpg`
 (hqdefault fallback in the page — note that image then loads from Google's servers). An already published
 episode is refused unless you pass `--force`. It validates the catalog, then rebuilds all pages. The episode lights up on the map, gets a click-to-play
-embed, VideoObject JSON-LD, and its quiz reveal + fact cards become collectible. No YouTube API, no keys.
+embed and VideoObject JSON-LD. No YouTube API, no keys.
 
 Without a terminal: GitHub → Actions → **add video** → Run workflow (slug + id). It opens a pull request; merging it is the go-live step.
 (Requires "Allow GitHub Actions to create and approve pull requests" in the repo settings. PRs opened by the
@@ -126,7 +140,7 @@ An "Install the app" bar appears after scrolling past the first screen where the
 a kid explorer name picked by the site ("Brave Fox 42" — kids never type a name) or a first name/nickname
 (letters only, ≤ 20, rude words refused). The profile — a random `crypto.randomUUID()` id, audience and name — lives
 only in `localStorage` key `dyk.profile.v1` (the old game's `dykt-profile-v1`/`dykt-settings-v1` are picked up).
-Signing in attaches this browser's progress (`owner` in `dyk.progress.v1`) and the sheet shows rank, cards and guesses.
+Signing in attaches this browser's progress (`owner` in `dyk.progress.v2`); the header button shows the name and points wallet, and the sheet shows points, rank, cards and guesses.
 No server accounts, no email, no password, no push notifications (the sheet links to the newsletter instead).
 Templates live in `tools/lib/` (`pages-home.mjs`, `pages-episode.mjs`, `pages-misc.mjs`, `layout.mjs`, `components.mjs`, `newsletter.mjs`, `pwa.mjs`); channel facts in `tools/lib/site.mjs`.
 
@@ -139,10 +153,32 @@ Templates live in `tools/lib/` (`pages-home.mjs`, `pages-episode.mjs`, `pages-mi
 
 ## Game rules and guardrails
 
-- Progress (guesses, reveals) lives only in `localStorage` key `dyk.progress.v1`; storage failures fall back to memory, and the site works without it. "Forget my progress" on `/collection/` clears it.
+**Policy: never reward watching.** No points, cards or progress for "I watched it", for pressing play, watch time,
+comments, likes or subscribes (YouTube fake-engagement policy). Points come only from answers. `tests/policy.test.mjs`
+fails if any code outside the quiz's answer handler can award, or if a watch/view award type appears.
+
+- Flow on an episode page: lock a guess → "Start the quiz" → one question per era, options shuffled → right answer
+  shows the reveal and unlocks that era's fact card → summary (right first time, points earned, cards, "perfect" badge).
+  The guess is final once locked and cannot be placed after the first quiz answer. A plain "Watch the episode" link stays.
+- Points ledger (`js/lib/ledger.js`, pure): append-only events `{ id, type, pts, at }`, idempotent by `id`, so
+  refreshing or replaying never double-counts. Points are fixed by type; stored events are re-validated on load.
+
+  | Event id | Points | When |
+  |---|---|---|
+  | `quiz:<slug>:<questionId>` | 10 | the first attempt at that question is right (a wrong first attempt can still be solved for 0 points and still unlocks the card) |
+  | `guess:<slug>` | 25 | quiz complete and the locked guess matches `quiz.answerIndex` |
+  | `perfect:<slug>` | 50 | every question right first time |
+  | `cards:<slug>` | 20 | every fact card of the episode unlocked through the quiz |
+  | `daily:<YYYY-MM-DD>` | 5 | reserved for the phase 3 daily question (no UI yet) |
+  | `spend:card:<id>` | −cost | reserved for the phase 2 Card Vault |
+
+  Episode 01 is worth up to 175 points (8 × 10 + 25 + 50 + 20). Balance = awards − spends. Points never expire and cannot be bought.
+- Ranks by points: Curious (0) → Explorer (30) → Time Traveler (80) → Mystery Master (150) — `js/lib/progress.js`.
+- Progress lives only in `localStorage` key `dyk.progress.v2` (`guesses`, `answers`, `ledger`, `owner`). The v1 key is
+  migrated once: guesses kept, cards opened with the removed "I watched it" button stay visible for published episodes
+  (`legacyRevealed`) but earn no points and never count toward a bonus. If storage is blocked, progress lasts for the
+  visit and the quiz shows a notice. "Forget my progress" on `/collection/` clears it.
 - No server accounts (sign-in is a local profile, see above), no analytics, no cookies, no timers, streaks or loss messages.
-- Cards unlock after locking a guess and pressing "I watched it — reveal the answer" (an honour click, never measured watch time). Draft episodes cannot be revealed.
-- Ranks: Curious (0) → Explorer (3) → Time Traveler (9) → Mystery Master (18) cards — `js/lib/progress.js`.
 
 ## Hosting
 
