@@ -321,9 +321,9 @@
       "question": "Did you know that you have never once seen the Sun as it is right now?",
       "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
       "summary": "Seven mornings under the same Sun: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, white-lead face paint, Herschel’s invisible light, the suntan myth, a spacecraft that touched the Sun — and how old that light really is.",
-      "status": "published",
-      "youtubeId": "XSQmwP_GSEM",
-      "publishedAt": "2026-10-11",
+      "status": "draft",
+      "youtubeId": null,
+      "publishedAt": null,
       "thumbnail": "/assets/episodes/the-sun/thumb.png",
       "quiz": {
         "question": "How old is the sunlight hitting your eyes right now?",
