@@ -5,6 +5,7 @@ const features = [
   ["[data-search]", () => import("./ui/search-ui.js")],
   ["[data-facade]", () => import("./ui/player.js")],
   ["[data-quiz]", () => import("./ui/quiz.js")],
+  ["[data-special-card]", () => import("./ui/vault.js")],
   ["[data-collection-scope], [data-rank-badge]", () => import("./ui/collection.js")],
   ["[data-not-found]", () => import("./ui/not-found.js")],
   ["[data-surprise]", () => import("./ui/surprise.js")],

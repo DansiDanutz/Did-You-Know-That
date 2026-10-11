@@ -70,6 +70,7 @@ export function sitemap(catalog) {
   const paths = [
     "/",
     "/collection/",
+    ...(catalog.special ? ["/vault/"] : []),
     ...catalog.episodes.map(episodePath),
     ...catalog.episodes.map((e) => subjectPath(e.subjectSlug)),
     ...(catalog.requested ?? []).map((r) => subjectPath(r.slug)),

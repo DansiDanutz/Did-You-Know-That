@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 840" role="img" aria-label="A glowing pocket watch above ocean waves"><defs><radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#1a1f52"/><stop offset="1" stop-color="#060818"/></radialGradient><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="840" rx="36" fill="url(#bg)"/><g fill="#fff" opacity=".7"><circle cx="70" cy="90" r="2"/><circle cx="520" cy="130" r="2.5"/><circle cx="460" cy="60" r="1.5"/><circle cx="110" cy="300" r="1.5"/><circle cx="540" cy="380" r="2"/><circle cx="60" cy="560" r="1.5"/><circle cx="300" cy="50" r="1.5"/></g>
+<g filter="url(#glow)" fill="none" stroke-linecap="round">
+<circle cx="300" cy="360" r="170" stroke="#22d3ee" stroke-width="10"/>
+<circle cx="300" cy="360" r="140" stroke="#22d3ee" stroke-width="3" opacity=".6"/>
+<path d="M300 190v-30M270 150h60" stroke="#22d3ee" stroke-width="10"/>
+<g stroke="#ffffff" stroke-width="6"><path d="M300 235v22M300 463v22M175 360h22M403 360h22M211 271l15 15M374 434l15 15M389 271l-15 15M226 434l-15 15"/></g>
+<path d="M300 360V265" stroke="#ff9a1f" stroke-width="9"/><path d="M300 360l70 45" stroke="#ff3db4" stroke-width="9"/>
+<circle cx="300" cy="360" r="10" fill="#ffffff" stroke="none"/>
+<path d="M60 650c40-30 80-30 120 0s80 30 120 0 80-30 120 0 80 30 120 0" stroke="#3b82f6" stroke-width="8"/>
+<path d="M60 710c40-30 80-30 120 0s80 30 120 0 80-30 120 0 80 30 120 0" stroke="#8b5cf6" stroke-width="6" opacity=".8"/>
+<path d="M245 615h110l-20 22h-70z M300 615v-60l40 50" stroke="#ffffff" stroke-width="5"/>
+</g>
+<text x="300" y="790" fill="#22d3ee" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="34" text-anchor="middle" letter-spacing="4">1761 · H4</text>
+</svg>

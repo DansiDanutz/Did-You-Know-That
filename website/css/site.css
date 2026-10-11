@@ -83,7 +83,7 @@ main:focus { outline: none; }
 .brand img { border-radius: 50%; box-shadow: 0 0 0 2px rgb(255 154 31 / 0.4), 0 0 18px rgb(255 61 180 / 0.35); }
 .brand-name { font: 900 1rem/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; }
 .main-nav ul { display: flex; gap: 4px; }
-.main-nav a { display: block; padding: 8px 12px; border-radius: 999px; color: var(--dim); font-weight: 600; font-size: 0.93rem; text-decoration: none; }
+.main-nav a { display: block; padding: 8px 9px; border-radius: 999px; color: var(--dim); font-weight: 600; font-size: 0.93rem; text-decoration: none; }
 .main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--white); background: rgb(255 255 255 / 0.06); }
 .rank-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--white); font-size: 0.82rem; font-weight: 600; text-decoration: none; background: var(--navy); }
 .rank-badge[hidden] { display: none; }
@@ -102,9 +102,14 @@ main:focus { outline: none; }
   .rank-badge { display: none; }
   .main-nav a { padding: 6px 4px; font-size: 0.8rem; }
 }
+/* Six nav links on the smallest phones: tighter type, and wrap rather than scroll sideways. */
+@media (max-width: 399px) {
+  .main-nav ul { flex-wrap: wrap; justify-content: space-around; gap: 0 2px; }
+  .main-nav a { padding: 6px 3px; font-size: 0.74rem; }
+}
 
 /* ---------- Local sign-in (header button + sheet) ---------- */
-.profile-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; max-width: 220px; min-height: 40px; padding: 6px 14px; border: 0; border-radius: 999px; background: rgb(255 255 255 / 0.05); box-shadow: inset 0 0 0 1.5px var(--border); color: var(--white); font: 600 0.85rem/1.1 var(--font-body); cursor: pointer; }
+.profile-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; max-width: 224px; min-height: 40px; padding: 6px 14px; border: 0; border-radius: 999px; background: rgb(255 255 255 / 0.05); box-shadow: inset 0 0 0 1.5px var(--border); color: var(--white); font: 600 0.85rem/1.1 var(--font-body); cursor: pointer; }
 .profile-btn:hover { box-shadow: inset 0 0 0 1.5px var(--cyan); }
 .profile-btn[hidden] { display: none; }
 .profile-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -426,6 +431,51 @@ main:focus { outline: none; }
 .award-pop { position: absolute; left: 100%; top: -0.2em; margin-left: 10px; color: var(--green); font: 900 1.1rem/1 var(--font-display); text-shadow: 0 0 14px var(--green); pointer-events: none; white-space: nowrap; animation: award-pop 1.4s ease-out both; }
 .award-pop-wallet { left: 50%; top: 100%; margin: 4px 0 0; font-size: 0.85rem; transform: translateX(-50%); animation-name: award-pop-down; }
 .rank-note { margin: 12px 0 0; color: var(--muted); font-size: 0.88rem; }
+/* ---------- Card Vault (Special Cards) ---------- */
+.vault-wallet { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 18px; }
+.vault-wallet p { margin: 0; font-size: 1.15rem; }
+.vault-wallet strong { color: var(--green); font: 900 1.6rem/1 var(--font-display); }
+.vault-shared { margin-top: 14px; padding: 10px 14px; border-radius: var(--radius-small); background: rgb(34 211 238 / 0.1); color: var(--cyan); font-weight: 600; }
+.vault-shared[hidden] { display: none; }
+.vault-grid { display: grid; gap: 22px; margin: 28px 0 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .vault-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .vault-grid { grid-template-columns: repeat(3, 1fr); } }
+.vault-card { display: flex; flex-direction: column; border-radius: 24px; overflow: hidden; background: linear-gradient(var(--panel), var(--panel)) padding-box, linear-gradient(140deg, var(--accent), rgb(255 255 255 / 0.08) 60%) border-box; border: 2px solid transparent; box-shadow: 0 30px 70px -45px var(--accent); }
+.vault-card.is-shared { box-shadow: 0 0 0 3px var(--cyan), 0 30px 70px -30px var(--cyan); }
+.vault-art { position: relative; aspect-ratio: 5 / 4; overflow: hidden; background: var(--bg); }
+.vault-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; transition: filter 0.6s ease; }
+.vault-card.is-locked .vault-art img { filter: brightness(0.18) saturate(0) blur(2px); }
+.vault-lock { position: absolute; inset: 0; display: grid; place-items: center; color: var(--accent); }
+.vault-lock .icon { width: 56px; height: 56px; filter: drop-shadow(0 0 16px var(--accent)); }
+.vault-card.is-owned .vault-lock { display: none; }
+.vault-card.is-ready .vault-lock .icon { animation: pulse-lock 1.6s ease-in-out infinite; }
+.vault-body { display: flex; flex-direction: column; gap: 10px; padding: clamp(18px, 3vw, 26px); flex: 1; }
+.vault-body > * { margin: 0; }
+.vault-state { display: flex; align-items: center; gap: 8px; color: var(--accent); font: 800 0.74rem/1.2 var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; }
+.vault-state .icon { width: 14px; height: 14px; }
+.vault-title { font: 900 clamp(1.15rem, 2.4vw, 1.45rem)/1.15 var(--font-display); text-transform: uppercase; }
+.vault-teaser { color: var(--dim); }
+.vault-locked, .vault-open { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.vault-locked[hidden], .vault-open[hidden] { display: none; }
+.vault-cost { font-size: 1.05rem; }
+.vault-cost strong { color: var(--accent); font: 900 1.5rem/1 var(--font-display); }
+.vault-condition { display: flex; gap: 8px; align-items: flex-start; color: var(--orange); font-size: 0.92rem; font-weight: 600; }
+.vault-condition .icon { flex: none; width: 16px; height: 16px; margin-top: 2px; }
+.vault-condition.is-met { color: var(--green); }
+.vault-progress { width: 100%; height: 10px; border: 0; border-radius: 999px; overflow: hidden; background: var(--navy); appearance: none; }
+.vault-progress::-webkit-progress-bar { background: var(--navy); }
+.vault-progress::-webkit-progress-value { background: var(--accent); border-radius: 999px; }
+.vault-progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
+.vault-progress-text { color: var(--muted); font-size: 0.9rem; }
+.vault-soon { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-small); background: var(--navy); box-shadow: inset 0 0 0 1px var(--border); color: var(--dim); }
+.vault-soon .icon { flex: none; width: 20px; height: 20px; color: var(--accent); }
+.vault-soon strong { color: var(--white); }
+.vault-facade { aspect-ratio: 16 / 9; }
+.vault-card.is-revealing { animation: vault-reveal 1.2s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+.vault-card.is-revealing .vault-art img { animation: vault-light 1.2s ease-out both; }
+@keyframes vault-reveal { 0% { transform: scale(0.96) rotateY(14deg); box-shadow: 0 0 0 0 var(--accent); } 45% { transform: scale(1.03); box-shadow: 0 0 60px 6px var(--accent); } 100% { transform: none; box-shadow: 0 30px 70px -45px var(--accent); } }
+@keyframes vault-light { 0% { filter: brightness(0.18) saturate(0); } 50% { filter: brightness(1.6) saturate(1.4); } 100% { filter: none; } }
+@keyframes pulse-lock { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 @keyframes award-pop { 0% { opacity: 0; transform: translateY(6px) scale(0.8); } 20% { opacity: 1; transform: translateY(0) scale(1.1); } 80% { opacity: 1; } 100% { opacity: 0; transform: translateY(-14px); } }
 @keyframes award-pop-down { 0% { opacity: 0; transform: translate(-50%, -4px); } 20%, 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 6px); } }
 @keyframes wallet-bump { 0%, 100% { transform: none; } 40% { transform: scale(1.18); box-shadow: 0 0 18px var(--green); } }

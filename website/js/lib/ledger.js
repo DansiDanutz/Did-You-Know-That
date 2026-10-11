@@ -13,7 +13,7 @@ const EVENT_ID_PATTERNS = Object.freeze({
   perfect: new RegExp(`^perfect:${SLUG}$`),
   cards: new RegExp(`^cards:${SLUG}$`),
   daily: /^daily:\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
-  // Spending points on Special Cards arrives in phase 2; parsing already understands it.
+  // Spending points on a Special Card (the Card Vault).
   spend: new RegExp(`^spend:card:${SLUG}$`),
 });
 const ISO_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
@@ -23,6 +23,10 @@ export const guessEventId = (slug) => `guess:${slug}`;
 export const perfectEventId = (slug) => `perfect:${slug}`;
 export const cardsEventId = (slug) => `cards:${slug}`;
 export const dailyEventId = (isoDate) => `daily:${isoDate}`;
+export const spendEventId = (cardId) => `spend:card:${cardId}`;
+
+/** Ids of events that can be earned (not spends) — what a Special Card condition may require. */
+export const isAwardEventId = (id) => Object.keys(POINTS).some((type) => isValidEventId(type, id));
 
 export const isValidEventId = (type, id) => Boolean(EVENT_ID_PATTERNS[type]?.test(String(id ?? "")));
 const hasEvent = (ledger, id) => ledger.some((event) => event.id === id);
@@ -50,13 +54,39 @@ function isValidEvent(event) {
   return pts === POINTS[type];
 }
 
-/** Stored events are untrusted: keep only well-formed ones, first occurrence of each id wins. */
+/**
+ * Stored events are untrusted: keep only well-formed ones (first occurrence of each id wins), and
+ * drop any spend the points earned before it could not pay for — the balance is never negative.
+ */
 export function parseLedger(value) {
   if (!Array.isArray(value)) return [];
-  return value
+  const unique = value
     .filter(isValidEvent)
     .filter((event, i, all) => all.findIndex((other) => other.id === event.id) === i)
     .map(({ id, type, pts, at }) => ({ id, type, pts, at }));
+  return unique.reduce(
+    ({ kept, total }, event) => {
+      if (event.type === "spend" && event.pts > total) return { kept, total };
+      return { kept: [...kept, event], total: total + (event.type === "spend" ? -event.pts : event.pts) };
+    },
+    { kept: [], total: 0 },
+  ).kept;
+}
+
+/**
+ * Spends points on a Special Card: returns { ledger, spent, error }. Idempotent by card — a card
+ * already bought comes back unchanged (spent = null, error = null). It can never overspend:
+ * without enough points the ledger is unchanged and error = "insufficient".
+ */
+export function spend(ledger, { cardId, cost, at }) {
+  const id = spendEventId(cardId);
+  if (!isValidEventId("spend", id)) throw new Error(`"${cardId}" is not a card id`);
+  if (!Number.isInteger(cost) || cost < 1) throw new Error(`card ${cardId} needs a whole, positive cost`);
+  if (!ISO_TIME.test(at ?? "")) throw new Error(`spend ${id} needs an ISO timestamp`);
+  if (hasEvent(ledger, id)) return { ledger, spent: null, error: null };
+  if (balance(ledger) < cost) return { ledger, spent: null, error: "insufficient" };
+  const spent = { id, type: "spend", pts: cost, at };
+  return { ledger: [...ledger, spent], spent, error: null };
 }
 
 /** Points available: everything earned minus everything spent. */

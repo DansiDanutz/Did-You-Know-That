@@ -150,6 +150,7 @@ Templates live in `tools/lib/` (`pages-home.mjs`, `pages-episode.mjs`, `pages-mi
 - `/subject/time/` — subject page; an unknown `/subject/<word>/` falls back to `/?q=<word>` (via `404.html`, on Vercel)
 - `/episodes/<slug>/` — episode page
 - `/collection/?card=<fact id>` — a shared fact card (image-free link)
+- `/vault/?card=<special card id>` — a shared Special Card, highlighted in the Card Vault
 
 ## Game rules and guardrails
 
@@ -170,7 +171,7 @@ fails if any code outside the quiz's answer handler can award, or if a watch/vie
   | `perfect:<slug>` | 50 | every question right first time |
   | `cards:<slug>` | 20 | every fact card of the episode unlocked through the quiz |
   | `daily:<YYYY-MM-DD>` | 5 | reserved for the phase 3 daily question (no UI yet) |
-  | `spend:card:<id>` | −cost | reserved for the phase 2 Card Vault |
+  | `spend:card:<id>` | −cost | unlocking a Special Card in the Card Vault (see below) |
 
   Episode 01 is worth up to 175 points (8 × 10 + 25 + 50 + 20). Balance = awards − spends. Points never expire and cannot be bought.
 - Ranks by points: Curious (0) → Explorer (30) → Time Traveler (80) → Mystery Master (150) — `js/lib/progress.js`.
@@ -179,6 +180,32 @@ fails if any code outside the quiz's answer handler can award, or if a watch/vie
   (`legacyRevealed`) but earn no points and never count toward a bonus. If storage is blocked, progress lasts for the
   visit and the quiz shows a notice. "Forget my progress" on `/collection/` clears it.
 - No server accounts (sign-in is a local profile, see above), no analytics, no cookies, no timers, streaks or loss messages.
+
+## Card Vault (Special Cards)
+
+`data/special-cards.json` (optional — without it there is no `/vault/` page) lists the Special Cards:
+
+```jsonc
+{ "cards": [{
+  "id": "keynes-missing-hours", "title": "…", "teaser": "…",
+  "art": "/assets/special/keynes-missing-hours.svg",   // self-hosted; the build checks the file exists
+  "accent": "orange",                                  // orange | magenta | cyan | green | purple | blue
+  "cost": 30,                                          // whole points, 1 or more
+  "condition": "perfect:time-compressed",             // optional: an earnable ledger event id
+  "video": { "youtubeId": null }                       // null until the real (unlisted) special video exists
+}] }
+```
+
+- Unlocking spends points as a ledger event `spend:card:<id>`: idempotent (buying twice spends once), it can never
+  overspend, and a stored ledger is re-checked so the balance is never negative. What a player owns lives with the
+  local profile's progress. A condition is met when that event id is in the ledger.
+- `/vault/`: locked silhouettes with cost, requirement and progress → "Unlock" → confirm sheet → neon reveal
+  (instant under `prefers-reduced-motion`) → the special video through the click-to-play facade, with our own art as
+  the poster (nothing loads from YouTube before the click), or "Special video coming soon" while `youtubeId` is null.
+  Share links: `/vault/?card=<id>` highlights the card.
+- The build refuses a non-null `youtubeId` that is not 11 characters or is a known placeholder/test video
+  (`PLACEHOLDER_VIDEO_IDS` in `js/lib/vault.js`). Never put a stand-in id here — leave it `null`.
+- Honest limitation: browser-stored points and unlisted links are a soft lock, fine for a free game.
 
 ## Hosting
 

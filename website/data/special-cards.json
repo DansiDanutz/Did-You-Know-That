@@ -1,0 +1,32 @@
+{
+  "cards": [
+    {
+      "id": "night-slept-twice",
+      "title": "The Night People Slept Twice",
+      "teaser": "Between a “first sleep” and a “second sleep”, people prayed, talked and visited neighbours. A deeper dive into the night as it used to be.",
+      "art": "/assets/special/night-slept-twice.svg",
+      "accent": "purple",
+      "cost": 40,
+      "video": { "youtubeId": null }
+    },
+    {
+      "id": "keynes-missing-hours",
+      "title": "Keynes’s Missing Hours",
+      "teaser": "In 1930 John Maynard Keynes predicted a fifteen-hour working week for his grandchildren. Where did those hours go?",
+      "art": "/assets/special/keynes-missing-hours.svg",
+      "accent": "orange",
+      "cost": 30,
+      "condition": "perfect:time-compressed",
+      "video": { "youtubeId": null }
+    },
+    {
+      "id": "watch-crossed-atlantic",
+      "title": "The Watch That Crossed the Atlantic",
+      "teaser": "In 1761 John Harrison’s sea watch sailed to Jamaica and arrived only about five seconds slow. The story behind the clock that could cross an ocean.",
+      "art": "/assets/special/watch-crossed-atlantic.svg",
+      "accent": "cyan",
+      "cost": 80,
+      "video": { "youtubeId": null }
+    }
+  ]
+}

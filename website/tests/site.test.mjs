@@ -196,6 +196,19 @@ test("before anything is published, the next premiere is featured as Premieres s
   assert.match(ep2, /Quiz coming soon/);
   assert.doesNotMatch(ep2, /data-quiz-start|data-quiz-run/);
   assert.match(files["collection/index.html"], /150\+ points/);
+  const special = JSON.parse(readFileSync(join(SITE_ROOT, "data", "special-cards.json"), "utf8"));
+  const withVault = renderSite({ ...loadCatalog(), special });
+  const vault = withVault["vault/index.html"];
+  assert.equal((vault.match(/data-special-card /g) ?? []).length, 3);
+  assert.match(vault, /Special video coming soon/);
+  assert.doesNotMatch(vault, /youtube-nocookie\.com\/embed|i\.ytimg\.com/, "nothing from YouTube while no special video exists");
+  assert.match(vault, /data-condition="perfect:time-compressed"/);
+  assert.match(withVault["sitemap.xml"], /\/vault\//);
+  assert.match(vault, /href="\/vault\/" aria-current="page"/);
+  // Once a real video id is set, the vault uses the click-to-play facade with our own art as poster.
+  const withVideo = renderSite({ ...loadCatalog(), special: { cards: [{ ...special.cards[0], video: { youtubeId: "AbCdEfGhIjK" } }] } })["vault/index.html"];
+  assert.match(withVideo, /data-facade data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/AbCdEfGhIjK"/);
+  assert.doesNotMatch(withVideo, /<iframe|i\.ytimg\.com/);
 });
 
 test("once published, the newest episode is featured with a large click-to-play facade", () => {
@@ -212,4 +225,18 @@ test("once published, the newest episode is featured with a large click-to-play 
 test("featuredEpisode handles an empty catalog", async () => {
   const { featuredEpisode } = await import("../tools/lib/site.mjs");
   assert.equal(featuredEpisode({ episodes: [] }), null);
+});
+
+test("the build refuses an invalid special-cards catalogue or missing art", () => {
+  const dir = copySite();
+  try {
+    mkdirSync(join(dir, "assets", "special"), { recursive: true });
+    const special = JSON.parse(readFileSync(join(SITE_ROOT, "data", "special-cards.json"), "utf8"));
+    writeFileSync(join(dir, "data", "special-cards.json"), JSON.stringify(special));
+    assert.throws(() => buildSite(dir), /missing art file \/assets\/special\//);
+    writeFileSync(join(dir, "data", "special-cards.json"), JSON.stringify({ cards: [{ ...special.cards[0], video: { youtubeId: "dQw4w9WgXcQ" } }] }));
+    assert.throws(() => buildSite(dir), /placeholder\/test video/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
