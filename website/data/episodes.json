@@ -44,7 +44,7 @@
       "guess": "Where did all the time we saved actually go? Write your guess in the comments before you press play.",
       "summary": "Seven centuries, seven mornings: from a village that wakes at midnight to a phone checked before your feet touch the floor — and what the year 2100 is about to take next.",
       "status": "published",
-      "youtubeId": "WI9P4hHcSoc",
+      "youtubeId": "Sw1xP57TNTk",
       "publishedAt": "2026-10-11",
       "thumbnail": "/assets/episodes/time-compressed/thumb.png",
       "quiz": {
@@ -282,34 +282,49 @@
         "light",
         "sunrise",
         "8 minutes",
-        "sunspots",
-        "galileo",
+        "midsummer",
+        "bonfire",
+        "ptolemy",
         "copernicus",
+        "sunspots",
+        "harriot",
+        "galileo",
         "telescope",
+        "parasol",
+        "white lead",
+        "gunning",
         "newton",
+        "prism",
+        "rainbow",
         "infrared",
         "herschel",
+        "becquerel",
+        "carrington",
         "tan",
         "suntan",
+        "chanel",
         "sunscreen",
-        "parasol",
         "solar",
         "solar power",
         "solar panel",
+        "solar cell",
+        "bell labs",
+        "vanguard",
         "electricity",
         "parker solar probe",
         "space",
         "photosynthesis",
+        "space solar power",
         "2100"
       ],
       "hook": "Every time you look at the Sun, you are looking into the past.",
-      "question": "Did you know that the Sun you see is not the Sun as it is right now?",
+      "question": "Did you know that you have never once seen the Sun as it is right now?",
       "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
-      "summary": "We went from fearing the Sun, to measuring it, to wearing it, to flying toward it. Five centuries of how humans changed their behaviour toward the star that never changed for us.",
-      "status": "draft",
-      "youtubeId": null,
-      "publishedAt": null,
-      "thumbnail": null,
+      "summary": "Seven mornings under the same Sun: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, white-lead face paint, Herschel’s invisible light, the suntan myth, a spacecraft that touched the Sun — and how old that light really is.",
+      "status": "published",
+      "youtubeId": "XSQmwP_GSEM",
+      "publishedAt": "2026-10-11",
+      "thumbnail": "/assets/episodes/the-sun/thumb.png",
       "quiz": {
         "question": "How old is the sunlight hitting your eyes right now?",
         "options": [
@@ -318,43 +333,165 @@
           "About a day old"
         ],
         "answerIndex": 1,
-        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance. You have never seen the Sun as it is — only as it was."
+        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance — and the energy in it was made in the Sun’s core long before that (NASA estimates about 170,000 years). You have never seen the Sun as it is — only as it was.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In 1500, what did almost everyone believe about the Sun?",
+            "options": [
+              "That it goes around the Earth",
+              "That it is a bonfire in the sky",
+              "That it is made of iron",
+              "That it stands still at the centre"
+            ],
+            "answerIndex": 0,
+            "reveal": "It is what Ptolemy had taught, about 1,400 years earlier. In 1543, the year he died, Copernicus’s book put the Sun at the centre instead.",
+            "card": "sun-1500",
+            "source": "F2"
+          },
+          {
+            "id": "q1610",
+            "era": "1610",
+            "question": "Who made the first telescope drawing of sunspots?",
+            "options": [
+              "Galileo, in Florence",
+              "Thomas Harriot, beside the River Thames",
+              "Copernicus, in Poland",
+              "Isaac Newton, in Cambridge"
+            ],
+            "answerIndex": 1,
+            "reveal": "On a misty December morning in 1610, the Englishman Thomas Harriot pointed a telescope at the low Sun and drew what he saw — and never published it. Galileo’s letters on the spots came out in 1613.",
+            "card": "sun-1610",
+            "source": "F3"
+          },
+          {
+            "id": "q1752",
+            "era": "1752",
+            "question": "In 1752, how did fashionable women in London keep their faces pale?",
+            "options": [
+              "By painting them with white lead",
+              "By bathing in milk every morning",
+              "By wearing a veil indoors",
+              "By sleeping through the day"
+            ],
+            "answerIndex": 0,
+            "reveal": "A pale face meant you never had to work outside. Maria Gunning, Countess of Coventry, died at 27 — and her death was blamed, at least in part, on the lead in her face powder.",
+            "card": "sun-1752",
+            "source": "F4"
+          },
+          {
+            "id": "q1800",
+            "era": "1800",
+            "question": "In 1800, William Herschel put thermometers in a rainbow made by a prism. Where was the hottest spot?",
+            "options": [
+              "In the violet",
+              "In the yellow, the brightest colour",
+              "Just past the red, where nothing was visible",
+              "Exactly in the middle"
+            ],
+            "answerIndex": 2,
+            "reveal": "The reading beyond the red was the highest of all. Herschel had found infrared — the Sun was sending more than our eyes could catch.",
+            "card": "sun-1800",
+            "source": "F6"
+          },
+          {
+            "id": "q1928",
+            "era": "1928",
+            "question": "The famous story says Coco Chanel started the suntan craze. What did a historian find?",
+            "options": [
+              "It is true — she returned tanned from a cruise in 1923",
+              "It is probably a myth, traced to an unsigned magazine article from 1971",
+              "It was actually her rival Elsa Schiaparelli",
+              "Tanning was banned in France until 1930"
+            ],
+            "answerIndex": 1,
+            "reveal": "Kerry Segrave traced the Chanel story to an unsigned 1971 magazine article; tanning was already a fad before 1920. The real reason was work: as jobs moved indoors, a tan became the badge of leisure.",
+            "card": "sun-1928",
+            "source": "F8"
+          },
+          {
+            "id": "q1954",
+            "era": "1954",
+            "question": "How much sunlight did Bell Labs’ first practical silicon solar cell turn into electricity in 1954?",
+            "options": [
+              "About 1%",
+              "About 6%",
+              "About 25%",
+              "About 60%"
+            ],
+            "answerIndex": 1,
+            "reveal": "About 6% — six times better than anything before. Four years later the tiny satellite Vanguard 1 ran a radio on sunlight, and it is still circling the Earth today.",
+            "card": "sun-1954",
+            "source": "F9"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "On Christmas Eve 2024, how close did NASA’s Parker Solar Probe pass to the Sun?",
+            "options": [
+              "About 6.1 million km, at almost 700,000 km/h",
+              "About 61 million km, at 70,000 km/h",
+              "About 150 million km — the same as Earth",
+              "It landed on the surface"
+            ],
+            "answerIndex": 0,
+            "reveal": "6.1 million km from the Sun, through its outer atmosphere, at almost 700,000 km/h — the fastest object humans have ever built.",
+            "card": "sun-today",
+            "source": "F11"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "So how old is the sunlight hitting your face right now?",
+            "options": [
+              "Brand new — light arrives instantly",
+              "About 8 minutes 20 seconds — and its energy left the Sun’s core long before that",
+              "About a day old",
+              "About a year old"
+            ],
+            "answerIndex": 1,
+            "reveal": "Light takes about 8 minutes 20 seconds to cross 150 million km. But the energy in it was made in the Sun’s core and spent a very long time struggling out — NASA estimates about 170,000 years. When it began its journey there were no farms, no cities and no writing.",
+            "card": "sun-answer",
+            "source": "F17"
+          }
+        ]
       },
       "eras": [
         {
           "year": "1500",
-          "place": "A field at dawn",
-          "line": "Your day starts with the Sun, not with a clock."
+          "place": "London",
+          "line": "It is Midsummer Eve, the shortest night of the year, and the streets are glowing with firelight."
         },
         {
-          "year": "1610s",
-          "place": "Padua",
-          "line": "A new instrument, pointed at the sky — and a forbidden view."
+          "year": "1610",
+          "place": "Beside the River Thames",
+          "line": "A misty December morning. The Sun hangs low and dim — and a man points a telescope at it."
         },
         {
-          "year": "1700s",
-          "place": "Under a parasol",
-          "line": "In your world, pale skin is a sign of wealth."
+          "year": "1752",
+          "place": "London",
+          "line": "Two Irish sisters, the Gunnings, are the most talked-about faces in town."
         },
         {
-          "year": "1800s",
-          "place": "An observatory",
-          "line": "A prism, three blackened thermometers — and light no one can see."
+          "year": "1800",
+          "place": "Near Windsor",
+          "line": "An astronomer has set a prism in a sunbeam, with thermometers whose bulbs are blackened."
         },
         {
-          "year": "1920s",
-          "place": "A beach",
-          "line": "The new weekend, spent in the sunshine."
+          "year": "1928",
+          "place": "A crowded American beach",
+          "line": "Everyone is lying in the Sun. On purpose."
         },
         {
           "year": "Today",
           "place": "Your morning",
-          "line": "Your phone charged overnight. Maybe by sunlight."
+          "line": "On Christmas Eve 2024, a spacecraft flew through the Sun’s outer atmosphere."
         },
         {
           "year": "2100",
           "place": "Prediction",
-          "line": "What happens when we stop waiting for the Sun to rise?",
+          "line": "That morning has not happened yet. But we can follow the evidence.",
           "prediction": true
         }
       ],
@@ -362,44 +499,70 @@
         {
           "id": "sun-1500",
           "year": "1500",
-          "fact": "For 1,400 years, Europe was taught that the Sun travels around the Earth — until Copernicus put the Sun at the centre in 1543.",
+          "fact": "In 1500, almost everyone believed the Sun goes around the Earth — what Ptolemy had taught about 1,400 years earlier. In 1543, the year he died, Copernicus’s book put the Sun at the centre.",
           "source": "Copernicus, De revolutionibus (1543)"
         },
         {
-          "id": "sun-1613",
-          "year": "1613",
-          "fact": "The Sun has spots — and they move. Galileo published them in 1613; Thomas Harriot had sketched them in 1610.",
-          "source": "Galileo, Letters on Sunspots (1613)"
+          "id": "sun-1610",
+          "year": "1610",
+          "fact": "The first telescope drawing of sunspots was made on 8 December 1610 by the Englishman Thomas Harriot, beside the Thames — not by Galileo, who published his letters on the spots in 1613. Harriot never published his.",
+          "source": "HAO/UCAR · Galileo, Letters on Sunspots (1613)"
         },
         {
-          "id": "sun-1700s",
-          "year": "1700s",
-          "fact": "Pale skin was a sign of wealth. A tan meant you worked outside.",
-          "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
+          "id": "sun-1752",
+          "year": "1752",
+          "fact": "A pale face was so prized that fashionable women painted theirs with white lead. Maria Gunning, Countess of Coventry, died at 27, and her death was blamed, at least in part, on the lead in her face powder.",
+          "source": "V&A collections · Maria Gunning"
         },
         {
           "id": "sun-1800",
           "year": "1800",
-          "fact": "William Herschel found invisible light beyond red — infrared — using a prism and blackened thermometers.",
-          "source": "NASA / IPAC"
+          "fact": "William Herschel set a prism in a sunbeam and found the hottest spot just past the red, where nothing was visible. He had found infrared: the Sun sends more than our eyes can catch.",
+          "source": "NASA Space Place · Caltech IPAC"
+        },
+        {
+          "id": "sun-1928",
+          "year": "1928",
+          "fact": "The story that Coco Chanel started the suntan craze is probably a myth: a historian traced it to an unsigned 1971 magazine article. As work moved indoors, a tan became the badge of leisure.",
+          "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
         },
         {
           "id": "sun-1954",
           "year": "1954",
-          "fact": "Bell Labs’ first practical silicon solar cell turned about 6% of sunlight into electricity.",
-          "source": "American Physical Society"
+          "fact": "At Bell Labs, three scientists built a silicon cell that turns about 6% of sunlight into electricity. Four years later the satellite Vanguard 1 ran a radio on sunlight — and it is still in orbit.",
+          "source": "APS News · Bell Labs solar cell (1954)"
         },
         {
           "id": "sun-today",
           "year": "Today",
-          "fact": "In December 2024, Parker Solar Probe passed 6.1 million km from the Sun — the fastest object humans have ever built.",
-          "source": "NASA"
+          "fact": "On 24 December 2024, NASA’s Parker Solar Probe passed 6.1 million km from the Sun at almost 700,000 km/h — the fastest object humans have ever built.",
+          "source": "NASA · Guinness World Records"
+        },
+        {
+          "id": "sun-answer",
+          "year": "The answer",
+          "fact": "Sunlight takes about 8 minutes 20 seconds to reach you. But the energy in it was made in the Sun’s core and took a very long time to get out — NASA estimates about 170,000 years. You have never seen the Sun as it is. Only as it was.",
+          "source": "NASA · Sun facts"
         }
       ],
       "commentPrompt": "In which century would you rather watch the Sun rise?"
     }
   ],
   "requested": [
+    {
+      "subject": "School",
+      "slug": "school",
+      "status": "idea",
+      "keywords": [
+        "school",
+        "classroom",
+        "teacher",
+        "homework",
+        "exams",
+        "learning"
+      ],
+      "pitch": "Next: how a day in class changed from 1500 to today — and whether the classrooms of 2100 will even exist."
+    },
     {
       "subject": "Money",
       "slug": "money",
