@@ -1,6 +1,6 @@
 {
   "newsletter": {
     "provider": "buttondown",
-    "action": "https://buttondown.com/api/emails/embed-subscribe/didyouknowthat"
+    "action": "https://buttondown.com/api/emails/embed-subscribe/Dexty"
   }
 }
