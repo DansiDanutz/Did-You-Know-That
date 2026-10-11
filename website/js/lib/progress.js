@@ -2,7 +2,7 @@
 // explorer rank. Lives only in this browser (localStorage), attached to the local profile.
 // No accounts, no tracking, no timers. Points come from answers only — never from watching.
 // Pure functions + a storage wrapper that never throws, so the site works without storage.
-import { award, parseLedger, balance, quizEventId, guessEventId, perfectEventId, cardsEventId, POINTS } from "./ledger.js";
+import { award, parseLedger, balance, earnedTotal, quizEventId, guessEventId, perfectEventId, cardsEventId, POINTS } from "./ledger.js";
 
 export const STORAGE_KEY = "dyk.progress.v2";
 /** v1 held { guesses, revealed }; "revealed" came from the removed "I watched it" button. */
@@ -153,7 +153,10 @@ export const maxPointsFor = (catalog) =>
 
 export const pointsOf = (state) => balance(state.ledger);
 
-/** The rank for a number of points, plus the next rank to aim for (or null). */
+/** Points ever earned — ranks use this, not the spendable balance. */
+export const earnedOf = (state) => earnedTotal(state.ledger);
+
+/** The rank for a number of EARNED points (see earnedOf), plus the next rank to aim for (or null). */
 export function rankFor(points) {
   const index = RANKS.findLastIndex((rank) => points >= rank.min);
   return { ...RANKS[index], next: RANKS[index + 1] ?? null };

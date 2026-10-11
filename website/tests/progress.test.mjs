@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
 
 import {
-  parseState, migrateV1, lockGuess, answerQuestion, quizSummary, quizStarted, unlockedCardIds, totalCards, maxPointsFor, pointsOf,
+  parseState, migrateV1, lockGuess, answerQuestion, quizSummary, quizStarted, unlockedCardIds, totalCards, maxPointsFor, pointsOf, earnedOf,
   rankFor, hasQuiz, createStore, STORAGE_KEY, LEGACY_STORAGE_KEY, RANKS,
 } from "../js/lib/progress.js";
 import { shuffledOrder } from "../js/lib/shuffle.js";
@@ -204,4 +204,14 @@ test("shuffledOrder is a permutation and uses the given random source", () => {
   assert.deepEqual([...order].sort(), [0, 1, 2, 3]);
   assert.deepEqual(shuffledOrder(4, () => 0.999), [0, 1, 2, 3]);
   assert.deepEqual(shuffledOrder(0), []);
+});
+
+test("spending points on a Special Card never lowers the rank", () => {
+  const state = { ...parseState(null), ledger: [
+    { id: "perfect:time-compressed", type: "perfect", pts: 175, at: "2026-10-11T10:00:00.000Z" },
+    { id: "spend:card:night-people", type: "spend", pts: 40, at: "2026-10-11T10:05:00.000Z" },
+  ] };
+  assert.equal(pointsOf(state), 135, "the wallet shows what is left to spend");
+  assert.equal(earnedOf(state), 175);
+  assert.equal(rankFor(earnedOf(state)).name, "Mystery Master", "rank follows points earned, not the balance");
 });

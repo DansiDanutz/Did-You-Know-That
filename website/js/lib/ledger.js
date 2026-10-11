@@ -92,6 +92,9 @@ export function spend(ledger, { cardId, cost, at }) {
 /** Points available: everything earned minus everything spent. */
 export const balance = (ledger) => ledger.reduce((sum, event) => sum + (event.type === "spend" ? -event.pts : event.pts), 0);
 
+/** Points ever earned (spends ignored) — what a rank is measured by, so unlocking a card never demotes anyone. */
+export const earnedTotal = (ledger) => ledger.reduce((sum, event) => sum + (event.type === "spend" ? 0 : event.pts), 0);
+
 /** Points earned on one episode (quiz answers, guess, perfect and cards bonuses). */
 export function earnedFor(ledger, slug) {
   return ledger

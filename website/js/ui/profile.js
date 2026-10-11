@@ -2,7 +2,7 @@
 // Signing in attaches this browser's game progress (guesses, cards, rank) to the local profile.
 import { createProfileStore, signIn, signOut } from "../lib/profile.js";
 import { kidNickname } from "../lib/kid-names.js";
-import { attachTo, unlockedCardIds, rankFor, totalCards, pointsOf } from "../lib/progress.js";
+import { attachTo, unlockedCardIds, rankFor, totalCards, pointsOf, earnedOf } from "../lib/progress.js";
 import { store as progressStore, saveProgress, PROGRESS_EVENT } from "../lib/progress-client.js";
 import { loadCatalog } from "../lib/catalog-client.js";
 
@@ -53,7 +53,7 @@ export function init() {
     const state = progressStore.load();
     $("[data-profile-guesses]").textContent = String(Object.keys(state.guesses).length);
     $("[data-profile-points]").textContent = String(pointsOf(state));
-    $("[data-profile-rank]").textContent = rankFor(pointsOf(state)).name;
+    $("[data-profile-rank]").textContent = rankFor(earnedOf(state)).name;
     try {
       const catalog = await loadCatalog();
       const count = unlockedCardIds(state, catalog).length;
@@ -101,7 +101,7 @@ export function init() {
     const points = renderWallet();
     button.classList.toggle("is-signed-in", profile.signedIn);
     button.querySelector("[data-profile-label]").textContent = profile.signedIn ? profile.name : "Sign in";
-    button.setAttribute("aria-label", profile.signedIn ? `Your profile: ${profile.name}, ${points} points, rank ${rankFor(points).name}` : `Sign in on this device${points ? ` (${points} points so far)` : ""}`);
+    button.setAttribute("aria-label", profile.signedIn ? `Your profile: ${profile.name}, ${points} points to spend, rank ${rankFor(earnedOf(progressStore.load())).name}` : `Sign in on this device${points ? ` (${points} points so far)` : ""}`);
     for (const greeting of document.querySelectorAll("[data-profile-greeting]")) {
       greeting.hidden = !profile.signedIn;
       greeting.textContent = profile.signedIn ? `${profile.name}’s cards — saved to your profile on this device.` : "";

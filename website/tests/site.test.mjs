@@ -208,6 +208,10 @@ test("before anything is published, the next premiere is featured as Premieres s
   assert.match(ep2, /Quiz coming soon/);
   assert.doesNotMatch(ep2, /data-quiz-start|data-quiz-run/);
   assert.match(files["collection/index.html"], /150\+ points/);
+  assert.match(files["collection/index.html"], /Your rank: <strong data-rank-name>/);
+  assert.match(files["collection/index.html"], /points earned · <a href="\/vault\/"><strong data-balance>0<\/strong> to spend in the Vault<\/a>/);
+  assert.doesNotMatch(files["collection/index.html"], /Explorer rank:|the The /);
+  assert.match(files["collection/index.html"], /Unlocks with the quiz for <a href="\/episodes\/the-sun\/">The Sun<\/a>/);
   const special = JSON.parse(readFileSync(join(SITE_ROOT, "data", "special-cards.json"), "utf8"));
   const withVault = renderSite({ ...loadDraftCatalog(), special });
   const vault = withVault["vault/index.html"];
