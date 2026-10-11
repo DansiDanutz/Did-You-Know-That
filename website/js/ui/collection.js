@@ -1,6 +1,6 @@
 // Fact-card collection: unlocks cards on the episode and collection pages, shows the explorer rank,
 // handles shared-card links (/collection/?card=<id>) and "forget my progress".
-import { unlockedCardIds, totalCards, rankFor, parseState, pointsOf } from "../lib/progress.js";
+import { unlockedCardIds, totalCards, rankFor, parseState, pointsOf, earnedOf } from "../lib/progress.js";
 import { unlockedCard } from "./fact-card.js";
 import { store, saveProgress, PROGRESS_EVENT } from "../lib/progress-client.js";
 import { loadCatalog } from "../lib/catalog-client.js";
@@ -19,20 +19,23 @@ function renderCards(index, unlocked, { shareable, fresh = new Set() }) {
 
 function renderRank(catalog, state, count) {
   const total = totalCards(catalog);
-  const points = pointsOf(state);
+  const points = earnedOf(state);
+  const spendable = pointsOf(state);
   const rank = rankFor(points);
   const badge = document.querySelector("[data-rank-badge]");
   if (badge) {
     const started = Object.keys(state.guesses).length > 0 || count > 0 || points > 0;
     badge.hidden = !started;
     badge.querySelector("[data-rank-name]").textContent = rank.name;
-    badge.setAttribute("aria-label", `Explorer rank ${rank.name}: ${points} points, ${count} of ${total} cards collected. Open your collection.`);
+    badge.setAttribute("aria-label", `Rank ${rank.name}: ${points} points earned, ${count} of ${total} cards collected. Open your collection.`);
   }
   const panel = document.querySelector("[data-rank-panel]");
   if (!panel) return;
   panel.querySelector("[data-rank-name]").textContent = rank.name;
   panel.querySelector("[data-collected]").textContent = String(count);
   panel.querySelector("[data-points]").textContent = String(points);
+  const balanceSlot = panel.querySelector("[data-balance]");
+  if (balanceSlot) balanceSlot.textContent = String(spendable);
   const meter = panel.querySelector("[data-rank-meter]");
   meter.value = Math.min(points, meter.max);
   meter.textContent = String(points);

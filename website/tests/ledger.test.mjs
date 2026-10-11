@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
-  POINTS, award, balance, parseLedger, earnedFor, quizEventId, guessEventId, perfectEventId, cardsEventId, dailyEventId, isValidEventId,
+  POINTS, award, balance, earnedTotal, spend, parseLedger, earnedFor, quizEventId, guessEventId, perfectEventId, cardsEventId, dailyEventId, isValidEventId,
 } from "../js/lib/ledger.js";
 
 const AT = "2026-10-11T10:00:00.000Z";
@@ -98,4 +98,14 @@ test("earnedFor sums an episode's awards only", () => {
   assert.equal(earnedFor(ledger, "time-compressed"), 60);
   assert.equal(earnedFor(ledger, "the-sun"), 10);
   assert.equal(earnedFor(ledger, "time"), 0, "slug match is exact");
+});
+
+test("earnedTotal counts every earned point and ignores spends; balance subtracts them", () => {
+  let ledger = award([], { type: "quiz", id: quizEventId("time-compressed", "q1500"), at: AT }).ledger;
+  ledger = award(ledger, { type: "perfect", id: perfectEventId("time-compressed"), at: AT }).ledger;
+  const { ledger: afterSpend, error } = spend(ledger, { cardId: "night-people", cost: 40, at: AT });
+  assert.equal(error, null);
+  assert.equal(earnedTotal(afterSpend), 60);
+  assert.equal(balance(afterSpend), 20);
+  assert.equal(earnedTotal([]), 0);
 });

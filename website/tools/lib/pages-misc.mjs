@@ -14,11 +14,11 @@ export function collectionPage(catalog) {
   <p class="section-lede">Lock a guess, then answer the episode quiz: every right answer unlocks a card and right-first-time answers earn points. Everything stays in this browser: no account, no tracking.</p>
   <p class="profile-greeting" data-profile-greeting hidden></p>
   <div class="rank-panel" data-rank-panel>
-    <p class="rank-title">Explorer rank: <strong data-rank-name>${RANKS[0].name}</strong></p>
-    <p class="rank-progress"><strong data-points>0</strong> points · <span data-collected>0</span> of ${total} cards collected</p>
+    <p class="rank-title">Your rank: <strong data-rank-name>${RANKS[0].name}</strong></p>
+    <p class="rank-progress"><strong data-points>0</strong> points earned · <a href="/vault/"><strong data-balance>0</strong> to spend in the Vault</a> · <span data-collected>0</span> of ${total} cards collected</p>
     <progress class="rank-meter" max="${maxPoints}" value="0" data-rank-meter aria-label="Points">0</progress>
     <ol class="rank-ladder">${RANKS.map((rank) => html`<li data-rank-step="${rank.min}"><strong>${rank.name}</strong> <span>${rank.min === 0 ? "start" : `${rank.min}+ points`}</span></li>`)}</ol>
-    <p class="rank-note">Points come from quiz answers — never from watching. They never expire and can’t be bought.</p>
+    <p class="rank-note">Points come from quiz answers — never from watching. They never expire and can’t be bought. Your rank counts every point you earned, so unlocking Special Cards never lowers it.</p>
   </div>
 </section>
 <section class="wrap shared-card" data-shared-card hidden aria-labelledby="shared-title">
