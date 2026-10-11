@@ -43,9 +43,9 @@
       "question": "Did you know that time itself has been compressing for five hundred years?",
       "guess": "Where did all the time we saved actually go? Write your guess in the comments before you press play.",
       "summary": "Seven centuries, seven mornings: from a village that wakes at midnight to a phone checked before your feet touch the floor — and what the year 2100 is about to take next.",
-      "status": "draft",
-      "youtubeId": null,
-      "publishedAt": null,
+      "status": "published",
+      "youtubeId": "WI9P4hHcSoc",
+      "publishedAt": "2026-10-11",
       "thumbnail": "/assets/episodes/time-compressed/thumb.png",
       "quiz": {
         "question": "Did time really speed up over 500 years?",
