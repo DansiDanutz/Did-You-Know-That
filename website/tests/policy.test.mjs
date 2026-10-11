@@ -14,14 +14,26 @@ const jsFiles = (dir) => readdirSync(join(SITE_ROOT, dir)).filter((f) => f.endsW
 const ALL_JS = [...jsFiles("js"), ...jsFiles("js/lib"), ...jsFiles("js/ui")];
 const AWARDING = /\b(award|answerQuestion|lockGuess|saveProgress)\b/;
 
-test("only the quiz, collection, profile and vault widgets touch progress; only the quiz awards", () => {
+test("only the quiz, daily, collection, profile and vault widgets touch progress; only quiz and daily answers award", () => {
   const touching = ALL_JS.filter((path) => !path.startsWith("js/lib/") && AWARDING.test(read(path))).sort();
-  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/profile.js", "js/ui/quiz.js", "js/ui/vault.js"]);
+  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/daily.js", "js/ui/profile.js", "js/ui/quiz.js", "js/ui/vault.js"]);
   const vault = read("js/ui/vault.js");
   assert.doesNotMatch(vault, /\baward\(|answerQuestion|lockGuess/, "the vault only spends, never awards");
   assert.doesNotMatch(read("js/lib/vault.js"), /\baward\(/, "vault logic only spends");
   const awarding = ALL_JS.filter((path) => !path.startsWith("js/lib/") && /\banswerQuestion\(/.test(read(path)));
   assert.deepEqual(awarding, ["js/ui/quiz.js"]);
+});
+
+test("the daily question awards only from its submitted answer form, never from video or page events", () => {
+  const daily = read("js/ui/daily.js");
+  assert.doesNotMatch(daily, /data-facade|data-play|#player|youtube|ended|timeupdate|visibilitychange|\baward\(/i);
+  const calls = [...daily.matchAll(/answerDaily\(/g)];
+  assert.equal(calls.length, 1, "exactly one award path");
+  const submit = daily.slice(daily.indexOf('form.addEventListener("submit"'));
+  assert.ok(submit.indexOf("answerDaily(") > 0 && submit.indexOf("answerDaily(") < submit.indexOf("});"), "called inside the answer form's submit handler");
+  for (const path of ["js/ui/progress-ui.js", "js/ui/ladder.js", "js/ui/celebrate.js"]) {
+    assert.doesNotMatch(read(path), /saveProgress|answerQuestion|answerDaily|lockGuess|\baward\(|spend\(/, `${path} is read-only`);
+  }
 });
 
 test("the video player never imports progress or the ledger", () => {

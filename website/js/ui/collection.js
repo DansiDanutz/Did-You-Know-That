@@ -70,10 +70,22 @@ async function shareCard(id, entry, announce) {
 
 export async function init() {
   const status = document.querySelector("[data-collection-status]");
-  const announce = (message) => {
-    if (status) status.textContent = message;
+  const announce = (message, near = null) => {
+    const target = status ?? near?.closest("section")?.querySelector("[role=status]");
+    if (target) target.textContent = message;
   };
   const onCollectionPage = Boolean(document.querySelector("[data-rank-panel]"));
+  // Share buttons can appear anywhere (fact cards, the daily fact), even before a first guess.
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-share-card]");
+    if (!button) return;
+    try {
+      const index = cardIndex(await loadCatalog());
+      if (index.has(button.dataset.shareCard)) await shareCard(button.dataset.shareCard, index.get(button.dataset.shareCard), (message) => announce(message, button));
+    } catch (error) {
+      console.error("Sharing failed", error);
+    }
+  });
   const state = store.load();
   const started = Object.keys(state.guesses).length > 0;
   if (!started && !onCollectionPage && !document.querySelector("[data-quiz]")) return; // nothing to show yet
@@ -88,7 +100,7 @@ export async function init() {
   }
   const index = cardIndex(catalog);
   let unlocked = new Set(unlockedCardIds(state, catalog));
-  renderCards(index, unlocked, { shareable: onCollectionPage });
+  renderCards(index, unlocked, { shareable: true });
   renderRank(catalog, state, unlocked.size);
   showSharedCard(index);
 
@@ -96,13 +108,8 @@ export async function init() {
     const next = new Set(unlockedCardIds(event.detail.state, catalog));
     const fresh = new Set([...next].filter((id) => !unlocked.has(id)));
     unlocked = next;
-    renderCards(index, unlocked, { shareable: onCollectionPage, fresh });
+    renderCards(index, unlocked, { shareable: true, fresh });
     renderRank(catalog, event.detail.state, unlocked.size);
-  });
-
-  document.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-share-card]");
-    if (button && index.has(button.dataset.shareCard)) shareCard(button.dataset.shareCard, index.get(button.dataset.shareCard), announce);
   });
 
   document.querySelector("[data-forget]")?.addEventListener("click", () => {

@@ -28,7 +28,8 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
         "source": "F18"                                 // fact number in the episode's RESEARCH.md
       }]
     },
-    "eras": [{ "year": "1500", "place": "A village", "line": "…", "prediction": false }],
+    "eras": [{ "year": "1500", "place": "A village", "line": "…", "prediction": false,
+               "rung": "Day and night", "saw": "…" }],         // optional "how we saw it" ladder (all eras or none)
     "facts": [{ "id": "time-1500", "year": "1500", "fact": "…", "source": "…" }]  // collectible cards
   }],
   "requested": [                                         // future subjects on the map (locked)
@@ -37,13 +38,29 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
 }
 ```
 
-`requested[].status` is `idea` (our suggestion, shown "Locked · vote in the comments") or `requested`
-(viewers really asked for it, shown "Requested · vote in the comments"). Only use `requested` for real requests.
+`requested[].status` is `idea` (our suggestion, shown "Locked · vote in the comments"), `requested`
+(viewers really asked for it, shown "Requested · vote in the comments") or `next` (the episode in production:
+a "Coming next" card and a teaser page — the `pitch` is a question only, never a claim; at most one). Only use
+`requested` for real requests.
+
+The "how we saw it" ladder (`eras[].rung` ≤ 28 characters + `eras[].saw`, the episode's own sentence) renders as an
+interactive ladder on the episode page. If one era has a rung, every era needs both fields.
 
 The build validates `quiz.questions`: unique ids, 3–4 unique options, `answerIndex` on one of them, a `reveal`,
-a `source` like `F18`, and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
+a `source` like `F18`, `F4b` or `A3` (RESEARCH.md fact numbers), and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
 one question (so the "all cards" bonus is reachable). Every question must trace to a verified fact in the
 episode's `RESEARCH.md`; 2100 predictions are never quiz facts.
+
+## The game loop (what the player sees)
+
+- **Episode page = a guided journey:** Guess → Watch → Quiz → Cards → Next, with a sticky step indicator
+  (`js/lib/journey.js`). "Watch" is never detected: it counts as passed once the quiz starts.
+- **Home:** hero with the four steps, newest episode, "continue where you left off" (returning players only),
+  all episodes with per-episode progress, the daily question, collection teaser, Comment of the Week, newsletter.
+- **Daily "Did you know?" question** (`js/lib/daily.js`): the same question for everyone on a date, cycling through
+  every published quiz question; 5 points for a right first answer once per day (`daily:<date>`); skipping costs nothing.
+- **Rank-up toast** (`js/ui/celebrate.js`) when earned points cross a rank; never a "lost" message.
+- **Phone navigation:** a bottom tab bar (Home · Episodes · Daily · Cards · Vault) below 900 px.
 
 ## Publish a video (the only routine task)
 

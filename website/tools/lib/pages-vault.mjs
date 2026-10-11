@@ -45,14 +45,16 @@ function specialCard(card, titles) {
 
 export function vaultPage(catalog) {
   const titles = Object.fromEntries(catalog.episodes.map((e) => [e.slug, e.title]));
-  const quizEpisode = catalog.episodes.find((e) => e.quiz?.questions?.length);
+  // Earn points in the newest playable episode (fall back to any episode with a quiz before launch).
+  const withQuiz = catalog.episodes.filter((e) => e.quiz?.questions?.length);
+  const quizEpisode = [...withQuiz].reverse().find((e) => e.status === "published") ?? withQuiz[0];
   const main = html`<section class="wrap vault-hero" aria-labelledby="vault-title">
   <p class="section-kicker">Card Vault</p>
   <h1 id="vault-title" class="section-title">Special Cards</h1>
   <p class="section-lede">Spend the knowledge points you earn in episode quizzes. Each Special Card opens a special video made only for players — a bonus mystery, a deeper dive, the story behind the story.</p>
   <div class="vault-wallet">
     <p>You have <strong data-vault-points>0</strong> points</p>
-    ${quizEpisode ? html`<a class="btn btn-ghost btn-small" href="/episodes/${quizEpisode.slug}/#guess">Earn points: play the ${quizEpisode.title} quiz</a>` : ""}
+    ${quizEpisode ? html`<a class="btn btn-ghost btn-small" href="/episodes/${quizEpisode.slug}/#guess">Earn points: play “${quizEpisode.title}”</a>` : ""}
   </div>
   <p class="rank-note">Points come from quiz answers — never from watching — and can’t be bought. Unlocked cards stay in this browser, with your profile.</p>
   <p class="vault-shared" data-vault-shared hidden>Someone shared a Special Card with you — it’s highlighted below. Earn points in the quizzes to unlock it.</p>

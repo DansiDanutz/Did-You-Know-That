@@ -27,7 +27,13 @@ export function collectionPage(catalog) {
   <p class="cta-row"><a class="btn btn-primary" href="/#series" data-shared-play>Play the episode and collect it</a></p>
 </section>
 ${catalog.episodes.map((episode) => html`<section class="wrap collection-set" aria-labelledby="set-${episode.slug}">
-  <h2 id="set-${episode.slug}" class="small-title">No. ${episodeNumber(episode)} · <a href="${episodePath(episode)}">${episode.title}</a></h2>
+  <div class="set-head">
+    <h2 id="set-${episode.slug}" class="small-title">No. ${episodeNumber(episode)} · <a href="${episodePath(episode)}">${episode.title}</a></h2>
+    <div class="set-meter set-meter-inline" data-set-meter="${episode.slug}" data-total="${episode.facts.length}">
+      <p class="set-meter-text"><strong data-set-count>0</strong>/${episode.facts.length} cards</p>
+      <progress class="rank-meter" max="${episode.facts.length}" value="0" data-set-progress aria-label="Cards collected from ${episode.title}">0</progress>
+    </div>
+  </div>
   <ul class="fact-grid" data-collection-scope="${episode.slug}">${episode.facts.map((card) => factCard(card, episode, { locked: true }))}</ul>
 </section>`)}
 <section class="wrap collection-tools">
@@ -48,8 +54,8 @@ export function notFoundPage(catalog) {
   const main = html`<section class="wrap not-found" data-not-found>
   <p class="section-kicker">404</p>
   <h1 class="section-title">Did you know that… this page doesn’t exist?</h1>
-  <p class="section-lede" data-not-found-message>Try a subject word instead.</p>
-  <p class="cta-row"><a class="btn btn-primary" href="/#map">${icon("search")}<span>Search by subject</span></a><a class="btn btn-ghost" href="/">Home</a></p>
+  <p class="section-lede" data-not-found-message>The link may be old, or the episode may not exist yet. Pick an episode, or try a subject word.</p>
+  <p class="cta-row"><a class="btn btn-primary" href="/episodes/">${icon("grid")}<span>All episodes</span></a><a class="btn btn-ghost" href="/#map">${icon("search")}<span>Search by subject</span></a><a class="btn btn-ghost" href="/">Home</a></p>
 </section>`;
   return page({ newsletter: catalog.newsletter, title: `Page not found · ${SITE.name}`, description: "This page does not exist.", path: "/404.html", noindex: true, main });
 }
@@ -61,7 +67,7 @@ export function offlinePage(catalog) {
   <p class="section-kicker">Offline</p>
   <h1 class="section-title">Did you know that… you’re offline?</h1>
   <p class="section-lede">This page isn’t saved on your device yet. Pages you’ve opened before still work — and your guesses and cards are safe in this browser.</p>
-  <p class="cta-row"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/collection/">Your collection</a></p>
+  <p class="cta-row"><a class="btn btn-primary" href="/">Home</a><a class="btn btn-ghost" href="/episodes/">Episodes</a><a class="btn btn-ghost" href="/collection/">Your collection</a></p>
 </section>`;
   return page({ newsletter: catalog.newsletter, title: `Offline · ${SITE.name}`, description: "You are offline.", path: "/offline/", noindex: true, main });
 }
@@ -69,6 +75,7 @@ export function offlinePage(catalog) {
 export function sitemap(catalog) {
   const paths = [
     "/",
+    "/episodes/",
     "/collection/",
     ...(catalog.special ? ["/vault/"] : []),
     ...catalog.episodes.map(episodePath),

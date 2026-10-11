@@ -5,14 +5,22 @@ import { icon } from "./components.mjs";
 import { newsletterBlock, newsletterPrivacy, resolveNewsletter } from "./newsletter.mjs";
 
 const FONT_PRELOADS = ["montserrat-latin-900-normal", "inter-latin-400-normal"];
+// Desktop header links and the phone tab bar (the PWA's main navigation). One list, two layouts.
 const NAV = [
-  ["/#featured", "Watch"],
-  ["/#series", "Episodes"],
-  ["/#map", "Subjects"],
+  ["/episodes/", "Episodes"],
+  ["/#daily", "Daily fact"],
   ["/collection/", "Collection"],
   ["/vault/", "Vault"],
   ["/#about", "About"],
 ];
+const TABS = [
+  ["/", "Home", "home"],
+  ["/episodes/", "Episodes", "grid"],
+  ["/#daily", "Daily", "sun"],
+  ["/collection/", "Cards", "cards"],
+  ["/vault/", "Vault", "gem"],
+];
+const current = (href, currentPath) => (href === currentPath ? raw(' aria-current="page"') : "");
 
 function head({ title, description, path, ogType = "website", image = SITE.ogImage, noindex = false, structuredData = [], preloads = [] }) {
   const canonical = absolute(path);
@@ -62,7 +70,7 @@ function header(currentPath) {
     </a>
     <nav class="main-nav" aria-label="Main">
       <ul>
-        ${NAV.map(([href, label]) => html`<li><a href="${href}"${href === currentPath ? raw(' aria-current="page"') : ""}>${label}</a></li>`)}
+        ${NAV.map(([href, label]) => html`<li><a href="${href}"${current(href, currentPath)}>${label}</a></li>`)}
       </ul>
     </nav>
     <a class="rank-badge" href="/collection/" data-rank-badge hidden>
@@ -74,6 +82,16 @@ function header(currentPath) {
   </div>
 </header>`;
 }
+
+/** Bottom tab bar on phones and tablets (hidden on desktop, where the header nav shows). */
+const tabBar = (currentPath) => html`<nav class="tabbar" aria-label="App">
+  <ul>
+    ${TABS.map(([href, label, glyph]) => html`<li><a href="${href}"${current(href, currentPath)}>${icon(glyph)}<span>${label}</span></a></li>`)}
+  </ul>
+</nav>`;
+
+/** Rank-up and other small celebrations (js/ui/celebrate.js); announced politely, never blocking. */
+const toast = () => html`<div class="toast" data-toast aria-hidden="true" hidden></div><p class="visually-hidden" role="status" aria-live="polite" data-toast-live></p>`;
 
 /** The local sign-in sheet (js/ui/profile.js). Nothing here leaves the browser. */
 const profileSheet = (newsletter) => html`<dialog class="sheet" id="profile-sheet" aria-labelledby="profile-title" data-profile-sheet>
@@ -135,9 +153,10 @@ function footer(newsletter) {
       <ul class="footer-links">
         <li><a href="${HANDLE_URL}" rel="noopener">YouTube channel</a></li>
         <li><a href="${SUBSCRIBE_URL}" rel="noopener">Subscribe</a></li>
-        <li><a href="/#map">Subjects</a></li>
-        <li><a href="/#series">The series</a></li>
+        <li><a href="/episodes/">All episodes</a></li>
+        <li><a href="/#map">Find a subject</a></li>
         <li><a href="/collection/">Your collection</a></li>
+        <li><a href="/vault/">Card Vault</a></li>
       </ul>
     </nav>
     <section class="privacy" id="privacy" aria-labelledby="privacy-title">
@@ -161,6 +180,8 @@ ${header(currentPath)}
 ${main}
 </main>
 ${footer(newsletter)}
+${tabBar(currentPath)}
+${toast()}
 ${profileSheet(newsletter)}
 ${installBar()}
 </body>

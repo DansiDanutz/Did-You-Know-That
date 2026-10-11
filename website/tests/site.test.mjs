@@ -42,7 +42,9 @@ test("every episode, subject and requested subject gets a page and a sitemap ent
     assert.ok(files[`subject/${e.subjectSlug}/index.html`]);
     assert.ok(files["sitemap.xml"].includes(`https://dexty.live/episodes/${e.slug}/`));
   }
-  for (const r of catalog.requested) assert.match(files[`subject/${r.slug}/index.html`], /vote in the comments/i);
+  for (const r of catalog.requested) assert.match(files[`subject/${r.slug}/index.html`], r.status === "next" ? /Coming next · in production/ : /vote in the comments/i, r.slug);
+  assert.ok(files["episodes/index.html"], "the episodes index page exists");
+  assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/<\/loc>/);
 });
 
 test("the shipped site references no test video ids, and only published episodes link to YouTube", () => {
@@ -53,16 +55,16 @@ test("the shipped site references no test video ids, and only published episodes
     assert.doesNotMatch(contents, /TESTID/, path);
     for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
   }
-  assert.deepEqual(liveIds, ["Sw1xP57TNTk"], "episode 01 is live; episode 02 is held until its v2 id");
+  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo"], "episodes 01 and 02 (v2) are live");
   assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Sw1xP57TNTk"/);
-  assert.doesNotMatch(files["episodes/the-sun/index.html"], /data-embed=/, "no player for the held episode");
+  assert.match(files["episodes/the-sun/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/WlClbKXSdSo"/);
   for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /WI9P4hHcSoc|XSQmwP_GSEM/, `${path} still names a removed upload`);
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/the-sun\//);
   assert.match(files["subject/sun/index.html"], /href="\/episodes\/the-sun\/"/, "the Sun subject page links to episode 02");
-  assert.match(files["index.html"], /Newest episode · No\. 01/);
-  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=Sw1xP57TNTk"/, "comment buttons point at episode 01");
+  assert.match(files["index.html"], /Newest episode · No\. 02/);
+  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=WlClbKXSdSo"/, "comment buttons point at episode 02");
   assert.match(files["collection/index.html"], /sun-answer/);
-  assert.doesNotMatch(files["episodes/time-compressed/index.html"], /Coming soon|Quiz coming soon/);
+  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html"]) assert.doesNotMatch(files[page], /Quiz coming soon|pill-soon/, page);
 });
 
 test("before launch, the site references no video at all", () => {
@@ -189,28 +191,29 @@ test("the home hero is the real banner: art-directed, preloaded, sized, and the 
   assert.doesNotMatch(renderSite(loadCatalog())["collection/index.html"], /rel="preload" as="image"/, "only the home page preloads the banner");
 });
 
-test("videos come first: featured episode, then the rail of all episodes, then search, rule and about", () => {
+test("home: hero, newest episode, continue, episodes, daily fact, collection, community, newsletter, search, about", () => {
   const home = renderSite(loadCatalog())["index.html"];
-  const order = ['id="hero-title"', 'id="featured"', 'id="series"', 'id="map"', 'id="rule"', 'id="about"'].map((marker) => home.indexOf(marker));
+  const order = ['id="hero-title"', 'id="featured"', 'id="continue"', 'id="series"', 'id="daily"', 'id="collect"', 'id="community"', 'id="nl-title-home"', 'id="map"', 'id="about"'].map((marker) => home.indexOf(marker));
   assert.ok(order.every((at, i) => at > 0 && (i === 0 || at > order[i - 1])), `section order ${order}`);
-  const railCards = home.slice(home.indexOf('class="cards rail"'), home.indexOf("card-next")).match(/class="card accent/g) ?? [];
+  const railCards = home.slice(home.indexOf('class="cards rail"'), home.indexOf("card card-next")).match(/class="card accent/g) ?? [];
   assert.equal(railCards.length, loadCatalog().episodes.length, "the rail lists every episode");
 });
 
 test("before anything is published, the next premiere is featured as Premieres soon with its artwork", () => {
   const home = renderSite(loadDraftCatalog())["index.html"];
-  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));
+  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="continue"'));
   assert.match(featured, /Premieres soon · No\. 01/);
   assert.match(featured, /Time, Compressed/);
   assert.match(featured, /\/assets\/episodes\/time-compressed\/thumb-640\.webp/);
   assert.match(featured, /href="\/episodes\/time-compressed\/#guess"[^>]*>.*Guess before it premieres/);
   assert.doesNotMatch(featured, /data-facade|youtube/);
-  assert.match(renderSite(loadDraftCatalog())["episodes/time-compressed/index.html"], /<section class="quiz wrap" id="guess"/);
+  assert.match(renderSite(loadDraftCatalog())["episodes/time-compressed/index.html"], /<section class="step-panel" id="guess"/);
   const files = renderSite(loadDraftCatalog());
   const ep1 = files["episodes/time-compressed/index.html"];
   assert.match(ep1, /data-questions="8"/);
   assert.match(ep1, /data-quiz-start/);
-  assert.match(ep1, /href="#player"[^>]*>.*Watch the episode/s, "a plain watch link stays");
+  assert.match(ep1, /href="#player"[^>]*>.*See the premiere/s, "after the guess, a plain link leads on to the video step");
+  assert.match(ep1, /data-quiz-gate/, "the quiz waits for a locked guess");
   assert.match(ep1, /data-quiz-summary/);
   const ep2 = files["episodes/the-sun/index.html"];
   assert.match(ep2, /data-questions="8"/);
@@ -240,7 +243,7 @@ test("once published, the newest episode is featured with a large click-to-play 
   let catalog = addVideo(loadDraftCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
   catalog = addVideo(catalog, "the-sun", "TESTID00001", new Date("2026-10-19T00:00:00Z"));
   const home = renderSite(catalog)["index.html"];
-  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));
+  const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="continue"'));
   assert.match(featured, /Newest episode · No\. 02/);
   assert.match(featured, /<div class="facade" data-facade data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/TESTID00001"/);
   assert.doesNotMatch(featured, /<iframe/);

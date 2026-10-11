@@ -21,6 +21,14 @@ function awardPop(target, pts) {
   pop.addEventListener("animationend", () => pop.remove(), { once: true });
 }
 
+/** Step 3 opens once a guess is locked: the "lock your guess first" note gives way to the Start button. */
+function openQuiz(root) {
+  const gate = root.querySelector("[data-quiz-gate]");
+  const intro = root.querySelector("[data-quiz-intro]");
+  if (gate) gate.hidden = true;
+  if (intro && !intro.dataset.started) intro.hidden = false;
+}
+
 function setupGuess(root) {
   const form = root.querySelector("[data-quiz-form]");
   const radios = [...form.querySelectorAll("input[name=guess]")];
@@ -36,6 +44,7 @@ function setupGuess(root) {
     form.querySelector("[data-lock]").hidden = true;
     root.querySelector("[data-quiz-choice]").textContent = optionText(choice);
     after.hidden = false;
+    openQuiz(root);
   };
 
   const stored = store.load().guesses[root.dataset.slug];
@@ -87,6 +96,8 @@ function createRunner(root, episode, { optionText }) {
     form.hidden = false;
     feedback.hidden = true;
     $("[data-quiz-step]").textContent = `Question ${i + 1} of ${questions.length}`;
+    const meter = $("[data-quiz-progress]");
+    if (meter) meter.value = questions.filter((question) => answerFor(store.load(), episode.slug, question.id)?.solved).length;
     $("[data-quiz-era]").textContent = q.era;
     $("[data-question-text]").textContent = q.question;
     const options = shuffledOrder(q.options.length).map((original) => {
@@ -210,10 +221,16 @@ export async function init() {
     return;
   }
   const runner = createRunner(root, episode, guess);
+  const intro = root.querySelector("[data-quiz-intro]");
+  const closeIntro = () => {
+    intro.dataset.started = "true";
+    intro.hidden = true;
+    root.querySelector("[data-quiz-gate]").hidden = true;
+  };
   startButton.addEventListener("click", () => {
-    startButton.hidden = true;
+    closeIntro();
     runner.start();
   });
-  if (quizStarted(store.load(), episode)) startButton.hidden = true;
+  if (quizStarted(store.load(), episode)) closeIntro();
   runner.resumeIfStarted();
 }
