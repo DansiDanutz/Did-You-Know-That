@@ -85,16 +85,16 @@
     <p class="nl-lede">One email when a new episode lands — with its question, so you can guess before you watch.</p>
   </div>
   <div class="nl-body">
-  <form class="nl-form is-off" data-newsletter="off"><fieldset class="nl-fieldset" disabled>
-    <legend class="visually-hidden">Newsletter signup (not open yet)</legend>
+  <form class="nl-form" action="https://buttondown.com/api/emails/embed-subscribe/Dexty" method="post" target="_blank" rel="noopener" data-newsletter="buttondown">
     <label class="nl-label" for="nl-email-footer">Email address</label>
     <span class="nl-row">
-      <input class="nl-input" id="nl-email-footer" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="nl-consent-footer nl-state-footer">
-      <button class="btn btn-primary nl-submit" type="submit">Newsletter launching soon</button>
+      <input class="nl-input" id="nl-email-footer" type="email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="nl-consent-footer nl-state-footer">
+      <button class="btn btn-primary nl-submit" type="submit">Notify me</button>
     </span>
-  </fieldset></form>
+    <input type="hidden" name="embed" value="1">
+  </form>
   <p class="nl-consent" id="nl-consent-footer">We’ll email you when a new episode is out. Unsubscribe anytime. <a href="#privacy">Privacy</a></p>
-  <p class="nl-state" id="nl-state-footer">Not open yet: this form is switched off and collects nothing. Meanwhile, <a href="https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q?sub_confirmation=1" rel="noopener">subscribe on YouTube</a>.</p>
+  <p class="nl-state" id="nl-state-footer">Opens Buttondown in a new tab — confirm from the email they send you.</p>
   </div>
 </section></div>
   <div class="wrap footer-grid">
@@ -114,7 +114,7 @@
     <section class="privacy" id="privacy" aria-labelledby="privacy-title">
       <h2 class="privacy-title" id="privacy-title">Privacy</h2>
       <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
-      <p><strong>Newsletter.</strong> Not open yet. The signup form is switched off and no email addresses are collected or stored anywhere.</p>
+      <p><strong>Newsletter.</strong> If you sign up, your email address goes straight from your browser to <a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a>, the service that sends our emails — this site never sees or stores it. Buttondown sends a confirmation email first (double opt-in), keeps your address only to send episode announcements, and every email has an unsubscribe link that removes you at once. We never sell or share the list.</p>
     </section>
   </div>
   <p class="wrap footer-legal">© Did You Know That? · @Did-You-Know-that-2026</p>
@@ -151,7 +151,7 @@
       <div><dt>Cards</dt><dd data-profile-cards>0</dd></div>
       <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
     </dl>
-    <p class="profile-notify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — by email, once the newsletter launches (soon).</span></p>
+    <p class="profile-notify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — by email, with the newsletter.</span></p>
     <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
     <p class="sheet-note">Signing out keeps your cards on this device. “Forget my progress” on the collection page clears them.</p>
   </div>

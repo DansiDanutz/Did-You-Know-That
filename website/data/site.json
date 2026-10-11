@@ -1,6 +1,6 @@
 {
   "newsletter": {
-    "provider": null,
-    "action": null
+    "provider": "buttondown",
+    "action": "https://buttondown.com/api/emails/embed-subscribe/Dexty"
   }
 }
