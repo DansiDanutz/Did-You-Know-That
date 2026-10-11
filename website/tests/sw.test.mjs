@@ -12,6 +12,7 @@ function harness({ online = true, existingCaches = [] } = {}) {
   const listeners = {};
   const navigated = [];
   const fetched = [];
+  const fetchModes = [];
   const state = { skipped: false, claimed: false, online };
   const keyOf = (request) => (typeof request === "string" ? new URL(request, ORIGIN).href : request.url);
   const cacheApi = (name) => {
@@ -30,8 +31,9 @@ function harness({ online = true, existingCaches = [] } = {}) {
     URL,
     Request: class { constructor(url, init) { this.url = new URL(url, ORIGIN).href; this.init = init; } },
     Response: { error: () => response("network error", { ok: false, type: "error" }) },
-    fetch: async (request) => {
+    fetch: async (request, init) => {
       fetched.push(keyOf(request));
+      fetchModes.push(init?.cache);
       if (!state.online) throw new TypeError("offline");
       return response(`network ${keyOf(request)}`);
     },
@@ -69,7 +71,7 @@ function harness({ online = true, existingCaches = [] } = {}) {
     await Promise.all(pending);
     return result;
   };
-  return { run, request, fetchEvent, stores, state, navigated, fetched, response };
+  return { run, request, fetchEvent, stores, state, navigated, fetched, fetchModes, response };
 }
 
 test("the shell list is stamped by the build: versioned, and every file exists", () => {
@@ -132,4 +134,32 @@ test("third-party, non-GET and range requests are never intercepted or cached", 
     h.request("/sw.js"),
   ]) assert.equal(await h.fetchEvent(req), null, req.url);
   assert.deepEqual(h.fetched, []);
+});
+
+test("after a deploy, the first load runs the new scripts and styles, not the previous build's", async () => {
+  const h = harness();
+  await h.run("install", {});
+  for (const path of ["/js/ui/collection.js", "/js/lib/ledger.js", "/css/site.css"]) {
+    assert.equal((await h.fetchEvent(h.request(path))).body, `network ${ORIGIN}${path}`, path);
+  }
+  assert.deepEqual(h.fetchModes, ["no-cache", "no-cache", "no-cache"], "revalidated even if the HTTP cache thinks its copy is fresh");
+});
+
+test("scripts and styles fall back to the freshest cached copy offline, never to the offline page", async () => {
+  const h = harness();
+  await h.run("install", {});
+  const script = h.request("/js/ui/collection.js");
+  await h.fetchEvent(script);
+  h.state.online = false;
+  assert.equal((await h.fetchEvent(script)).body, `network ${ORIGIN}/js/ui/collection.js`, "copy refreshed by the last online load");
+  assert.equal((await h.fetchEvent(h.request("/js/lib/ledger.js"))).body, `precached ${ORIGIN}/js/lib/ledger.js`);
+  const missing = await h.fetchEvent(h.request("/js/ui/not-shipped.js"));
+  assert.equal(missing.ok, false, "a script request never receives HTML");
+});
+
+test("fonts and icons stay cache-first", async () => {
+  const h = harness();
+  await h.run("install", {});
+  assert.equal((await h.fetchEvent(h.request("/fonts/inter-latin-400-normal.woff2"))).body, `precached ${ORIGIN}/fonts/inter-latin-400-normal.woff2`);
+  assert.deepEqual(h.fetched, [], "served without touching the network");
 });
