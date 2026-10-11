@@ -5,7 +5,7 @@ export const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const EPISODE_STATUSES = new Set(["draft", "published"]);
-const REQUEST_STATUSES = new Set(["idea", "requested"]);
+const REQUEST_STATUSES = new Set(["idea", "requested", "next"]);
 const REQUIRED_TEXT = ["title", "subject", "hook", "question", "guess", "summary", "commentPrompt"];
 
 export const thumbnailFor = (youtubeId) => `https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`;
@@ -28,6 +28,8 @@ function validateEpisode(episode, at) {
   if (!EPISODE_STATUSES.has(episode.status)) errors.push(`${at}: status must be draft or published`);
   if (!Array.isArray(episode.eras) || episode.eras.some((era) => !isText(era.year) || !isText(era.line))) {
     errors.push(`${at}: eras must be an array of { year, place, line }`);
+  } else {
+    errors.push(...validateLadder(episode.eras, at));
   }
   errors.push(...validateQuiz(episode.quiz, at));
   const factsValid = Array.isArray(episode.facts) && episode.facts.every((card) => SLUG_PATTERN.test(card?.id ?? "") && isText(card.year) && isText(card.fact) && isText(card.source));
@@ -65,7 +67,8 @@ function validateQuiz(quiz, at) {
 }
 
 const QUESTION_OPTIONS = { min: 3, max: 4 };
-const SOURCE_PATTERN = /^F\d+$/;
+// RESEARCH.md fact numbers: F2, F4b, or the v2 additions A1–A5.
+const SOURCE_PATTERN = /^[FA]\d+[a-z]?$/;
 const normalized = (text) => String(text).trim().toLowerCase().replace(/\s+/g, " ");
 
 function validateQuestion(question, at, cardIds) {
@@ -82,7 +85,7 @@ function validateQuestion(question, at, cardIds) {
     errors.push(`${at}: answerIndex must point at exactly one of the options`);
   }
   if (!cardIds.has(question.card)) errors.push(`${at}: card "${question.card}" is not one of this episode's fact cards`);
-  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18"`);
+  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18" or "A3"`);
   return errors;
 }
 
@@ -97,6 +100,24 @@ function validateQuestions(questions, facts, at) {
   const unlocked = new Set(questions.map((q) => q?.card));
   for (const card of facts.filter((c) => !unlocked.has(c.id))) errors.push(`${at}: fact card "${card.id}" has no quiz question to unlock it`);
   return errors;
+}
+
+export const RUNG_MAX_LENGTH = 28;
+
+/**
+ * Optional "how we saw it" ladder: when any era names a rung, every era needs one — a short label
+ * (`rung`) and the episode's own sentence for it (`saw`) — so the ladder never has a missing step.
+ */
+export function validateLadder(eras, at) {
+  if (!eras.some((era) => era.rung !== undefined || era.saw !== undefined)) return [];
+  return eras.flatMap((era, i) => {
+    const where = `${at} eras[${i}] (${era.year})`;
+    const errors = [];
+    if (!isText(era.rung)) errors.push(`${where}: rung is required once the episode has a ladder`);
+    else if (era.rung.length > RUNG_MAX_LENGTH) errors.push(`${where}: rung must be at most ${RUNG_MAX_LENGTH} characters`);
+    if (!isText(era.saw)) errors.push(`${where}: saw (how people saw it, in the episode's words) is required`);
+    return errors;
+  });
 }
 
 function validateRequest(request, at) {
@@ -128,6 +149,7 @@ export function validateCatalog(catalog) {
   for (const id of new Set(duplicates(cardIds))) errors.push(`duplicate fact card id "${id}"`);
   const subjectSlugs = [...catalog.episodes.map((e) => e.subjectSlug), ...requested.map((r) => r.slug)];
   for (const slug of new Set(duplicates(subjectSlugs))) errors.push(`subject slug "${slug}" is used more than once`);
+  if (requested.filter((r) => r?.status === "next").length > 1) errors.push(`only one requested subject can be "next"`);
   return errors;
 }
 

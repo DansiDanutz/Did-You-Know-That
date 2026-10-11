@@ -58,7 +58,7 @@ test("empty and nonsense queries return nothing; results are capped", () => {
 });
 
 test("published episodes expose a YouTube watch URL", () => {
-  assert.equal(top("sun").watchUrl, null, "episode 02 is held as a draft until its v2 id ships");
+  assert.equal(top("sun").watchUrl, "https://www.youtube.com/watch?v=WlClbKXSdSo");
   assert.equal(top("time").watchUrl, "https://www.youtube.com/watch?v=Sw1xP57TNTk");
   const drafts = asDrafts(catalog);
   assert.equal(search(buildIndex(drafts), "sun")[0].watchUrl, null, "drafts have no watch URL");
