@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 
 import { installMode } from "../js/lib/install.js";
 import { surpriseWords, pickWord, isWatchable } from "../js/lib/random-word.js";
+import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
 
 const IPHONE = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1";
 const ANDROID = "Mozilla/5.0 (Linux; Android 15) AppleWebKit/537.36 Chrome/141.0 Mobile Safari/537.36";
@@ -49,10 +50,18 @@ test("Surprise me only picks words from published episodes with a YouTube id", (
 });
 
 test("with nothing published there is nothing to pick (the page shows the honest state)", () => {
-  const shipped = JSON.parse(readFileSync(new URL("../data/episodes.json", import.meta.url), "utf8"));
-  assert.deepEqual(surpriseWords(shipped), []);
+  assert.deepEqual(surpriseWords(loadDraftCatalog()), []);
   assert.equal(pickWord([]), null);
   assert.deepEqual(surpriseWords(null), []);
+});
+
+test("the shipped catalog offers only words from published episodes", () => {
+  const shipped = loadCatalog();
+  const published = new Set(shipped.episodes.filter(isWatchable).map((e) => e.slug));
+  const words = surpriseWords(shipped);
+  assert.ok(words.length > 0, "episode 01 is live, so there are words to pick");
+  assert.ok(words.some((w) => w.word === "Time"));
+  assert.ok(words.every((w) => published.has(w.url.split("/")[2])), "every word leads to a published episode");
 });
 
 test("pickWord is random but avoids repeating the previous word", () => {

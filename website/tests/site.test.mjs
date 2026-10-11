@@ -12,7 +12,7 @@ import { extractYoutubeId } from "../tools/add-video.mjs";
 import { escapeHtml, html } from "../tools/lib/html.mjs";
 
 const SITE_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const loadCatalog = () => JSON.parse(readFileSync(join(SITE_ROOT, "data", "episodes.json"), "utf8"));
+import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
 const jsonLdBlocks = (page) => [...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 
 /** A throwaway copy of the parts of the site the tools read and write. */
@@ -45,14 +45,26 @@ test("every episode, subject and requested subject gets a page and a sitemap ent
   for (const r of catalog.requested) assert.match(files[`subject/${r.slug}/index.html`], /vote in the comments/i);
 });
 
-test("the shipped site references no test video ids and no published episodes yet", () => {
-  const files = renderSite(loadCatalog());
-  for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /TESTID|youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed/, path);
+test("the shipped site references no test video ids, and only published episodes link to YouTube", () => {
+  const catalog = loadCatalog();
+  const files = renderSite(catalog);
+  const liveIds = catalog.episodes.filter((e) => e.status === "published").map((e) => e.youtubeId);
+  for (const [path, contents] of Object.entries(files)) {
+    assert.doesNotMatch(contents, /TESTID/, path);
+    for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
+  }
+  assert.deepEqual(liveIds, ["WI9P4hHcSoc"], "episode 01 is the only live episode");
+  assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/WI9P4hHcSoc"/);
+});
+
+test("before launch, the site references no video at all", () => {
+  const files = renderSite(loadDraftCatalog());
+  for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed/, path);
   assert.doesNotMatch(files["index.html"], /Watch now/);
 });
 
 test("draft episodes show Coming soon, our artwork, no iframe and no VideoObject", () => {
-  const files = renderSite(loadCatalog());
+  const files = renderSite(loadDraftCatalog());
   const page = files["episodes/time-compressed/index.html"];
   assert.match(page, /<meta property="og:image" content="https:\/\/dexty\.live\/assets\/episodes\/time-compressed\/thumb\.png">/);
   assert.match(page, /srcset="\/assets\/episodes\/time-compressed\/thumb-640\.webp 640w/);
@@ -63,7 +75,7 @@ test("draft episodes show Coming soon, our artwork, no iframe and no VideoObject
 });
 
 test("a published episode gets a click-to-load facade and VideoObject JSON-LD", () => {
-  const catalog = addVideo(loadCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
+  const catalog = addVideo(loadDraftCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
   const files = renderSite(catalog);
   const page = files["episodes/time-compressed/index.html"];
   assert.doesNotMatch(page, /<iframe/, "no iframe until the visitor clicks play");
@@ -178,15 +190,15 @@ test("videos come first: featured episode, then the rail of all episodes, then s
 });
 
 test("before anything is published, the next premiere is featured as Premieres soon with its artwork", () => {
-  const home = renderSite(loadCatalog())["index.html"];
+  const home = renderSite(loadDraftCatalog())["index.html"];
   const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));
   assert.match(featured, /Premieres soon · No\. 01/);
   assert.match(featured, /Time, Compressed/);
   assert.match(featured, /\/assets\/episodes\/time-compressed\/thumb-640\.webp/);
   assert.match(featured, /href="\/episodes\/time-compressed\/#guess"[^>]*>.*Guess before it premieres/);
   assert.doesNotMatch(featured, /data-facade|youtube/);
-  assert.match(renderSite(loadCatalog())["episodes/time-compressed/index.html"], /<section class="quiz wrap" id="guess"/);
-  const files = renderSite(loadCatalog());
+  assert.match(renderSite(loadDraftCatalog())["episodes/time-compressed/index.html"], /<section class="quiz wrap" id="guess"/);
+  const files = renderSite(loadDraftCatalog());
   const ep1 = files["episodes/time-compressed/index.html"];
   assert.match(ep1, /data-questions="8"/);
   assert.match(ep1, /data-quiz-start/);
@@ -197,7 +209,7 @@ test("before anything is published, the next premiere is featured as Premieres s
   assert.doesNotMatch(ep2, /data-quiz-start|data-quiz-run/);
   assert.match(files["collection/index.html"], /150\+ points/);
   const special = JSON.parse(readFileSync(join(SITE_ROOT, "data", "special-cards.json"), "utf8"));
-  const withVault = renderSite({ ...loadCatalog(), special });
+  const withVault = renderSite({ ...loadDraftCatalog(), special });
   const vault = withVault["vault/index.html"];
   assert.equal((vault.match(/data-special-card /g) ?? []).length, 3);
   assert.match(vault, /Special video coming soon/);
@@ -206,13 +218,13 @@ test("before anything is published, the next premiere is featured as Premieres s
   assert.match(withVault["sitemap.xml"], /\/vault\//);
   assert.match(vault, /href="\/vault\/" aria-current="page"/);
   // Once a real video id is set, the vault uses the click-to-play facade with our own art as poster.
-  const withVideo = renderSite({ ...loadCatalog(), special: { cards: [{ ...special.cards[0], video: { youtubeId: "AbCdEfGhIjK" } }] } })["vault/index.html"];
+  const withVideo = renderSite({ ...loadDraftCatalog(), special: { cards: [{ ...special.cards[0], video: { youtubeId: "AbCdEfGhIjK" } }] } })["vault/index.html"];
   assert.match(withVideo, /data-facade data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/AbCdEfGhIjK"/);
   assert.doesNotMatch(withVideo, /<iframe|i\.ytimg\.com/);
 });
 
 test("once published, the newest episode is featured with a large click-to-play facade", () => {
-  let catalog = addVideo(loadCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
+  let catalog = addVideo(loadDraftCatalog(), "time-compressed", "TESTID00000", new Date("2026-10-12T00:00:00Z"));
   catalog = addVideo(catalog, "the-sun", "TESTID00001", new Date("2026-10-19T00:00:00Z"));
   const home = renderSite(catalog)["index.html"];
   const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="nl-title-home"'));

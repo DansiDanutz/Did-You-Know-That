@@ -1,10 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 
 import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
 
-const loadCatalog = () => JSON.parse(readFileSync(new URL("../data/episodes.json", import.meta.url), "utf8"));
+import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
 
 test("the shipped episodes.json is valid", () => {
   assert.deepEqual(validateCatalog(loadCatalog()), []);
@@ -41,7 +40,7 @@ test("validateCatalog rejects a subject slug used by both an episode and a reque
 
 test("addVideo publishes an episode without mutating the original catalog", () => {
   // Arrange
-  const catalog = loadCatalog();
+  const catalog = loadDraftCatalog();
   const before = JSON.stringify(catalog);
   // Act
   const next = addVideo(catalog, "time-compressed", "TESTID00000", new Date("2026-10-12T09:30:00Z"));
@@ -98,7 +97,7 @@ test("addVideo refuses to re-publish an episode unless forced", () => {
 });
 
 test("validateCatalog checks thumbnails and keeps drafts free of video ids", () => {
-  const catalog = loadCatalog();
+  const catalog = loadDraftCatalog();
   const [first] = catalog.episodes;
   const withTracker = { ...catalog, episodes: [{ ...first, thumbnail: "https://evil.example/pixel.gif" }] };
   assert.ok(validateCatalog(withTracker).some((e) => e.includes("thumbnail must be")));
