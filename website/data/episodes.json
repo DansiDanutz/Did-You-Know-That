@@ -319,21 +319,21 @@
       ],
       "hook": "Every time you look at the Sun, you are looking into the past.",
       "question": "Did you know that you have never once seen the Sun as it is right now?",
-      "guess": "The light on your face is eight minutes old. But the energy inside it — how old is that? Guess in the comments, then stay to the end and check.",
+      "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
       "summary": "Seven mornings under the same Sun: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, white-lead face paint, Herschel’s invisible light, the suntan myth, a spacecraft that touched the Sun — and how old that light really is.",
       "status": "published",
       "youtubeId": "XSQmwP_GSEM",
       "publishedAt": "2026-10-11",
       "thumbnail": "/assets/episodes/the-sun/thumb.png",
       "quiz": {
-        "question": "The light on your face is eight minutes old. But the energy inside it — how old is that?",
+        "question": "How old is the sunlight hitting your eyes right now?",
         "options": [
-          "About eight minutes, like the light",
-          "About a year",
-          "NASA estimates about 170,000 years"
+          "Brand new — light arrives instantly",
+          "About 8 minutes and 20 seconds old",
+          "About a day old"
         ],
-        "answerIndex": 2,
-        "reveal": "Light crosses the 150 million km to Earth in about 8 minutes 20 seconds. But the energy in it was made deep in the Sun’s core and spent a very long time struggling out — NASA estimates about 170,000 years. You have never seen the Sun as it is. Only as it was.",
+        "answerIndex": 1,
+        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance — and the energy in it was made in the Sun’s core long before that (NASA estimates about 170,000 years). You have never seen the Sun as it is — only as it was.",
         "questions": [
           {
             "id": "q1500",
