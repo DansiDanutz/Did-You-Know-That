@@ -3,6 +3,9 @@
 //   list below are stamped by tools/build-site.mjs from the files' contents — do not edit them by hand.
 // - HTML: network first, so a newly published episode shows up at once; cached copy or the branded
 //   offline page when there is no connection.
+// - Our JS and CSS: network first too, revalidated with cache: "no-cache" (a cheap 304 when nothing
+//   changed). Cache-first here made the first load after a deploy pair the new HTML with the previous
+//   build's modules. Offline they fall back to the freshest cached copy, never to the offline page.
 // - data/episodes.json and artwork: stale-while-revalidate.
 // - Never touches third-party requests (YouTube player, i.ytimg.com thumbnails, the newsletter
 //   provider): those go straight to the network and are never cached.
@@ -61,6 +64,7 @@ const RUNTIME = "dexty-runtime-v1";
 const PAGES = "dexty-pages-v1";
 const OURS = [SHELL, RUNTIME, PAGES];
 const OFFLINE_URL = "/offline/";
+const NETWORK_FIRST_ASSETS = /^\/(js|css)\//;
 const STALE_WHILE_REVALIDATE = [/^\/data\/episodes\.json$/, /^\/assets\/(episodes|brand|special)\//];
 const RUNTIME_MAX_ENTRIES = 60;
 
@@ -90,18 +94,23 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-async function networkFirst(request) {
+/** Network first, keeping a copy in `cacheName`; offline, the cached copy or else `fallback()`. */
+async function networkFirst(event, cacheName, fallback, init) {
+  const { request } = event;
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, init);
     if (cacheable(response)) {
       const copy = response.clone();
-      caches.open(PAGES).then((cache) => cache.put(request, copy)).catch(() => undefined);
+      event.waitUntil(caches.open(cacheName).then((cache) => cache.put(request, copy)).catch(() => undefined));
     }
     return response;
   } catch {
-    return (await caches.match(request)) ?? (await caches.match(OFFLINE_URL)) ?? Response.error();
+    return (await caches.match(request)) ?? (await fallback());
   }
 }
+
+const offlinePage = async () => (await caches.match(OFFLINE_URL)) ?? Response.error();
+const noFallback = async () => Response.error();
 
 async function trim(cache) {
   const keys = await cache.keys();
@@ -133,7 +142,8 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || request.headers.has("range")) return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || url.pathname === "/sw.js") return;
-  if (request.mode === "navigate") return event.respondWith(networkFirst(request));
+  if (request.mode === "navigate") return event.respondWith(networkFirst(event, PAGES, offlinePage));
+  if (NETWORK_FIRST_ASSETS.test(url.pathname)) return event.respondWith(networkFirst(event, SHELL, noFallback, { cache: "no-cache" }));
   if (STALE_WHILE_REVALIDATE.some((pattern) => pattern.test(url.pathname))) return event.respondWith(staleWhileRevalidate(event));
   if (PRECACHE.includes(url.pathname)) return event.respondWith(cacheFirst(request));
 });
