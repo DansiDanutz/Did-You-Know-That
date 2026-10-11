@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
 
 import {
   parseState, migrateV1, lockGuess, answerQuestion, quizSummary, quizStarted, unlockedCardIds, totalCards, maxPointsFor, pointsOf,
@@ -8,7 +8,8 @@ import {
 } from "../js/lib/progress.js";
 import { shuffledOrder } from "../js/lib/shuffle.js";
 
-const catalog = JSON.parse(readFileSync(new URL("../data/episodes.json", import.meta.url), "utf8"));
+const catalog = loadCatalog();
+const draftCatalog = loadDraftCatalog();
 const episode = catalog.episodes.find((e) => e.slug === "time-compressed");
 const questions = episode.quiz.questions;
 const AT = "2026-10-11T10:00:00.000Z";
@@ -147,8 +148,8 @@ test("migration from v1 keeps guesses and old cards but awards no points for the
   assert.deepEqual(migrated.ledger, [], "no retroactive points");
   assert.deepEqual(migrated.answers, {});
   // Old reveals only show cards for published episodes, and never count toward the cards bonus.
-  assert.deepEqual(unlockedCardIds(migrated, catalog), []);
-  const published = { ...catalog, episodes: catalog.episodes.map((e) => (e.slug === "time-compressed" ? { ...e, status: "published" } : e)) };
+  assert.deepEqual(unlockedCardIds(migrated, draftCatalog), []);
+  const published = { ...draftCatalog, episodes: draftCatalog.episodes.map((e) => (e.slug === "time-compressed" ? { ...e, status: "published" } : e)) };
   assert.equal(unlockedCardIds(migrated, published).length, episode.facts.length);
   assert.equal(pointsOf(migrated), 0);
   assert.deepEqual(migrateV1("{broken").guesses, {});
