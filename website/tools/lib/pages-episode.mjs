@@ -70,7 +70,7 @@ function questionRunner(episode) {
       <span class="fact-text">${episode.quiz.reveal}</span>
       <span class="fact-foot">No. ${episodeNumber(episode)} · ${episode.subject} · the answer</span>
     </div>
-    <p class="cta-row"><a class="btn btn-primary" href="/collection/">Your collection</a><button class="btn btn-ghost" type="button" data-quiz-replay>Play again (no new points)</button></p>
+    <p class="cta-row"><a class="btn btn-primary" href="/collection/">Your collection</a><a class="btn btn-ghost" href="/vault/">Spend points in the Card Vault</a><button class="btn btn-ghost" type="button" data-quiz-replay>Play again (no new points)</button></p>
   </div>`;
 }
 

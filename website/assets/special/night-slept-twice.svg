@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 840" role="img" aria-label="A crescent moon over a sleeping village, with two sleeps marked"><defs><radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#1a1f52"/><stop offset="1" stop-color="#060818"/></radialGradient><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="840" rx="36" fill="url(#bg)"/><g fill="#fff" opacity=".7"><circle cx="70" cy="90" r="2"/><circle cx="520" cy="130" r="2.5"/><circle cx="460" cy="60" r="1.5"/><circle cx="110" cy="300" r="1.5"/><circle cx="540" cy="380" r="2"/><circle cx="60" cy="560" r="1.5"/><circle cx="300" cy="50" r="1.5"/></g>
+<g filter="url(#glow)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M380 150a140 140 0 1 0 90 250 120 120 0 1 1-90-250z" stroke="#8b5cf6" stroke-width="10"/>
+<path d="M50 640h80v-60l40-40 40 40v60h60v-90l50-45 50 45v90h70v-50l35-35 35 35v50h40" stroke="#ff3db4" stroke-width="7"/>
+<path d="M150 610h20M330 590h20" stroke="#ff9a1f" stroke-width="10"/>
+<g stroke="#22d3ee" stroke-width="7"><path d="M110 330h40l-40 45h40"/><path d="M175 270h28l-28 32h28"/></g>
+<g stroke="#34d058" stroke-width="7"><path d="M420 470h40l-40 45h40"/><path d="M485 410h28l-28 32h28"/></g>
+</g>
+<text x="130" y="430" fill="#22d3ee" font-family="Arial, sans-serif" font-weight="700" font-size="22" text-anchor="middle">1st</text>
+<text x="440" y="570" fill="#34d058" font-family="Arial, sans-serif" font-weight="700" font-size="22" text-anchor="middle">2nd</text>
+<text x="300" y="790" fill="#8b5cf6" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="34" text-anchor="middle" letter-spacing="4">1500 · NIGHT</text>
+</svg>

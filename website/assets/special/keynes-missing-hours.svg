@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 840" role="img" aria-label="An hourglass beside a glowing 15-hour clock face"><defs><radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#1a1f52"/><stop offset="1" stop-color="#060818"/></radialGradient><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="840" rx="36" fill="url(#bg)"/><g fill="#fff" opacity=".7"><circle cx="70" cy="90" r="2"/><circle cx="520" cy="130" r="2.5"/><circle cx="460" cy="60" r="1.5"/><circle cx="110" cy="300" r="1.5"/><circle cx="540" cy="380" r="2"/><circle cx="60" cy="560" r="1.5"/><circle cx="300" cy="50" r="1.5"/></g>
+<g filter="url(#glow)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M300 180a180 180 0 1 1-0.1 0" stroke="#ff9a1f" stroke-width="10" stroke-dasharray="700 431"/>
+<path d="M300 180a180 180 0 0 1 155 270" stroke="#ff3db4" stroke-width="16"/>
+<path d="M245 520h110M245 700h110M255 520c0 60 90 70 90 90s-90 30-90 90M345 520c0 60-90 70-90 90s90 30 90 90" stroke="#ffffff" stroke-width="7"/>
+<path d="M285 680h30l-15-25z" stroke="#ff9a1f" stroke-width="5"/>
+</g>
+<text x="300" y="400" fill="#ffffff" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="150" text-anchor="middle" filter="url(#glow)">15</text>
+<text x="300" y="455" fill="#ff9a1f" font-family="Arial, sans-serif" font-weight="700" font-size="30" text-anchor="middle" letter-spacing="6">HOURS A WEEK?</text>
+<text x="300" y="790" fill="#ff9a1f" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="34" text-anchor="middle" letter-spacing="4">1930 · KEYNES</text>
+</svg>

@@ -14,9 +14,12 @@ const jsFiles = (dir) => readdirSync(join(SITE_ROOT, dir)).filter((f) => f.endsW
 const ALL_JS = [...jsFiles("js"), ...jsFiles("js/lib"), ...jsFiles("js/ui")];
 const AWARDING = /\b(award|answerQuestion|lockGuess|saveProgress)\b/;
 
-test("only the quiz, collection and profile widgets touch progress; only the quiz awards", () => {
+test("only the quiz, collection, profile and vault widgets touch progress; only the quiz awards", () => {
   const touching = ALL_JS.filter((path) => !path.startsWith("js/lib/") && AWARDING.test(read(path))).sort();
-  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/profile.js", "js/ui/quiz.js"]);
+  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/profile.js", "js/ui/quiz.js", "js/ui/vault.js"]);
+  const vault = read("js/ui/vault.js");
+  assert.doesNotMatch(vault, /\baward\(|answerQuestion|lockGuess/, "the vault only spends, never awards");
+  assert.doesNotMatch(read("js/lib/vault.js"), /\baward\(/, "vault logic only spends");
   const awarding = ALL_JS.filter((path) => !path.startsWith("js/lib/") && /\banswerQuestion\(/.test(read(path)));
   assert.deepEqual(awarding, ["js/ui/quiz.js"]);
 });

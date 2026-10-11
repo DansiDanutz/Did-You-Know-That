@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const SHELL_PAGES = { "/": "index.html", "/offline/": "offline/index.html", "/collection/": "collection/index.html" };
+const SHELL_PAGES = { "/": "index.html", "/offline/": "offline/index.html", "/collection/": "collection/index.html", "/vault/": "vault/index.html" };
 const SHELL_FILES = [
   "/css/site.css",
   "/manifest.webmanifest",

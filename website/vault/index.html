@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Page not found · Did You Know That?</title>
-<meta name="description" content="This page does not exist.">
-<meta name="robots" content="noindex">
+<title>Card Vault · Did You Know That?</title>
+<meta name="description" content="Spend the knowledge points you earn in Did You Know That? quizzes on Special Cards that open special videos made only for players.">
+<link rel="canonical" href="https://dexty.live/vault/">
 <meta name="theme-color" content="#060818">
 <meta name="color-scheme" content="dark">
 <link rel="preload" href="/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -21,14 +21,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:site_name" content="Did You Know That?">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Page not found · Did You Know That?">
-<meta property="og:description" content="This page does not exist.">
-<meta property="og:url" content="https://dexty.live/404.html">
+<meta property="og:title" content="Card Vault · Did You Know That?">
+<meta property="og:description" content="Spend the knowledge points you earn in Did You Know That? quizzes on Special Cards that open special videos made only for players.">
+<meta property="og:url" content="https://dexty.live/vault/">
 <meta property="og:image" content="https://dexty.live/assets/brand/og-card.jpg">
 <meta property="og:image:alt" content="Did You Know That? — neon question-mark light bulb and the channel name on deep navy">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Page not found · Did You Know That?">
-<meta name="twitter:description" content="This page does not exist.">
+<meta name="twitter:title" content="Card Vault · Did You Know That?">
+<meta name="twitter:description" content="Spend the knowledge points you earn in Did You Know That? quizzes on Special Cards that open special videos made only for players.">
 <meta name="twitter:image" content="https://dexty.live/assets/brand/og-card.jpg">
 
 <script type="module" src="/js/site.js"></script>
@@ -43,7 +43,7 @@
     </a>
     <nav class="main-nav" aria-label="Main">
       <ul>
-        <li><a href="/#featured">Watch</a></li><li><a href="/#series">Episodes</a></li><li><a href="/#map">Subjects</a></li><li><a href="/collection/">Collection</a></li><li><a href="/vault/">Vault</a></li><li><a href="/#about">About</a></li>
+        <li><a href="/#featured">Watch</a></li><li><a href="/#series">Episodes</a></li><li><a href="/#map">Subjects</a></li><li><a href="/collection/">Collection</a></li><li><a href="/vault/" aria-current="page">Vault</a></li><li><a href="/#about">About</a></li>
       </ul>
     </nav>
     <a class="rank-badge" href="/collection/" data-rank-badge hidden>
@@ -55,12 +55,93 @@
   </div>
 </header>
 <main id="main" tabindex="-1">
-<section class="wrap not-found" data-not-found>
-  <p class="section-kicker">404</p>
-  <h1 class="section-title">Did you know that… this page doesn’t exist?</h1>
-  <p class="section-lede" data-not-found-message>Try a subject word instead.</p>
-  <p class="cta-row"><a class="btn btn-primary" href="/#map"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="m20 20-4.6-4.6M17 10.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg><span>Search by subject</span></a><a class="btn btn-ghost" href="/">Home</a></p>
+<section class="wrap vault-hero" aria-labelledby="vault-title">
+  <p class="section-kicker">Card Vault</p>
+  <h1 id="vault-title" class="section-title">Special Cards</h1>
+  <p class="section-lede">Spend the knowledge points you earn in episode quizzes. Each Special Card opens a special video made only for players — a bonus mystery, a deeper dive, the story behind the story.</p>
+  <div class="vault-wallet">
+    <p>You have <strong data-vault-points>0</strong> points</p>
+    <a class="btn btn-ghost btn-small" href="/episodes/time-compressed/#guess">Earn points: play the Time, Compressed quiz</a>
+  </div>
+  <p class="rank-note">Points come from quiz answers — never from watching — and can’t be bought. Unlocked cards stay in this browser, with your profile.</p>
+  <p class="vault-shared" data-vault-shared hidden>Someone shared a Special Card with you — it’s highlighted below. Earn points in the quizzes to unlock it.</p>
 </section>
+<section class="wrap" aria-label="Special Cards">
+  <ul class="vault-grid"><li class="vault-card accent-purple is-locked" id="card-night-slept-twice" data-special-card data-id="night-slept-twice" data-cost="40" data-title="The Night People Slept Twice">
+  <div class="vault-art">
+    <img src="/assets/special/night-slept-twice.svg" alt="" width="600" height="840" loading="lazy" decoding="async">
+    <span class="vault-lock" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg></span>
+  </div>
+  <div class="vault-body">
+    <p class="vault-state" data-vault-state><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg> Locked Special Card</p>
+    <h2 class="vault-title">The Night People Slept Twice</h2>
+    <p class="vault-teaser">Between a “first sleep” and a “second sleep”, people prayed, talked and visited neighbours. A deeper dive into the night as it used to be.</p>
+    <div class="vault-locked" data-vault-locked>
+      <p class="vault-cost"><strong>40</strong> points</p>
+      
+      <progress class="vault-progress" max="40" value="0" data-vault-progress aria-label="Points towards The Night People Slept Twice">0</progress>
+      <p class="vault-progress-text" data-vault-progress-text>Earn points in the episode quizzes to unlock it.</p>
+      <p class="cta-row"><button class="btn btn-primary" type="button" data-unlock disabled>Unlock for 40 points</button></p>
+    </div>
+    <div class="vault-open" data-vault-open hidden>
+      <p class="vault-soon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><strong>Special video coming soon.</strong> It’s being made now — your card is saved and the video will play right here.</span></p>
+      <p class="cta-row"><button class="btn btn-ghost btn-small" type="button" data-share-special>Share this card</button></p>
+    </div>
+  </div>
+</li><li class="vault-card accent-orange is-locked" id="card-keynes-missing-hours" data-special-card data-id="keynes-missing-hours" data-cost="30" data-title="Keynes’s Missing Hours" data-condition="perfect:time-compressed">
+  <div class="vault-art">
+    <img src="/assets/special/keynes-missing-hours.svg" alt="" width="600" height="840" loading="lazy" decoding="async">
+    <span class="vault-lock" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg></span>
+  </div>
+  <div class="vault-body">
+    <p class="vault-state" data-vault-state><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg> Locked Special Card</p>
+    <h2 class="vault-title">Keynes’s Missing Hours</h2>
+    <p class="vault-teaser">In 1930 John Maynard Keynes predicted a fifteen-hour working week for his grandchildren. Where did those hours go?</p>
+    <div class="vault-locked" data-vault-locked>
+      <p class="vault-cost"><strong>30</strong> points</p>
+      <p class="vault-condition" data-vault-condition><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg> <span>Also needed: Get every answer right first time in “Time, Compressed”</span></p>
+      <progress class="vault-progress" max="30" value="0" data-vault-progress aria-label="Points towards Keynes’s Missing Hours">0</progress>
+      <p class="vault-progress-text" data-vault-progress-text>Earn points in the episode quizzes to unlock it.</p>
+      <p class="cta-row"><button class="btn btn-primary" type="button" data-unlock disabled>Unlock for 30 points</button></p>
+    </div>
+    <div class="vault-open" data-vault-open hidden>
+      <p class="vault-soon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><strong>Special video coming soon.</strong> It’s being made now — your card is saved and the video will play right here.</span></p>
+      <p class="cta-row"><button class="btn btn-ghost btn-small" type="button" data-share-special>Share this card</button></p>
+    </div>
+  </div>
+</li><li class="vault-card accent-cyan is-locked" id="card-watch-crossed-atlantic" data-special-card data-id="watch-crossed-atlantic" data-cost="80" data-title="The Watch That Crossed the Atlantic">
+  <div class="vault-art">
+    <img src="/assets/special/watch-crossed-atlantic.svg" alt="" width="600" height="840" loading="lazy" decoding="async">
+    <span class="vault-lock" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg></span>
+  </div>
+  <div class="vault-body">
+    <p class="vault-state" data-vault-state><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg> Locked Special Card</p>
+    <h2 class="vault-title">The Watch That Crossed the Atlantic</h2>
+    <p class="vault-teaser">In 1761 John Harrison’s sea watch sailed to Jamaica and arrived only about five seconds slow. The story behind the clock that could cross an ocean.</p>
+    <div class="vault-locked" data-vault-locked>
+      <p class="vault-cost"><strong>80</strong> points</p>
+      
+      <progress class="vault-progress" max="80" value="0" data-vault-progress aria-label="Points towards The Watch That Crossed the Atlantic">0</progress>
+      <p class="vault-progress-text" data-vault-progress-text>Earn points in the episode quizzes to unlock it.</p>
+      <p class="cta-row"><button class="btn btn-primary" type="button" data-unlock disabled>Unlock for 80 points</button></p>
+    </div>
+    <div class="vault-open" data-vault-open hidden>
+      <p class="vault-soon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><strong>Special video coming soon.</strong> It’s being made now — your card is saved and the video will play right here.</span></p>
+      <p class="cta-row"><button class="btn btn-ghost btn-small" type="button" data-share-special>Share this card</button></p>
+    </div>
+  </div>
+</li></ul>
+  <p class="quiz-status" role="status" aria-live="polite" data-vault-status></p>
+  <p class="storage-note" data-storage-note hidden>Your browser isn’t saving progress, so unlocked cards last only until you leave this page.</p>
+</section>
+<dialog class="sheet" id="unlock-sheet" aria-labelledby="unlock-title" data-unlock-dialog>
+  <div class="sheet-head">
+    <h2 class="sheet-title" id="unlock-title" data-unlock-title>Unlock this card?</h2>
+    <button class="sheet-close" type="button" data-unlock-cancel aria-label="Close">×</button>
+  </div>
+  <p class="sheet-lede" data-unlock-text></p>
+  <p class="cta-row"><button class="btn btn-primary" type="button" data-unlock-confirm>Unlock</button><button class="btn btn-ghost" type="button" data-unlock-cancel>Not now</button></p>
+</dialog>
 </main>
 <footer class="site-footer">
   <div class="wrap"><section class="newsletter newsletter-footer" aria-labelledby="nl-title-footer">

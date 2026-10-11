@@ -15,6 +15,8 @@ import { episodePage, subjectPageForEpisode, subjectPageForRequest } from "./lib
 import { collectionPage, notFoundPage, offlinePage, sitemap } from "./lib/pages-misc.mjs";
 import { validateSiteConfig, resolveNewsletter, withFormAction } from "./lib/newsletter.mjs";
 import { precacheList, shellVersion, stampServiceWorker } from "./lib/pwa.mjs";
+import { vaultPage } from "./lib/pages-vault.mjs";
+import { validateSpecialCards } from "../js/lib/vault.js";
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const GENERATED_DIRS = ["episodes", "subject"];
@@ -30,6 +32,18 @@ export function loadCatalog(root) {
   const problems = [...errors, ...missing];
   if (problems.length) throw new Error(`data/episodes.json is invalid:\n- ${problems.join("\n- ")}`);
   return catalog;
+}
+
+/** data/special-cards.json (optional; without it there is no Card Vault page). Art must exist on disk. */
+export function loadSpecialCards(root, catalog) {
+  const path = join(root, "data", "special-cards.json");
+  if (!existsSync(path)) return null;
+  const special = JSON.parse(readFileSync(path, "utf8"));
+  const errors = validateSpecialCards(special, { episodeSlugs: catalog.episodes.map((e) => e.slug) });
+  const missing = (special.cards ?? []).filter((card) => card.art && !existsSync(join(root, card.art))).map((card) => `missing art file ${card.art}`);
+  const problems = [...errors, ...missing];
+  if (problems.length) throw new Error(`data/special-cards.json is invalid:\n- ${problems.join("\n- ")}`);
+  return special;
 }
 
 /** data/site.json (optional; without it the newsletter is switched off). */
@@ -51,6 +65,7 @@ export function renderSite(baseCatalog, site = {}) {
     "offline/index.html": offlinePage(catalog),
     "collection/index.html": collectionPage(catalog),
     "sitemap.xml": sitemap(catalog),
+    ...(catalog.special ? { "vault/index.html": vaultPage(catalog) } : {}),
     ...Object.fromEntries(catalog.episodes.map((e) => [`episodes/${e.slug}/index.html`, episodePage(catalog, e)])),
     ...Object.fromEntries(catalog.episodes.map((e) => [`subject/${e.subjectSlug}/index.html`, subjectPageForEpisode(catalog, e)])),
     ...Object.fromEntries((catalog.requested ?? []).map((r) => [`subject/${r.slug}/index.html`, subjectPageForRequest(catalog, r)])),
@@ -83,7 +98,9 @@ function serviceWorker(root, files) {
 
 export function buildSite(root = DEFAULT_ROOT, { check = false } = {}) {
   const site = loadSiteConfig(root);
-  const pages = { ...renderSite(loadCatalog(root), site), ...vercelConfig(root, site) };
+  const catalog = loadCatalog(root);
+  const special = loadSpecialCards(root, catalog);
+  const pages = { ...renderSite(special ? { ...catalog, special } : catalog, site), ...vercelConfig(root, site) };
   const files = { ...pages, ...serviceWorker(root, pages) };
   const outdated = Object.entries(files)
     .filter(([path, contents]) => !existsSync(join(root, path)) || readFileSync(join(root, path), "utf8") !== contents)

@@ -10,6 +10,7 @@ const NAV = [
   ["/#series", "Episodes"],
   ["/#map", "Subjects"],
   ["/collection/", "Collection"],
+  ["/vault/", "Vault"],
   ["/#about", "About"],
 ];
 
@@ -109,7 +110,7 @@ const profileSheet = (newsletter) => html`<dialog class="sheet" id="profile-shee
       <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
     </dl>
     <p class="profile-notify">${icon("bulb")}<span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — ${newsletter.provider ? "by email, with the newsletter." : "by email, once the newsletter launches (soon)."}</span></p>
-    <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
+    <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><a class="btn btn-ghost btn-small" href="/vault/">Card Vault</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
     <p class="sheet-note">Signing out keeps your cards and points on this device. “Forget my progress” on the collection page clears them.</p>
   </div>
 </dialog>`;
