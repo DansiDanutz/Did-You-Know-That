@@ -11,3 +11,9 @@ export const asDrafts = (catalog) => ({
 });
 
 export const loadDraftCatalog = () => asDrafts(loadCatalog());
+
+/** A draft catalog where one episode has no artwork of its own (to exercise the YouTube thumbnail fallback). */
+export const withoutArtwork = (catalog, slug) => ({
+  ...catalog,
+  episodes: catalog.episodes.map((e) => (e.slug === slug ? { ...e, thumbnail: null } : e)),
+});
