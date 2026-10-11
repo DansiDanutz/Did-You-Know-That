@@ -66,9 +66,9 @@ function header(currentPath) {
     </nav>
     <a class="rank-badge" href="/collection/" data-rank-badge hidden>
       <span class="rank-dot" aria-hidden="true"></span><span data-rank-name>Curious</span>
-      <span class="rank-count" data-rank-count></span>
+      <span class="rank-count" data-rank-count hidden></span>
     </a>
-    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span></button>
+    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span><span class="wallet-chip" data-wallet hidden><span data-wallet-points>0</span> pts</span></button>
     <a class="btn btn-sub btn-small" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe</span></a>
   </div>
 </header>`;
@@ -81,7 +81,7 @@ const profileSheet = (newsletter) => html`<dialog class="sheet" id="profile-shee
     <button class="sheet-close" type="button" data-profile-close aria-label="Close">×</button>
   </div>
   <form class="profile-form" data-profile-form novalidate>
-    <p class="sheet-lede">No account, no email, no password. Your profile, guesses and cards stay in this browser.</p>
+    <p class="sheet-lede">No account, no email, no password. Your profile, guesses, cards and points stay in this browser.</p>
     <fieldset class="aud-grid">
       <legend class="sheet-label">Who is playing?</legend>
       <label class="aud-option"><input type="radio" name="audience" value="kids"><span><strong>Kids</strong><small>Ages 6–12 · pick an explorer name</small></span></label>
@@ -103,13 +103,14 @@ const profileSheet = (newsletter) => html`<dialog class="sheet" id="profile-shee
   <div class="profile-card" data-profile-card hidden>
     <p class="sheet-lede"><span data-profile-audience></span> · profile on this device</p>
     <dl class="profile-stats">
+      <div><dt>Points</dt><dd data-profile-points>0</dd></div>
       <div><dt>Rank</dt><dd data-profile-rank>Curious</dd></div>
       <div><dt>Cards</dt><dd data-profile-cards>0</dd></div>
       <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
     </dl>
     <p class="profile-notify">${icon("bulb")}<span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — ${newsletter.provider ? "by email, with the newsletter." : "by email, once the newsletter launches (soon)."}</span></p>
     <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
-    <p class="sheet-note">Signing out keeps your cards on this device. “Forget my progress” on the collection page clears them.</p>
+    <p class="sheet-note">Signing out keeps your cards and points on this device. “Forget my progress” on the collection page clears them.</p>
   </div>
 </dialog>`;
 
@@ -140,7 +141,7 @@ function footer(newsletter) {
     </nav>
     <section class="privacy" id="privacy" aria-labelledby="privacy-title">
       <h2 class="privacy-title" id="privacy-title">Privacy</h2>
-      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses, quiz answers, cards and points stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
       ${newsletterPrivacy(newsletter)}
     </section>
   </div>

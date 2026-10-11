@@ -107,3 +107,36 @@ test("validateCatalog checks thumbnails and keeps drafts free of video ids", () 
   const publishedNoThumb = { ...catalog, episodes: [{ ...first, status: "published", youtubeId: "TESTID00000", publishedAt: "2026-10-12", thumbnail: null }] };
   assert.ok(validateCatalog(publishedNoThumb).some((e) => e.includes("needs a thumbnail")));
 });
+
+test("validateCatalog checks every per-era quiz question", () => {
+  const catalog = loadCatalog();
+  const [first] = catalog.episodes;
+  const questions = first.quiz.questions;
+  const withQuestions = (list, facts = first.facts) => validateCatalog({ ...catalog, episodes: [{ ...first, facts, quiz: { ...first.quiz, questions: list } }] });
+  const [q0, q1] = questions;
+
+  assert.deepEqual(validateCatalog(catalog), [], "the committed catalog is valid");
+  assert.ok(withQuestions([{ ...q0, answerIndex: 9 }, ...questions.slice(1)]).some((e) => e.includes("answerIndex must point at exactly one")));
+  assert.ok(withQuestions([{ ...q0, options: ["A", "a ", "B"] }, ...questions.slice(1)]).some((e) => e.includes("options must be unique")));
+  assert.ok(withQuestions([{ ...q0, options: ["A", "B"] }, ...questions.slice(1)]).some((e) => e.includes("3–4 answers")));
+  assert.ok(withQuestions([{ ...q0, card: "nope" }, ...questions.slice(1)]).some((e) => e.includes(`card "nope" is not one of this episode's fact cards`)));
+  assert.ok(withQuestions([{ ...q0, source: "Wikipedia" }, ...questions.slice(1)]).some((e) => e.includes("source must be a RESEARCH.md fact number")));
+  assert.ok(withQuestions([q0, { ...q1, id: q0.id }, ...questions.slice(2)]).some((e) => e.includes("duplicate question id")));
+  assert.ok(withQuestions([q0, { ...q1, card: q0.card }, ...questions.slice(2)]).some((e) => e.includes("unlocked by more than one question")));
+  assert.ok(withQuestions(questions.slice(1)).some((e) => e.includes(`fact card "${q0.card}" has no quiz question`)));
+  assert.ok(withQuestions([]).some((e) => e.includes("non-empty array")));
+  assert.ok(withQuestions([{ ...q0, reveal: " " }, ...questions.slice(1)]).some((e) => e.includes("reveal is required")));
+  assert.ok(withQuestions([{ id: "Bad Id" }, ...questions.slice(1)]).some((e) => e.includes("id must be lowercase-kebab-case")));
+});
+
+test("every episode 01 question is traceable to RESEARCH.md and has exactly one answer", () => {
+  const [first] = loadCatalog().episodes;
+  assert.equal(first.quiz.questions.length, 8);
+  for (const q of first.quiz.questions) {
+    assert.match(q.source, /^F\d+$/);
+    assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length);
+    assert.equal(new Set(q.options).size, q.options.length);
+  }
+  const second = loadCatalog().episodes.find((e) => e.slug === "the-sun");
+  assert.equal(second.quiz.questions, undefined, "episode 02 stays without a quiz for now");
+});

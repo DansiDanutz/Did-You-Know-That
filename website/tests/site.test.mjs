@@ -186,6 +186,16 @@ test("before anything is published, the next premiere is featured as Premieres s
   assert.match(featured, /href="\/episodes\/time-compressed\/#guess"[^>]*>.*Guess before it premieres/);
   assert.doesNotMatch(featured, /data-facade|youtube/);
   assert.match(renderSite(loadCatalog())["episodes/time-compressed/index.html"], /<section class="quiz wrap" id="guess"/);
+  const files = renderSite(loadCatalog());
+  const ep1 = files["episodes/time-compressed/index.html"];
+  assert.match(ep1, /data-questions="8"/);
+  assert.match(ep1, /data-quiz-start/);
+  assert.match(ep1, /href="#player"[^>]*>.*Watch the episode/s, "a plain watch link stays");
+  assert.match(ep1, /data-quiz-summary/);
+  const ep2 = files["episodes/the-sun/index.html"];
+  assert.match(ep2, /Quiz coming soon/);
+  assert.doesNotMatch(ep2, /data-quiz-start|data-quiz-run/);
+  assert.match(files["collection/index.html"], /150\+ points/);
 });
 
 test("once published, the newest episode is featured with a large click-to-play facade", () => {

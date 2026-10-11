@@ -24,9 +24,58 @@ const videoObject = (episode) => ({
   publisher: { "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: absolute(SITE.logo) } },
 });
 
+const questionCount = (episode) => episode.quiz.questions?.length ?? 0;
+
+/** After the guess: the per-era quiz, or "quiz coming soon". Never a "watched it" reward. */
+function afterGuess(episode) {
+  const watchLink = html`<a class="btn btn-ghost" href="#player">${icon("play")}<span>Watch the episode</span></a>`;
+  if (questionCount(episode) === 0) {
+    return html`<p class="quiz-wait">Quiz coming soon — the questions arrive with the episode. Subscribe and it will find you.</p>
+    <p class="cta-row">${watchLink}<a class="btn btn-primary" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a></p>`;
+  }
+  return html`<p class="quiz-next">Now show what you know: ${questionCount(episode)} questions, one per era. 10 points for every answer right first time — and each right answer unlocks a fact card.</p>
+    <p class="cta-row"><button class="btn btn-primary" type="button" data-quiz-start>Start the quiz</button>${watchLink}</p>`;
+}
+
+function questionRunner(episode) {
+  if (questionCount(episode) === 0) return "";
+  return html`<div class="quiz-run" data-quiz-run hidden>
+    <p class="quiz-step"><span data-quiz-step></span><span class="quiz-era" data-quiz-era></span></p>
+    <form class="quiz-form" data-question-form>
+      <fieldset>
+        <legend class="quiz-question" data-question-text tabindex="-1"></legend>
+        <div class="quiz-options" data-question-options></div>
+      </fieldset>
+      <button class="btn btn-primary" type="submit" data-question-check>Check my answer</button>
+    </form>
+    <div class="quiz-feedback" data-question-feedback hidden>
+      <p class="quiz-verdict" data-feedback-verdict tabindex="-1"></p>
+      <p class="quiz-feedback-note" data-feedback-note></p>
+      <ul class="fact-grid fact-grid-single" data-feedback-card></ul>
+      <p class="cta-row"><button class="btn btn-primary" type="button" data-question-next>Next question</button></p>
+    </div>
+  </div>
+  <div class="quiz-summary" data-quiz-summary hidden>
+    <p class="section-kicker">Episode complete</p>
+    <h3 class="quiz-summary-title" data-summary-title tabindex="-1">Quiz complete</h3>
+    <p class="perfect-badge" data-summary-perfect hidden>★ Perfect episode</p>
+    <dl class="summary-stats">
+      <div><dt>Right first time</dt><dd data-summary-score>0/${questionCount(episode)}</dd></div>
+      <div><dt>Points earned</dt><dd data-summary-points>0</dd></div>
+      <div><dt>Cards unlocked</dt><dd data-summary-cards>0/${episode.facts.length}</dd></div>
+    </dl>
+    <p class="quiz-verdict" data-summary-guess></p>
+    <div class="fact-card fact-answer">
+      <span class="fact-head">${icon("bulb")} Did you know that…</span>
+      <span class="fact-text">${episode.quiz.reveal}</span>
+      <span class="fact-foot">No. ${episodeNumber(episode)} · ${episode.subject} · the answer</span>
+    </div>
+    <p class="cta-row"><a class="btn btn-primary" href="/collection/">Your collection</a><button class="btn btn-ghost" type="button" data-quiz-replay>Play again (no new points)</button></p>
+  </div>`;
+}
+
 function quiz(episode) {
-  const published = isPublished(episode);
-  return html`<section class="quiz wrap" id="guess" aria-labelledby="quiz-title" data-quiz data-slug="${episode.slug}" data-answer="${episode.quiz.answerIndex}" data-published="${published ? "true" : "false"}">
+  return html`<section class="quiz wrap" id="guess" aria-labelledby="quiz-title" data-quiz data-slug="${episode.slug}" data-answer="${episode.quiz.answerIndex}" data-questions="${questionCount(episode)}">
   <p class="section-kicker">Guess before you watch</p>
   <form class="quiz-form" data-quiz-form>
     <fieldset>
@@ -37,24 +86,16 @@ function quiz(episode) {
     </fieldset>
     <button class="btn btn-primary" type="submit" data-lock>Lock my guess</button>
   </form>
-  <p class="quiz-comment">${episode.guess}${published ? html` <a href="${watchUrl(episode)}" rel="noopener">Comment on YouTube</a>` : ""}</p>
+  <p class="quiz-comment">${episode.guess}${isPublished(episode) ? html` <a href="${watchUrl(episode)}" rel="noopener">Comment on YouTube</a>` : ""}</p>
   <div class="quiz-after" data-quiz-after hidden>
     <p class="quiz-locked">Your guess is locked: <strong data-quiz-choice></strong></p>
-    ${published
-      ? html`<p class="cta-row"><a class="btn btn-ghost" href="#player">${icon("play")}<span>Watch to find out</span></a><button class="btn btn-primary" type="button" data-reveal>I watched it — reveal the answer</button></p>`
-      : html`<p class="quiz-wait">The answer arrives with the episode. Subscribe and it will find you.</p><p class="cta-row"><a class="btn btn-primary" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a></p>`}
+    ${afterGuess(episode)}
   </div>
-  <div class="quiz-reveal" data-quiz-reveal hidden>
-    <p class="quiz-verdict" data-quiz-verdict></p>
-    <div class="fact-card fact-answer">
-      <span class="fact-head">${icon("bulb")} Did you know that…</span>
-      <span class="fact-text">${episode.quiz.reveal}</span>
-      <span class="fact-foot">No. ${episodeNumber(episode)} · ${episode.subject} · the answer</span>
-    </div>
-    <p class="quiz-unlocked"><span data-quiz-unlocked>${episode.facts.length}</span> fact cards added to <a href="/collection/">your collection</a>.</p>
-  </div>
-  <noscript><p class="quiz-wait">Turn on JavaScript to lock a guess here — or post it in the YouTube comments.</p></noscript>
+  ${questionRunner(episode)}
+  <p class="storage-note" data-storage-note hidden>Your browser isn’t saving progress, so your points and cards last only until you leave this page.</p>
+  <noscript><p class="quiz-wait">Turn on JavaScript to lock a guess and play the quiz here — or post your guess in the YouTube comments.</p></noscript>
   <p class="quiz-status" role="status" aria-live="polite" data-quiz-status></p>
+  <p class="visually-hidden" role="status" aria-live="polite" data-quiz-announce></p>
 </section>`;
 }
 
@@ -91,7 +132,7 @@ const timeline = (episode) => html`<section class="timeline wrap" aria-labelledb
 const cardsPreview = (episode) => html`<section class="ep-cards wrap" aria-labelledby="cards-title">
   <p class="section-kicker">Collect them</p>
   <h2 id="cards-title" class="section-title">${episode.facts.length} “Did you know that…” cards</h2>
-  <p class="section-lede">Lock a guess, check the answer, and these cards join <a href="/collection/">your collection</a>. Progress stays in this browser only.</p>
+  <p class="section-lede">${questionCount(episode) ? "Answer each era’s quiz question correctly and its card joins" : "The quiz arrives with the episode; then these cards join"} <a href="/collection/">your collection</a>. Progress stays in this browser only.</p>
   <ul class="fact-grid" data-collection-scope="${episode.slug}">${episode.facts.map((card) => factCard(card, episode, { locked: true }))}</ul>
 </section>`;
 
