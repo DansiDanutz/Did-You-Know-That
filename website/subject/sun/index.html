@@ -48,9 +48,9 @@
     </nav>
     <a class="rank-badge" href="/collection/" data-rank-badge hidden>
       <span class="rank-dot" aria-hidden="true"></span><span data-rank-name>Curious</span>
-      <span class="rank-count" data-rank-count></span>
+      <span class="rank-count" data-rank-count hidden></span>
     </a>
-    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span></button>
+    <button class="profile-btn" type="button" data-profile-open aria-haspopup="dialog" aria-controls="profile-sheet" hidden><span class="profile-dot" aria-hidden="true"></span><span class="profile-label" data-profile-label>Sign in</span><span class="wallet-chip" data-wallet hidden><span data-wallet-points>0</span> pts</span></button>
     <a class="btn btn-sub btn-small" href="https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q?sub_confirmation=1" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg><span>Subscribe</span></a>
   </div>
 </header>
@@ -113,7 +113,7 @@
     </nav>
     <section class="privacy" id="privacy" aria-labelledby="privacy-title">
       <h2 class="privacy-title" id="privacy-title">Privacy</h2>
-      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses and cards stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
+      <p><strong>On this site.</strong> No accounts, no cookies, no analytics. Your guesses, quiz answers, cards and points stay in this browser’s local storage — “Forget my progress” on the collection page clears them. Signing in creates a local profile — a random id, who is playing and a nickname — stored only in this browser; there are no server accounts. The installable app keeps a copy of the site’s own files in your browser’s cache so it opens offline. Episode artwork is hosted here; the YouTube player (youtube-nocookie.com) loads only after you press play, and YouTube’s privacy policy applies from then on.</p>
       <p><strong>Newsletter.</strong> If you sign up, your email address goes straight from your browser to <a href="https://buttondown.com/legal/privacy" rel="noopener">Buttondown</a>, the service that sends our emails — this site never sees or stores it. Buttondown sends a confirmation email first (double opt-in), keeps your address only to send episode announcements, and every email has an unsubscribe link that removes you at once. We never sell or share the list.</p>
     </section>
   </div>
@@ -125,7 +125,7 @@
     <button class="sheet-close" type="button" data-profile-close aria-label="Close">×</button>
   </div>
   <form class="profile-form" data-profile-form novalidate>
-    <p class="sheet-lede">No account, no email, no password. Your profile, guesses and cards stay in this browser.</p>
+    <p class="sheet-lede">No account, no email, no password. Your profile, guesses, cards and points stay in this browser.</p>
     <fieldset class="aud-grid">
       <legend class="sheet-label">Who is playing?</legend>
       <label class="aud-option"><input type="radio" name="audience" value="kids"><span><strong>Kids</strong><small>Ages 6–12 · pick an explorer name</small></span></label>
@@ -147,13 +147,14 @@
   <div class="profile-card" data-profile-card hidden>
     <p class="sheet-lede"><span data-profile-audience></span> · profile on this device</p>
     <dl class="profile-stats">
+      <div><dt>Points</dt><dd data-profile-points>0</dd></div>
       <div><dt>Rank</dt><dd data-profile-rank>Curious</dd></div>
       <div><dt>Cards</dt><dd data-profile-cards>0</dd></div>
       <div><dt>Guesses</dt><dd data-profile-guesses>0</dd></div>
     </dl>
     <p class="profile-notify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg><span><a href="#nl-title-footer" data-profile-close>Notify me about new episodes</a> — by email, with the newsletter.</span></p>
     <p class="cta-row"><a class="btn btn-primary btn-small" href="/collection/">Your collection</a><button class="btn btn-ghost btn-small" type="button" data-profile-edit>Change name</button><button class="btn btn-ghost btn-small" type="button" data-profile-signout>Sign out</button></p>
-    <p class="sheet-note">Signing out keeps your cards on this device. “Forget my progress” on the collection page clears them.</p>
+    <p class="sheet-note">Signing out keeps your cards and points on this device. “Forget my progress” on the collection page clears them.</p>
   </div>
 </dialog>
 <aside class="install-bar" data-install hidden aria-labelledby="install-title">

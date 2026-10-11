@@ -100,7 +100,7 @@ export function factCard(card, episode, { locked = false, shareable = false } = 
     return html`<li class="fact-card is-locked" data-card-id="${card.id}">
   <span class="fact-head">${icon("lock")} Locked card</span>
   <span class="fact-year">${card.year}</span>
-  <span class="fact-text" data-fact-text>Lock a guess on <a href="${episodePath(episode)}">${episode.title}</a> and check the answer to unlock.</span>
+  <span class="fact-text" data-fact-text>${episode.quiz?.questions?.length ? html`Answer the ${card.year} question in the <a href="${episodePath(episode)}">${episode.title}</a> quiz to unlock.` : html`Unlocks with the <a href="${episodePath(episode)}">${episode.title}</a> quiz — coming soon.`}</span>
   <span class="fact-foot">${label}</span>
 </li>`;
   }

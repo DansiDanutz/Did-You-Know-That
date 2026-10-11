@@ -55,7 +55,129 @@
           "Only for people in cities"
         ],
         "answerIndex": 1,
-        "reveal": "A second in 1500 lasted exactly as long as one today. What changed is how much we pack into it — and how little we remember."
+        "reveal": "A second in 1500 lasted exactly as long as one today. What changed is how much we pack into it — and how little we remember.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In 1500, how did many people sleep?",
+            "options": [
+              "In two parts: a “first sleep” and a “second sleep”",
+              "Only in the afternoon, after lunch",
+              "Never more than four hours a night",
+              "Sitting up, so they would wake at dawn"
+            ],
+            "answerIndex": 0,
+            "reveal": "Historians have found hundreds of references to a “first sleep” and a “second sleep”. In between, people prayed, talked — even visited neighbours.",
+            "card": "time-1500",
+            "source": "F18"
+          },
+          {
+            "id": "q1652",
+            "era": "1652",
+            "question": "What were England’s first coffeehouses nicknamed?",
+            "options": [
+              "Bean banks",
+              "Penny universities",
+              "Clock houses",
+              "Steam parlours"
+            ],
+            "answerIndex": 1,
+            "reveal": "For one penny you could walk in, read the news and argue with strangers for hours — London’s first coffeehouse opened in 1652.",
+            "card": "time-1652",
+            "source": "F19"
+          },
+          {
+            "id": "q1760",
+            "era": "1760",
+            "question": "Workers in the 1700s often took one day off that was not Sunday. What did they call it?",
+            "options": [
+              "Lazy Friday",
+              "Market Day",
+              "Saint Monday",
+              "Bell Day"
+            ],
+            "answerIndex": 2,
+            "reveal": "For generations, workers simply took Mondays off — “Saint Monday”. Factory clocks slowly made it disappear.",
+            "card": "time-1760",
+            "source": "F20"
+          },
+          {
+            "id": "q1850",
+            "era": "1850",
+            "question": "How did the weekend begin?",
+            "options": [
+              "With a free Friday for farmers",
+              "With half a Saturday: mill work ended at 2 p.m.",
+              "With a week off every summer",
+              "With shops closing on Wednesdays"
+            ],
+            "answerIndex": 1,
+            "reveal": "An 1850 British law ended mill work for women and children at 2 p.m. on Saturdays. Soon the men got the same — even free time had to be written into law.",
+            "card": "time-1850",
+            "source": "F21"
+          },
+          {
+            "id": "q1883",
+            "era": "1883",
+            "question": "On 18 November 1883, some American towns heard noon twice. Why?",
+            "options": [
+              "The church clocks broke",
+              "The railroads switched to standard time zones",
+              "The Sun seemed to stop in the sky",
+              "A new law moved noon to 1 p.m."
+            ],
+            "answerIndex": 1,
+            "reveal": "The railroads reset the clocks of a whole continent to standard time zones — the “Day of Two Noons”.",
+            "card": "time-1883",
+            "source": "F8"
+          },
+          {
+            "id": "q1914",
+            "era": "1914",
+            "question": "What did Henry Ford offer his workers in 1914?",
+            "options": [
+              "$5 a day for an eight-hour day",
+              "A free Model T every year",
+              "$1 a day for a twelve-hour day",
+              "A four-day week"
+            ],
+            "answerIndex": 0,
+            "reveal": "Ford more than doubled pay, to $5 a day, and cut the day to eight hours. By 1926 his workers had Saturdays off too.",
+            "card": "time-1914",
+            "source": "F22"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "How long does the average internet user spend online every day?",
+            "options": [
+              "About 38 minutes",
+              "About 2 hours",
+              "About 6 hours 38 minutes",
+              "About 12 hours"
+            ],
+            "answerIndex": 2,
+            "reveal": "Adult internet users average 6 hours 38 minutes online — every single day.",
+            "card": "time-today",
+            "source": "F23"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "So where did all the time we saved go?",
+            "options": [
+              "Clocks tick faster than they did in 1500",
+              "The Earth spins faster now",
+              "We pack more into every hour — and remember less of it",
+              "Days are shorter than they used to be"
+            ],
+            "answerIndex": 2,
+            "reveal": "A second in 1500 lasted exactly as long as one today. Your brain measures time with new memories — so hours that all look the same seem to vanish.",
+            "card": "time-answer",
+            "source": "F15"
+          }
+        ]
       },
       "eras": [
         {
@@ -121,6 +243,12 @@
           "source": "Factory Act 1850"
         },
         {
+          "id": "time-1883",
+          "year": "1883",
+          "fact": "On 18 November 1883, American and Canadian railroads switched to standard time zones. Some towns heard noon twice that day — the “Day of Two Noons”.",
+          "source": "Chicago Public Library · The Day of Two Noons"
+        },
+        {
           "id": "time-1914",
           "year": "1914",
           "fact": "Henry Ford more than doubled his workers’ pay, to $5 a day — and cut the working day to eight hours.",
@@ -131,6 +259,12 @@
           "year": "Today",
           "fact": "The average internet user now spends 6 hours 38 minutes online, every single day.",
           "source": "DataReportal, Digital 2025"
+        },
+        {
+          "id": "time-answer",
+          "year": "The answer",
+          "fact": "Your brain measures time with memories, not clocks. A week full of new experiences feels long when you look back; months of routine shrink to almost nothing. Psychologists call it the holiday paradox.",
+          "source": "Claudia Hammond, Time Warped (2012)"
         }
       ],
       "commentPrompt": "If you could wake up in any century, from 1500 to 2100, which would you choose — and why?"

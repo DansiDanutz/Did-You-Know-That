@@ -131,7 +131,7 @@ const rule = (catalog) => html`<section class="section section-rule" id="rule" a
     <ol class="steps">
       <li class="step accent-orange"><span class="step-no" aria-hidden="true">1</span><h3>Guess</h3><p>Every episode opens with a question. Lock your guess here — or write it in the comments — before the answer.</p></li>
       <li class="step accent-magenta"><span class="step-no" aria-hidden="true">2</span><h3>Stay to the end</h3><p>Seven centuries, one subject. The answer is not where you think it is.</p></li>
-      <li class="step accent-cyan"><span class="step-no" aria-hidden="true">3</span><h3>Check</h3><p>Were you right? Reveal the answer and collect the episode’s “Did you know that…” cards.</p></li>
+      <li class="step accent-cyan"><span class="step-no" aria-hidden="true">3</span><h3>Quiz</h3><p>One question per era: right answers unlock the episode’s “Did you know that…” cards and earn points.</p></li>
     </ol>
     <div class="features">
       <article class="feature">

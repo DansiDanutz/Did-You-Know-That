@@ -3,20 +3,22 @@ import { html } from "./html.mjs";
 import { page } from "./layout.mjs";
 import { SITE, episodeNumber, episodePath, subjectPath, absolute } from "./site.mjs";
 import { icon, factCard } from "./components.mjs";
-import { RANKS } from "../../js/lib/progress.js";
+import { RANKS, maxPointsFor } from "../../js/lib/progress.js";
 
 export function collectionPage(catalog) {
   const total = catalog.episodes.reduce((sum, e) => sum + e.facts.length, 0);
+  const maxPoints = maxPointsFor(catalog);
   const main = html`<section class="wrap collection-hero" aria-labelledby="collection-title">
   <p class="section-kicker">Your collection</p>
   <h1 id="collection-title" class="section-title">“Did you know that…” cards</h1>
-  <p class="section-lede">Lock a guess on an episode, watch, then check the answer — its cards land here. Everything stays in this browser: no account, no tracking.</p>
+  <p class="section-lede">Lock a guess, then answer the episode quiz: every right answer unlocks a card and right-first-time answers earn points. Everything stays in this browser: no account, no tracking.</p>
   <p class="profile-greeting" data-profile-greeting hidden></p>
   <div class="rank-panel" data-rank-panel>
     <p class="rank-title">Explorer rank: <strong data-rank-name>${RANKS[0].name}</strong></p>
-    <p class="rank-progress"><span data-collected>0</span> of ${total} cards collected</p>
-    <progress class="rank-meter" max="${total}" value="0" data-rank-meter aria-label="Cards collected">0</progress>
-    <ol class="rank-ladder">${RANKS.map((rank) => html`<li data-rank-step="${rank.min}"><strong>${rank.name}</strong> <span>${rank.min === 0 ? "start" : `${rank.min}+ cards`}</span></li>`)}</ol>
+    <p class="rank-progress"><strong data-points>0</strong> points · <span data-collected>0</span> of ${total} cards collected</p>
+    <progress class="rank-meter" max="${maxPoints}" value="0" data-rank-meter aria-label="Points">0</progress>
+    <ol class="rank-ladder">${RANKS.map((rank) => html`<li data-rank-step="${rank.min}"><strong>${rank.name}</strong> <span>${rank.min === 0 ? "start" : `${rank.min}+ points`}</span></li>`)}</ol>
+    <p class="rank-note">Points come from quiz answers — never from watching. They never expire and can’t be bought.</p>
   </div>
 </section>
 <section class="wrap shared-card" data-shared-card hidden aria-labelledby="shared-title">
@@ -35,7 +37,7 @@ ${catalog.episodes.map((episode) => html`<section class="wrap collection-set" ar
   return page({
     newsletter: catalog.newsletter,
     title: `Your collection · ${SITE.name}`,
-    description: "Collect the “Did you know that…” cards from every episode of Did You Know That? Guess first, watch, check.",
+    description: "Collect the “Did you know that…” cards from every episode of Did You Know That? Guess first, then answer the quiz.",
     path: "/collection/",
     currentPath: "/collection/",
     main,

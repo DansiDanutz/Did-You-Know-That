@@ -1,35 +1,12 @@
 // Fact-card collection: unlocks cards on the episode and collection pages, shows the explorer rank,
 // handles shared-card links (/collection/?card=<id>) and "forget my progress".
-import { unlockedCardIds, totalCards, rankFor, parseState } from "../lib/progress.js";
+import { unlockedCardIds, totalCards, rankFor, parseState, pointsOf } from "../lib/progress.js";
+import { unlockedCard } from "./fact-card.js";
 import { store, saveProgress, PROGRESS_EVENT } from "../lib/progress-client.js";
 import { loadCatalog } from "../lib/catalog-client.js";
 
-const BULB_ICON =
-  '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg>';
-
-const span = (className, text) => Object.assign(document.createElement("span"), { className, textContent: text });
-const pad = (n) => String(n).padStart(2, "0");
-
 function cardIndex(catalog) {
   return new Map(catalog.episodes.flatMap((episode) => episode.facts.map((card) => [card.id, { card, episode }])));
-}
-
-/** An unlocked card, built with DOM APIs (catalog text is never parsed as HTML). */
-function unlockedCard({ card, episode }, { shareable, fresh }) {
-  const item = document.createElement("li");
-  item.className = `fact-card${fresh ? " is-new" : ""}`;
-  item.dataset.cardId = card.id;
-  const head = span("fact-head", " Did you know that…");
-  head.insertAdjacentHTML("afterbegin", BULB_ICON);
-  const foot = span("fact-foot", `No. ${pad(episode.number)} · ${episode.subject} · `);
-  foot.append(span("fact-source", card.source));
-  item.append(head, span("fact-year", card.year), span("fact-text", card.fact), foot);
-  if (shareable) {
-    const share = Object.assign(document.createElement("button"), { type: "button", className: "btn btn-ghost btn-small", textContent: "Share this card" });
-    share.dataset.shareCard = card.id;
-    item.append(share);
-  }
-  return item;
 }
 
 function renderCards(index, unlocked, { shareable, fresh = new Set() }) {
@@ -42,23 +19,24 @@ function renderCards(index, unlocked, { shareable, fresh = new Set() }) {
 
 function renderRank(catalog, state, count) {
   const total = totalCards(catalog);
-  const rank = rankFor(count);
+  const points = pointsOf(state);
+  const rank = rankFor(points);
   const badge = document.querySelector("[data-rank-badge]");
   if (badge) {
-    const started = Object.keys(state.guesses).length > 0 || count > 0;
+    const started = Object.keys(state.guesses).length > 0 || count > 0 || points > 0;
     badge.hidden = !started;
     badge.querySelector("[data-rank-name]").textContent = rank.name;
-    badge.querySelector("[data-rank-count]").textContent = `${count}/${total}`;
-    badge.setAttribute("aria-label", `Explorer rank ${rank.name}: ${count} of ${total} cards collected. Open your collection.`);
+    badge.setAttribute("aria-label", `Explorer rank ${rank.name}: ${points} points, ${count} of ${total} cards collected. Open your collection.`);
   }
   const panel = document.querySelector("[data-rank-panel]");
   if (!panel) return;
   panel.querySelector("[data-rank-name]").textContent = rank.name;
   panel.querySelector("[data-collected]").textContent = String(count);
+  panel.querySelector("[data-points]").textContent = String(points);
   const meter = panel.querySelector("[data-rank-meter]");
-  meter.value = count;
-  meter.textContent = String(count);
-  for (const step of panel.querySelectorAll("[data-rank-step]")) step.classList.toggle("is-reached", count >= Number(step.dataset.rankStep));
+  meter.value = Math.min(points, meter.max);
+  meter.textContent = String(points);
+  for (const step of panel.querySelectorAll("[data-rank-step]")) step.classList.toggle("is-reached", points >= Number(step.dataset.rankStep));
 }
 
 function showSharedCard(index) {
@@ -125,7 +103,7 @@ export async function init() {
   });
 
   document.querySelector("[data-forget]")?.addEventListener("click", () => {
-    if (!window.confirm("Forget all your guesses and cards in this browser?")) return;
+    if (!window.confirm("Forget all your guesses, cards and points in this browser?")) return;
     saveProgress(parseState(null));
     window.location.reload();
   });

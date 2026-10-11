@@ -30,9 +30,9 @@ function validateEpisode(episode, at) {
     errors.push(`${at}: eras must be an array of { year, place, line }`);
   }
   errors.push(...validateQuiz(episode.quiz, at));
-  if (!Array.isArray(episode.facts) || episode.facts.some((card) => !SLUG_PATTERN.test(card.id ?? "") || !isText(card.year) || !isText(card.fact) || !isText(card.source))) {
-    errors.push(`${at}: facts must be an array of { id, year, fact, source }`);
-  }
+  const factsValid = Array.isArray(episode.facts) && episode.facts.every((card) => SLUG_PATTERN.test(card?.id ?? "") && isText(card.year) && isText(card.fact) && isText(card.source));
+  if (!factsValid) errors.push(`${at}: facts must be an array of { id, year, fact, source }`);
+  else errors.push(...validateQuestions(episode.quiz?.questions, episode.facts, at));
   if (episode.thumbnail !== null && episode.thumbnail !== undefined && !isLocalThumbnail(episode.thumbnail) && !isYoutubeThumbnail(episode.thumbnail, episode.youtubeId)) {
     errors.push(`${at}: thumbnail must be null, a local /assets/….png|jpg, or the episode's own i.ytimg.com maxresdefault URL`);
   }
@@ -61,6 +61,41 @@ function validateQuiz(quiz, at) {
   if (!Number.isInteger(quiz.answerIndex) || quiz.answerIndex < 0 || quiz.answerIndex >= options.length) {
     errors.push(`${at}: quiz.answerIndex must point at one of the options`);
   }
+  return errors;
+}
+
+const QUESTION_OPTIONS = { min: 3, max: 4 };
+const SOURCE_PATTERN = /^F\d+$/;
+const normalized = (text) => String(text).trim().toLowerCase().replace(/\s+/g, " ");
+
+function validateQuestion(question, at, cardIds) {
+  const errors = [];
+  if (!SLUG_PATTERN.test(question?.id ?? "")) return [`${at}: id must be lowercase-kebab-case`];
+  for (const field of ["era", "question", "reveal"]) if (!isText(question[field])) errors.push(`${at}: ${field} is required`);
+  const options = Array.isArray(question.options) ? question.options : [];
+  if (options.length < QUESTION_OPTIONS.min || options.length > QUESTION_OPTIONS.max || !options.every(isText)) {
+    errors.push(`${at}: options must hold ${QUESTION_OPTIONS.min}–${QUESTION_OPTIONS.max} answers`);
+  } else if (new Set(options.map(normalized)).size !== options.length) {
+    errors.push(`${at}: options must be unique`);
+  }
+  if (!Number.isInteger(question.answerIndex) || question.answerIndex < 0 || question.answerIndex >= options.length) {
+    errors.push(`${at}: answerIndex must point at exactly one of the options`);
+  }
+  if (!cardIds.has(question.card)) errors.push(`${at}: card "${question.card}" is not one of this episode's fact cards`);
+  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18"`);
+  return errors;
+}
+
+/** Optional per-era quiz (quiz.questions): every question unlocks one fact card, every card has a question. */
+function validateQuestions(questions, facts, at) {
+  if (questions === undefined) return [];
+  if (!Array.isArray(questions) || questions.length === 0) return [`${at}: quiz.questions must be a non-empty array when present`];
+  const cardIds = new Set(facts.map((card) => card.id));
+  const errors = questions.flatMap((question, i) => validateQuestion(question ?? {}, `${at} quiz.questions[${i}]`, cardIds));
+  for (const id of new Set(duplicates(questions.map((q) => q?.id)))) errors.push(`${at}: duplicate question id "${id}"`);
+  for (const card of new Set(duplicates(questions.map((q) => q?.card)))) errors.push(`${at}: fact card "${card}" is unlocked by more than one question`);
+  const unlocked = new Set(questions.map((q) => q?.card));
+  for (const card of facts.filter((c) => !unlocked.has(c.id))) errors.push(`${at}: fact card "${card.id}" has no quiz question to unlock it`);
   return errors;
 }
 
