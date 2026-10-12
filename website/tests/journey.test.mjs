@@ -65,13 +65,18 @@ test("rank-up moments fire only when a rank threshold is crossed, never downward
   assert.equal(rankUp(200, 210), null);
 });
 
-test("the Sun ships a complete 7-rung ladder; episode 01 has none (optional)", () => {
+test("both episodes ship a complete 7-rung ladder with 2100 labelled a prediction", () => {
   assert.deepEqual(sun.eras.map((e) => e.year), ["1500", "1610", "1779", "1800", "1928", "Today", "2100"]);
   assert.deepEqual(sun.eras.map((e) => e.rung), ["Day and night", "Something to watch", "Something to explain", "Something to measure", "Every meal", "Power", "The next rung?"]);
-  assert.ok(sun.eras.every((e) => e.saw.length > 10));
-  assert.equal(sun.eras.at(-1).prediction, true, "2100 is labelled a prediction");
-  assert.deepEqual(validateLadder(sun.eras, "sun"), []);
-  assert.deepEqual(validateLadder(ep1.eras, "ep1"), []);
+  assert.deepEqual(ep1.eras.map((e) => e.year), ["1500", "1652", "1760", "1883", "1914", "Today", "2100"]);
+  assert.deepEqual(ep1.eras.map((e) => e.rung), ["Sun and bells", "Clocks you can trust", "Hours you sell", "One time for a continent", "The working day", "Every minute filled", "Time given back?"]);
+  for (const episode of [sun, ep1]) {
+    assert.ok(episode.eras.every((e) => e.saw.length > 10), `${episode.slug}: every rung has its sentence`);
+    assert.ok(episode.eras.every((e) => e.rung.length <= RUNG_MAX_LENGTH), `${episode.slug}: rungs stay short`);
+    assert.deepEqual(episode.eras.filter((e) => e.prediction).map((e) => e.year), ["2100"], `${episode.slug}: only 2100 is a prediction`);
+    assert.ok(!episode.quiz.questions.some((q) => q.era === "2100"), `${episode.slug}: 2100 is never quizzed`);
+    assert.deepEqual(validateLadder(episode.eras, episode.slug), []);
+  }
 });
 
 test("ladder validation: once one era has a rung, every era needs a short rung and its sentence", () => {
