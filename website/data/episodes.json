@@ -309,21 +309,31 @@
         "solar panel",
         "solar cell",
         "bell labs",
-        "vanguard",
         "electricity",
         "parker solar probe",
         "space",
         "photosynthesis",
-        "space solar power",
-        "2100"
+        "2100",
+        "ingenhousz",
+        "leaves",
+        "plants",
+        "oxygen",
+        "data centre",
+        "data center",
+        "ai",
+        "iea",
+        "ember",
+        "maple",
+        "caltech",
+        "space solar power"
       ],
       "hook": "Every time you look at the Sun, you are looking into the past.",
       "question": "Did you know that you have never once seen the Sun as it is right now?",
-      "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
-      "summary": "Seven mornings under the same Sun: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, white-lead face paint, Herschel’s invisible light, the suntan myth, a spacecraft that touched the Sun — and how old that light really is.",
-      "status": "draft",
-      "youtubeId": null,
-      "publishedAt": null,
+      "guess": "That light on your face is eight minutes old. But the energy inside it — how old is that? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings under the same Sun, and one relationship that climbs rung by rung: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, leaves that bubble in sunlight, Herschel’s invisible light, the suntan myth, solar power almost eleven times bigger in ten years — and a 2100 scenario, clearly labelled, where the Sun might decide whether your AI wakes up.",
+      "status": "published",
+      "youtubeId": "WlClbKXSdSo",
+      "publishedAt": "2026-10-12",
       "thumbnail": "/assets/episodes/the-sun/thumb.png",
       "quiz": {
         "question": "How old is the sunlight hitting your eyes right now?",
@@ -366,19 +376,19 @@
             "source": "F3"
           },
           {
-            "id": "q1752",
-            "era": "1752",
-            "question": "In 1752, how did fashionable women in London keep their faces pale?",
+            "id": "q1779",
+            "era": "1779",
+            "question": "In 1779, Jan Ingenhousz sank leaves under water. What did he see in sunlight?",
             "options": [
-              "By painting them with white lead",
-              "By bathing in milk every morning",
-              "By wearing a veil indoors",
-              "By sleeping through the day"
+              "They bubbled out fresh air — and stopped in the shade",
+              "They turned white",
+              "They sank faster",
+              "Nothing, until night fell"
             ],
             "answerIndex": 0,
-            "reveal": "A pale face meant you never had to work outside. Maria Gunning, Countess of Coventry, died at 27 — and her death was blamed, at least in part, on the lead in her face powder.",
-            "card": "sun-1752",
-            "source": "F4"
+            "reveal": "In more than 500 experiments he found that only the green parts do it, and only in light. Plants need the Sun.",
+            "card": "sun-1779",
+            "source": "A3"
           },
           {
             "id": "q1800",
@@ -396,6 +406,21 @@
             "source": "F6"
           },
           {
+            "id": "q1893",
+            "era": "1893",
+            "question": "How leaves turn sunlight into sugar got its name in 1893. What is it called?",
+            "options": [
+              "Photosynthesis",
+              "Solarisation",
+              "Fermentation",
+              "Evaporation"
+            ],
+            "answerIndex": 0,
+            "reveal": "The name is usually credited to the American botanist Charles Reid Barnes. Nearly all life runs on it — your lunch is stored sunlight.",
+            "card": "sun-1893",
+            "source": "A4"
+          },
+          {
             "id": "q1928",
             "era": "1928",
             "question": "The famous story says Coco Chanel started the suntan craze. What did a historian find?",
@@ -411,34 +436,19 @@
             "source": "F8"
           },
           {
-            "id": "q1954",
-            "era": "1954",
-            "question": "How much sunlight did Bell Labs’ first practical silicon solar cell turn into electricity in 1954?",
-            "options": [
-              "About 1%",
-              "About 6%",
-              "About 25%",
-              "About 60%"
-            ],
-            "answerIndex": 1,
-            "reveal": "About 6% — six times better than anything before. Four years later the tiny satellite Vanguard 1 ran a radio on sunlight, and it is still circling the Earth today.",
-            "card": "sun-1954",
-            "source": "F9"
-          },
-          {
-            "id": "qtoday",
+            "id": "qsolar",
             "era": "Today",
-            "question": "On Christmas Eve 2024, how close did NASA’s Parker Solar Probe pass to the Sun?",
+            "question": "In 2025, how much electricity did solar power make compared with ten years earlier?",
             "options": [
-              "About 6.1 million km, at almost 700,000 km/h",
-              "About 61 million km, at 70,000 km/h",
-              "About 150 million km — the same as Earth",
-              "It landed on the surface"
+              "About the same",
+              "About twice as much",
+              "Almost eleven times as much",
+              "A hundred times as much"
             ],
-            "answerIndex": 0,
-            "reveal": "6.1 million km from the Sun, through its outer atmosphere, at almost 700,000 km/h — the fastest object humans have ever built.",
-            "card": "sun-today",
-            "source": "F11"
+            "answerIndex": 2,
+            "reveal": "About 2,770 TWh in 2025 against about 250 TWh in 2015 — almost nine percent of all the world’s electricity.",
+            "card": "sun-solar",
+            "source": "A1"
           },
           {
             "id": "qanswer",
@@ -461,37 +471,51 @@
         {
           "year": "1500",
           "place": "London",
-          "line": "It is Midsummer Eve, the shortest night of the year, and the streets are glowing with firelight."
+          "line": "It is Midsummer Eve, and the streets are glowing with firelight.",
+          "rung": "Day and night",
+          "saw": "It’s the difference between day and night. Daylight is for work. Darkness is for sleep, and prayer."
         },
         {
           "year": "1610",
           "place": "Beside the River Thames",
-          "line": "A misty December morning. The Sun hangs low and dim — and a man points a telescope at it."
+          "line": "A misty December morning. The Sun hangs low and dim — and a man points a telescope at it.",
+          "rung": "Something to watch",
+          "saw": "For a few people with telescopes, the Sun has become something to watch. Closely."
         },
         {
-          "year": "1752",
-          "place": "London",
-          "line": "Two Irish sisters, the Gunnings, are the most talked-about faces in town."
+          "year": "1779",
+          "place": "England",
+          "line": "A bright summer morning, and the fashionable ladies are hiding from the Sun under parasols.",
+          "rung": "Something to explain",
+          "saw": "This summer, the Sun is turning into something new. Something to explain."
         },
         {
           "year": "1800",
           "place": "Near Windsor",
-          "line": "An astronomer has set a prism in a sunbeam, with thermometers whose bulbs are blackened."
+          "line": "An astronomer has set a prism in a sunbeam, with thermometers whose bulbs are blackened.",
+          "rung": "Something to measure",
+          "saw": "Now the Sun is something you measure, even where your eyes give up."
         },
         {
           "year": "1928",
           "place": "A crowded American beach",
-          "line": "Everyone is lying in the Sun. On purpose."
+          "line": "Hot sand. Salt air. And everyone is lying in the Sun, on purpose.",
+          "rung": "Every meal",
+          "saw": "The Sun used to be something to measure. Now, it’s the source of every meal."
         },
         {
           "year": "Today",
           "place": "Your morning",
-          "line": "On Christmas Eve 2024, a spacecraft flew through the Sun’s outer atmosphere."
+          "line": "Your phone’s charged, the lights come on — and a field of solar panels has been awake since sunrise.",
+          "rung": "Power",
+          "saw": "So what’s the Sun to you now? Power. Something you harvest, like a crop."
         },
         {
           "year": "2100",
           "place": "Prediction",
           "line": "That morning has not happened yet. But we can follow the evidence.",
+          "rung": "The next rung?",
+          "saw": "In 1500, the Sun decided when you went to sleep. In 2100, it might decide whether your AI wakes up.",
           "prediction": true
         }
       ],
@@ -509,10 +533,10 @@
           "source": "HAO/UCAR · Galileo, Letters on Sunspots (1613)"
         },
         {
-          "id": "sun-1752",
-          "year": "1752",
-          "fact": "A pale face was so prized that fashionable women painted theirs with white lead. Maria Gunning, Countess of Coventry, died at 27, and her death was blamed, at least in part, on the lead in her face powder.",
-          "source": "V&A collections · Maria Gunning"
+          "id": "sun-1779",
+          "year": "1779",
+          "fact": "In the summer of 1779, the Dutch doctor Jan Ingenhousz ran more than 500 experiments on plants. Leaves sunk in water bubbled out fresh air in sunlight and stopped in the shade — and only the green parts did it.",
+          "source": "Jan Ingenhousz, Experiments upon Vegetables (1779)"
         },
         {
           "id": "sun-1800",
@@ -521,22 +545,22 @@
           "source": "NASA Space Place · Caltech IPAC"
         },
         {
+          "id": "sun-1893",
+          "year": "1893",
+          "fact": "Leaves catch sunlight and turn it into sugar, and nearly all life runs on that. The process got its name in 1893 — photosynthesis — usually credited to the American botanist Charles Reid Barnes.",
+          "source": "Etymonline · Charles Reid Barnes (1893)"
+        },
+        {
           "id": "sun-1928",
           "year": "1928",
           "fact": "The story that Coco Chanel started the suntan craze is probably a myth: a historian traced it to an unsigned 1971 magazine article. As work moved indoors, a tan became the badge of leisure.",
           "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
         },
         {
-          "id": "sun-1954",
-          "year": "1954",
-          "fact": "At Bell Labs, three scientists built a silicon cell that turns about 6% of sunlight into electricity. Four years later the satellite Vanguard 1 ran a radio on sunlight — and it is still in orbit.",
-          "source": "APS News · Bell Labs solar cell (1954)"
-        },
-        {
-          "id": "sun-today",
+          "id": "sun-solar",
           "year": "Today",
-          "fact": "On 24 December 2024, NASA’s Parker Solar Probe passed 6.1 million km from the Sun at almost 700,000 km/h — the fastest object humans have ever built.",
-          "source": "NASA · Guinness World Records"
+          "fact": "In 2025, solar power made almost eleven times more electricity than ten years earlier: about 2,770 TWh, against about 250 TWh in 2015. That is almost 9% of all the world’s electricity.",
+          "source": "Ember, Global Electricity Review 2026"
         },
         {
           "id": "sun-answer",
@@ -552,7 +576,7 @@
     {
       "subject": "School",
       "slug": "school",
-      "status": "idea",
+      "status": "next",
       "keywords": [
         "school",
         "classroom",
@@ -561,7 +585,7 @@
         "exams",
         "learning"
       ],
-      "pitch": "Next: how a day in class changed from 1500 to today — and whether the classrooms of 2100 will even exist."
+      "pitch": "How did a day in class change from 1500 to today — and will the classrooms of 2100 even exist?"
     },
     {
       "subject": "Money",

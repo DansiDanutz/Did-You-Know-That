@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import { validateCatalog, isLocalThumbnail } from "./lib/catalog.mjs";
 import { thumbnailSources } from "./lib/site.mjs";
 import { homePage } from "./lib/pages-home.mjs";
-import { episodePage, subjectPageForEpisode, subjectPageForRequest } from "./lib/pages-episode.mjs";
+import { episodePage, episodesIndexPage, subjectPageForEpisode, subjectPageForRequest } from "./lib/pages-episode.mjs";
 import { collectionPage, notFoundPage, offlinePage, sitemap } from "./lib/pages-misc.mjs";
 import { validateSiteConfig, resolveNewsletter, withFormAction } from "./lib/newsletter.mjs";
 import { precacheList, shellVersion, stampServiceWorker } from "./lib/pwa.mjs";
@@ -64,6 +64,7 @@ export function renderSite(baseCatalog, site = {}) {
     "404.html": notFoundPage(catalog),
     "offline/index.html": offlinePage(catalog),
     "collection/index.html": collectionPage(catalog),
+    "episodes/index.html": episodesIndexPage(catalog),
     "sitemap.xml": sitemap(catalog),
     ...(catalog.special ? { "vault/index.html": vaultPage(catalog) } : {}),
     ...Object.fromEntries(catalog.episodes.map((e) => [`episodes/${e.slug}/index.html`, episodePage(catalog, e)])),

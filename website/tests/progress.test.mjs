@@ -34,7 +34,7 @@ function playAll(start, { wrongFirst = [] } = {}) {
 }
 
 test("parseState survives garbage and keeps only valid entries", () => {
-  const blank = { guesses: {}, answers: {}, legacyRevealed: {}, ledger: [] };
+  const blank = { guesses: {}, answers: {}, legacyRevealed: {}, ledger: [], daily: {} };
   assert.deepEqual(parseState(null), blank);
   assert.deepEqual(parseState("{not json"), blank);
   assert.deepEqual(parseState("[1,2]"), blank);

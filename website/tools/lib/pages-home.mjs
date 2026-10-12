@@ -2,9 +2,9 @@
 import { html } from "./html.mjs";
 import { page } from "./layout.mjs";
 import {
-  SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute, featuredEpisode, isPublished, episodeNumber, episodePath, watchUrl,
+  SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute, featuredEpisode, latestPublished, isPublished, episodeNumber, episodePath, watchUrl,
 } from "./site.mjs";
-import { icon, episodeCard, subjectBoard, videoFacade, thumbnailImage } from "./components.mjs";
+import { icon, episodeCard, comingNextCard, suggestCard, subjectBoard, videoFacade, thumbnailImage } from "./components.mjs";
 import { newsletterBlock } from "./newsletter.mjs";
 
 const SEARCH_EXAMPLES = ["time", "sun", "sleep", "weekend", "phone"];
@@ -17,7 +17,17 @@ const BANNER = {
 };
 const heroPreloads = [BANNER.mobile, BANNER.wide].map(({ media, srcset, sizes }) => ({ type: "image/webp", media, srcset, sizes }));
 
-const hero = () => html`<section class="hero" aria-labelledby="hero-title">
+const HOW_IT_WORKS = [
+  ["bulb", "Guess", "Lock a guess before the answer."],
+  ["play", "Watch", "Seven centuries in ten minutes."],
+  ["comment", "Quiz", "One question per era."],
+  ["cards", "Collect", "Right answers unlock fact cards."],
+];
+
+const hero = (catalog) => {
+  const episode = featuredEpisode(catalog);
+  const start = episode ? `${episodePath(episode)}#guess` : "/episodes/";
+  return html`<section class="hero" aria-labelledby="hero-title">
   <div class="hero-sky" aria-hidden="true"><span class="nebula n1"></span><span class="nebula n2"></span><span class="nebula n3"></span><canvas class="hero-dust" data-dust></canvas></div>
   <h1 id="hero-title" class="hero-banner">
     <span class="hero-glow" aria-hidden="true"></span>
@@ -29,14 +39,18 @@ const hero = () => html`<section class="hero" aria-labelledby="hero-title">
     </picture>
   </h1>
   <div class="wrap hero-inner">
-    <p class="tagline">Amazing facts <span aria-hidden="true">•</span> Incredible stories <span aria-hidden="true">•</span> Endless curiosity</p>
-    <p class="lede">One subject per episode, traced from 1500 to today — then to 2100 on real data. Guess first. Stay to the end. Check.</p>
+    <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, whatever you vote for — from 1500 to 2100.</p>
+    <ol class="how" aria-label="How it works">
+      ${HOW_IT_WORKS.map(([glyph, title, text], i) => html`<li class="how-step"><span class="how-icon" aria-hidden="true">${icon(glyph)}</span><span class="how-text"><strong>${i + 1}. ${title}</strong><span>${text}</span></span></li>`)}
+    </ol>
     <div class="cta-row">
-      <a class="btn btn-primary" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a>
-      <a class="btn btn-ghost" href="#featured">${icon("play")}<span>Watch the series</span></a>
+      <a class="btn btn-primary btn-big" href="${start}">${icon("play")}<span>${episode && isPublished(episode) ? "Play the newest episode" : "Guess the first episode"}</span></a>
+      <a class="btn btn-ghost" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a>
     </div>
+    <p class="hero-note">Free. No account, no tracking — your points stay on this device.</p>
   </div>
 </section>`;
+};
 
 function featuredMedia(episode) {
   if (isPublished(episode)) return videoFacade(episode, { sizes: FEATURE_SIZES });
@@ -56,21 +70,88 @@ function featured(catalog) {
   <div class="wrap featured">
     <div class="featured-media">${featuredMedia(episode)}</div>
     <div class="featured-body">
-      <p class="section-kicker">${published ? "Newest episode" : "Premieres soon"} · No. ${episodeNumber(episode)}</p>
+      <p class="section-kicker">${published ? html`<span class="pill pill-new">New</span> Newest episode` : "Premieres soon"} · No. ${episodeNumber(episode)}</p>
       <h2 id="featured-title" class="featured-title">${episode.title}</h2>
       <p class="featured-hook">${episode.hook}</p>
       <p class="featured-question">${episode.question}</p>
       <p class="cta-row">
         ${published
-          ? html`<a class="btn btn-primary" href="${episodePath(episode)}#guess">${icon("bulb")}<span>Guess, then watch</span></a><a class="btn btn-ghost" href="${watchUrl(episode)}" rel="noopener">${icon("youtube")}<span>Watch on YouTube</span></a>`
+          ? html`<a class="btn btn-primary" href="${episodePath(episode)}#guess">${icon("bulb")}<span>Start: guess, then watch</span></a><a class="btn btn-ghost" href="${watchUrl(episode)}" rel="noopener">${icon("youtube")}<span>Watch on YouTube</span></a>`
           : html`<a class="btn btn-primary" href="${episodePath(episode)}#guess">${icon("bulb")}<span>Guess before it premieres</span></a><a class="btn btn-ghost" href="${episodePath(episode)}"><span>Episode details</span></a>`}
       </p>
       ${published ? html`<p class="player-note">Nothing loads from YouTube until you press play (youtube-nocookie.com).</p>` : ""}
     </div>
   </div>
-  <div class="wrap">${newsletterBlock(catalog.newsletter, { id: "home", className: "newsletter-home" })}</div>
 </section>`;
 }
+
+/** Returning players only: js/ui/progress-ui.js fills this from local progress (hidden for first visits). */
+const continueCard = () => html`<section class="section-tight wrap" id="continue" aria-labelledby="continue-title" data-continue hidden>
+  <a class="continue" href="/episodes/" data-continue-link>
+    <span class="continue-kicker" id="continue-title" data-continue-kicker>Continue where you left off</span>
+    <strong class="continue-title" data-continue-episode></strong>
+    <span class="continue-meta" data-continue-meta></span>
+    <span class="continue-go"><span data-continue-step>Continue</span> <span aria-hidden="true">→</span></span>
+  </a>
+</section>`;
+
+/** "Did you know?" of the day (js/ui/daily.js). The fallback text is what shows without JavaScript. */
+const daily = () => html`<section class="section section-daily" id="daily" aria-labelledby="daily-title">
+  <div class="wrap">
+    <p class="section-kicker">${icon("sun")} Every day</p>
+    <h2 id="daily-title" class="section-title">Did you know? Fact of the day</h2>
+    <p class="section-lede">One question a day from the episodes. Answer it right first time for 5 points — or just read the fact. Skipping costs nothing.</p>
+    <div class="daily" data-daily>
+      <p class="daily-loading" data-daily-loading>Loading today’s question…</p>
+      <noscript><p class="quiz-wait">Turn on JavaScript for the daily question.</p></noscript>
+    </div>
+  </div>
+</section>`;
+
+const collect = (catalog) => {
+  const total = catalog.episodes.reduce((sum, e) => sum + e.facts.length, 0);
+  return html`<section class="section section-collect" id="collect" aria-labelledby="collect-title">
+  <div class="wrap collect">
+    <div>
+      <p class="section-kicker">${icon("cards")} Your collection</p>
+      <h2 id="collect-title" class="section-title">Collect every card</h2>
+      <p class="section-lede">Every right quiz answer unlocks a “Did you know that…” card. Points climb your rank and open Special Cards in the Vault. They never expire and can’t be bought.</p>
+      <div class="set-meter" data-collection-meter data-total="${total}">
+        <p class="set-meter-text"><strong data-set-count>0</strong> of ${total} cards · rank <strong data-rank-name>Curious</strong></p>
+        <progress class="rank-meter" max="${total}" value="0" data-set-progress aria-label="Cards collected">0</progress>
+      </div>
+      <p class="cta-row"><a class="btn btn-primary" href="/collection/">${icon("cards")}<span>Your collection</span></a><a class="btn btn-ghost" href="/vault/">${icon("gem")}<span>Card Vault</span></a></p>
+    </div>
+    <div class="collect-fan" aria-hidden="true">
+      <span class="fan-card fan-1">1500</span><span class="fan-card fan-2">1800</span><span class="fan-card fan-3">2100</span>
+    </div>
+  </div>
+</section>`;
+};
+
+const community = (catalog) => {
+  const latest = latestPublished(catalog);
+  return html`<section class="section section-community" id="community" aria-labelledby="community-title">
+  <div class="wrap">
+    <p class="section-kicker">${icon("comment")} Join in</p>
+    <h2 id="community-title" class="section-title">Your comment could be next</h2>
+    <div class="features">
+      <article class="feature">
+        <h3>Comment of the Week</h3>
+        <p>Every episode ends with the best comment from the one before, read out on screen.${latest ? html` This week’s question: <em>“${latest.commentPrompt}”</em>` : ""}</p>
+        <p class="cta-row"><a class="btn btn-primary btn-small" href="${commentUrl(catalog)}" rel="noopener">${icon("comment")}<span>Answer on YouTube</span></a></p>
+      </article>
+      <article class="feature">
+        <h3>Suggest the next subject</h3>
+        <p>Tell us what you want traced from 1500 to 2100. The subject asked for most becomes a future episode.</p>
+        <p class="cta-row"><a class="btn btn-ghost btn-small" href="${commentUrl(catalog)}" rel="noopener">${icon("bulb")}<span>Suggest a subject</span></a></p>
+      </article>
+    </div>
+  </div>
+</section>`;
+};
+
+const newsletter = (catalog) => html`<section class="wrap section-tight" aria-label="Newsletter">${newsletterBlock(catalog.newsletter, { id: "home", className: "newsletter-home" })}</section>`;
 
 /** Where "Surprise me" sends people before anything is published: the next premiere's guess. */
 const nextGuessUrl = (catalog) => {
@@ -80,8 +161,8 @@ const nextGuessUrl = (catalog) => {
 
 const subjects = (catalog) => html`<section class="section section-map" id="map" aria-labelledby="map-title">
   <div class="wrap">
-    <p class="section-kicker">Level select</p>
-    <h2 id="map-title" class="section-title">Pick a subject. Any word.</h2>
+    <p class="section-kicker">${icon("search")} Find a subject</p>
+    <h2 id="map-title" class="section-title">Any word. One mystery.</h2>
     <p class="section-lede">Every episode is one subject. Type a word to jump straight to its video — or explore the map: lit stars are playable, dim ones are coming soon, locked ones are waiting for your votes.</p>
     <form class="search" role="search" action="/" method="get" data-search>
       <label class="search-label" for="q">Search by subject word</label>
@@ -102,50 +183,22 @@ const subjects = (catalog) => html`<section class="section section-map" id="map"
   </div>
 </section>`;
 
-const series = (catalog) => html`<section class="section section-series" id="series" aria-labelledby="series-title">
+const series = (catalog) => {
+  const newest = latestPublished(catalog)?.slug;
+  const comingNext = (catalog.requested ?? []).find((r) => r.status === "next");
+  return html`<section class="section section-series" id="series" aria-labelledby="series-title">
   <div class="wrap">
     <p class="section-kicker">All episodes</p>
-    <h2 id="series-title" class="section-title">Every episode, one subject</h2>
-    <p class="section-lede">From 1500 to today, then on to 2100 — seven mornings, seven lives, one question you will want to answer before the end.</p>
+    <h2 id="series-title" class="section-title">Pick an episode</h2>
+    <p class="section-lede">Seven mornings, seven lives, one question you will want to answer before the end.</p>
     <ul class="cards rail" aria-label="All episodes">
-      ${catalog.episodes.map(episodeCard)}
-      <li class="card card-next">
-        <a class="card-link" href="#rule">
-          <span class="card-art"><span class="card-art-no">??</span><span class="card-art-word">You choose</span><span class="card-art-span">the next subject</span></span>
-          <span class="card-body">
-            <span class="card-kicker">Next episode</span>
-            <span class="card-title">Your subject here</span>
-            <span class="card-hook">The subject asked for most in the comments becomes a future episode.</span>
-            <span class="card-cta">How it works <span aria-hidden="true">→</span></span>
-          </span>
-        </a>
-      </li>
+      ${catalog.episodes.map((episode, i) => episodeCard(episode, i, { newest: episode.slug === newest }))}
+      ${comingNext ? comingNextCard(comingNext) : ""}
+      ${suggestCard(commentUrl(catalog))}
     </ul>
   </div>
 </section>`;
-
-const rule = (catalog) => html`<section class="section section-rule" id="rule" aria-labelledby="rule-title">
-  <div class="wrap">
-    <p class="section-kicker">How it works</p>
-    <h2 id="rule-title" class="section-title">The rule</h2>
-    <ol class="steps">
-      <li class="step accent-orange"><span class="step-no" aria-hidden="true">1</span><h3>Guess</h3><p>Every episode opens with a question. Lock your guess here — or write it in the comments — before the answer.</p></li>
-      <li class="step accent-magenta"><span class="step-no" aria-hidden="true">2</span><h3>Stay to the end</h3><p>Seven centuries, one subject. The answer is not where you think it is.</p></li>
-      <li class="step accent-cyan"><span class="step-no" aria-hidden="true">3</span><h3>Quiz</h3><p>One question per era: right answers unlock the episode’s “Did you know that…” cards and earn points.</p></li>
-    </ol>
-    <div class="features">
-      <article class="feature">
-        <h3>Comment of the Week</h3>
-        <p>At the end of every episode, the best comment from the one before is read out on screen. Next time, it could be yours.</p>
-      </article>
-      <article class="feature">
-        <h3>You choose the next subject</h3>
-        <p>Tell us what you want traced from 1500 to 2100. The subject asked for most becomes a future episode.</p>
-      </article>
-    </div>
-    <p class="cta-row cta-center"><a class="btn btn-primary" href="${commentUrl(catalog)}" rel="noopener">${icon("comment")}<span>Comment on YouTube</span></a></p>
-  </div>
-</section>`;
+};
 
 const about = () => html`<section class="section section-about" id="about" aria-labelledby="about-title">
   <div class="wrap about-grid">
@@ -190,6 +243,6 @@ export function homePage(catalog) {
     structuredData,
     preloads: heroPreloads,
     newsletter: catalog.newsletter,
-    main: html`${hero()}${featured(catalog)}${series(catalog)}${subjects(catalog)}${rule(catalog)}${about()}`,
+    main: html`${hero(catalog)}${featured(catalog)}${continueCard()}${series(catalog)}${daily()}${collect(catalog)}${community(catalog)}${newsletter(catalog)}${subjects(catalog)}${about()}`,
   });
 }
