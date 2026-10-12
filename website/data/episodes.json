@@ -183,37 +183,51 @@
         {
           "year": "1500",
           "place": "A village",
-          "line": "It is midnight. Pitch black. And the whole village is awake."
+          "line": "It is midnight. Pitch black. And the whole village is awake.",
+          "rung": "Sun and bells",
+          "saw": "Your day begins when the sun rises, and ends when it sets. The church bell is the only clock you will ever hear."
         },
         {
           "year": "1652",
           "place": "London",
-          "line": "The air smells of smoke — and of something new."
+          "line": "The air smells of smoke — and of something new.",
+          "rung": "Clocks you can trust",
+          "saw": "His drifts by seconds. For the first time, an ordinary day can be cut into minutes."
         },
         {
           "year": "1760",
           "place": "A workshop",
-          "line": "Monday morning, and half the workshop is empty."
+          "line": "Monday morning, and half the workshop is empty.",
+          "rung": "Hours you sell",
+          "saw": "Time is now something you can carry. And something you can sell."
         },
         {
           "year": "1883",
           "place": "A small American town",
-          "line": "At midday the church clock strikes twelve. Then it is noon again."
+          "line": "At midday the church clock strikes twelve. Then it is noon again.",
+          "rung": "One time for a continent",
+          "saw": "The railroads had reset the clocks of an entire continent."
         },
         {
           "year": "1914",
           "place": "Near Detroit",
-          "line": "The line of people looking for work stretches down the street."
+          "line": "The line of people looking for work stretches down the street.",
+          "rung": "The working day",
+          "saw": "Henry Ford more than doubled his workers’ pay, to five dollars a day, and cut the day to eight hours."
         },
         {
           "year": "Today",
           "place": "Your bedroom",
-          "line": "Before your feet touch the floor, you have already checked your phone."
+          "line": "Before your feet touch the floor, you have already checked your phone.",
+          "rung": "Every minute filled",
+          "saw": "On paper, we are the richest people in history, rich in time. And yet, ask anyone how they are, and you will hear the same word. Busy."
         },
         {
           "year": "2100",
           "place": "Prediction",
           "line": "That morning has not happened yet. But we can follow the evidence.",
+          "rung": "Time given back?",
+          "saw": "It could finally arrive, a century late. But if history repeats, we will fill every freed hour with something faster.",
           "prediction": true
         }
       ],
