@@ -64,6 +64,7 @@ const RUNTIME = "dexty-runtime-v1";
 const PAGES = "dexty-pages-v1";
 const OURS = [SHELL, RUNTIME, PAGES];
 const OFFLINE_URL = "/offline/";
+const SERVER_ERROR = 500;
 const NETWORK_FIRST_ASSETS = /^\/(js|css)\//;
 const STALE_WHILE_REVALIDATE = [/^\/data\/episodes\.json$/, /^\/assets\/(episodes|brand|special)\//];
 const RUNTIME_MAX_ENTRIES = 60;
@@ -94,7 +95,10 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-/** Network first, keeping a copy in `cacheName`; offline, the cached copy or else `fallback()`. */
+/**
+ * Network first, keeping a copy in `cacheName`. On a server error (5xx) the cached copy wins if there
+ * is one; offline, the cached copy or else `fallback()`. A 404 is passed through, not papered over.
+ */
 async function networkFirst(event, cacheName, fallback, init) {
   const { request } = event;
   try {
@@ -103,6 +107,7 @@ async function networkFirst(event, cacheName, fallback, init) {
       const copy = response.clone();
       event.waitUntil(caches.open(cacheName).then((cache) => cache.put(request, copy)).catch(() => undefined));
     }
+    if (response.status >= SERVER_ERROR) return (await caches.match(request)) ?? response;
     return response;
   } catch {
     return (await caches.match(request)) ?? (await fallback());

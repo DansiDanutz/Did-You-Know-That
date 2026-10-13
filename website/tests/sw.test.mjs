@@ -13,7 +13,7 @@ function harness({ online = true, existingCaches = [] } = {}) {
   const navigated = [];
   const fetched = [];
   const fetchModes = [];
-  const state = { skipped: false, claimed: false, online };
+  const state = { skipped: false, claimed: false, online, status: 200 };
   const keyOf = (request) => (typeof request === "string" ? new URL(request, ORIGIN).href : request.url);
   const cacheApi = (name) => {
     if (!stores.has(name)) stores.set(name, new Map());
@@ -26,7 +26,7 @@ function harness({ online = true, existingCaches = [] } = {}) {
       delete: async (key) => store.delete(key),
     };
   };
-  const response = (body, { ok = true, type = "basic" } = {}) => ({ body, ok, type, clone() { return response(body, { ok, type }); } });
+  const response = (body, { ok = true, type = "basic", status = ok ? 200 : 0 } = {}) => ({ body, ok, type, status, clone() { return response(body, { ok, type, status }); } });
   const sandbox = {
     URL,
     Request: class { constructor(url, init) { this.url = new URL(url, ORIGIN).href; this.init = init; } },
@@ -35,6 +35,7 @@ function harness({ online = true, existingCaches = [] } = {}) {
       fetched.push(keyOf(request));
       fetchModes.push(init?.cache);
       if (!state.online) throw new TypeError("offline");
+      if (state.status >= 400) return response(`error ${state.status}`, { ok: false, status: state.status });
       return response(`network ${keyOf(request)}`);
     },
     caches: {
@@ -153,13 +154,33 @@ test("scripts and styles fall back to the freshest cached copy offline, never to
   h.state.online = false;
   assert.equal((await h.fetchEvent(script)).body, `network ${ORIGIN}/js/ui/collection.js`, "copy refreshed by the last online load");
   assert.equal((await h.fetchEvent(h.request("/js/lib/ledger.js"))).body, `precached ${ORIGIN}/js/lib/ledger.js`);
+  const style = h.request("/css/site.css");
+  h.state.online = true;
+  await h.fetchEvent(style);
+  h.state.online = false;
+  assert.equal((await h.fetchEvent(style)).body, `network ${ORIGIN}/css/site.css`, "styles too");
   const missing = await h.fetchEvent(h.request("/js/ui/not-shipped.js"));
   assert.equal(missing.ok, false, "a script request never receives HTML");
+});
+
+test("a server error falls back to the cached script, style or page; a 404 is passed through", async () => {
+  const h = harness();
+  await h.run("install", {});
+  await h.fetchEvent(h.request("/episodes/the-sun/", { mode: "navigate" }));
+  h.state.status = 503;
+  assert.equal((await h.fetchEvent(h.request("/js/ui/collection.js"))).body, `precached ${ORIGIN}/js/ui/collection.js`);
+  assert.equal((await h.fetchEvent(h.request("/css/site.css"))).body, `precached ${ORIGIN}/css/site.css`);
+  assert.equal((await h.fetchEvent(h.request("/episodes/the-sun/", { mode: "navigate" }))).body, `network ${ORIGIN}/episodes/the-sun/`);
+  assert.equal((await h.fetchEvent(h.request("/js/ui/not-shipped.js"))).body, "error 503", "nothing cached: the server's answer");
+  h.state.status = 404;
+  assert.equal((await h.fetchEvent(h.request("/js/ui/collection.js"))).body, "error 404", "a removed file is not resurrected");
 });
 
 test("fonts and icons stay cache-first", async () => {
   const h = harness();
   await h.run("install", {});
-  assert.equal((await h.fetchEvent(h.request("/fonts/inter-latin-400-normal.woff2"))).body, `precached ${ORIGIN}/fonts/inter-latin-400-normal.woff2`);
+  for (const path of ["/fonts/inter-latin-400-normal.woff2", "/assets/icons/icon-192.png", "/favicon.ico"]) {
+    assert.equal((await h.fetchEvent(h.request(path))).body, `precached ${ORIGIN}${path}`, path);
+  }
   assert.deepEqual(h.fetched, [], "served without touching the network");
 });
