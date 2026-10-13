@@ -48,11 +48,12 @@ test("parseState survives garbage and keeps only valid entries", () => {
   assert.equal(parsed.ledger.length, 1);
 });
 
-test("episodes 01 and 02 each have an 8-question quiz worth 175 points", () => {
+test("episodes 01–03 each have an 8-question quiz worth 175 points", () => {
   assert.equal(questions.length, 8);
   assert.ok(hasQuiz(episode));
   assert.ok(hasQuiz(catalog.episodes.find((e) => e.slug === "the-sun")));
-  assert.equal(maxPointsFor(catalog), 2 * (8 * 10 + 25 + 50 + 20));
+  assert.ok(hasQuiz(catalog.episodes.find((e) => e.slug === "school")));
+  assert.equal(maxPointsFor(catalog), 3 * (8 * 10 + 25 + 50 + 20));
 });
 
 test("a correct first attempt earns 10 points and unlocks that era's card (immutably)", () => {
@@ -165,7 +166,7 @@ test("ranks climb with points and name the next goal", () => {
   assert.equal(rankFor(150).name, "Mystery Master");
   assert.equal(rankFor(175).next, null);
   assert.ok(RANKS.at(-1).min <= maxPointsFor(catalog), "the top rank is reachable from episode 01 alone");
-  assert.equal(totalCards(catalog), 16);
+  assert.equal(totalCards(catalog), 24);
 });
 
 test("store falls back to memory when storage throws, and reports it", () => {

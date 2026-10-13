@@ -584,27 +584,325 @@
         }
       ],
       "commentPrompt": "In which century would you rather watch the Sun rise?"
+    },
+    {
+      "number": 3,
+      "slug": "school",
+      "title": "School",
+      "subject": "School",
+      "subjectSlug": "school",
+      "keywords": [
+        "school",
+        "schools",
+        "classroom",
+        "teacher",
+        "teachers",
+        "tutor",
+        "homework",
+        "learning",
+        "education",
+        "literacy",
+        "reading",
+        "read",
+        "scholé",
+        "schole",
+        "free time",
+        "leisure",
+        "greek",
+        "tudor",
+        "henry viii",
+        "john skelton",
+        "apprentice",
+        "apprenticeship",
+        "grammar school",
+        "latin",
+        "martin luther",
+        "luther",
+        "bible",
+        "massachusetts",
+        "old deluder satan",
+        "1647",
+        "prussia",
+        "frederick the great",
+        "school holidays",
+        "harvest",
+        "joseph lancaster",
+        "lancaster",
+        "monitorial",
+        "borough road",
+        "slates",
+        "compulsory",
+        "free school",
+        "1880",
+        "high school",
+        "graduation",
+        "diploma",
+        "right to education",
+        "universal declaration of human rights",
+        "united nations",
+        "unesco",
+        "covid",
+        "school closures",
+        "remote learning",
+        "unicef",
+        "bloom",
+        "2 sigma",
+        "ai tutor",
+        "world bank",
+        "nigeria",
+        "oecd",
+        "2100"
+      ],
+      "hook": "Five hundred years ago, most children never saw a classroom. They worked.",
+      "question": "Did you know that the word “school” first meant the one thing school seems to take away from you?",
+      "guess": "Two hundred years ago, out of every ten people on Earth, how many could read? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings, seven school days — or days with no school at all: a prince with his own tutor in Tudor London, a 1647 law that begins by blaming the devil, the Prussian law that banned school holidays, Joseph Lancaster’s thousand-pupil schools and their cages, the high-school boom and a right to education for everyone, the 2020 closures — and a 2100 scenario, clearly labelled, where every child might have a tutor.",
+      "status": "published",
+      "youtubeId": "rchexCb48LM",
+      "publishedAt": "2026-10-13",
+      "thumbnail": "/assets/episodes/school/thumb.png",
+      "quiz": {
+        "question": "Two hundred years ago, out of every ten people on Earth, how many could read?",
+        "options": [
+          "About one",
+          "About five",
+          "About eight"
+        ],
+        "answerIndex": 0,
+        "reveal": "About one in ten: historians estimate about 12% of the world could read in 1820. Today it is almost nine in ten — 87% of adults in 2022.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In 1500, who taught nine-year-old Prince Henry, the future Henry VIII?",
+            "options": [
+              "A village priest, with forty other boys",
+              "The poet John Skelton — a teacher all to himself",
+              "Nobody — princes did not learn to read",
+              "His older sister"
+            ],
+            "answerIndex": 1,
+            "reveal": "One teacher, one child. Most children learned by working — a craftsman’s son was usually apprenticed for seven years — but a prince had the poet John Skelton all to himself.",
+            "card": "school-1500",
+            "source": "F5"
+          },
+          {
+            "id": "q1647",
+            "era": "1647",
+            "question": "How does one of America’s first school laws, from Massachusetts in 1647, begin?",
+            "options": [
+              "By blaming the devil",
+              "By thanking the King of England",
+              "With the alphabet",
+              "With a list of fines for lazy pupils"
+            ],
+            "answerIndex": 0,
+            "reveal": "It calls keeping people from the Scriptures a chief project of “that old deluder, Satan”. Any town with fifty households had to hire someone to teach reading and writing.",
+            "card": "school-1647",
+            "source": "F9"
+          },
+          {
+            "id": "q1763",
+            "era": "1763",
+            "question": "What did Frederick the Great’s 1763 school law in Prussia ban?",
+            "options": [
+              "Writing with the left hand",
+              "Girls in school",
+              "School holidays — not even at harvest time",
+              "Teachers who had been soldiers"
+            ],
+            "answerIndex": 2,
+            "reveal": "“No vacations are to be given, not even during harvest time.” Every boy and girl was to go from five until about thirteen — though plenty of families just ignored the rules.",
+            "card": "school-1763",
+            "source": "F10"
+          },
+          {
+            "id": "q1810",
+            "era": "1810",
+            "question": "Joseph Lancaster claimed one master could run a school of how many children?",
+            "options": [
+              "About twenty",
+              "About a hundred",
+              "More than a thousand",
+              "Ten thousand"
+            ],
+            "answerIndex": 2,
+            "reveal": "His trick: older children taught the younger ones in small groups. Pupils wrote letters in sand because paper cost money — and a misbehaving child might be hoisted up in a cage.",
+            "card": "school-1810",
+            "source": "F13"
+          },
+          {
+            "id": "q1880",
+            "era": "1880",
+            "question": "In 1880, school became compulsory in England. For which ages?",
+            "options": [
+              "From five to ten",
+              "From seven to sixteen",
+              "From three to eighteen",
+              "From twelve to fourteen"
+            ],
+            "answerIndex": 0,
+            "reveal": "From five to ten. Fees were still charged until 1891, when school became free for most families.",
+            "card": "school-1880",
+            "source": "F14"
+          },
+          {
+            "id": "q1948",
+            "era": "1948",
+            "question": "In December 1948, in Paris, the United Nations wrote down for the whole world that everyone has the right to…",
+            "options": [
+              "A free university degree",
+              "Education — free, at least in the early years",
+              "A school within walking distance",
+              "A computer"
+            ],
+            "answerIndex": 1,
+            "reveal": "Article 26 of the Universal Declaration of Human Rights: “Everyone has the right to education.” Free, at least in the elementary and fundamental stages.",
+            "card": "school-1948",
+            "source": "F16"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "In April 2020, about how many learners were sent home as schools closed?",
+            "options": [
+              "About 16 million",
+              "About 160 million",
+              "About 1.6 billion — more than nine in ten students on Earth",
+              "Almost nobody — schools stayed open"
+            ],
+            "answerIndex": 2,
+            "reveal": "UNESCO counted more than 1.6 billion learners out of school at the peak, in over 190 countries. Lessons moved into kitchens and bedrooms.",
+            "card": "school-today",
+            "source": "F17"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "“School” comes from the ancient Greek word scholé. What did it first mean?",
+            "options": [
+              "Hard work",
+              "Free time — leisure",
+              "A locked room",
+              "Obedience"
+            ],
+            "answerIndex": 1,
+            "reveal": "In Athens, people with free time often spent it talking, arguing and learning — so the word for leisure became the word for learned talk, and then for the place you learn.",
+            "card": "school-answer",
+            "source": "F1"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "London",
+          "line": "It’s still dark. Next door, a hammer’s already going, and the street smells of wet straw and wood smoke.",
+          "rung": "For the few",
+          "saw": "Something for other people. For priests, and rich boys. Most children learn by working."
+        },
+        {
+          "year": "1647",
+          "place": "A farming town in Massachusetts",
+          "line": "There’s frost on the window, and the cows need milking before breakfast.",
+          "rung": "To read God’s word",
+          "saw": "A way to read God’s word, with your own eyes."
+        },
+        {
+          "year": "1763",
+          "place": "A village in Prussia",
+          "line": "It’s autumn. The war’s just over, the harvest’s in, and the pastor has news from the king.",
+          "rung": "The king’s order",
+          "saw": "An order. From the king."
+        },
+        {
+          "year": "1810",
+          "place": "London, Borough Road",
+          "line": "One enormous hall. Hundreds of children, in long rows. And just one master.",
+          "rung": "By the hundred",
+          "saw": "A machine. For teaching the poor, by the hundred, as cheaply as possible."
+        },
+        {
+          "year": "1948",
+          "place": "A small American town",
+          "line": "It’s June. Graduation day. Your mum’s ironing your gown, and the radio’s on.",
+          "rung": "A right · a ladder",
+          "saw": "So now school is a right. And a ladder. And a building you walk to every morning."
+        },
+        {
+          "year": "Today",
+          "place": "Your morning",
+          "line": "Your phone buzzes. Homework’s due at midnight. And any question you’ve got, you can ask a screen.",
+          "rung": "Always on",
+          "saw": "Always on. A classroom, plus a screen that never closes."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning hasn’t happened yet. But we can follow the evidence.",
+          "rung": "A tutor for all?",
+          "saw": "In 1500, a private teacher was for a prince. In 2100, it might be for everyone.",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "school-1500",
+          "year": "1500",
+          "fact": "In 1500, nine-year-old Prince Henry — the future Henry VIII — had a teacher all to himself: the poet John Skelton. Most children learned by working, and historians estimate only about one woman in a hundred in England could even write her own name.",
+          "source": "EBSCO · Luminarium (Skelton) · David Cressy, Literacy and the Social Order (1980)"
+        },
+        {
+          "id": "school-1647",
+          "year": "1647",
+          "fact": "One of America’s first school laws, Massachusetts 1647, begins by blaming “that old deluder, Satan”. Any town with fifty households had to hire someone to teach reading and writing; a hundred households, a grammar school too — or the town paid a fine.",
+          "source": "Massachusetts Archives · Records of the Massachusetts Bay (1853)"
+        },
+        {
+          "id": "school-1763",
+          "year": "1763",
+          "fact": "Frederick the Great’s 1763 school law banned school holidays — “not even during harvest time”. Every boy and girl was to go from five until about thirteen, and parents of children who skipped could be fined.",
+          "source": "Prussian General School Regulation, 12 Aug 1763 (GHDI)"
+        },
+        {
+          "id": "school-1810",
+          "year": "1810",
+          "fact": "Joseph Lancaster claimed one master could run a school of more than a thousand children, with older pupils teaching the younger ones. Misbehave, and you might be hoisted above the classroom in a cage — he thought it beat the cane.",
+          "source": "Joseph Lancaster, Improvements in Education (1803) · Dictionary of Canadian Biography"
+        },
+        {
+          "id": "school-1880",
+          "year": "1880",
+          "fact": "In 1880, school became compulsory in England for children from five to ten. Fees were still charged until 1891, when school became free for most families.",
+          "source": "UK Parliament, Living Heritage: the 1870 Education Act"
+        },
+        {
+          "id": "school-1948",
+          "year": "1948",
+          "fact": "On 10 December 1948, in Paris, the United Nations wrote it down for the whole world: “Everyone has the right to education.” Free, at least in the elementary and fundamental stages.",
+          "source": "United Nations, Universal Declaration of Human Rights, Article 26"
+        },
+        {
+          "id": "school-today",
+          "year": "Today",
+          "fact": "In April 2020, about 1.6 billion learners were sent home as schools closed — more than nine in ten students on Earth. At least 463 million children could not get remote lessons at all.",
+          "source": "UNESCO COVID-19 education monitoring (2020) · UNICEF, Remote Learning Reachability (2020)"
+        },
+        {
+          "id": "school-answer",
+          "year": "The answer",
+          "fact": "“School” comes from the ancient Greek scholé, which meant free time — leisure. In Athens, people with free time often spent it in discussion, so the word for leisure became the word for the place you learn. And literacy? About one in ten could read in 1820; today it is almost nine in ten.",
+          "source": "Liddell–Scott–Jones Greek Lexicon · Our World in Data, Literacy"
+        }
+      ],
+      "commentPrompt": "Which century’s classroom would you survive?"
     }
   ],
   "requested": [
     {
-      "subject": "School",
-      "slug": "school",
-      "status": "next",
-      "keywords": [
-        "school",
-        "classroom",
-        "teacher",
-        "homework",
-        "exams",
-        "learning"
-      ],
-      "pitch": "How did a day in class change from 1500 to today — and will the classrooms of 2100 even exist?"
-    },
-    {
       "subject": "Money",
       "slug": "money",
-      "status": "idea",
+      "status": "next",
       "keywords": [
         "money",
         "coins",
@@ -613,7 +911,7 @@
         "gold",
         "paper money"
       ],
-      "pitch": "From a handful of coins to money you never touch."
+      "pitch": "Did school ever teach you what money actually is?"
     },
     {
       "subject": "Night",
