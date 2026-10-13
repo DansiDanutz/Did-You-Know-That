@@ -3,6 +3,7 @@
 // No accounts, no tracking, no timers. Points come from answers only — never from watching.
 // Pure functions + a storage wrapper that never throws, so the site works without storage.
 import { award, parseLedger, balance, earnedTotal, quizEventId, guessEventId, perfectEventId, cardsEventId, POINTS } from "./ledger.js";
+import { parseDaily } from "./daily.js";
 
 export const STORAGE_KEY = "dyk.progress.v2";
 /** v1 held { guesses, revealed }; "revealed" came from the removed "I watched it" button. */
@@ -17,7 +18,7 @@ export const RANKS = Object.freeze([
   { name: "Mystery Master", min: 150 },
 ]);
 
-const emptyState = () => ({ guesses: {}, answers: {}, legacyRevealed: {}, ledger: [] });
+const emptyState = () => ({ guesses: {}, answers: {}, legacyRevealed: {}, ledger: [], daily: {} });
 const OWNER_PATTERN = /^[0-9a-f-]{36}$/;
 const ANSWER_KEY = /^[a-z0-9-]+:[a-z0-9-]+$/;
 const isPlainObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -46,6 +47,7 @@ export function parseState(rawValue) {
       answers: parseAnswers(data.answers),
       legacyRevealed: Object.fromEntries(entries(data.legacyRevealed).filter(([, v]) => v === true)),
       ledger: parseLedger(data.ledger),
+      daily: parseDaily(data.daily),
       ...(OWNER_PATTERN.test(data.owner ?? "") ? { owner: data.owner } : {}),
     };
   } catch {
@@ -160,6 +162,16 @@ export const earnedOf = (state) => earnedTotal(state.ledger);
 export function rankFor(points) {
   const index = RANKS.findLastIndex((rank) => points >= rank.min);
   return { ...RANKS[index], next: RANKS[index + 1] ?? null };
+}
+
+/**
+ * The rank a change of EARNED points reached, or null when it stayed the same (rank-up moment).
+ * Points never go down from earning, so there is never a "rank lost" message.
+ */
+export function rankUp(beforePoints, afterPoints) {
+  const before = rankFor(beforePoints);
+  const after = rankFor(afterPoints);
+  return after.min > before.min ? after : null;
 }
 
 /** localStorage wrapper: reads and writes never throw; falls back to memory for this visit. */

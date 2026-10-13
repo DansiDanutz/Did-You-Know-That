@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import { normalize, buildIndex, search } from "../js/lib/search.js";
+import { asDrafts } from "./fixtures.mjs";
 
 const catalog = JSON.parse(readFileSync(new URL("../data/episodes.json", import.meta.url), "utf8"));
 const index = buildIndex(catalog);
@@ -57,11 +58,8 @@ test("empty and nonsense queries return nothing; results are capped", () => {
 });
 
 test("published episodes expose a YouTube watch URL", () => {
-  const published = {
-    ...catalog,
-    episodes: catalog.episodes.map((e) => (e.slug === "the-sun" ? { ...e, status: "published", youtubeId: "TESTID00001" } : e)),
-  };
-  const result = search(buildIndex(published), "sun")[0];
-  assert.equal(result.watchUrl, "https://www.youtube.com/watch?v=TESTID00001");
-  assert.equal(top("sun").watchUrl, null, "drafts have no watch URL");
+  assert.equal(top("sun").watchUrl, "https://www.youtube.com/watch?v=WlClbKXSdSo");
+  assert.equal(top("time").watchUrl, "https://www.youtube.com/watch?v=Sw1xP57TNTk");
+  const drafts = asDrafts(catalog);
+  assert.equal(search(buildIndex(drafts), "sun")[0].watchUrl, null, "drafts have no watch URL");
 });

@@ -44,7 +44,7 @@
       "guess": "Where did all the time we saved actually go? Write your guess in the comments before you press play.",
       "summary": "Seven centuries, seven mornings: from a village that wakes at midnight to a phone checked before your feet touch the floor — and what the year 2100 is about to take next.",
       "status": "published",
-      "youtubeId": "WI9P4hHcSoc",
+      "youtubeId": "Sw1xP57TNTk",
       "publishedAt": "2026-10-11",
       "thumbnail": "/assets/episodes/time-compressed/thumb.png",
       "quiz": {
@@ -183,37 +183,51 @@
         {
           "year": "1500",
           "place": "A village",
-          "line": "It is midnight. Pitch black. And the whole village is awake."
+          "line": "It is midnight. Pitch black. And the whole village is awake.",
+          "rung": "Sun and bells",
+          "saw": "Your day begins when the sun rises, and ends when it sets. The church bell is the only clock you will ever hear."
         },
         {
           "year": "1652",
           "place": "London",
-          "line": "The air smells of smoke — and of something new."
+          "line": "The air smells of smoke — and of something new.",
+          "rung": "Clocks you can trust",
+          "saw": "His drifts by seconds. For the first time, an ordinary day can be cut into minutes."
         },
         {
           "year": "1760",
           "place": "A workshop",
-          "line": "Monday morning, and half the workshop is empty."
+          "line": "Monday morning, and half the workshop is empty.",
+          "rung": "Hours you sell",
+          "saw": "Time is now something you can carry. And something you can sell."
         },
         {
           "year": "1883",
           "place": "A small American town",
-          "line": "At midday the church clock strikes twelve. Then it is noon again."
+          "line": "At midday the church clock strikes twelve. Then it is noon again.",
+          "rung": "One time for a continent",
+          "saw": "The railroads had reset the clocks of an entire continent."
         },
         {
           "year": "1914",
           "place": "Near Detroit",
-          "line": "The line of people looking for work stretches down the street."
+          "line": "The line of people looking for work stretches down the street.",
+          "rung": "The working day",
+          "saw": "Henry Ford more than doubled his workers’ pay, to five dollars a day, and cut the day to eight hours."
         },
         {
           "year": "Today",
           "place": "Your bedroom",
-          "line": "Before your feet touch the floor, you have already checked your phone."
+          "line": "Before your feet touch the floor, you have already checked your phone.",
+          "rung": "Every minute filled",
+          "saw": "On paper, we are the richest people in history, rich in time. And yet, ask anyone how they are, and you will hear the same word. Busy."
         },
         {
           "year": "2100",
           "place": "Prediction",
           "line": "That morning has not happened yet. But we can follow the evidence.",
+          "rung": "Time given back?",
+          "saw": "It could finally arrive, a century late. But if history repeats, we will fill every freed hour with something faster.",
           "prediction": true
         }
       ],
@@ -282,34 +296,59 @@
         "light",
         "sunrise",
         "8 minutes",
-        "sunspots",
-        "galileo",
+        "midsummer",
+        "bonfire",
+        "ptolemy",
         "copernicus",
+        "sunspots",
+        "harriot",
+        "galileo",
         "telescope",
+        "parasol",
+        "white lead",
+        "gunning",
         "newton",
+        "prism",
+        "rainbow",
         "infrared",
         "herschel",
+        "becquerel",
+        "carrington",
         "tan",
         "suntan",
+        "chanel",
         "sunscreen",
-        "parasol",
         "solar",
         "solar power",
         "solar panel",
+        "solar cell",
+        "bell labs",
         "electricity",
         "parker solar probe",
         "space",
         "photosynthesis",
-        "2100"
+        "2100",
+        "ingenhousz",
+        "leaves",
+        "plants",
+        "oxygen",
+        "data centre",
+        "data center",
+        "ai",
+        "iea",
+        "ember",
+        "maple",
+        "caltech",
+        "space solar power"
       ],
       "hook": "Every time you look at the Sun, you are looking into the past.",
-      "question": "Did you know that the Sun you see is not the Sun as it is right now?",
-      "guess": "How old is the sunlight hitting your eyes right now? Guess in the comments — then stay to the end and check.",
-      "summary": "We went from fearing the Sun, to measuring it, to wearing it, to flying toward it. Five centuries of how humans changed their behaviour toward the star that never changed for us.",
-      "status": "draft",
-      "youtubeId": null,
-      "publishedAt": null,
-      "thumbnail": null,
+      "question": "Did you know that you have never once seen the Sun as it is right now?",
+      "guess": "That light on your face is eight minutes old. But the energy inside it — how old is that? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings under the same Sun, and one relationship that climbs rung by rung: Midsummer bonfires in Tudor London, the first telescope drawing of sunspots, leaves that bubble in sunlight, Herschel’s invisible light, the suntan myth, solar power almost eleven times bigger in ten years — and a 2100 scenario, clearly labelled, where the Sun might decide whether your AI wakes up.",
+      "status": "published",
+      "youtubeId": "WlClbKXSdSo",
+      "publishedAt": "2026-10-12",
+      "thumbnail": "/assets/episodes/the-sun/thumb.png",
       "quiz": {
         "question": "How old is the sunlight hitting your eyes right now?",
         "options": [
@@ -318,43 +357,179 @@
           "About a day old"
         ],
         "answerIndex": 1,
-        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance. You have never seen the Sun as it is — only as it was."
+        "reveal": "Sunlight needs about 8 minutes 20 seconds to cross the average Earth–Sun distance — and the energy in it was made in the Sun’s core long before that (NASA estimates about 170,000 years). You have never seen the Sun as it is — only as it was.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In 1500, what did almost everyone believe about the Sun?",
+            "options": [
+              "That it goes around the Earth",
+              "That it is a bonfire in the sky",
+              "That it is made of iron",
+              "That it stands still at the centre"
+            ],
+            "answerIndex": 0,
+            "reveal": "It is what Ptolemy had taught, about 1,400 years earlier. In 1543, the year he died, Copernicus’s book put the Sun at the centre instead.",
+            "card": "sun-1500",
+            "source": "F2"
+          },
+          {
+            "id": "q1610",
+            "era": "1610",
+            "question": "Who made the first telescope drawing of sunspots?",
+            "options": [
+              "Galileo, in Florence",
+              "Thomas Harriot, beside the River Thames",
+              "Copernicus, in Poland",
+              "Isaac Newton, in Cambridge"
+            ],
+            "answerIndex": 1,
+            "reveal": "On a misty December morning in 1610, the Englishman Thomas Harriot pointed a telescope at the low Sun and drew what he saw — and never published it. Galileo’s letters on the spots came out in 1613.",
+            "card": "sun-1610",
+            "source": "F3"
+          },
+          {
+            "id": "q1779",
+            "era": "1779",
+            "question": "In 1779, Jan Ingenhousz sank leaves under water. What did he see in sunlight?",
+            "options": [
+              "They bubbled out fresh air — and stopped in the shade",
+              "They turned white",
+              "They sank faster",
+              "Nothing, until night fell"
+            ],
+            "answerIndex": 0,
+            "reveal": "In more than 500 experiments he found that only the green parts do it, and only in light. Plants need the Sun.",
+            "card": "sun-1779",
+            "source": "A3"
+          },
+          {
+            "id": "q1800",
+            "era": "1800",
+            "question": "In 1800, William Herschel put thermometers in a rainbow made by a prism. Where was the hottest spot?",
+            "options": [
+              "In the violet",
+              "In the yellow, the brightest colour",
+              "Just past the red, where nothing was visible",
+              "Exactly in the middle"
+            ],
+            "answerIndex": 2,
+            "reveal": "The reading beyond the red was the highest of all. Herschel had found infrared — the Sun was sending more than our eyes could catch.",
+            "card": "sun-1800",
+            "source": "F6"
+          },
+          {
+            "id": "q1893",
+            "era": "1893",
+            "question": "How leaves turn sunlight into sugar got its name in 1893. What is it called?",
+            "options": [
+              "Photosynthesis",
+              "Solarisation",
+              "Fermentation",
+              "Evaporation"
+            ],
+            "answerIndex": 0,
+            "reveal": "The name is usually credited to the American botanist Charles Reid Barnes. Nearly all life runs on it — your lunch is stored sunlight.",
+            "card": "sun-1893",
+            "source": "A4"
+          },
+          {
+            "id": "q1928",
+            "era": "1928",
+            "question": "The famous story says Coco Chanel started the suntan craze. What did a historian find?",
+            "options": [
+              "It is true — she returned tanned from a cruise in 1923",
+              "It is probably a myth, traced to an unsigned magazine article from 1971",
+              "It was actually her rival Elsa Schiaparelli",
+              "Tanning was banned in France until 1930"
+            ],
+            "answerIndex": 1,
+            "reveal": "Kerry Segrave traced the Chanel story to an unsigned 1971 magazine article; tanning was already a fad before 1920. The real reason was work: as jobs moved indoors, a tan became the badge of leisure.",
+            "card": "sun-1928",
+            "source": "F8"
+          },
+          {
+            "id": "qsolar",
+            "era": "Today",
+            "question": "In 2025, how much electricity did solar power make compared with ten years earlier?",
+            "options": [
+              "About the same",
+              "About twice as much",
+              "Almost eleven times as much",
+              "A hundred times as much"
+            ],
+            "answerIndex": 2,
+            "reveal": "About 2,770 TWh in 2025 against about 250 TWh in 2015 — almost nine percent of all the world’s electricity.",
+            "card": "sun-solar",
+            "source": "A1"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "So how old is the sunlight hitting your face right now?",
+            "options": [
+              "Brand new — light arrives instantly",
+              "About 8 minutes 20 seconds — and its energy left the Sun’s core long before that",
+              "About a day old",
+              "About a year old"
+            ],
+            "answerIndex": 1,
+            "reveal": "Light takes about 8 minutes 20 seconds to cross 150 million km. But the energy in it was made in the Sun’s core and spent a very long time struggling out — NASA estimates about 170,000 years. When it began its journey there were no farms, no cities and no writing.",
+            "card": "sun-answer",
+            "source": "F17"
+          }
+        ]
       },
       "eras": [
         {
           "year": "1500",
-          "place": "A field at dawn",
-          "line": "Your day starts with the Sun, not with a clock."
+          "place": "London",
+          "line": "It is Midsummer Eve, and the streets are glowing with firelight.",
+          "rung": "Day and night",
+          "saw": "It’s the difference between day and night. Daylight is for work. Darkness is for sleep, and prayer."
         },
         {
-          "year": "1610s",
-          "place": "Padua",
-          "line": "A new instrument, pointed at the sky — and a forbidden view."
+          "year": "1610",
+          "place": "Beside the River Thames",
+          "line": "A misty December morning. The Sun hangs low and dim — and a man points a telescope at it.",
+          "rung": "Something to watch",
+          "saw": "For a few people with telescopes, the Sun has become something to watch. Closely."
         },
         {
-          "year": "1700s",
-          "place": "Under a parasol",
-          "line": "In your world, pale skin is a sign of wealth."
+          "year": "1779",
+          "place": "England",
+          "line": "A bright summer morning, and the fashionable ladies are hiding from the Sun under parasols.",
+          "rung": "Something to explain",
+          "saw": "This summer, the Sun is turning into something new. Something to explain."
         },
         {
-          "year": "1800s",
-          "place": "An observatory",
-          "line": "A prism, three blackened thermometers — and light no one can see."
+          "year": "1800",
+          "place": "Near Windsor",
+          "line": "An astronomer has set a prism in a sunbeam, with thermometers whose bulbs are blackened.",
+          "rung": "Something to measure",
+          "saw": "Now the Sun is something you measure, even where your eyes give up."
         },
         {
-          "year": "1920s",
-          "place": "A beach",
-          "line": "The new weekend, spent in the sunshine."
+          "year": "1928",
+          "place": "A crowded American beach",
+          "line": "Hot sand. Salt air. And everyone is lying in the Sun, on purpose.",
+          "rung": "Every meal",
+          "saw": "The Sun used to be something to measure. Now, it’s the source of every meal."
         },
         {
           "year": "Today",
           "place": "Your morning",
-          "line": "Your phone charged overnight. Maybe by sunlight."
+          "line": "Your phone’s charged, the lights come on — and a field of solar panels has been awake since sunrise.",
+          "rung": "Power",
+          "saw": "So what’s the Sun to you now? Power. Something you harvest, like a crop."
         },
         {
           "year": "2100",
           "place": "Prediction",
-          "line": "What happens when we stop waiting for the Sun to rise?",
+          "line": "That morning has not happened yet. But we can follow the evidence.",
+          "rung": "The next rung?",
+          "saw": "In 1500, the Sun decided when you went to sleep. In 2100, it might decide whether your AI wakes up.",
           "prediction": true
         }
       ],
@@ -362,44 +537,70 @@
         {
           "id": "sun-1500",
           "year": "1500",
-          "fact": "For 1,400 years, Europe was taught that the Sun travels around the Earth — until Copernicus put the Sun at the centre in 1543.",
+          "fact": "In 1500, almost everyone believed the Sun goes around the Earth — what Ptolemy had taught about 1,400 years earlier. In 1543, the year he died, Copernicus’s book put the Sun at the centre.",
           "source": "Copernicus, De revolutionibus (1543)"
         },
         {
-          "id": "sun-1613",
-          "year": "1613",
-          "fact": "The Sun has spots — and they move. Galileo published them in 1613; Thomas Harriot had sketched them in 1610.",
-          "source": "Galileo, Letters on Sunspots (1613)"
+          "id": "sun-1610",
+          "year": "1610",
+          "fact": "The first telescope drawing of sunspots was made on 8 December 1610 by the Englishman Thomas Harriot, beside the Thames — not by Galileo, who published his letters on the spots in 1613. Harriot never published his.",
+          "source": "HAO/UCAR · Galileo, Letters on Sunspots (1613)"
         },
         {
-          "id": "sun-1700s",
-          "year": "1700s",
-          "fact": "Pale skin was a sign of wealth. A tan meant you worked outside.",
-          "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
+          "id": "sun-1779",
+          "year": "1779",
+          "fact": "In the summer of 1779, the Dutch doctor Jan Ingenhousz ran more than 500 experiments on plants. Leaves sunk in water bubbled out fresh air in sunlight and stopped in the shade — and only the green parts did it.",
+          "source": "Jan Ingenhousz, Experiments upon Vegetables (1779)"
         },
         {
           "id": "sun-1800",
           "year": "1800",
-          "fact": "William Herschel found invisible light beyond red — infrared — using a prism and blackened thermometers.",
-          "source": "NASA / IPAC"
+          "fact": "William Herschel set a prism in a sunbeam and found the hottest spot just past the red, where nothing was visible. He had found infrared: the Sun sends more than our eyes can catch.",
+          "source": "NASA Space Place · Caltech IPAC"
         },
         {
-          "id": "sun-1954",
-          "year": "1954",
-          "fact": "Bell Labs’ first practical silicon solar cell turned about 6% of sunlight into electricity.",
-          "source": "American Physical Society"
+          "id": "sun-1893",
+          "year": "1893",
+          "fact": "Leaves catch sunlight and turn it into sugar, and nearly all life runs on that. The process got its name in 1893 — photosynthesis — usually credited to the American botanist Charles Reid Barnes.",
+          "source": "Etymonline · Charles Reid Barnes (1893)"
         },
         {
-          "id": "sun-today",
+          "id": "sun-1928",
+          "year": "1928",
+          "fact": "The story that Coco Chanel started the suntan craze is probably a myth: a historian traced it to an unsigned 1971 magazine article. As work moved indoors, a tan became the badge of leisure.",
+          "source": "Kerry Segrave, Suntanning in 20th Century America (2005)"
+        },
+        {
+          "id": "sun-solar",
           "year": "Today",
-          "fact": "In December 2024, Parker Solar Probe passed 6.1 million km from the Sun — the fastest object humans have ever built.",
-          "source": "NASA"
+          "fact": "In 2025, solar power made almost eleven times more electricity than ten years earlier: about 2,770 TWh, against about 250 TWh in 2015. That is almost 9% of all the world’s electricity.",
+          "source": "Ember, Global Electricity Review 2026"
+        },
+        {
+          "id": "sun-answer",
+          "year": "The answer",
+          "fact": "Sunlight takes about 8 minutes 20 seconds to reach you. But the energy in it was made in the Sun’s core and took a very long time to get out — NASA estimates about 170,000 years. You have never seen the Sun as it is. Only as it was.",
+          "source": "NASA · Sun facts"
         }
       ],
       "commentPrompt": "In which century would you rather watch the Sun rise?"
     }
   ],
   "requested": [
+    {
+      "subject": "School",
+      "slug": "school",
+      "status": "next",
+      "keywords": [
+        "school",
+        "classroom",
+        "teacher",
+        "homework",
+        "exams",
+        "learning"
+      ],
+      "pitch": "How did a day in class change from 1500 to today — and will the classrooms of 2100 even exist?"
+    },
     {
       "subject": "Money",
       "slug": "money",

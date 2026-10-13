@@ -92,7 +92,7 @@ test("configured, the form posts the email straight to the provider in a new tab
   assert.match(privacy, /unsubscribe/);
 });
 
-test("every page shows the footer signup and privacy notice; the home page also shows it under the featured episode", () => {
+test("every page shows the footer signup and privacy notice; the home page also shows it after the collection teaser", () => {
   const files = renderSite(loadCatalog());
   for (const [path, page] of Object.entries(files).filter(([p]) => p.endsWith(".html"))) {
     assert.match(page, /id="nl-title-footer"/, path);
@@ -100,8 +100,8 @@ test("every page shows the footer signup and privacy notice; the home page also 
   }
   const home = files["index.html"];
   assert.match(home, /id="nl-title-home"/);
-  assert.ok(home.indexOf('id="featured"') < home.indexOf('id="nl-title-home"'));
-  assert.ok(home.indexOf('id="nl-title-home"') < home.indexOf('id="series"'));
+  assert.ok(home.indexOf('id="collect"') < home.indexOf('id="nl-title-home"'));
+  assert.ok(home.indexOf('id="nl-title-home"') < home.indexOf('id="map"'));
   const configured = renderSite(loadCatalog(), KIT)["index.html"];
   assert.equal((configured.match(/action="https:\/\/app\.kit\.com/g) ?? []).length, 2);
 });

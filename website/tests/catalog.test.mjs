@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
 
-import { loadCatalog, loadDraftCatalog } from "./fixtures.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork } from "./fixtures.mjs";
 
 test("the shipped episodes.json is valid", () => {
   assert.deepEqual(validateCatalog(loadCatalog()), []);
@@ -85,12 +85,12 @@ test("validateCatalog checks the quiz and the fact cards", () => {
 });
 
 test("addVideo falls back to the YouTube thumbnail only when there is no local artwork", () => {
-  const next = addVideo(loadCatalog(), "the-sun", "TESTID00001", new Date("2026-11-01T00:00:00Z"));
+  const next = addVideo(withoutArtwork(loadDraftCatalog(), "the-sun"), "the-sun", "TESTID00001", new Date("2026-11-01T00:00:00Z"));
   assert.equal(next.episodes.find((e) => e.slug === "the-sun").thumbnail, "https://i.ytimg.com/vi/TESTID00001/maxresdefault.jpg");
 });
 
 test("addVideo refuses to re-publish an episode unless forced", () => {
-  const once = addVideo(loadCatalog(), "the-sun", "TESTID00001");
+  const once = addVideo(loadDraftCatalog(), "the-sun", "TESTID00001");
   assert.throws(() => addVideo(once, "the-sun", "TESTID00002"), /already published.*--force/);
   const forced = addVideo(once, "the-sun", "TESTID00002", new Date(), { force: true });
   assert.equal(forced.episodes.find((e) => e.slug === "the-sun").youtubeId, "TESTID00002");
@@ -128,14 +128,28 @@ test("validateCatalog checks every per-era quiz question", () => {
   assert.ok(withQuestions([{ id: "Bad Id" }, ...questions.slice(1)]).some((e) => e.includes("id must be lowercase-kebab-case")));
 });
 
-test("every episode 01 question is traceable to RESEARCH.md and has exactly one answer", () => {
-  const [first] = loadCatalog().episodes;
-  assert.equal(first.quiz.questions.length, 8);
-  for (const q of first.quiz.questions) {
-    assert.match(q.source, /^F\d+$/);
-    assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length);
-    assert.equal(new Set(q.options).size, q.options.length);
+test("every question of episodes 01 and 02 is traceable to RESEARCH.md and has exactly one answer", () => {
+  const catalog = loadCatalog();
+  for (const slug of ["time-compressed", "the-sun"]) {
+    const episode = catalog.episodes.find((e) => e.slug === slug);
+    assert.equal(episode.quiz.questions.length, 8, `${slug} has one question per era plus the answer`);
+    assert.ok(episode.quiz.questions.some((q) => q.era === "The answer"), `${slug} ends with the answer`);
+    for (const q of episode.quiz.questions) {
+      assert.match(q.source, /^[FA]\d+[a-z]?$/);
+      assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length);
+      assert.equal(new Set(q.options).size, q.options.length);
+    }
   }
-  const second = loadCatalog().episodes.find((e) => e.slug === "the-sun");
-  assert.equal(second.quiz.questions, undefined, "episode 02 stays without a quiz for now");
+});
+
+test("the shipped catalog has two live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
+  const live = loadCatalog().episodes.filter((e) => e.status === "published");
+  assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
+    ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
+    ["the-sun", "WlClbKXSdSo", "2026-10-12"],
+  ]);
+  assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "both episodes ship their own artwork");
+  for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
+  assert.equal(loadCatalog().requested[0].slug, "school", "episode 03 (School) leads the upcoming subjects");
+  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["school"], "School is announced as next");
 });
