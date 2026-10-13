@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dexty service worker update fix · 13 Oct 2026</title>
+<style>
+  :root { --bg:#fbfaf7; --ink:#1d1a16; --muted:#5f5a52; --line:#e3ded5; --c:#b3122e; --h:#c2620a; --m:#8a6d00; --l:#3b6e3b; --ok:#1f6f8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --ink:#f1ede5; --muted:#b4ada0; --line:#3a352b; } th { background:#241f17 !important; } code { background:#2a251b !important; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; } h2 { font-size: 20px; margin: 32px 0 10px; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 18px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { background: #f1ede5; font-weight: 600; }
+  .sev { display:inline-block; padding: 1px 8px; border-radius: 999px; color:#fff; font-size: 12px; font-weight: 700; }
+  .M{background:var(--m)} .L{background:var(--l)}
+  .fixed{color:var(--l); font-weight:600} .open{color:var(--c); font-weight:600}
+  code { background:#efece6; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .ok { color: var(--l); font-weight: 600; }
+  a { color: var(--ok); } @media (prefers-color-scheme: dark) { a { color: #7cc4dc; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Service worker: stale scripts after a deploy</h1>
+<p class="meta">Dexty / Did You Know That? · 13 Oct 2026 · main <code>aa3f247</code> (PR <a href="https://github.com/DansiDanutz/Did-You-Know-That/pull/31">#31</a>) · live on dexty.live, deployment <code>dpl_BSJEsVBfaxKHyyzCKB8gymKEWxRq</code> · scope: <code>website/sw.js</code> and its tests</p>
+
+<h2>Result</h2>
+<table>
+  <tr><th>Measure</th><th>Value</th></tr>
+  <tr><td>First load after a deploy</td><td class="ok">new HTML now runs with the new scripts and styles (before: the previous build's modules, until a second reload)</td></tr>
+  <tr><td>Offline support</td><td class="ok">kept: pages fall back to the cached copy or <code>/offline/</code>; scripts and styles fall back to the freshest cached copy</td></tr>
+  <tr><td>Content-Security-Policy</td><td class="ok">unchanged; no inline scripts</td></tr>
+  <tr><td>Tests</td><td class="ok">134 pass (10 in <code>sw.test.mjs</code>, 4 new); 98.70% line coverage</td></tr>
+</table>
+
+<h2>Findings</h2>
+<table>
+  <tr><th>Sev</th><th>Finding</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td><span class="sev M">M</span></td><td>Scripts and styles were served cache-first while pages were network-first, so the first load after every deploy paired new HTML with old JS. Seen 11 Oct on /collection/: "135 points earned · 0 to spend" until a second reload.</td><td class="fixed">Fixed (#31)</td><td>Same-origin <code>/js/</code> and <code>/css/</code> are now network-first with <code>cache: "no-cache"</code>. Test: "after a deploy, the first load runs the new scripts and styles". Chromium: a module changed on disk was served fresh on the next request.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>Network-first alone relied on the server's cache headers. A host with no Cache-Control let the browser's heuristic HTTP cache return the old file.</td><td class="fixed">Fixed (#31)</td><td>Found in the local Chromium run (<code>python3 -m http.server</code>); fixed by forcing revalidation with <code>cache: "no-cache"</code>. Test asserts the mode.</td></tr>
+  <tr><td><span class="sev M">M</span></td><td>A 5xx from the origin resolves <code>fetch()</code> instead of throwing, so network-first would return the error and break the app for repeat visitors during an outage (Codex review).</td><td class="fixed">Fixed (#31)</td><td>5xx now answers with the cached copy if there is one; a 404 passes through so removed files are not resurrected. Test: "a server error falls back…".</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Tests did not cover offline CSS or cache-first icons (Greptile review).</td><td class="fixed">Fixed (#31)</td><td>Offline <code>/css/site.css</code>; icon and favicon served from cache with no network request.</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>The deploy that shipped the fix was still handled once by the old cache-first worker, so devices that had it may have shown the mismatch one final time.</td><td class="open">Open (one-time)</td><td>Expected; resolves itself after that load. Confirm on the next deploy (see below).</td></tr>
+  <tr><td><span class="sev L">L</span></td><td>Playwright left <code>.playwright-mcp/</code> log folders in the Claude session worktree under <code>~/.claude</code>.</td><td class="open">Open</td><td>The safety guard blocks agent deletes inside <code>~/.claude</code>; David removes them if wanted.</td></tr>
+</table>
+
+<h2>Options considered</h2>
+<table>
+  <tr><th>Option</th><th>Decision</th></tr>
+  <tr><td>Network-first for <code>/js/</code> and <code>/css/</code>, cache fallback offline</td><td class="ok">Chosen. Small change; a 304 when nothing changed.</td></tr>
+  <tr><td>Content-hashed asset URLs from build-site</td><td>Not now: every module's relative <code>import</code> would also need rewriting to hashed names.</td></tr>
+  <tr><td>Controlled reload on <code>controllerchange</code></td><td>Rejected: it would interrupt a playing episode; an existing test keeps shell updates from reloading tabs.</td></tr>
+</table>
+
+<h2>Verification</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Tests written first</td><td class="ok">new tests failed before each change, passed after</td></tr>
+  <tr><td><code>npm test</code> and <code>node tools/build-site.mjs --check</code> on merged main</td><td class="ok">134/134 pass; generated pages up to date</td></tr>
+  <tr><td>CI on PR #31</td><td class="ok">website check pass</td></tr>
+  <tr><td>Live <code>sw.js</code></td><td class="ok">byte-identical to main; served <code>no-cache, no-store</code></td></tr>
+  <tr><td>Live routes</td><td class="ok"><code>/</code>, <code>/collection/</code>, <code>/offline/</code>, <code>/css/site.css</code> all 200; <code>/js/</code> served <code>max-age=0, must-revalidate</code></td></tr>
+  <tr><td>Fresh Chromium on dexty.live/collection/</td><td class="ok">controlled by the new worker; balance slot filled; one shell cache</td></tr>
+  <tr><td>Not tested</td><td>A real next-deploy transition on a device that already has this worker; real phones; a live 5xx outage. Next deploy: open /collection/ once and confirm the balance is right without a second reload.</td></tr>
+</table>
+</main>
+</body>
+</html>
