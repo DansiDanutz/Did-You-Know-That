@@ -114,13 +114,19 @@ test("pages are network-first, then the cached copy, then the offline page", asy
   assert.equal((await h.fetchEvent(h.request("/subject/water/", { mode: "navigate" }))).body, `precached ${ORIGIN}/offline/`);
 });
 
-test("episodes.json and artwork are stale-while-revalidate", async () => {
+test("episodes.json is network-first (a newly published episode is in it at once), cached copy offline", async () => {
   const h = harness();
   await h.run("install", {});
   const data = h.request("/data/episodes.json");
-  assert.equal((await h.fetchEvent(data)).body, `precached ${ORIGIN}/data/episodes.json`, "answers from cache at once");
-  assert.ok(h.fetched.includes(`${ORIGIN}/data/episodes.json`), "and refreshes in the background");
-  assert.equal((await h.fetchEvent(data)).body, `network ${ORIGIN}/data/episodes.json`, "next time: the refreshed copy");
+  assert.equal((await h.fetchEvent(data)).body, `network ${ORIGIN}/data/episodes.json`, "the fresh catalog, never the precached one");
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  h.state.online = false;
+  assert.equal((await h.fetchEvent(data)).body, `network ${ORIGIN}/data/episodes.json`, "offline: the last copy fetched");
+});
+
+test("artwork is stale-while-revalidate", async () => {
+  const h = harness();
+  await h.run("install", {});
   const art = h.request("/assets/episodes/time-compressed/thumb.webp");
   assert.equal((await h.fetchEvent(art)).body, `network ${ORIGIN}/assets/episodes/time-compressed/thumb.webp`);
 });

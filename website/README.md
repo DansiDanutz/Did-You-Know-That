@@ -58,7 +58,7 @@ episode's `RESEARCH.md`; 2100 predictions are never quiz facts.
 - **Home:** hero with the four steps, newest episode, "continue where you left off" (returning players only),
   all episodes with per-episode progress, the daily question, collection teaser, Comment of the Week, newsletter.
 - **Daily "Did you know?" question** (`js/lib/daily.js`): the same question for everyone on a date, cycling through
-  every published quiz question; 5 points for a right first answer once per day (`daily:<date>`); skipping costs nothing.
+  every published quiz question (an episode joins the day after its premiere, so publishing never swaps the day's question); 5 points for a right first answer once per day (`daily:<date>`); skipping costs nothing.
 - **Rank-up toast** (`js/ui/celebrate.js`) when earned points cross a rank; never a "lost" message.
 - **Phone navigation:** a bottom tab bar (Home · Episodes · Daily · Cards · Vault) below 900 px.
 
@@ -144,7 +144,7 @@ beehiiv's documented embed is an iframe/script; check that your beehiiv form acc
 
 `manifest.webmanifest` (name, short name "Dexty", standalone, navy theme, `any` + `maskable` icons 192/512) and
 `sw.js`: the app shell is precached under a versioned cache; HTML is network-first (a new episode appears at once,
-cached copy or `/offline/` without a connection); `data/episodes.json` and artwork are stale-while-revalidate;
+cached copy or `/offline/` without a connection); `data/episodes.json` is network-first too (cached copy offline, so a new episode's quiz works on the first visit) and artwork is stale-while-revalidate;
 third-party requests (YouTube, i.ytimg.com, the newsletter provider) are never intercepted or cached. On activate it
 deletes every cache that is not its own — including the retired game's — and reloads tabs the old game was serving.
 An "Install the app" bar appears after scrolling past the first screen where the browser supports installing

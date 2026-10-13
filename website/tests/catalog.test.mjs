@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
 
@@ -140,6 +141,12 @@ test("every question of episodes 01–03 is traceable to RESEARCH.md and has exa
       assert.equal(new Set(q.options).size, q.options.length);
     }
   }
+});
+
+test("every School quiz source is a fact number defined in episodes/003-school/RESEARCH.md", () => {
+  const research = readFileSync(new URL("../../episodes/003-school/RESEARCH.md", import.meta.url), "utf8");
+  const school = loadCatalog().episodes.find((e) => e.slug === "school");
+  for (const q of school.quiz.questions) assert.match(research, new RegExp(`^\\| \\*\\*${q.source}\\*\\* \\|`, "m"), `${q.id} cites ${q.source}`);
 });
 
 test("the shipped catalog has three live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
