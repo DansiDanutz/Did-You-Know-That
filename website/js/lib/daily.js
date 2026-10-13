@@ -37,10 +37,18 @@ export function strideFor(size) {
 
 const isPublished = (episode) => episode?.status === "published" && /^[A-Za-z0-9_-]{11}$/.test(episode.youtubeId ?? "");
 
-/** Every question of every published episode, in a stable order (episode number, then quiz order). */
-export function dailyPool(catalog) {
+/** Published before `isoDate` (a YYYY-MM-DD string compare); without a date, every published episode. */
+const publishedBefore = (isoDate) => (episode) => !isoDate || (isIsoDate(episode.publishedAt) && episode.publishedAt < isoDate);
+
+/**
+ * Every question of every published episode, in a stable order (episode number, then quiz order).
+ * With a date, only episodes published before that day: a new episode joins the pool the day after
+ * its premiere, so publishing it never swaps the question people already answered today.
+ */
+export function dailyPool(catalog, isoDate) {
   return [...(catalog?.episodes ?? [])]
     .filter(isPublished)
+    .filter(publishedBefore(isoDate))
     .sort((a, b) => a.number - b.number)
     .flatMap((episode) =>
       (episode.quiz?.questions ?? []).map((question) => ({
@@ -54,9 +62,9 @@ export function dailyPool(catalog) {
     );
 }
 
-/** The question of the day for a date, or null when nothing is published yet. */
+/** The question of the day for a date, or null when nothing was published before that day. */
 export function dailyFor(catalog, isoDate) {
-  const pool = dailyPool(catalog);
+  const pool = dailyPool(catalog, isoDate);
   if (!pool.length) return null;
   const index = (((dayNumber(isoDate) * strideFor(pool.length)) % pool.length) + pool.length) % pool.length;
   return pool[index];

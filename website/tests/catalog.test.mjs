@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
 
@@ -128,9 +129,9 @@ test("validateCatalog checks every per-era quiz question", () => {
   assert.ok(withQuestions([{ id: "Bad Id" }, ...questions.slice(1)]).some((e) => e.includes("id must be lowercase-kebab-case")));
 });
 
-test("every question of episodes 01 and 02 is traceable to RESEARCH.md and has exactly one answer", () => {
+test("every question of episodes 01–03 is traceable to RESEARCH.md and has exactly one answer", () => {
   const catalog = loadCatalog();
-  for (const slug of ["time-compressed", "the-sun"]) {
+  for (const slug of ["time-compressed", "the-sun", "school"]) {
     const episode = catalog.episodes.find((e) => e.slug === slug);
     assert.equal(episode.quiz.questions.length, 8, `${slug} has one question per era plus the answer`);
     assert.ok(episode.quiz.questions.some((q) => q.era === "The answer"), `${slug} ends with the answer`);
@@ -142,14 +143,22 @@ test("every question of episodes 01 and 02 is traceable to RESEARCH.md and has e
   }
 });
 
-test("the shipped catalog has two live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
+test("every School quiz source is a fact number defined in episodes/003-school/RESEARCH.md", () => {
+  const research = readFileSync(new URL("../../episodes/003-school/RESEARCH.md", import.meta.url), "utf8");
+  const school = loadCatalog().episodes.find((e) => e.slug === "school");
+  for (const q of school.quiz.questions) assert.match(research, new RegExp(`^\\| \\*\\*${q.source}\\*\\* \\|`, "m"), `${q.id} cites ${q.source}`);
+});
+
+test("the shipped catalog has three live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
   const live = loadCatalog().episodes.filter((e) => e.status === "published");
   assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
     ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
     ["the-sun", "WlClbKXSdSo", "2026-10-12"],
+    ["school", "rchexCb48LM", "2026-10-13"],
   ]);
-  assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "both episodes ship their own artwork");
+  assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "every episode ships its own artwork");
   for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
-  assert.equal(loadCatalog().requested[0].slug, "school", "episode 03 (School) leads the upcoming subjects");
-  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["school"], "School is announced as next");
+  assert.ok(!loadCatalog().requested.some((r) => r.slug === "school"), "School is an episode now, not an upcoming subject");
+  assert.equal(loadCatalog().requested[0].slug, "money", "episode 04 (Money) leads the upcoming subjects");
+  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["money"], "Money is announced as next");
 });

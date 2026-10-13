@@ -18,20 +18,31 @@ const addDays = (iso, n) => new Date(Date.parse(`${iso}T12:00:00Z`) + n * 86_400
 
 test("the pool holds every published episode's questions, in a stable order; drafts never take part", () => {
   const pool = dailyPool(catalog);
-  assert.equal(pool.length, 16);
-  assert.deepEqual([...new Set(pool.map((p) => p.slug))], ["time-compressed", "the-sun"]);
+  assert.equal(pool.length, 24);
+  assert.deepEqual([...new Set(pool.map((p) => p.slug))], ["time-compressed", "the-sun", "school"]);
   assert.ok(pool.every((p) => p.card && p.card.id === p.question.card), "every daily question shows its fact card");
   assert.deepEqual(dailyPool(loadDraftCatalog()), []);
   assert.equal(dailyFor(loadDraftCatalog(), DAY), null);
 });
 
-test("the same date always gives the same question, and 16 days in a row cover all 16 without repeats", () => {
+test("an episode joins the daily pool the day after it premieres, so publishing never swaps today's question", () => {
+  const slugsOn = (date) => [...new Set(dailyPool(catalog, date).map((p) => p.slug))];
+  assert.deepEqual(slugsOn("2026-10-11"), [], "nothing was published before the first premiere");
+  assert.equal(dailyFor(catalog, "2026-10-11"), null);
+  assert.deepEqual(slugsOn("2026-10-12"), ["time-compressed"]);
+  assert.deepEqual(slugsOn("2026-10-13"), ["time-compressed", "the-sun"]);
+  assert.deepEqual(slugsOn("2026-10-14"), ["time-compressed", "the-sun", "school"]);
+  const withoutSchool = { ...catalog, episodes: catalog.episodes.filter((e) => e.slug !== "school") };
+  assert.deepEqual(dailyFor(catalog, "2026-10-13"), dailyFor(withoutSchool, "2026-10-13"), "School's premiere day keeps the question it had before");
+});
+
+test("the same date always gives the same question, and 24 days in a row cover all 24 without repeats", () => {
   assert.deepEqual(dailyFor(catalog, DAY), dailyFor(catalog, DAY));
-  const ids = Array.from({ length: 16 }, (_, i) => {
-    const pick = dailyFor(catalog, addDays(DAY, i));
+  const ids = Array.from({ length: 24 }, (_, i) => {
+    const pick = dailyFor(catalog, addDays("2026-10-14", i));
     return `${pick.slug}:${pick.question.id}`;
   });
-  assert.equal(new Set(ids).size, 16);
+  assert.equal(new Set(ids).size, 24);
 });
 
 test("date helpers: day numbers ignore time zones, strides are coprime, local dates are YYYY-MM-DD", () => {
