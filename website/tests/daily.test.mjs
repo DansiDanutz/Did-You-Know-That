@@ -39,13 +39,17 @@ test("an episode joins the daily pool the day after it premieres, so publishing 
   assert.deepEqual(dailyFor(catalog, "2026-10-13"), dailyFor(withoutSchool, "2026-10-13"), "School's premiere day keeps the question it had before");
 });
 
-test("the same date always gives the same question, and 24 days in a row cover all 24 without repeats", () => {
+test("the same date always gives the same question, and consecutive days cover the whole pool without repeats", () => {
   assert.deepEqual(dailyFor(catalog, DAY), dailyFor(catalog, DAY));
-  const ids = Array.from({ length: 24 }, (_, i) => {
-    const pick = dailyFor(catalog, addDays("2026-10-14", i));
+  const start = "2026-10-15";
+  const pool = dailyPool(catalog, start).map((p) => `${p.slug}:${p.question.id}`);
+  assert.equal(pool.length, 32, "all four episodes are eligible from the day after Money's premiere");
+  const ids = pool.map((_, i) => {
+    const pick = dailyFor(catalog, addDays(start, i));
     return `${pick.slug}:${pick.question.id}`;
   });
-  assert.equal(new Set(ids).size, 24);
+  assert.equal(new Set(ids).size, pool.length, "no question repeats within one full cycle");
+  assert.deepEqual([...ids].sort(), [...pool].sort(), "one full cycle asks every eligible question");
 });
 
 test("date helpers: day numbers ignore time zones, strides are coprime, local dates are YYYY-MM-DD", () => {
