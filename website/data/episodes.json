@@ -1219,25 +1219,353 @@
         }
       ],
       "commentPrompt": "Which century’s money would you have trusted most?"
-    }
-  ],
-  "requested": [
+    },
     {
-      "subject": "Food",
+      "number": 5,
       "slug": "food",
-      "status": "next",
+      "title": "Food",
+      "subject": "Food",
+      "subjectSlug": "food",
       "keywords": [
         "food",
         "eating",
         "meals",
+        "diet",
+        "nutrition",
+        "health",
+        "life expectancy",
+        "living longer",
+        "lifespan",
         "breakfast",
         "cooking",
-        "fridge",
+        "plate",
+        "bread",
+        "porridge",
+        "beer",
+        "fish",
+        "fast days",
+        "lent",
+        "flanders",
+        "belgium",
         "budget",
-        "prices",
-        "harvest"
+        "harvest",
+        "hunger",
+        "scurvy",
+        "james lind",
+        "lind",
+        "lemons",
+        "oranges",
+        "citrus",
+        "hms salisbury",
+        "royal navy",
+        "ship's biscuit",
+        "beriberi",
+        "takaki kanehiro",
+        "takaki",
+        "japan",
+        "tokyo",
+        "shinagawa",
+        "tsukuba",
+        "ryujo",
+        "white rice",
+        "vitamins",
+        "vitamin",
+        "height",
+        "pellagra",
+        "joseph goldberger",
+        "goldberger",
+        "mississippi",
+        "prison farm",
+        "cornbread",
+        "niacin",
+        "flour",
+        "india",
+        "punjab",
+        "shastri",
+        "green revolution",
+        "wheat",
+        "norman borlaug",
+        "borlaug",
+        "fertiliser",
+        "calories",
+        "brazil",
+        "são paulo",
+        "sao paulo",
+        "rice and beans",
+        "ultra-processed food",
+        "obesity",
+        "salt",
+        "whole grains",
+        "fruit",
+        "clean water",
+        "mckeown",
+        "eat-lancet",
+        "plants",
+        "red meat",
+        "2100"
       ],
-      "pitch": "Historians estimate that in 1500, food took up most of a working family’s budget. So what will you be eating in 2100?"
+      "hook": "About one in five deaths around the world is linked to diet. So did food give us our longer lives — or is it taking some of those years back?",
+      "question": "Did you know that today, about one in five deaths around the world is linked to diet?",
+      "guess": "In 1800, life expectancy at birth, worldwide, was about 29 years. What about a baby born today? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings, seven plates: bread and dried fish on a Flemish fast day, ship’s biscuit and James Lind’s oranges and lemons on a British warship, white rice and beriberi on a Japanese training ship, the Mississippi prison farm where pellagra was traced to diet, the new wheat in Punjab, rice and beans and a delivery app in São Paulo — and a 2100 scenario, clearly labelled, where the average life could stretch past eighty.",
+      "status": "published",
+      "youtubeId": "a4qHdjL8bok",
+      "publishedAt": "2026-10-14",
+      "thumbnail": "/assets/episodes/food/thumb.png",
+      "quiz": {
+        "question": "In 1800, life expectancy at birth, worldwide, was about 29 years. What is it for a baby born today?",
+        "options": [
+          "About forty",
+          "About seventy three",
+          "About ninety"
+        ],
+        "answerIndex": 1,
+        "reveal": "About seventy three: 73.3 years worldwide in 2024, says the UN. Every one of these figures is an average at birth, pulled down by the children who died young.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In a Flemish village in 1500, on up to how many days in ten was eating meat against the Church’s rules?",
+            "options": [
+              "Up to four",
+              "Only on Sundays",
+              "Never — meat was always allowed",
+              "Up to nine"
+            ],
+            "answerIndex": 0,
+            "reveal": "Up to four in ten: Fridays, Lent, Advent — the fast days, when fish took meat’s place. Bread came at almost every meal, and food took 70–80% of what a family spent.",
+            "card": "food-1500",
+            "source": "F5"
+          },
+          {
+            "id": "q1747",
+            "era": "1747",
+            "question": "Aboard HMS Salisbury in 1747, James Lind gave six pairs of sailors with scurvy something different each. Which pair did best?",
+            "options": [
+              "The pair given cider",
+              "The pair given vinegar",
+              "The pair given two oranges and a lemon a day",
+              "The pair given sea water"
+            ],
+            "answerIndex": 2,
+            "reveal": "Oranges and a lemon. The fruit ran out after six days, and by then one of that pair was fit for duty. Lind didn’t know why it worked — but the right food could cure you.",
+            "card": "food-1747",
+            "source": "F10"
+          },
+          {
+            "id": "q1795",
+            "era": "1795",
+            "question": "Lind found his cure in 1747. When did the Royal Navy finally hand out lemon juice to its sailors?",
+            "options": [
+              "The very next year",
+              "In 1795, almost fifty years later",
+              "In 1900",
+              "Never"
+            ],
+            "answerIndex": 1,
+            "reveal": "In 1795, 48 years after Lind’s trial. Meanwhile, on land in Britain, a newborn could still expect fewer than forty years.",
+            "card": "food-1795",
+            "source": "F11"
+          },
+          {
+            "id": "q1884",
+            "era": "1884",
+            "question": "Japanese sailors lived almost entirely on white rice and kept getting beriberi. In 1884, after Takaki Kanehiro changed the menu, how many men on the training ship Tsukuba died of it?",
+            "options": [
+              "None",
+              "Twenty five",
+              "About half the crew",
+              "A hundred and sixty nine"
+            ],
+            "answerIndex": 0,
+            "reveal": "None. Fourteen got sick — and they hadn’t eaten the new food. The year before, on the Ryujo, 169 men got beriberi and 25 died. Decades later, the missing piece got a name: a vitamin.",
+            "card": "food-1884",
+            "source": "F14"
+          },
+          {
+            "id": "q1915",
+            "era": "1915",
+            "question": "In 1915, on a Mississippi prison farm, healthy volunteers were promised a pardon. What did doctors ask them to do?",
+            "options": [
+              "Eat a poor Southern family’s ordinary diet",
+              "Work double shifts in the fields",
+              "Test a new vaccine",
+              "Eat nothing but fruit"
+            ],
+            "answerIndex": 0,
+            "reveal": "Cornbread and grits, fatty salt pork, molasses — hardly any milk, fresh meat or greens. After about five months, around half of the men had pellagra. It wasn’t a germ: something was missing from the diet.",
+            "card": "food-1915",
+            "source": "F20"
+          },
+          {
+            "id": "q1966",
+            "era": "1966",
+            "question": "In 1965, with war and drought leaving too little grain, what did India’s prime minister ask the whole country to do?",
+            "options": [
+              "Skip one meal a week",
+              "Eat only once a day",
+              "Give up sugar for a year",
+              "Stop drinking tea"
+            ],
+            "answerIndex": 0,
+            "reveal": "Skip one meal a week — Lal Bahadur Shastri’s appeal. Then India imported 18,000 tonnes of Mexican wheat seed, and within a few years its wheat harvest jumped to 17 million tonnes.",
+            "card": "food-1966",
+            "source": "F25"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "In Brazil, ultra-processed food is about a fifth of the calories people eat. What about in the United States?",
+            "options": [
+              "About a tenth",
+              "About a fifth too",
+              "More than half",
+              "Nearly all of it"
+            ],
+            "answerIndex": 2,
+            "reveal": "More than half. Brazil’s food guide has a golden rule: choose fresh food and home-made meals over ultra-processed food.",
+            "card": "food-today",
+            "source": "F33"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "One study of big American cities in the early 1900s found a single change behind nearly half the drop in deaths. What was it?",
+            "options": [
+              "Clean water",
+              "Better food",
+              "New hospitals",
+              "Cheaper bread"
+            ],
+            "answerIndex": 0,
+            "reveal": "Clean water. Food gave us years, but not alone: sewers, vaccines and medicine did much of the rest. And today, about one in five deaths worldwide is linked to diet.",
+            "card": "food-answer",
+            "source": "F37"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "Flanders",
+          "line": "The bread oven’s warm, and the kitchen smells of rye and smoke.",
+          "rung": "Fuel",
+          "saw": "Fuel. Enough to survive the day."
+        },
+        {
+          "year": "1747",
+          "place": "HMS Salisbury",
+          "line": "A British warship on patrol. Every day: hard biscuit, beer, and almost nothing fresh.",
+          "rung": "Medicine",
+          "saw": "Medicine. The right food can cure you."
+        },
+        {
+          "year": "1884",
+          "place": "Shinagawa, Tokyo Bay",
+          "line": "A training ship called the Tsukuba is getting ready to sail.",
+          "rung": "Something to measure",
+          "saw": "Something to measure. What’s inside it matters."
+        },
+        {
+          "year": "1915",
+          "place": "A prison farm in Mississippi",
+          "line": "Eleven men are lining up for breakfast.",
+          "rung": "Something we fix",
+          "saw": "Something we fix. Add what’s missing, and a disease disappears."
+        },
+        {
+          "year": "1966",
+          "place": "Punjab",
+          "line": "Everyone’s watching the sky for rain.",
+          "rung": "Enough, at last",
+          "saw": "Enough, at last. Grown by the tonne."
+        },
+        {
+          "year": "Today",
+          "place": "São Paulo",
+          "line": "Motorbikes buzz past with food deliveries.",
+          "rung": "Too much?",
+          "saw": "Too much of some things. Too little of others."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning hasn’t happened yet. But we can follow the evidence.",
+          "rung": "A longer life?",
+          "saw": "In 1500, the Church decided which days you couldn’t eat meat. In 2100, the reason might be your heart — and the planet.",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "food-1500",
+          "year": "1500",
+          "fact": "In Flanders around 1500, eating meat was against the Church’s rules on up to four days in ten: Fridays, Lent, Advent. Bread came at almost every meal, with porridge, peas and beans, beer, and dried fish on fast days — and food took 70–80% of what a family spent. In England next door, a newborn could expect about 35 years, mostly because so many children died.",
+          "source": "Fitzwilliam Museum, Feast & Fast · Rose, “Low Countries”, Encyclopedia of Food and Culture · Munro 2003 · Wrigley & Schofield, via Our World in Data"
+        },
+        {
+          "id": "food-1747",
+          "year": "1747",
+          "fact": "On 20 May 1747, aboard HMS Salisbury, the surgeon James Lind split twelve sailors with scurvy into six pairs. The pair given two oranges and a lemon a day did best: one man was fit for duty after six days. The navy’s daily ration was a pound of hard biscuit and a gallon of beer, with almost nothing fresh.",
+          "source": "James Lind, A Treatise of the Scurvy (1753), via the James Lind Library · Royal Navy victualling scale (University of Greenwich)"
+        },
+        {
+          "id": "food-1795",
+          "year": "1795",
+          "fact": "The Royal Navy ordered lemon juice for all its sailors in 1795 — 48 years after Lind’s trial. On land in Britain, a newborn in 1748 could expect about 36 years.",
+          "source": "Dictionary of National Biography, “Blane, Gilbert” · Wrigley & Schofield series, via Our World in Data"
+        },
+        {
+          "id": "food-1884",
+          "year": "1884",
+          "fact": "On the Japanese navy ship Ryujo in 1882–83, 169 of 376 men got beriberi and 25 died; sailors ate almost nothing but white rice. Takaki Kanehiro changed the menu — more barley, meat, milk, bread and vegetables — and on the Tsukuba in 1884, 14 men got sick and none died. Japanese men born in 1896 were about 15 cm shorter than men born in 1996.",
+          "source": "James Lind Library, Kanehiro Takaki · Sugiyama & Seita, JRSM (2013) · NCD-RisC, eLife (2016)"
+        },
+        {
+          "id": "food-1915",
+          "year": "1915",
+          "fact": "In 1915, at a prison farm in Mississippi, Joseph Goldberger fed healthy volunteers, promised a pardon, a poor Southern family’s ordinary corn-based diet. After about five months, around half of the eleven men had pellagra. The missing nutrient, niacin, was added to flour and bread across much of America in the 1940s.",
+          "source": "Goldberger & Wheeler, Public Health Reports (1915) · Encyclopedia of Arkansas, Pellagra · Clay, Schmick & Troesken (2019)"
+        },
+        {
+          "id": "food-1966",
+          "year": "1966",
+          "fact": "In 1965, India’s prime minister Lal Bahadur Shastri asked the country to skip one meal a week. India then imported 18,000 tonnes of Mexican wheat seed bred by Norman Borlaug’s team, and within a few years its wheat harvest reached 17 million tonnes. A newborn in India could expect about 46 years in 1966, and about 72 today.",
+          "source": "M. S. Swaminathan, ICAR interview · Orissa Review (2010) · UN World Population Prospects, via Our World in Data"
+        },
+        {
+          "id": "food-today",
+          "year": "Today",
+          "fact": "Ultra-processed food is about a fifth of the calories people eat in Brazil (19.7%) and more than half in the United States (55%). Brazil’s official food guide says to choose fresh food and home-made meals over ultra-processed food, and to eat at regular times, with other people when you can. In most countries, more adults now live with obesity than are underweight.",
+          "source": "Louzada et al. (2023) · CDC NCHS Data Brief 536 · Dietary Guidelines for the Brazilian Population (2014) · NCD-RisC, Lancet (2024)"
+        },
+        {
+          "id": "food-answer",
+          "year": "The answer",
+          "fact": "Food gave us years, but not alone: one study found clean water alone was behind nearly half the drop in deaths in big American cities in the early 1900s. Today about one in five deaths worldwide is linked to diet — mostly too much salt, too few whole grains and too little fruit. Life expectancy at birth, worldwide: about 29 in 1800, about 73 today.",
+          "source": "Cutler & Miller, Demography (2005) · GBD 2017 Diet Collaborators, Lancet (2019) · Riley (2005) · UN World Population Prospects 2024"
+        }
+      ],
+      "commentPrompt": "Which century’s kitchen would you eat in, and why?"
+    }
+  ],
+  "requested": [
+    {
+      "subject": "Medicine",
+      "slug": "medicine",
+      "status": "next",
+      "keywords": [
+        "medicine",
+        "doctors",
+        "health",
+        "illness",
+        "vaccines",
+        "hospitals",
+        "bloodletting",
+        "george washington",
+        "cures"
+      ],
+      "pitch": "In 1799, George Washington’s doctors drained, by some estimates, around two fifths of his blood. So how did we find out what really heals us?"
     },
     {
       "subject": "Night",
@@ -1278,20 +1606,6 @@
         "rivers"
       ],
       "pitch": "The one thing we never stopped needing, and never stopped changing."
-    },
-    {
-      "subject": "Medicine",
-      "slug": "medicine",
-      "status": "idea",
-      "keywords": [
-        "medicine",
-        "doctors",
-        "health",
-        "illness",
-        "vaccines",
-        "hospitals"
-      ],
-      "pitch": "How a visit to the doctor changed, century by century."
     }
   ]
 }

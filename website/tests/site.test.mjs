@@ -55,15 +55,18 @@ test("the shipped site references no test video ids, and only published episodes
     assert.doesNotMatch(contents, /TESTID/, path);
     for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
   }
-  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY"], "episodes 01, 02 (v2), 03 and 04 are live");
+  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY", "a4qHdjL8bok"], "episodes 01, 02 (v2), 03, 04 and 05 are live");
   assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Sw1xP57TNTk"/);
   assert.match(files["episodes/the-sun/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/WlClbKXSdSo"/);
   assert.match(files["episodes/school/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/rchexCb48LM"/);
   assert.match(files["episodes/the-sun/index.html"], /class="next-tile" href="\/episodes\/school\/"/, "episode 02 points on to School");
   assert.match(files["episodes/money/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/GkEBiDLa1WY"/);
   assert.match(files["episodes/school/index.html"], /class="next-tile" href="\/episodes\/money\/"/, "episode 03 points on to Money");
-  assert.match(files["episodes/money/index.html"], /class="next-tile" href="\/subject\/food\/"><span class="next-kicker">Coming next · in production<\/span><strong>Food<\/strong><span>Historians estimate that in 1500, food took up most of a working family’s budget\./, "Money teases Food");
+  assert.match(files["episodes/food/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/a4qHdjL8bok"/);
+  assert.match(files["episodes/money/index.html"], /class="next-tile" href="\/episodes\/food\/"/, "episode 04 points on to Food");
+  assert.match(files["episodes/food/index.html"], /class="next-tile" href="\/subject\/medicine\/"><span class="next-kicker">Coming next · in production<\/span><strong>Medicine<\/strong><span>In 1799, George Washington’s doctors drained/, "Food teases Medicine");
   assert.doesNotMatch(files["subject/money/index.html"], /Coming next · in production/, "Money is no longer a teaser");
+  assert.doesNotMatch(files["subject/food/index.html"], /Coming next · in production/, "Food is no longer a teaser");
   for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /WI9P4hHcSoc|XSQmwP_GSEM/, `${path} still names a removed upload`);
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/the-sun\//);
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/school\//);
@@ -71,12 +74,15 @@ test("the shipped site references no test video ids, and only published episodes
   assert.match(files["subject/school/index.html"], /href="\/episodes\/school\/"/, "the School subject page links to episode 03");
   assert.match(files["subject/money/index.html"], /href="\/episodes\/money\/"/, "the Money subject page links to episode 04");
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/money\//);
-  assert.match(files["index.html"], /Newest episode · No\. 04/);
-  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=GkEBiDLa1WY"/, "comment buttons point at episode 04");
+  assert.match(files["subject/food/index.html"], /href="\/episodes\/food\/"/, "the Food subject page links to episode 05");
+  assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/food\//);
+  assert.match(files["index.html"], /Newest episode · No\. 05/);
+  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=a4qHdjL8bok"/, "comment buttons point at episode 05");
   assert.match(files["collection/index.html"], /sun-answer/);
   assert.match(files["collection/index.html"], /school-answer/);
   assert.match(files["collection/index.html"], /money-answer/);
-  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html", "episodes/school/index.html", "episodes/money/index.html"]) assert.doesNotMatch(files[page], /Quiz coming soon|pill-soon/, page);
+  assert.match(files["collection/index.html"], /food-answer/);
+  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html", "episodes/school/index.html", "episodes/money/index.html", "episodes/food/index.html"]) assert.doesNotMatch(files[page], /Quiz coming soon|pill-soon/, page);
 });
 
 test("before launch, the site references no video at all", () => {
