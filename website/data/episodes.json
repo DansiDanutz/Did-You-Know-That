@@ -896,22 +896,348 @@
         }
       ],
       "commentPrompt": "Which century’s classroom would you survive?"
+    },
+    {
+      "number": 4,
+      "slug": "money",
+      "title": "Money",
+      "subject": "Money",
+      "subjectSlug": "money",
+      "keywords": [
+        "money",
+        "cash",
+        "coins",
+        "notes",
+        "banknotes",
+        "paper money",
+        "bank",
+        "banks",
+        "banking app",
+        "deposits",
+        "loans",
+        "iou",
+        "promise",
+        "trust",
+        "gold",
+        "silver",
+        "copper",
+        "cacao",
+        "cacao beans",
+        "chocolate",
+        "aztecs",
+        "tenochtitlan",
+        "avocado",
+        "turkey",
+        "cotton cloaks",
+        "barter",
+        "forgery",
+        "counterfeit",
+        "sweden",
+        "stockholm",
+        "johan palmstruch",
+        "palmstruch",
+        "stockholms banco",
+        "plate money",
+        "copper plate",
+        "france",
+        "paris",
+        "john law",
+        "mississippi company",
+        "mississippi bubble",
+        "bubble",
+        "shares",
+        "livres",
+        "rue quincampoix",
+        "london",
+        "bank of england",
+        "i promise to pay the bearer",
+        "sovereign",
+        "sovereigns",
+        "gold standard",
+        "bank restriction",
+        "1933",
+        "1971",
+        "nixon",
+        "bretton woods",
+        "dollar",
+        "gold window",
+        "kenya",
+        "nairobi",
+        "m-pesa",
+        "mpesa",
+        "mobile money",
+        "euro",
+        "digital euro",
+        "central bank",
+        "cbdc",
+        "digital currency",
+        "stablecoins",
+        "crypto",
+        "bis",
+        "2100"
+      ],
+      "hook": "Most money today isn’t paper, or metal, or anything you could ever hold. So what is it?",
+      "question": "Did you know that one word printed on every Bank of England note tells you what money really is?",
+      "guess": "In Britain, out of every hundred pounds people have, how many exist as real notes and coins? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings, seven kinds of money: cacao beans in Tenochtitlan’s market (and the sellers who faked them), Sweden’s 20-kilo copper coin and Europe’s first real banknotes, John Law’s Paris and the Mississippi bubble, the Bank of England’s printed promise, the August evening in 1971 when the dollar’s link to gold was cut, mobile money in Nairobi — and a 2100 scenario, clearly labelled, where money might be written in code.",
+      "status": "published",
+      "youtubeId": "GkEBiDLa1WY",
+      "publishedAt": "2026-10-14",
+      "thumbnail": "/assets/episodes/money/thumb.png",
+      "quiz": {
+        "question": "In Britain, out of every hundred pounds people have, how many exist as real notes and coins?",
+        "options": [
+          "About three",
+          "About thirty",
+          "About seventy"
+        ],
+        "answerIndex": 0,
+        "reveal": "About three. When the Bank of England checked, in 2014, about 97 of every 100 pounds were bank deposits — only about 3 were notes and coins.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "Aztec money grew on trees: cacao beans. A price list from a few decades later (Tlaxcala, 1545) says a good turkey hen cost how many beans?",
+            "options": [
+              "One",
+              "Ten",
+              "A hundred",
+              "Ten thousand"
+            ],
+            "answerIndex": 2,
+            "reveal": "A hundred — and one ripe avocado cost a single bean. Bigger deals were paid in cotton cloaks, and a Spanish friar wrote about sellers who faked cacao beans.",
+            "card": "money-1500",
+            "source": "F5"
+          },
+          {
+            "id": "q1661",
+            "era": "1661",
+            "question": "In 1661, a Stockholm bank handed out Europe’s first real banknotes. Why was paper such a relief in Sweden?",
+            "options": [
+              "Sweden’s biggest coin was a copper plate weighing almost 20 kilos",
+              "The king had banned metal coins",
+              "Sweden had run out of copper",
+              "Paper was cheaper than bread"
+            ],
+            "answerIndex": 0,
+            "reveal": "The biggest plate weighed 19.7 kg — you needed a cart, not a pocket. Johan Palmstruch’s bank lent out paper notes instead, promising to pay them in coin on demand: a promise, written on paper.",
+            "card": "money-1661",
+            "source": "F8"
+          },
+          {
+            "id": "q1720",
+            "era": "1720",
+            "question": "In February 1720, what did France make illegal?",
+            "options": [
+              "Owning more than 500 livres in gold or silver",
+              "Printing paper money",
+              "Buying shares",
+              "Leaving Paris"
+            ],
+            "answerIndex": 0,
+            "reveal": "The government wanted people to trust John Law’s paper — by law. Shares in his Mississippi Company had gone up about forty times; by December they had crashed, and Law escaped France.",
+            "card": "money-1720",
+            "source": "F11"
+          },
+          {
+            "id": "q1821",
+            "era": "1821",
+            "question": "Bank of England notes still say “I promise to pay the bearer on demand”. In 1821, what could a £5 note be swapped for?",
+            "options": [
+              "Five gold coins — sovereigns",
+              "A pound of silver",
+              "Nothing — it was just a saying",
+              "A share in the Bank"
+            ],
+            "answerIndex": 0,
+            "reveal": "Five gold sovereigns: back then, the promise meant gold. Today it only means another Bank of England note — there has been no gold link since 1931.",
+            "card": "money-1821",
+            "source": "F16"
+          },
+          {
+            "id": "q1933",
+            "era": "1933",
+            "question": "From 1933, what was illegal for most Americans to own?",
+            "options": [
+              "Gold coins or bars",
+              "Foreign money",
+              "More than one bank account",
+              "Silver spoons"
+            ],
+            "answerIndex": 0,
+            "reveal": "Gold coins or bars, with a few exceptions such as jewellery and collectors’ coins. The ban lasted until the end of 1974 — so in 1971, most Americans couldn’t own gold at all.",
+            "card": "money-1933",
+            "source": "F20"
+          },
+          {
+            "id": "q1971",
+            "era": "1971",
+            "question": "On a Sunday evening in August 1971, President Nixon said foreign governments could no longer swap their dollars for…",
+            "options": [
+              "Gold",
+              "Oil",
+              "British pounds",
+              "Silver"
+            ],
+            "answerIndex": 0,
+            "reveal": "Since 1944, governments could swap dollars for American gold at $35 an ounce. Within a few years the whole system was gone: money became a promise backed by trust.",
+            "card": "money-1971",
+            "source": "F21"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "About how many adults in Kenya use mobile money today?",
+            "options": [
+              "About one in ten",
+              "About three in ten",
+              "About eight in ten",
+              "Nearly everyone"
+            ],
+            "answerIndex": 2,
+            "reveal": "About eight in ten — 82% in 2024, up from 28% in 2009. M-Pesa launched in 2007, and school fees and taxi rides now get paid with a text.",
+            "card": "money-today",
+            "source": "F23"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "The Bank of England puts it plainly. Money today is a type of…",
+            "options": [
+              "IOU — a promise everyone trusts others will accept",
+              "Share in the country’s gold",
+              "Token backed by oil",
+              "Government property you borrow"
+            ],
+            "answerIndex": 0,
+            "reveal": "A special kind of IOU, trusted because everyone expects others to accept it. Remember the word from Stockholm? Promise. It was there all along.",
+            "card": "money-answer",
+            "source": "F2"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "Tenochtitlan",
+          "line": "Canoes bump along the canals. The market’s already loud, and it smells of chilli and wood smoke.",
+          "rung": "Something useful",
+          "saw": "Something useful. Something you could even drink."
+        },
+        {
+          "year": "1661",
+          "place": "Stockholm",
+          "line": "The harbour’s frozen, and a sledge scrapes past your window, loaded with copper.",
+          "rung": "A promise on paper",
+          "saw": "A promise. Written on paper."
+        },
+        {
+          "year": "1720",
+          "place": "Paris",
+          "line": "The street smells of horses, and everyone’s talking about paper.",
+          "rung": "A belief",
+          "saw": "A belief. It’s worth whatever everyone believes it’s worth. Until they don’t."
+        },
+        {
+          "year": "1821",
+          "place": "London",
+          "line": "Coal smoke, wet cobbles, and a queue outside the Bank of England.",
+          "rung": "As good as gold",
+          "saw": "As good as gold. A promise you can swap for metal."
+        },
+        {
+          "year": "1971",
+          "place": "A suburb of Pittsburgh",
+          "line": "It’s a Sunday evening in August, and the whole family’s in front of the TV.",
+          "rung": "Just trust",
+          "saw": "A promise backed by trust. Trust in the people who run it."
+        },
+        {
+          "year": "Today",
+          "place": "Nairobi",
+          "line": "Matatus honk on the road outside, and your phone buzzes. Your sister just sent you money. It took seconds.",
+          "rung": "Numbers on a screen",
+          "saw": "Numbers on a screen. You almost never touch it."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning hasn’t happened yet. But we can follow the evidence.",
+          "rung": "A promise in code?",
+          "saw": "In 1500, money grew on trees. In 2100, it might be written in code — but it would still be a promise.",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "money-1500",
+          "year": "1500",
+          "fact": "In Tenochtitlan, money grew on trees: cacao beans, the beans that make chocolate. A price list from a few decades later says one ripe avocado cost one bean and a good turkey hen a hundred — and a Spanish friar wrote about sellers who faked cacao beans.",
+          "source": "Cornell University Library, Chocolate: Food of the Gods · Tlaxcala price list, 1545 (Beyond the Codices, 1976) · Florentine Codex, Book 10"
+        },
+        {
+          "id": "money-1661",
+          "year": "1661",
+          "fact": "Sweden’s biggest coin was a copper plate weighing 19.7 kg. In 1661 Johan Palmstruch’s Stockholms Banco issued paper instead — the first real banknotes in Europe. It printed and lent more than it had copper, failed, and Palmstruch was sentenced to death. He was spared.",
+          "source": "Sveriges Riksbank, historical timeline · NY Fed Liberty Street Economics (2013)"
+        },
+        {
+          "id": "money-1720",
+          "year": "1720",
+          "fact": "On 27 February 1720, France made it illegal to own more than 500 livres in gold or silver. John Law’s Mississippi Company shares had gone up about forty times; by December they had crashed, and Law escaped France.",
+          "source": "François Velde, Government Equity and Money (Chicago Fed WP 2003-31) · Britannica Money, John Law"
+        },
+        {
+          "id": "money-1821",
+          "year": "1821",
+          "fact": "Bank of England notes still say “I promise to pay the bearer on demand”. In 1821 that promise meant gold: a £5 note could be swapped for five gold sovereigns, after 24 years in which the Bank had stopped paying out gold.",
+          "source": "Bank of England, Banknote FAQs · Bank Restriction Act 1797"
+        },
+        {
+          "id": "money-1933",
+          "year": "1933",
+          "fact": "From 1933, it was illegal for most Americans to own gold coins or bars — and it stayed illegal until the end of 1974.",
+          "source": "Executive Order 6102 (1933) · Public Law 93-373"
+        },
+        {
+          "id": "money-1971",
+          "year": "1971",
+          "fact": "On the evening of 15 August 1971, President Nixon ended foreign governments’ right to swap their dollars for American gold at $35 an ounce, the rate set at Bretton Woods in 1944. Within a few years, the whole system was gone.",
+          "source": "Federal Reserve History, Nixon Ends Convertibility of U.S. Dollars to Gold"
+        },
+        {
+          "id": "money-today",
+          "year": "Today",
+          "fact": "About eight in ten adults in Kenya use mobile money — 82% in 2024, up from 28% in 2009; M-Pesa launched in 2007. Across the euro area, cash paid for 79% of shop purchases in 2016 and 52% in 2024.",
+          "source": "FSD Kenya, 2024 FinAccess Household Survey · ECB, SPACE 2024"
+        },
+        {
+          "id": "money-answer",
+          "year": "The answer",
+          "fact": "The Bank of England calls money today a special kind of IOU, trusted because everyone expects others to accept it. When it checked, in 2014, about 97 of every 100 pounds were bank deposits and only about 3 were notes and coins — and, within limits, a bank loan creates a new deposit.",
+          "source": "Bank of England Quarterly Bulletin 2014 Q1 (McLeay, Radia & Thomas)"
+        }
+      ],
+      "commentPrompt": "Which century’s money would you have trusted most?"
     }
   ],
   "requested": [
     {
-      "subject": "Money",
-      "slug": "money",
+      "subject": "Food",
+      "slug": "food",
       "status": "next",
       "keywords": [
-        "money",
-        "coins",
-        "banks",
-        "cash",
-        "gold",
-        "paper money"
+        "food",
+        "eating",
+        "meals",
+        "breakfast",
+        "cooking",
+        "fridge",
+        "budget",
+        "prices",
+        "harvest"
       ],
-      "pitch": "Did school ever teach you what money actually is?"
+      "pitch": "Historians estimate that in 1500, food took up most of a working family’s budget. So what will you be eating in 2100?"
     },
     {
       "subject": "Night",
@@ -926,20 +1252,6 @@
         "electric light"
       ],
       "pitch": "How we pushed back the dark, one lamp at a time."
-    },
-    {
-      "subject": "Food",
-      "slug": "food",
-      "status": "idea",
-      "keywords": [
-        "food",
-        "eating",
-        "meals",
-        "breakfast",
-        "cooking",
-        "fridge"
-      ],
-      "pitch": "What was on your plate in 1500 — and in 2100."
     },
     {
       "subject": "Music",
