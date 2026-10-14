@@ -40,9 +40,9 @@ test("a keyword shared by episodes returns both", () => {
 });
 
 test("requested subjects are searchable and marked as requested", () => {
-  const result = top("food");
+  const result = top("medicine");
   assert.equal(result.kind, "requested");
-  assert.equal(result.url, "/subject/food/");
+  assert.equal(result.url, "/subject/medicine/");
 });
 
 test("episode results link to their episode page", () => {
