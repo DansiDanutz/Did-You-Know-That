@@ -1,6 +1,6 @@
 // Reusable HTML pieces for the generated pages.
 import { html, raw } from "./html.mjs";
-import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl } from "./site.mjs";
+import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl, narrationEmbeds } from "./site.mjs";
 import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
 
 const ICONS = {
@@ -42,8 +42,14 @@ export function thumbnailImage(episode, { sizes = "(min-width: 1200px) 1150px, 1
   return html`<img src="${episode.thumbnail}" alt="" width="1280" height="720"${loading} decoding="async" data-thumb-fallback="https://i.ytimg.com/vi/${episode.youtubeId}/hqdefault.jpg">`;
 }
 
+/** `data-narrations='{"ro":"…"}'` when the episode has native-narration uploads (js/ui/player.js); nothing otherwise. */
+function narrationAttribute(episode) {
+  const embeds = narrationEmbeds(episode);
+  return Object.keys(embeds).length ? html` data-narrations='${JSON.stringify(embeds)}'` : "";
+}
+
 /** Click-to-play YouTube facade: nothing loads from YouTube until the button is pressed (js/ui/player.js). */
-export const videoFacade = (episode, { sizes } = {}) => html`<div class="facade" data-facade data-embed="${embedUrl(episode)}" data-title="${episode.title}">
+export const videoFacade = (episode, { sizes } = {}) => html`<div class="facade" data-facade data-embed="${embedUrl(episode)}"${narrationAttribute(episode)} data-title="${episode.title}">
     ${thumbnailImage(episode, { lazy: false, ...(sizes ? { sizes } : {}) })}
     <button class="facade-play" type="button" data-play>${icon("play")}<span class="visually-hidden">Play “${episode.title}” (loads the YouTube player)</span></button>
   </div>`;

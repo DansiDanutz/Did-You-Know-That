@@ -1,5 +1,6 @@
 // The episode catalog (data/episodes.json): validation and the pure "publish a video" transform.
 // No dependencies; every function returns new data and never mutates its input.
+import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
 
 export const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -45,6 +46,30 @@ function validateEpisode(episode, at) {
     if (!episode.thumbnail) errors.push(`${at}: a published episode needs a thumbnail`);
     if (!YOUTUBE_ID_PATTERN.test(episode.youtubeId ?? "")) errors.push(`${at}: a published episode needs an 11-character youtubeId`);
     if (!DATE_PATTERN.test(episode.publishedAt ?? "")) errors.push(`${at}: a published episode needs publishedAt (YYYY-MM-DD)`);
+  }
+  errors.push(...validateNarrations(episode, at));
+  return errors;
+}
+
+/** Languages a native narration may be filed under: every picker language except the English original. */
+export const NARRATION_LANGUAGES = Object.freeze(LANGUAGES.map((language) => language.code).filter((code) => code !== DEFAULT_LANGUAGE));
+
+/**
+ * Optional `narrations`: { "<language code>": "<YouTube id>" } — a separate upload of the episode
+ * narrated in that language (the player embeds it instead of auto-translating the English captions).
+ * Only a published episode can have one; keys are picker languages other than English.
+ */
+export function validateNarrations(episode, at) {
+  const narrations = episode.narrations;
+  if (narrations === undefined) return [];
+  if (!narrations || typeof narrations !== "object" || Array.isArray(narrations)) {
+    return [`${at}: narrations must be an object of { "<language code>": "<youtubeId>" }`];
+  }
+  const errors = [];
+  if (episode.status !== "published") errors.push(`${at}: narrations are only allowed on a published episode`);
+  for (const [code, youtubeId] of Object.entries(narrations)) {
+    if (!NARRATION_LANGUAGES.includes(code)) errors.push(`${at}: narrations."${code}" is not a picker language (${NARRATION_LANGUAGES.join(", ")})`);
+    if (!YOUTUBE_ID_PATTERN.test(youtubeId ?? "")) errors.push(`${at}: narrations."${code}" must be an 11-character youtubeId`);
   }
   return errors;
 }

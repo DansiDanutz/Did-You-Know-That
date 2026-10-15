@@ -2,9 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
+import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN, NARRATION_LANGUAGES } from "../tools/lib/catalog.mjs";
 
-import { loadCatalog, loadDraftCatalog, withoutArtwork } from "./fixtures.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork, withNarrations, TEST_NARRATION_ID } from "./fixtures.mjs";
 
 test("the shipped episodes.json is valid", () => {
   assert.deepEqual(validateCatalog(loadCatalog()), []);
@@ -31,6 +31,30 @@ test("validateCatalog rejects unknown status, bad keywords and a non-object cata
   assert.ok(errors.some((e) => e.includes("status")));
   assert.ok(errors.some((e) => e.includes("keywords")));
   assert.deepEqual(validateCatalog(null), ["catalog must be an object with an episodes array"]);
+});
+
+test("narrations: a published episode may list a native-narration video per non-English language", () => {
+  // Arrange
+  const catalog = withNarrations(loadCatalog(), "food", { ro: TEST_NARRATION_ID });
+  // Act
+  const errors = validateCatalog(catalog);
+  // Assert
+  assert.deepEqual(errors, []);
+  assert.deepEqual(NARRATION_LANGUAGES, ["ro", "de", "es", "fr", "it", "pt"]);
+});
+
+test("narrations: unknown language, English, bad id, wrong shape and draft episodes are rejected", () => {
+  const catalog = loadCatalog();
+  const errorsFor = (narrations) => validateCatalog(withNarrations(catalog, "food", narrations));
+  assert.ok(errorsFor({ xx: TEST_NARRATION_ID }).some((e) => e.includes('narrations."xx" is not a picker language')));
+  assert.ok(errorsFor({ en: TEST_NARRATION_ID }).some((e) => e.includes('narrations."en" is not a picker language')));
+  assert.ok(errorsFor({ ro: "short" }).some((e) => e.includes('narrations."ro" must be an 11-character youtubeId')));
+  assert.ok(errorsFor({ ro: null }).some((e) => e.includes('narrations."ro" must be an 11-character youtubeId')));
+  assert.ok(errorsFor([TEST_NARRATION_ID]).some((e) => e.includes("narrations must be an object")));
+  assert.ok(errorsFor("TESTNARR0RO").some((e) => e.includes("narrations must be an object")));
+  const draft = withNarrations(loadDraftCatalog(), "food", { ro: TEST_NARRATION_ID });
+  assert.ok(validateCatalog(draft).some((e) => e.includes("narrations are only allowed on a published episode")));
+  assert.deepEqual(validateCatalog(withNarrations(catalog, "food", undefined)), [], "absent narrations stay valid");
 });
 
 test("validateCatalog rejects a subject slug used by both an episode and a requested subject", () => {

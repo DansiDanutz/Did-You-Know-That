@@ -12,7 +12,8 @@ import { extractYoutubeId } from "../tools/add-video.mjs";
 import { escapeHtml, html } from "../tools/lib/html.mjs";
 
 const SITE_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-import { loadCatalog, loadDraftCatalog, withoutArtwork } from "./fixtures.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork, withNarrations, TEST_NARRATION_ID } from "./fixtures.mjs";
+import { narrationEmbeds, embedUrlFor } from "../tools/lib/site.mjs";
 const jsonLdBlocks = (page) => [...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 
 /** A throwaway copy of the parts of the site the tools read and write (optionally with a different catalog). */
@@ -115,6 +116,28 @@ test("a published episode gets a click-to-load facade and VideoObject JSON-LD", 
   assert.doesNotMatch(page, /i\.ytimg\.com/, "self-hosted artwork: no request to YouTube before play");
   assert.match(files["index.html"], /node node-lit/, "the map lights the published subject");
   assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=TESTID00000"/, "comment buttons point at the newest video");
+});
+
+test("an episode with native narrations carries them on the facade as escaped JSON; others carry no attribute", () => {
+  // Arrange
+  const catalog = withNarrations(loadCatalog(), "food", { ro: TEST_NARRATION_ID });
+  const expected = { ro: `https://www.youtube-nocookie.com/embed/${TEST_NARRATION_ID}` };
+  // Act
+  const files = renderSite(catalog);
+  const food = files["episodes/food/index.html"];
+  const money = files["episodes/money/index.html"];
+  // Assert
+  assert.deepEqual(narrationEmbeds(catalog.episodes.find((e) => e.slug === "food")), expected);
+  assert.deepEqual(narrationEmbeds(catalog.episodes.find((e) => e.slug === "money")), {});
+  assert.equal(embedUrlFor("a4qHdjL8bok"), "https://www.youtube-nocookie.com/embed/a4qHdjL8bok");
+  const attribute = food.match(/data-facade data-embed="[^"]+" data-narrations='([^']*)'/);
+  assert.ok(attribute, "food facade has data-narrations right after data-embed");
+  assert.equal(attribute[1], escapeHtml(JSON.stringify(expected)), "quotes are escaped inside the attribute");
+  assert.deepEqual(JSON.parse(attribute[1].replaceAll("&quot;", '"')), expected, "the browser reads it back as JSON");
+  assert.doesNotMatch(money, /data-narrations/);
+  assert.match(files["index.html"], /data-narrations='/, "the home page features the food episode with the same facade");
+  assert.doesNotMatch(files["episodes/index.html"], /data-narrations/, "cards carry no facade");
+  assert.doesNotMatch(food, /<iframe/, "still nothing loads before play");
 });
 
 test("pages carry SEO basics and no inline styles or inline scripts (CSP)", () => {

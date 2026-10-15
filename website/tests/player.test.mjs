@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   LANGUAGES, DEFAULT_PREFS, STORAGE_KEY, playerSrc, captionTrackFor, normalizePrefs, loadPrefs, savePrefs,
-  playerCommand, languageLabel, wantsCaptions,
+  playerCommand, languageLabel, wantsCaptions, playerSourceFor,
 } from "../js/lib/player-prefs.js";
 import { renderSite } from "../tools/build-site.mjs";
 import { loadCatalog } from "./fixtures.mjs";
@@ -52,6 +52,35 @@ test("caption track: none for English, translated English otherwise, a real trac
   assert.deepEqual(captionTrackFor("de", [{ languageCode: "en", kind: "" }]), { languageCode: "en", kind: "", translationLanguage: { languageCode: "de" } });
   assert.deepEqual(captionTrackFor("fr", [{ languageCode: "en" }, { languageCode: "fr" }]), { languageCode: "fr" });
   assert.deepEqual(captionTrackFor("pt", "junk"), { languageCode: "en", kind: "asr", translationLanguage: { languageCode: "pt" } });
+});
+
+test("playerSourceFor: a native narration in the chosen language replaces the base embed, without forced captions", () => {
+  // Arrange
+  const narrations = { ro: "https://www.youtube-nocookie.com/embed/TESTNARR0RO" };
+  // Act
+  const source = playerSourceFor("ro", BASE, narrations);
+  const p = params(playerSrc(source.embed, { language: source.nativeNarration ? "en" : "ro" }));
+  // Assert
+  assert.deepEqual(source, { embed: narrations.ro, nativeNarration: true });
+  assert.equal(new URL(source.embed).pathname, "/embed/TESTNARR0RO");
+  assert.deepEqual(p, { autoplay: "1", rel: "0", modestbranding: "1", enablejsapi: "1" }, "no cc_load_policy / cc_lang_pref / hl");
+});
+
+test("playerSourceFor: a language without a narration keeps the base embed and its caption behaviour", () => {
+  const narrations = { ro: "https://www.youtube-nocookie.com/embed/TESTNARR0RO" };
+  const source = playerSourceFor("de", BASE, narrations);
+  assert.deepEqual(source, { embed: BASE, nativeNarration: false });
+  const p = params(playerSrc(source.embed, { language: "de" }));
+  assert.equal(p.cc_load_policy, "1");
+  assert.equal(p.cc_lang_pref, "de");
+});
+
+test("playerSourceFor: English and broken input always give the base embed", () => {
+  assert.deepEqual(playerSourceFor("en", BASE, { en: "https://www.youtube-nocookie.com/embed/TESTNARR0RO" }), { embed: BASE, nativeNarration: false });
+  assert.deepEqual(playerSourceFor("ro", BASE), { embed: BASE, nativeNarration: false });
+  assert.deepEqual(playerSourceFor("ro", BASE, null), { embed: BASE, nativeNarration: false });
+  assert.deepEqual(playerSourceFor("ro", BASE, { ro: "" }), { embed: BASE, nativeNarration: false });
+  assert.deepEqual(playerSourceFor("xx", BASE, { xx: "https://www.youtube-nocookie.com/embed/TESTNARR0RO" }), { embed: BASE, nativeNarration: false });
 });
 
 test("player commands use the IFrame API message format", () => {
