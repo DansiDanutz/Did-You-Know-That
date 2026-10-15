@@ -1,6 +1,7 @@
 // Reusable HTML pieces for the generated pages.
 import { html, raw } from "./html.mjs";
 import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl } from "./site.mjs";
+import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
 
 const ICONS = {
   youtube:
@@ -46,6 +47,18 @@ export const videoFacade = (episode, { sizes } = {}) => html`<div class="facade"
     ${thumbnailImage(episode, { lazy: false, ...(sizes ? { sizes } : {}) })}
     <button class="facade-play" type="button" data-play>${icon("play")}<span class="visually-hidden">Play “${episode.title}” (loads the YouTube player)</span></button>
   </div>`;
+
+/**
+ * Mute toggle + language picker for an episode player (js/ui/player.js). Hidden until the script runs;
+ * choosing only saves a preference — nothing loads from YouTube until play is pressed.
+ */
+export const playerControls = () => html`<div class="player-controls" data-player-controls hidden>
+    <button class="btn btn-ghost btn-small player-mute" type="button" data-player-mute aria-pressed="false"><span aria-hidden="true" data-mute-icon>🔊</span><span>Mute</span></button>
+    <label class="player-lang"><span>Language</span>
+      <select data-player-lang>${LANGUAGES.map(({ code, label }) => html`<option value="${code}" lang="${code}"${code === DEFAULT_LANGUAGE ? raw(" selected") : ""}>${label}</option>`)}</select>
+    </label>
+  </div>
+  <p class="player-hint" data-player-hint aria-live="polite" hidden></p>`;
 
 export function episodeCard(episode, index, { newest = false } = {}) {
   const published = isPublished(episode);
