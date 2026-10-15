@@ -5,7 +5,7 @@ import {
   SITE, SUBSCRIBE_URL, CHANNEL_URL, episodeNumber, episodePath, subjectPath, watchUrl, embedUrl, isPublished, absolute, commentUrl, latestPublished,
 } from "./site.mjs";
 import {
-  icon, statusPill, episodeCard, comingNextCard, suggestCard, factCard, keywordChips, thumbnailImage, videoFacade, stepHead, ladder, hasLadder, subjectBoard,
+  icon, statusPill, episodeCard, comingNextCard, suggestCard, factCard, keywordChips, thumbnailImage, videoFacade, playerControls, stepHead, ladder, hasLadder, subjectBoard,
 } from "./components.mjs";
 import { JOURNEY_STEPS, STEP_ANCHORS } from "../../js/lib/journey.js";
 import { POINTS } from "../../js/lib/ledger.js";
@@ -72,7 +72,10 @@ function watchStep(episode) {
   }
   return html`<section class="step-panel" id="player" aria-labelledby="watch-title">
   ${stepHead(2, "watch-title", "Watch the episode", "Seven mornings, one subject — and the answer to your guess at the end.")}
+  <div class="player" data-player>
   ${videoFacade(episode)}
+  ${playerControls()}
+  </div>
   <p class="player-note">Nothing loads from YouTube until you press play (privacy-enhanced youtube-nocookie.com). <a href="${watchUrl(episode)}" rel="noopener">Watch on YouTube</a></p>
 </section>`;
 }
