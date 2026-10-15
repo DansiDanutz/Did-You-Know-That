@@ -8,7 +8,7 @@ import {
 
 const PLAYER_ORIGIN = "https://www.youtube-nocookie.com";
 const LISTEN_INTERVAL_MS = 250;
-const READY_TIMEOUT_MS = 6000;
+const READY_TIMEOUT_MS = 8000;
 const CAPTION_ATTEMPTS = 4;
 const PLAYING = 1;
 
@@ -28,8 +28,11 @@ function setUpPlayer(facade) {
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = "strict-origin-when-cross-origin";
-    Object.assign(state, { iframe, ready: false, apiFailed: false, captionTries: 0, sawPlaying: false });
-    if (ui) connect(state, iframe);
+    Object.assign(state, { iframe, ready: false, apiFailed: false, captionTries: 0, sawPlaying: false, loadedMuted: state.prefs.muted });
+    if (ui) connect(state, iframe, () => {
+      // No answer from the player: if Mute was pressed meanwhile, reload it with the current choice.
+      if (state.prefs.muted !== state.loadedMuted) start();
+    });
     facade.replaceChildren(iframe);
     return iframe;
   };
@@ -76,17 +79,20 @@ function render(ui, prefs) {
 }
 
 /** Ask the player to start sending events; give up (and fall back to reloads) if it never answers. */
-function connect(state, iframe) {
+function connect(state, iframe, onTimeout) {
+  let listen = null;
   iframe.addEventListener("load", () => {
-    const listen = setInterval(() => {
+    listen = setInterval(() => {
       if (state.ready || state.iframe !== iframe) return clearInterval(listen);
       iframe.contentWindow?.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), PLAYER_ORIGIN);
     }, LISTEN_INTERVAL_MS);
-    setTimeout(() => {
-      clearInterval(listen);
-      if (!state.ready && state.iframe === iframe) state.apiFailed = true;
-    }, READY_TIMEOUT_MS);
   }, { once: true });
+  setTimeout(() => {
+    clearInterval(listen);
+    if (state.ready || state.iframe !== iframe) return;
+    state.apiFailed = true;
+    onTimeout();
+  }, READY_TIMEOUT_MS);
 }
 
 function onPlayerMessage(state, event) {
