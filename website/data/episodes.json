@@ -943,7 +943,7 @@
         },
         "es": {
           "subtitles": "/assets/captions/school/es.vtt",
-          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/school/es.m4a"
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v2/school/es.m4a"
         },
         "zh": {
           "subtitles": "/assets/captions/school/zh.vtt",
@@ -1276,7 +1276,7 @@
       "localizations": {
         "ro": {
           "subtitles": "/assets/captions/money/ro.vtt",
-          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/ro.m4a"
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v2/money/ro.m4a"
         },
         "fr": {
           "subtitles": "/assets/captions/money/fr.vtt",
@@ -1284,11 +1284,11 @@
         },
         "es": {
           "subtitles": "/assets/captions/money/es.vtt",
-          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/es.m4a"
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v2/money/es.m4a"
         },
         "zh": {
           "subtitles": "/assets/captions/money/zh.vtt",
-          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/zh.m4a"
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v2/money/zh.m4a"
         }
       }
     },
