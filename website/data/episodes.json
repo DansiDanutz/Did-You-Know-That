@@ -895,7 +895,25 @@
           "source": "Liddell–Scott–Jones Greek Lexicon · Our World in Data, Literacy"
         }
       ],
-      "commentPrompt": "Which century’s classroom would you survive?"
+      "commentPrompt": "Which century’s classroom would you survive?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/school/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/school/ro.m4a"
+        },
+        "fr": {
+          "subtitles": "/assets/captions/school/fr.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/school/fr.m4a"
+        },
+        "es": {
+          "subtitles": "/assets/captions/school/es.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/school/es.m4a"
+        },
+        "zh": {
+          "subtitles": "/assets/captions/school/zh.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/school/zh.m4a"
+        }
+      }
     },
     {
       "number": 4,
