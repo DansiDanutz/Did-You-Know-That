@@ -7,7 +7,17 @@ export const loadCatalog = () => JSON.parse(readFileSync(new URL("../data/episod
 /** The same catalog before launch: every published episode back to draft (no video id, no date). */
 export const asDrafts = (catalog) => ({
   ...catalog,
-  episodes: catalog.episodes.map((e) => (e.status === "published" ? { ...e, status: "draft", youtubeId: null, publishedAt: null } : e)),
+  episodes: catalog.episodes.map((e) => {
+    if (e.status !== "published") return e;
+    const { localizations: _localizations, ...rest } = e; // a draft cannot carry localizations
+    return { ...rest, status: "draft", youtubeId: null, publishedAt: null };
+  }),
+});
+
+/** The catalog with every episode's localizations removed: the baseline for tests about pages WITHOUT them (the shipped data now has some). */
+export const withoutLocalizations = (catalog) => ({
+  ...catalog,
+  episodes: catalog.episodes.map(({ localizations: _localizations, ...rest }) => rest),
 });
 
 export const loadDraftCatalog = () => asDrafts(loadCatalog());

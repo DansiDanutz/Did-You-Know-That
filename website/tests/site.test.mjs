@@ -12,7 +12,7 @@ import { extractYoutubeId } from "../tools/add-video.mjs";
 import { escapeHtml, html } from "../tools/lib/html.mjs";
 
 const SITE_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-import { loadCatalog, loadDraftCatalog, withoutArtwork, withLocalizations } from "./fixtures.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork, withLocalizations, withoutLocalizations } from "./fixtures.mjs";
 import { embedUrlFor } from "../tools/lib/site.mjs";
 const jsonLdBlocks = (page) => [...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 
@@ -137,7 +137,7 @@ test("an episode with localizations carries them on the facade as escaped JSON; 
   assert.match(files["index.html"], /data-localizations='/, "the home page features the food episode with the same facade");
   assert.doesNotMatch(files["episodes/index.html"], /data-localizations/, "cards carry no facade");
   assert.doesNotMatch(food, /<iframe/, "still nothing loads before play");
-  assert.doesNotMatch(renderSite(loadCatalog())["episodes/food/index.html"], /data-localizations/, "the committed catalog has none yet");
+  assert.doesNotMatch(renderSite(withoutLocalizations(loadCatalog()))["episodes/food/index.html"], /data-localizations/, "the committed catalog has none yet");
 });
 
 test("the language picker groups Dexty subtitles/voice-over apart from YouTube's auto-translated captions", () => {
@@ -152,7 +152,7 @@ test("the language picker groups Dexty subtitles/voice-over apart from YouTube's
   });
   // Act
   const withPicker = picker(renderSite(withLoc)["episodes/food/index.html"]);
-  const withoutPicker = picker(renderSite(loadCatalog())["episodes/food/index.html"]);
+  const withoutPicker = picker(renderSite(withoutLocalizations(loadCatalog()))["episodes/food/index.html"]);
   // Assert
   assert.match(withPicker, /^\s*<option value="en" lang="en" selected>English<\/option>/);
   assert.deepEqual(groups(withPicker), [
@@ -164,7 +164,7 @@ test("the language picker groups Dexty subtitles/voice-over apart from YouTube's
 });
 
 test("pages carry SEO basics and no inline styles or inline scripts (CSP)", () => {
-  const files = renderSite(loadCatalog());
+  const files = renderSite(withoutLocalizations(loadCatalog()));
   for (const [path, page] of Object.entries(files).filter(([p]) => p.endsWith(".html"))) {
     assert.match(page, /<title>[^<]+<\/title>/, path);
     assert.match(page, /<meta name="description" content="[^"]+">/, path);
@@ -242,7 +242,7 @@ test("the build removes pages for subjects that left the catalog", () => {
 });
 
 test("the home hero is the real banner: art-directed, preloaded, sized, and the page h1", () => {
-  const home = renderSite(loadCatalog())["index.html"];
+  const home = renderSite(withoutLocalizations(loadCatalog()))["index.html"];
   assert.match(home, /<h1 id="hero-title" class="hero-banner">/);
   assert.match(home, /<img class="hero-banner-img" src="\/assets\/brand\/hero-1600\.jpg" width="1600" height="238" alt="Did You Know That\?" fetchpriority="high"/);
   assert.match(home, /<source type="image\/webp" media="\(max-width: 639px\)" srcset="\/assets\/brand\/hero-mobile-800\.webp 800w/);
@@ -252,11 +252,11 @@ test("the home hero is the real banner: art-directed, preloaded, sized, and the 
   for (const file of ["hero-1600.jpg", "hero-1600.webp", "hero-2560.webp", "hero-mobile-800.webp", "hero-mobile-1200.webp", "hero-mobile-1200.jpg"]) {
     assert.ok(existsSync(join(SITE_ROOT, "assets", "brand", file)), file);
   }
-  assert.doesNotMatch(renderSite(loadCatalog())["collection/index.html"], /rel="preload" as="image"/, "only the home page preloads the banner");
+  assert.doesNotMatch(renderSite(withoutLocalizations(loadCatalog()))["collection/index.html"], /rel="preload" as="image"/, "only the home page preloads the banner");
 });
 
 test("home: hero, newest episode, continue, episodes, daily fact, collection, community, newsletter, search, about", () => {
-  const home = renderSite(loadCatalog())["index.html"];
+  const home = renderSite(withoutLocalizations(loadCatalog()))["index.html"];
   const order = ['id="hero-title"', 'id="featured"', 'id="continue"', 'id="series"', 'id="daily"', 'id="collect"', 'id="community"', 'id="nl-title-home"', 'id="map"', 'id="about"'].map((marker) => home.indexOf(marker));
   assert.ok(order.every((at, i) => at > 0 && (i === 0 || at > order[i - 1])), `section order ${order}`);
   const railCards = home.slice(home.indexOf('class="cards rail"'), home.indexOf("card card-next")).match(/class="card accent/g) ?? [];

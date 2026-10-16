@@ -6,7 +6,7 @@ import {
   playerCommand, languageLabel, wantsCaptions, youtubeLanguage, LOCALIZATION_LANGUAGES,
 } from "../js/lib/player-prefs.js";
 import { renderSite } from "../tools/build-site.mjs";
-import { loadCatalog } from "./fixtures.mjs";
+import { loadCatalog, withoutLocalizations } from "./fixtures.mjs";
 
 const BASE = "https://www.youtube-nocookie.com/embed/a4qHdjL8bok";
 const params = (src) => Object.fromEntries(new URL(src).searchParams);
@@ -88,7 +88,7 @@ test("prefs: normalized, saved and loaded; broken or blocked storage gives defau
 });
 
 test("published episode pages render the hidden player controls; the facade still loads nothing", () => {
-  const pages = renderSite(loadCatalog());
+  const pages = renderSite(withoutLocalizations(loadCatalog()));
   const entry = Object.entries(pages).find(([path]) => path.includes("episodes/food/"));
   assert.ok(entry, "food episode page rendered");
   const page = entry[1];

@@ -1546,7 +1546,25 @@
           "source": "Cutler & Miller, Demography (2005) · GBD 2017 Diet Collaborators, Lancet (2019) · Riley (2005) · UN World Population Prospects 2024"
         }
       ],
-      "commentPrompt": "Which century’s kitchen would you eat in, and why?"
+      "commentPrompt": "Which century’s kitchen would you eat in, and why?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/food/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/food/ro.m4a"
+        },
+        "fr": {
+          "subtitles": "/assets/captions/food/fr.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/food/fr.m4a"
+        },
+        "es": {
+          "subtitles": "/assets/captions/food/es.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/food/es.m4a"
+        },
+        "zh": {
+          "subtitles": "/assets/captions/food/zh.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/food/zh.m4a"
+        }
+      }
     }
   ],
   "requested": [
