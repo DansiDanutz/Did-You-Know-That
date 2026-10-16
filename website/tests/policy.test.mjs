@@ -63,3 +63,17 @@ test("no page offers an 'I watched it' reveal any more", () => {
   }
   for (const path of ALL_JS) assert.doesNotMatch(read(path), /revealAnswer|data-reveal\b/, path);
 });
+
+test("the CSP allows the voice-over audio from the public Blob store and nothing else new", () => {
+  // Arrange
+  const vercel = JSON.parse(read("vercel.json"));
+  const csp = vercel.headers[0].headers.find((header) => header.key === "Content-Security-Policy").value;
+  const directive = (name) => csp.split(";").map((part) => part.trim()).find((part) => part.startsWith(`${name} `));
+  // Act / Assert
+  assert.equal(directive("media-src"), "media-src 'self' https://*.public.blob.vercel-storage.com");
+  assert.doesNotMatch(csp, /unsafe-inline|unsafe-eval/);
+  assert.equal(directive("default-src"), "default-src 'self'");
+  assert.equal(directive("script-src"), "script-src 'self'");
+  assert.equal(directive("connect-src"), "connect-src 'self'", "subtitles are same-origin: no wider connect-src");
+  assert.equal(directive("frame-src"), "frame-src https://www.youtube-nocookie.com");
+});

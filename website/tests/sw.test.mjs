@@ -137,7 +137,7 @@ test("third-party, non-GET and range requests are never intercepted or cached", 
     h.request("https://www.youtube-nocookie.com/embed/x"),
     h.request("https://i.ytimg.com/vi/x/hqdefault.jpg"),
     h.request("https://buttondown.com/api/emails/embed-subscribe/x", { method: "POST" }),
-    h.request("/assets/narration/a.mp3", { headers: { range: "bytes=0-" } }),
+    h.request("/assets/captions/food/ro.vtt", { headers: { range: "bytes=0-" } }),
     h.request("/sw.js"),
   ]) assert.equal(await h.fetchEvent(req), null, req.url);
   assert.deepEqual(h.fetched, []);
@@ -189,4 +189,16 @@ test("fonts and icons stay cache-first", async () => {
     assert.equal((await h.fetchEvent(h.request(path))).body, `precached ${ORIGIN}${path}`, path);
   }
   assert.deepEqual(h.fetched, [], "served without touching the network");
+});
+
+test("localized subtitles and the cross-origin voice-over audio are never intercepted by the worker", async () => {
+  // Arrange
+  const h = harness();
+  await h.run("install", {});
+  // Act / Assert
+  const vtt = h.request("/assets/captions/food/ro.vtt");
+  const audio = h.request("https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a");
+  const audioRange = h.request("https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a", { headers: { range: "bytes=0-" } });
+  for (const req of [vtt, audio, audioRange]) assert.equal(await h.fetchEvent(req), null, req.url);
+  assert.deepEqual(h.fetched, [], "straight to the network and the HTTP cache");
 });
