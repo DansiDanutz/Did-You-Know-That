@@ -18,11 +18,8 @@ export const withoutArtwork = (catalog, slug) => ({
   episodes: catalog.episodes.map((e) => (e.slug === slug ? { ...e, thumbnail: null } : e)),
 });
 
-/** A YouTube id shaped like a real one, used only in tests for a native-narration upload. */
-export const TEST_NARRATION_ID = "TESTNARR0RO";
-
-/** The catalog with one episode given native-narration uploads, e.g. withNarrations(catalog, "food", { ro: id }). */
-export const withNarrations = (catalog, slug, narrations) => ({
+/** The catalog with one episode given localizations, e.g. withLocalizations(catalog, "food", { ro: { subtitles: "…" } }). */
+export const withLocalizations = (catalog, slug, localizations) => ({
   ...catalog,
-  episodes: catalog.episodes.map((e) => (e.slug === slug ? { ...e, narrations } : e)),
+  episodes: catalog.episodes.map((e) => (e.slug === slug ? { ...e, localizations } : e)),
 });

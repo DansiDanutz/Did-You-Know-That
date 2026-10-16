@@ -18,8 +18,11 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
     "status": "draft",                                  // draft | published
     "youtubeId": null, "publishedAt": null,              // set by tools/add-video.mjs
     "thumbnail": "/assets/episodes/time-compressed/thumb.png",   // our artwork (or null)
-    "narrations": { "ro": "<youtubeId>" },               // optional, published only: a separate upload narrated in
-                                                          // that language; the player embeds it for that language
+    "localizations": {                                  // optional, published only: subtitles (+ voice-over) per language
+      "ro": { "subtitles": "/assets/captions/time-compressed/ro.vtt",
+              "audio": "https://<store>.public.blob.vercel-storage.com/dub/v1/time-compressed/ro.m4a" },
+      "fr": { "subtitles": "/assets/captions/time-compressed/fr.vtt" }       // audio is optional
+    },
     "quiz": {                                           // "guess before you watch" + the per-era quiz
       "question": "…", "options": ["…", "…", "…"], "answerIndex": 1, "reveal": "…",
       "questions": [{                                   // optional; no questions = "quiz coming soon"
@@ -91,6 +94,23 @@ Episode artwork (recommended — keeps visitors' IPs away from YouTube until the
 `thumb.png` (or `.jpg`) plus `thumb.webp` (1280 wide) and `thumb-640.webp` in `assets/episodes/<slug>/`
 (`cwebp -q 82 in.png -o thumb.webp`, `cwebp -q 80 -resize 640 0 in.png -o thumb-640.webp`) and set
 `"thumbnail": "/assets/episodes/<slug>/thumb.png"`. The build fails if any of the three files is missing.
+
+### Localized subtitles and voice-over
+
+The English video is the only video. For `ro`, `fr`, `es` and `zh` an episode can add, per language, our own
+**subtitles** and an optional full-mix **voice-over**, via `localizations` in `data/episodes.json` (see the example above):
+
+- `subtitles` is required and must be exactly `/assets/captions/<episode slug>/<lang>.vtt`. It is a WebVTT file **in git**
+  (same origin), so commit it at `website/assets/captions/<slug>/<lang>.vtt`.
+- `audio` is optional. It is an AAC `.m4a` **in the public Vercel Blob store, not in git**: an `https` URL whose host ends with
+  `.public.blob.vercel-storage.com` and whose path ends with `/<episode slug>/<lang>.m4a` (convention: `dub/v1/<slug>/<lang>.m4a`).
+  The file is the whole mix (voice, music, effects) timed to the English master, so audio time equals video time.
+- Only a published episode may have `localizations`; `npm run check:site` / the tests reject any other shape.
+
+What a visitor gets: language English changes nothing. Another language with subtitles shows them over the video while the
+English sound plays; muting the English plays that language's voice-over in sync (or just silences the video when the episode has
+no audio for it yet). Languages without a localization (`de`, `it`, `pt`, and any of the four an episode lacks) keep YouTube's
+auto-translated captions. The picker lists the two kinds in separate groups. The CSP allows the audio through `media-src`.
 
 ## Commands
 
@@ -229,7 +249,7 @@ fails if any code outside the quiz's answer handler can award, or if a watch/vie
 ## Hosting
 
 Static on Vercel (project root = `website/`, no build command — generated pages are committed).
-`vercel.json` sets security headers (CSP allows only self, `i.ytimg.com` images, the `youtube-nocookie.com` frame and — once configured — the newsletter provider as a form target),
+`vercel.json` sets security headers (CSP allows only self, `i.ytimg.com` images, the `youtube-nocookie.com` frame, voice-over audio from `*.public.blob.vercel-storage.com` and — once configured — the newsletter provider as a form target),
 caching, trailing slashes and redirects from the retired game URLs (`/e/*`, `/archive/*`, `/parents/*`).
 `sw.js` is the app's service worker (see "Installable app"); it also clears the retired game's caches.
 Fonts (Montserrat, Inter, Newsreader — SIL OFL, see `fonts/OFL.txt`) are self-hosted.

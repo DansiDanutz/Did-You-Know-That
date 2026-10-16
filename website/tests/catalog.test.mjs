@@ -2,9 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN, NARRATION_LANGUAGES } from "../tools/lib/catalog.mjs";
+import { validateCatalog, addVideo, thumbnailFor, YOUTUBE_ID_PATTERN } from "../tools/lib/catalog.mjs";
 
-import { loadCatalog, loadDraftCatalog, withoutArtwork, withNarrations, TEST_NARRATION_ID } from "./fixtures.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork, withLocalizations } from "./fixtures.mjs";
 
 test("the shipped episodes.json is valid", () => {
   assert.deepEqual(validateCatalog(loadCatalog()), []);
@@ -33,28 +33,61 @@ test("validateCatalog rejects unknown status, bad keywords and a non-object cata
   assert.deepEqual(validateCatalog(null), ["catalog must be an object with an episodes array"]);
 });
 
-test("narrations: a published episode may list a native-narration video per non-English language", () => {
+const BLOB = "https://abc123.public.blob.vercel-storage.com/dub/v1";
+const goodRo = { subtitles: "/assets/captions/food/ro.vtt", audio: `${BLOB}/food/ro.m4a` };
+
+test("localizations: a published episode may carry subtitles, with or without audio, for ro, fr, es and zh", () => {
   // Arrange
-  const catalog = withNarrations(loadCatalog(), "food", { ro: TEST_NARRATION_ID });
+  const catalog = withLocalizations(loadCatalog(), "food", {
+    ro: goodRo, fr: { subtitles: "/assets/captions/food/fr.vtt" }, es: { subtitles: "/assets/captions/food/es.vtt" }, zh: { subtitles: "/assets/captions/food/zh.vtt", audio: `${BLOB}/food/zh.m4a` },
+  });
   // Act
   const errors = validateCatalog(catalog);
   // Assert
   assert.deepEqual(errors, []);
-  assert.deepEqual(NARRATION_LANGUAGES, ["ro", "de", "es", "fr", "it", "pt"]);
 });
 
-test("narrations: unknown language, English, bad id, wrong shape and draft episodes are rejected", () => {
+test("localizations: a language key outside ro, fr, es, zh is rejected", () => {
+  for (const code of ["de", "en", "xx"]) {
+    const errors = validateCatalog(withLocalizations(loadCatalog(), "food", { [code]: { subtitles: `/assets/captions/food/${code}.vtt` } }));
+    assert.ok(errors.some((e) => e.includes(`localizations."${code}" is not a localization language`)), code);
+  }
+});
+
+test("localizations: subtitles must be exactly /assets/captions/<slug>/<lang>.vtt", () => {
+  const errorsFor = (subtitles) => validateCatalog(withLocalizations(loadCatalog(), "food", { ro: { subtitles } }));
+  for (const bad of ["/assets/captions/money/ro.vtt", "/assets/captions/food/fr.vtt", "/assets/captions/food/ro.srt", "https://x.test/assets/captions/food/ro.vtt", "/assets/captions/food/ro.vtt?x=1", undefined, 5]) {
+    assert.ok(errorsFor(bad).some((e) => e.includes('localizations."ro" subtitles must be exactly "/assets/captions/food/ro.vtt"')), String(bad));
+  }
+});
+
+test("localizations: audio must be https on a public Blob store host and end with /<slug>/<lang>.m4a", () => {
+  const errorsFor = (audio) => validateCatalog(withLocalizations(loadCatalog(), "food", { ro: { subtitles: goodRo.subtitles, audio } }));
+  const bad = [
+    "http://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a",
+    "https://evil.example/dub/v1/food/ro.m4a",
+    "https://public.blob.vercel-storage.com/dub/v1/food/ro.m4a",
+    "https://abc123.public.blob.vercel-storage.com.evil.example/food/ro.m4a",
+    "https://user:pw@abc123.public.blob.vercel-storage.com/food/ro.m4a",
+    `${BLOB}/food/fr.m4a`, `${BLOB}/money/ro.m4a`, `${BLOB}/food/ro.mp3`, "not a url", "", null, 7,
+  ];
+  for (const audio of bad) assert.ok(errorsFor(audio).some((e) => e.includes('localizations."ro" audio must be an https URL')), String(audio));
+  assert.deepEqual(errorsFor(`${BLOB}/food/ro.m4a`), []);
+  assert.deepEqual(errorsFor("https://x.public.blob.vercel-storage.com/food/ro.m4a"), []);
+});
+
+test("localizations: wrong shapes and unknown fields are rejected; a draft episode cannot have them; absent stays valid", () => {
   const catalog = loadCatalog();
-  const errorsFor = (narrations) => validateCatalog(withNarrations(catalog, "food", narrations));
-  assert.ok(errorsFor({ xx: TEST_NARRATION_ID }).some((e) => e.includes('narrations."xx" is not a picker language')));
-  assert.ok(errorsFor({ en: TEST_NARRATION_ID }).some((e) => e.includes('narrations."en" is not a picker language')));
-  assert.ok(errorsFor({ ro: "short" }).some((e) => e.includes('narrations."ro" must be an 11-character youtubeId')));
-  assert.ok(errorsFor({ ro: null }).some((e) => e.includes('narrations."ro" must be an 11-character youtubeId')));
-  assert.ok(errorsFor([TEST_NARRATION_ID]).some((e) => e.includes("narrations must be an object")));
-  assert.ok(errorsFor("TESTNARR0RO").some((e) => e.includes("narrations must be an object")));
-  const draft = withNarrations(loadDraftCatalog(), "food", { ro: TEST_NARRATION_ID });
-  assert.ok(validateCatalog(draft).some((e) => e.includes("narrations are only allowed on a published episode")));
-  assert.deepEqual(validateCatalog(withNarrations(catalog, "food", undefined)), [], "absent narrations stay valid");
+  const errorsFor = (value) => validateCatalog(withLocalizations(catalog, "food", value));
+  assert.ok(errorsFor([goodRo]).some((e) => e.includes("localizations must be an object")));
+  assert.ok(errorsFor("ro").some((e) => e.includes("localizations must be an object")));
+  assert.ok(errorsFor(null).some((e) => e.includes("localizations must be an object")));
+  assert.ok(errorsFor({ ro: "x" }).some((e) => e.includes('localizations."ro" must be an object')));
+  assert.ok(errorsFor({ ro: { ...goodRo, volume: 1 } }).some((e) => e.includes('unknown field "volume"')));
+  const draft = withLocalizations(loadDraftCatalog(), "food", { ro: goodRo });
+  assert.ok(validateCatalog(draft).some((e) => e.includes("localizations are only allowed on a published episode")));
+  assert.deepEqual(errorsFor(undefined), []);
+  assert.deepEqual(errorsFor({}), []);
 });
 
 test("validateCatalog rejects a subject slug used by both an episode and a requested subject", () => {

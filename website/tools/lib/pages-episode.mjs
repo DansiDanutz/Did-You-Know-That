@@ -73,8 +73,8 @@ function watchStep(episode) {
   return html`<section class="step-panel" id="player" aria-labelledby="watch-title">
   ${stepHead(2, "watch-title", "Watch the episode", "Seven mornings, one subject — and the answer to your guess at the end.")}
   <div class="player" data-player>
-  ${videoFacade(episode)}
-  ${playerControls()}
+  <div class="player-stage" data-player-stage>${videoFacade(episode)}</div>
+  ${playerControls(episode)}
   </div>
   <p class="player-note">Nothing loads from YouTube until you press play (privacy-enhanced youtube-nocookie.com). <a href="${watchUrl(episode)}" rel="noopener">Watch on YouTube</a></p>
 </section>`;
