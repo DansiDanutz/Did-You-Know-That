@@ -121,7 +121,7 @@ test("a published episode gets a click-to-load facade and VideoObject JSON-LD", 
 test("an episode with localizations carries them on the facade as escaped JSON; others carry no attribute", () => {
   // Arrange
   const localizations = { ro: { subtitles: "/assets/captions/food/ro.vtt", audio: "https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a" }, fr: { subtitles: "/assets/captions/food/fr.vtt" } };
-  const catalog = withLocalizations(loadCatalog(), "food", localizations);
+  const catalog = withLocalizations(withoutLocalizations(loadCatalog()), "food", localizations);
   // Act
   const files = renderSite(catalog);
   const food = files["episodes/food/index.html"];
@@ -146,7 +146,7 @@ test("the language picker groups Dexty subtitles/voice-over apart from YouTube's
   const groups = (select) => [...select.matchAll(/<optgroup label="([^"]+)">([\s\S]*?)<\/optgroup>/g)].map(([, label, body]) => ({
     label, options: [...body.matchAll(/<option value="(\w+)"[^>]*>([^<]*)<\/option>/g)].map(([, code, text]) => [code, text]),
   }));
-  const withLoc = withLocalizations(loadCatalog(), "food", {
+  const withLoc = withLocalizations(withoutLocalizations(loadCatalog()), "food", {
     ro: { subtitles: "/assets/captions/food/ro.vtt", audio: "https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a" },
     fr: { subtitles: "/assets/captions/food/fr.vtt" },
   });
