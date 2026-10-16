@@ -97,14 +97,18 @@
     <div><h2 class="step-title" id="watch-title">Watch the episode</h2><p class="step-lede">Seven mornings, one subject — and the answer to your guess at the end.</p></div>
   </div>
   <div class="player" data-player>
-  <div class="facade" data-facade data-embed="https://www.youtube-nocookie.com/embed/Sw1xP57TNTk" data-title="Time, Compressed">
+  <div class="player-stage" data-player-stage><div class="facade" data-facade data-embed="https://www.youtube-nocookie.com/embed/Sw1xP57TNTk" data-title="Time, Compressed">
     <picture><source type="image/webp" srcset="/assets/episodes/time-compressed/thumb-640.webp 640w, /assets/episodes/time-compressed/thumb.webp 1280w" sizes="(min-width: 1200px) 1150px, 100vw"><img src="/assets/episodes/time-compressed/thumb.png" alt="" width="1280" height="720" decoding="async"></picture>
     <button class="facade-play" type="button" data-play><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.5v13l11-6.5-11-6.5Z"/></svg><span class="visually-hidden">Play “Time, Compressed” (loads the YouTube player)</span></button>
-  </div>
+  </div></div>
   <div class="player-controls" data-player-controls hidden>
     <button class="btn btn-ghost btn-small player-mute" type="button" data-player-mute aria-pressed="false"><span aria-hidden="true" data-mute-icon>🔊</span><span>Mute</span></button>
     <label class="player-lang"><span>Language</span>
-      <select data-player-lang><option value="en" lang="en" selected>English</option><option value="ro" lang="ro">Română</option><option value="de" lang="de">Deutsch</option><option value="es" lang="es">Español</option><option value="fr" lang="fr">Français</option><option value="it" lang="it">Italiano</option><option value="pt" lang="pt">Português</option></select>
+      <select data-player-lang>
+        <option value="en" lang="en" selected>English</option>
+        
+        <optgroup label="YouTube auto-translated captions"><option value="ro" lang="ro">Română</option><option value="de" lang="de">Deutsch</option><option value="es" lang="es">Español</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh">中文</option><option value="it" lang="it">Italiano</option><option value="pt" lang="pt">Português</option></optgroup>
+      </select>
     </label>
   </div>
   <p class="player-hint" data-player-hint aria-live="polite" hidden></p>
