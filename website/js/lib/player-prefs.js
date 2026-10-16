@@ -5,22 +5,32 @@
 // For any other language the player turns on captions and asks YouTube to auto-translate the English
 // captions (player API setOption("captions", "track", { translationLanguage })). URL parameters on
 // their own (cc_lang_pref / hl) only switch YouTube's menus; they do not translate the captions.
-// An episode can also carry native narrations (data-narrations: language → embed URL of a separate
-// upload narrated in that language); then that video plays as-is, with no forced captions.
+// Exception: a language the episode has a localization for (data-localizations, see js/lib/localizations.js)
+// uses our own subtitles (and optional voice-over) instead of YouTube's translated captions.
 
 export const STORAGE_KEY = "dyk-player-v1";
 export const DEFAULT_LANGUAGE = "en";
 
 /** Language choices, in the order the picker shows them. */
 export const LANGUAGES = Object.freeze([
-  Object.freeze({ code: "en", label: "English" }),
-  Object.freeze({ code: "ro", label: "Română" }),
-  Object.freeze({ code: "de", label: "Deutsch" }),
-  Object.freeze({ code: "es", label: "Español" }),
-  Object.freeze({ code: "fr", label: "Français" }),
-  Object.freeze({ code: "it", label: "Italiano" }),
-  Object.freeze({ code: "pt", label: "Português" }),
+  Object.freeze({ code: "en", label: "English", english: "English" }),
+  Object.freeze({ code: "ro", label: "Română", english: "Romanian" }),
+  Object.freeze({ code: "de", label: "Deutsch", english: "German" }),
+  Object.freeze({ code: "es", label: "Español", english: "Spanish" }),
+  Object.freeze({ code: "fr", label: "Français", english: "French" }),
+  Object.freeze({ code: "zh", label: "中文", english: "Chinese" }),
+  Object.freeze({ code: "it", label: "Italiano", english: "Italian" }),
+  Object.freeze({ code: "pt", label: "Português", english: "Portuguese" }),
 ]);
+
+/** Languages Dexty can localize (own subtitles, optional voice-over). The rest only get YouTube's auto-translated captions. */
+export const LOCALIZATION_LANGUAGES = Object.freeze(["ro", "fr", "es", "zh"]);
+
+/** YouTube's code for a language where it differs from ours (Simplified Chinese is zh-Hans there). */
+const YOUTUBE_CODES = Object.freeze({ zh: "zh-Hans" });
+export const youtubeLanguage = (code) => YOUTUBE_CODES[normalizeLanguage(code)] ?? normalizeLanguage(code);
+/** YouTube's interface locale (the hl parameter) for a language. */
+const youtubeLocale = (code) => (normalizeLanguage(code) === "zh" ? "zh-CN" : normalizeLanguage(code));
 
 const CODES = new Set(LANGUAGES.map((language) => language.code));
 
@@ -56,22 +66,10 @@ export function playerSrc(base, { language = DEFAULT_LANGUAGE, muted = false, au
   const code = normalizeLanguage(language);
   if (wantsCaptions(code)) {
     params.set("cc_load_policy", "1");
-    params.set("cc_lang_pref", code);
-    params.set("hl", code);
+    params.set("cc_lang_pref", youtubeLanguage(code));
+    params.set("hl", youtubeLocale(code));
   }
   return url.href;
-}
-
-/**
- * Which embed to play for a language: the episode's native narration in that language when there is one
- * (played like the English original: no forced captions), else the base embed with the caption behaviour.
- * `narrations` maps language codes to youtube-nocookie embed URLs (see tools/lib/site.mjs narrationEmbeds).
- */
-export function playerSourceFor(language, base, narrations = {}) {
-  const code = normalizeLanguage(language);
-  const native = narrations && typeof narrations === "object" && wantsCaptions(code) ? narrations[code] : undefined;
-  if (typeof native === "string" && native) return Object.freeze({ embed: native, nativeNarration: true });
-  return Object.freeze({ embed: base, nativeNarration: false });
 }
 
 /**
@@ -82,13 +80,13 @@ export function captionTrackFor(language, tracklist = []) {
   const code = normalizeLanguage(language);
   if (!wantsCaptions(code)) return null;
   const tracks = Array.isArray(tracklist) ? tracklist : [];
-  const own = tracks.find((track) => track?.languageCode === code);
-  if (own) return { languageCode: code };
+  const own = tracks.find((track) => track?.languageCode === youtubeLanguage(code));
+  if (own) return { languageCode: youtubeLanguage(code) };
   const english = tracks.find((track) => track?.languageCode?.startsWith("en"));
   return {
     languageCode: english?.languageCode ?? "en",
     kind: english ? english.kind ?? "" : "asr",
-    translationLanguage: { languageCode: code },
+    translationLanguage: { languageCode: youtubeLanguage(code) },
   };
 }
 

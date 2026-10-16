@@ -1,7 +1,8 @@
 // Reusable HTML pieces for the generated pages.
 import { html, raw } from "./html.mjs";
-import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl, narrationEmbeds } from "./site.mjs";
+import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl } from "./site.mjs";
 import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
+import { languageGroups } from "../../js/lib/localizations.js";
 
 const ICONS = {
   youtube:
@@ -42,29 +43,39 @@ export function thumbnailImage(episode, { sizes = "(min-width: 1200px) 1150px, 1
   return html`<img src="${episode.thumbnail}" alt="" width="1280" height="720"${loading} decoding="async" data-thumb-fallback="https://i.ytimg.com/vi/${episode.youtubeId}/hqdefault.jpg">`;
 }
 
-/** `data-narrations='{"ro":"…"}'` when the episode has native-narration uploads (js/ui/player.js); nothing otherwise. */
-function narrationAttribute(episode) {
-  const embeds = narrationEmbeds(episode);
-  return Object.keys(embeds).length ? html` data-narrations='${JSON.stringify(embeds)}'` : "";
+/** `data-localizations='{"ro":{"subtitles":"…"}}'` when the episode has localizations (js/ui/player.js); nothing otherwise. */
+function localizationsAttribute(episode) {
+  const localizations = episode.localizations;
+  return localizations && Object.keys(localizations).length ? html` data-localizations='${JSON.stringify(localizations)}'` : "";
 }
 
 /** Click-to-play YouTube facade: nothing loads from YouTube until the button is pressed (js/ui/player.js). */
-export const videoFacade = (episode, { sizes } = {}) => html`<div class="facade" data-facade data-embed="${embedUrl(episode)}"${narrationAttribute(episode)} data-title="${episode.title}">
+export const videoFacade = (episode, { sizes } = {}) => html`<div class="facade" data-facade data-embed="${embedUrl(episode)}"${localizationsAttribute(episode)} data-title="${episode.title}">
     ${thumbnailImage(episode, { lazy: false, ...(sizes ? { sizes } : {}) })}
     <button class="facade-play" type="button" data-play>${icon("play")}<span class="visually-hidden">Play “${episode.title}” (loads the YouTube player)</span></button>
   </div>`;
 
 /**
  * Mute toggle + language picker for an episode player (js/ui/player.js). Hidden until the script runs;
- * choosing only saves a preference — nothing loads from YouTube until play is pressed.
+ * choosing only saves a preference — nothing loads from YouTube until play is pressed. The picker groups
+ * the languages for this episode: our subtitles (and voice-over) versus YouTube's auto-translated captions.
  */
-export const playerControls = () => html`<div class="player-controls" data-player-controls hidden>
+export const playerControls = (episode = {}) => {
+  const { localized, auto } = languageGroups(episode.localizations);
+  const english = LANGUAGES.find(({ code }) => code === DEFAULT_LANGUAGE);
+  const option = ({ code, label }, text = label) => html`<option value="${code}" lang="${code}">${text}</option>`;
+  return html`<div class="player-controls" data-player-controls hidden>
     <button class="btn btn-ghost btn-small player-mute" type="button" data-player-mute aria-pressed="false"><span aria-hidden="true" data-mute-icon>🔊</span><span>Mute</span></button>
     <label class="player-lang"><span>Language</span>
-      <select data-player-lang>${LANGUAGES.map(({ code, label }) => html`<option value="${code}" lang="${code}"${code === DEFAULT_LANGUAGE ? raw(" selected") : ""}>${label}</option>`)}</select>
+      <select data-player-lang>
+        <option value="${english.code}" lang="${english.code}" selected>${english.label}</option>
+        ${localized.length ? html`<optgroup label="Subtitles and voice-over by Dexty">${localized.map((language) => option(language, `${language.label} · ${language.voiceOver ? "subtitles + voice-over" : "subtitles"}`))}</optgroup>` : ""}
+        <optgroup label="YouTube auto-translated captions">${auto.map((language) => option(language))}</optgroup>
+      </select>
     </label>
   </div>
   <p class="player-hint" data-player-hint aria-live="polite" hidden></p>`;
+};
 
 export function episodeCard(episode, index, { newest = false } = {}) {
   const published = isPublished(episode);

@@ -1,6 +1,7 @@
 // The episode catalog (data/episodes.json): validation and the pure "publish a video" transform.
 // No dependencies; every function returns new data and never mutates its input.
-import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
+import { LOCALIZATION_LANGUAGES } from "../../js/lib/player-prefs.js";
+import { localizationProblems } from "../../js/lib/localizations.js";
 
 export const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -47,29 +48,29 @@ function validateEpisode(episode, at) {
     if (!YOUTUBE_ID_PATTERN.test(episode.youtubeId ?? "")) errors.push(`${at}: a published episode needs an 11-character youtubeId`);
     if (!DATE_PATTERN.test(episode.publishedAt ?? "")) errors.push(`${at}: a published episode needs publishedAt (YYYY-MM-DD)`);
   }
-  errors.push(...validateNarrations(episode, at));
+  errors.push(...validateLocalizations(episode, at));
   return errors;
 }
 
-/** Languages a native narration may be filed under: every picker language except the English original. */
-export const NARRATION_LANGUAGES = Object.freeze(LANGUAGES.map((language) => language.code).filter((code) => code !== DEFAULT_LANGUAGE));
-
 /**
- * Optional `narrations`: { "<language code>": "<YouTube id>" } — a separate upload of the episode
- * narrated in that language (the player embeds it instead of auto-translating the English captions).
- * Only a published episode can have one; keys are picker languages other than English.
+ * Optional `localizations`: { "<ro|fr|es|zh>": { "subtitles": "/assets/captions/<slug>/<lang>.vtt", "audio"?: "<https blob URL>" } }
+ * — our own subtitles (in git) and an optional voice-over (public Vercel Blob store) for the episode.
+ * Only a published episode can have them.
  */
-export function validateNarrations(episode, at) {
-  const narrations = episode.narrations;
-  if (narrations === undefined) return [];
-  if (!narrations || typeof narrations !== "object" || Array.isArray(narrations)) {
-    return [`${at}: narrations must be an object of { "<language code>": "<youtubeId>" }`];
+export function validateLocalizations(episode, at) {
+  const localizations = episode.localizations;
+  if (localizations === undefined) return [];
+  if (!localizations || typeof localizations !== "object" || Array.isArray(localizations)) {
+    return [`${at}: localizations must be an object of { "<language code>": { "subtitles": "…", "audio"?: "…" } }`];
   }
   const errors = [];
-  if (episode.status !== "published") errors.push(`${at}: narrations are only allowed on a published episode`);
-  for (const [code, youtubeId] of Object.entries(narrations)) {
-    if (!NARRATION_LANGUAGES.includes(code)) errors.push(`${at}: narrations."${code}" is not a picker language (${NARRATION_LANGUAGES.join(", ")})`);
-    if (!YOUTUBE_ID_PATTERN.test(youtubeId ?? "")) errors.push(`${at}: narrations."${code}" must be an 11-character youtubeId`);
+  if (episode.status !== "published") errors.push(`${at}: localizations are only allowed on a published episode`);
+  for (const [code, entry] of Object.entries(localizations)) {
+    if (!LOCALIZATION_LANGUAGES.includes(code)) {
+      errors.push(`${at}: localizations."${code}" is not a localization language (${LOCALIZATION_LANGUAGES.join(", ")})`);
+      continue;
+    }
+    for (const problem of localizationProblems(entry, code, episode.slug)) errors.push(`${at}: localizations."${code}" ${problem}`);
   }
   return errors;
 }

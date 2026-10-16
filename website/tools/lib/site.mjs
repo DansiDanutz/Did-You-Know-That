@@ -23,9 +23,6 @@ export const subjectPath = (slug) => `/subject/${slug}/`;
 export const watchUrl = (episode) => `https://www.youtube.com/watch?v=${episode.youtubeId}`;
 export const embedUrlFor = (youtubeId) => `https://www.youtube-nocookie.com/embed/${youtubeId}`;
 export const embedUrl = (episode) => embedUrlFor(episode.youtubeId);
-/** Embed URLs of the episode's native-narration uploads by language, e.g. { ro: "…/embed/<id>" }; {} when none. */
-export const narrationEmbeds = (episode) =>
-  Object.fromEntries(Object.entries(episode.narrations ?? {}).map(([code, youtubeId]) => [code, embedUrlFor(youtubeId)]));
 export const isPublished = (episode) => episode.status === "published" && Boolean(episode.youtubeId);
 export const absolute = (path) => new URL(path, SITE.url).href;
 

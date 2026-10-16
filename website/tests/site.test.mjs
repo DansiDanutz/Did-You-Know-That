@@ -12,8 +12,8 @@ import { extractYoutubeId } from "../tools/add-video.mjs";
 import { escapeHtml, html } from "../tools/lib/html.mjs";
 
 const SITE_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-import { loadCatalog, loadDraftCatalog, withoutArtwork, withNarrations, TEST_NARRATION_ID } from "./fixtures.mjs";
-import { narrationEmbeds, embedUrlFor } from "../tools/lib/site.mjs";
+import { loadCatalog, loadDraftCatalog, withoutArtwork, withLocalizations } from "./fixtures.mjs";
+import { embedUrlFor } from "../tools/lib/site.mjs";
 const jsonLdBlocks = (page) => [...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 
 /** A throwaway copy of the parts of the site the tools read and write (optionally with a different catalog). */
@@ -118,26 +118,49 @@ test("a published episode gets a click-to-load facade and VideoObject JSON-LD", 
   assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=TESTID00000"/, "comment buttons point at the newest video");
 });
 
-test("an episode with native narrations carries them on the facade as escaped JSON; others carry no attribute", () => {
+test("an episode with localizations carries them on the facade as escaped JSON; others carry no attribute", () => {
   // Arrange
-  const catalog = withNarrations(loadCatalog(), "food", { ro: TEST_NARRATION_ID });
-  const expected = { ro: `https://www.youtube-nocookie.com/embed/${TEST_NARRATION_ID}` };
+  const localizations = { ro: { subtitles: "/assets/captions/food/ro.vtt", audio: "https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a" }, fr: { subtitles: "/assets/captions/food/fr.vtt" } };
+  const catalog = withLocalizations(loadCatalog(), "food", localizations);
   // Act
   const files = renderSite(catalog);
   const food = files["episodes/food/index.html"];
   const money = files["episodes/money/index.html"];
   // Assert
-  assert.deepEqual(narrationEmbeds(catalog.episodes.find((e) => e.slug === "food")), expected);
-  assert.deepEqual(narrationEmbeds(catalog.episodes.find((e) => e.slug === "money")), {});
   assert.equal(embedUrlFor("a4qHdjL8bok"), "https://www.youtube-nocookie.com/embed/a4qHdjL8bok");
-  const attribute = food.match(/data-facade data-embed="[^"]+" data-narrations='([^']*)'/);
-  assert.ok(attribute, "food facade has data-narrations right after data-embed");
-  assert.equal(attribute[1], escapeHtml(JSON.stringify(expected)), "quotes are escaped inside the attribute");
-  assert.deepEqual(JSON.parse(attribute[1].replaceAll("&quot;", '"')), expected, "the browser reads it back as JSON");
-  assert.doesNotMatch(money, /data-narrations/);
-  assert.match(files["index.html"], /data-narrations='/, "the home page features the food episode with the same facade");
-  assert.doesNotMatch(files["episodes/index.html"], /data-narrations/, "cards carry no facade");
+  const attribute = food.match(/data-facade data-embed="[^"]+" data-localizations='([^']*)'/);
+  assert.ok(attribute, "food facade has data-localizations right after data-embed");
+  assert.equal(attribute[1], escapeHtml(JSON.stringify(localizations)), "quotes are escaped inside the attribute");
+  assert.ok(attribute[1].includes("&quot;subtitles&quot;"), "no raw double quote can end the attribute early");
+  assert.deepEqual(JSON.parse(attribute[1].replaceAll("&quot;", '"')), localizations, "the browser reads it back as JSON");
+  assert.doesNotMatch(money, /data-localizations/);
+  assert.match(files["index.html"], /data-localizations='/, "the home page features the food episode with the same facade");
+  assert.doesNotMatch(files["episodes/index.html"], /data-localizations/, "cards carry no facade");
   assert.doesNotMatch(food, /<iframe/, "still nothing loads before play");
+  assert.doesNotMatch(renderSite(loadCatalog())["episodes/food/index.html"], /data-localizations/, "the committed catalog has none yet");
+});
+
+test("the language picker groups Dexty subtitles/voice-over apart from YouTube's auto-translated captions", () => {
+  // Arrange
+  const picker = (page) => page.match(/<select data-player-lang>([\s\S]*?)<\/select>/)[1];
+  const groups = (select) => [...select.matchAll(/<optgroup label="([^"]+)">([\s\S]*?)<\/optgroup>/g)].map(([, label, body]) => ({
+    label, options: [...body.matchAll(/<option value="(\w+)"[^>]*>([^<]*)<\/option>/g)].map(([, code, text]) => [code, text]),
+  }));
+  const withLoc = withLocalizations(loadCatalog(), "food", {
+    ro: { subtitles: "/assets/captions/food/ro.vtt", audio: "https://abc123.public.blob.vercel-storage.com/dub/v1/food/ro.m4a" },
+    fr: { subtitles: "/assets/captions/food/fr.vtt" },
+  });
+  // Act
+  const withPicker = picker(renderSite(withLoc)["episodes/food/index.html"]);
+  const withoutPicker = picker(renderSite(loadCatalog())["episodes/food/index.html"]);
+  // Assert
+  assert.match(withPicker, /^\s*<option value="en" lang="en" selected>English<\/option>/);
+  assert.deepEqual(groups(withPicker), [
+    { label: "Subtitles and voice-over by Dexty", options: [["ro", "Română · subtitles + voice-over"], ["fr", "Français · subtitles"]] },
+    { label: "YouTube auto-translated captions", options: [["de", "Deutsch"], ["es", "Español"], ["zh", "中文"], ["it", "Italiano"], ["pt", "Português"]] },
+  ]);
+  assert.deepEqual(groups(withoutPicker).map((g) => g.label), ["YouTube auto-translated captions"], "no localizations: one group");
+  assert.deepEqual(groups(withoutPicker)[0].options.map(([code]) => code), ["ro", "de", "es", "fr", "zh", "it", "pt"]);
 });
 
 test("pages carry SEO basics and no inline styles or inline scripts (CSP)", () => {
