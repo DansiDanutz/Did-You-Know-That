@@ -18,6 +18,8 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
     "status": "draft",                                  // draft | published
     "youtubeId": null, "publishedAt": null,              // set by tools/add-video.mjs
     "thumbnail": "/assets/episodes/time-compressed/thumb.png",   // our artwork (or null)
+    "narrations": { "ro": "<youtubeId>" },               // optional, published only: a separate upload narrated in
+                                                          // that language; the player embeds it for that language
     "quiz": {                                           // "guess before you watch" + the per-era quiz
       "question": "…", "options": ["…", "…", "…"], "answerIndex": 1, "reveal": "…",
       "questions": [{                                   // optional; no questions = "quiz coming soon"

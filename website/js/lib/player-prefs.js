@@ -5,6 +5,8 @@
 // For any other language the player turns on captions and asks YouTube to auto-translate the English
 // captions (player API setOption("captions", "track", { translationLanguage })). URL parameters on
 // their own (cc_lang_pref / hl) only switch YouTube's menus; they do not translate the captions.
+// An episode can also carry native narrations (data-narrations: language → embed URL of a separate
+// upload narrated in that language); then that video plays as-is, with no forced captions.
 
 export const STORAGE_KEY = "dyk-player-v1";
 export const DEFAULT_LANGUAGE = "en";
@@ -58,6 +60,18 @@ export function playerSrc(base, { language = DEFAULT_LANGUAGE, muted = false, au
     params.set("hl", code);
   }
   return url.href;
+}
+
+/**
+ * Which embed to play for a language: the episode's native narration in that language when there is one
+ * (played like the English original: no forced captions), else the base embed with the caption behaviour.
+ * `narrations` maps language codes to youtube-nocookie embed URLs (see tools/lib/site.mjs narrationEmbeds).
+ */
+export function playerSourceFor(language, base, narrations = {}) {
+  const code = normalizeLanguage(language);
+  const native = narrations && typeof narrations === "object" && wantsCaptions(code) ? narrations[code] : undefined;
+  if (typeof native === "string" && native) return Object.freeze({ embed: native, nativeNarration: true });
+  return Object.freeze({ embed: base, nativeNarration: false });
 }
 
 /**
