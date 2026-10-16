@@ -1218,7 +1218,25 @@
           "source": "Bank of England Quarterly Bulletin 2014 Q1 (McLeay, Radia & Thomas)"
         }
       ],
-      "commentPrompt": "Which century’s money would you have trusted most?"
+      "commentPrompt": "Which century’s money would you have trusted most?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/money/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/ro.m4a"
+        },
+        "fr": {
+          "subtitles": "/assets/captions/money/fr.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/fr.m4a"
+        },
+        "es": {
+          "subtitles": "/assets/captions/money/es.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/es.m4a"
+        },
+        "zh": {
+          "subtitles": "/assets/captions/money/zh.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/money/zh.m4a"
+        }
+      }
     },
     {
       "number": 5,
