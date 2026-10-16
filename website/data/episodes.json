@@ -281,7 +281,25 @@
           "source": "Claudia Hammond, Time Warped (2012)"
         }
       ],
-      "commentPrompt": "If you could wake up in any century, from 1500 to 2100, which would you choose — and why?"
+      "commentPrompt": "If you could wake up in any century, from 1500 to 2100, which would you choose — and why?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/time-compressed/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/time-compressed/ro.m4a"
+        },
+        "fr": {
+          "subtitles": "/assets/captions/time-compressed/fr.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/time-compressed/fr.m4a"
+        },
+        "es": {
+          "subtitles": "/assets/captions/time-compressed/es.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/time-compressed/es.m4a"
+        },
+        "zh": {
+          "subtitles": "/assets/captions/time-compressed/zh.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/time-compressed/zh.m4a"
+        }
+      }
     },
     {
       "number": 2,
