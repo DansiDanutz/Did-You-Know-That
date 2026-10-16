@@ -583,7 +583,25 @@
           "source": "NASA · Sun facts"
         }
       ],
-      "commentPrompt": "In which century would you rather watch the Sun rise?"
+      "commentPrompt": "In which century would you rather watch the Sun rise?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/the-sun/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/the-sun/ro.m4a"
+        },
+        "fr": {
+          "subtitles": "/assets/captions/the-sun/fr.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/the-sun/fr.m4a"
+        },
+        "es": {
+          "subtitles": "/assets/captions/the-sun/es.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/the-sun/es.m4a"
+        },
+        "zh": {
+          "subtitles": "/assets/captions/the-sun/zh.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/the-sun/zh.m4a"
+        }
+      }
     },
     {
       "number": 3,
