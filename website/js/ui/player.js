@@ -249,7 +249,15 @@ const isTranslatedTo = (track, language) =>
 
 /** YouTube's captions in the chosen language (a few tries: the captions module loads after playback starts). Not with our own subtitles. */
 function applyCaptions(state, tracklist) {
-  if (state.ownSubtitles) return;
+  if (state.ownSubtitles) {
+    // Our subtitles are on: switch YouTube's own captions off, or a caption setting the viewer saved on YouTube
+    // would show a second line over ours.
+    if (state.captionTries < CAPTION_ATTEMPTS) {
+      state.captionTries += 1;
+      send(state, "setOption", ["captions", "track", {}]); // tested in Chrome: this clears the track, unloadModule alone did not
+    }
+    return;
+  }
   const track = captionTrackFor(state.prefs.language, tracklist);
   if (!track || state.captionTries >= CAPTION_ATTEMPTS) return;
   state.captionTries += 1;
