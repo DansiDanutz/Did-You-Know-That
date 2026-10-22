@@ -39,7 +39,7 @@ const hero = (catalog) => {
     </picture>
   </h1>
   <div class="wrap hero-inner">
-    <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, school, money, food, whatever you vote for — from 1500 to 2100.</p>
+    <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, school, money, food, medicine, whatever you vote for — from 1500 to 2100.</p>
     <ol class="how" aria-label="How it works">
       ${HOW_IT_WORKS.map(([glyph, title, text], i) => html`<li class="how-step"><span class="how-icon" aria-hidden="true">${icon(glyph)}</span><span class="how-text"><strong>${i + 1}. ${title}</strong><span>${text}</span></span></li>`)}
     </ol>
@@ -209,7 +209,7 @@ const about = () => html`<section class="section section-about" id="about" aria-
     <div>
       <p class="section-kicker">About</p>
       <h2 id="about-title" class="section-title">Questions you never asked. Answers you won’t forget.</h2>
-      <p>Did You Know That? is a YouTube series about how ordinary life changed. Each episode follows one subject — time, the Sun, school, money, food and whatever you vote for next — from the year 1500 to today, then looks at 2100 using published data from sources like the UN and NASA.</p>
+      <p>Did You Know That? is a YouTube series about how ordinary life changed. Each episode follows one subject — time, the Sun, school, money, food, medicine and whatever you vote for next — from the year 1500 to today, then looks at 2100 using published data from sources like the UN and NASA.</p>
       <p>In every era you wake up as someone else: <em>what people believed, what they did every day, and what changed it.</em> Every number on screen has a source. Predictions are always labelled: <strong>a scenario, not a fact.</strong></p>
       <p class="sign-off">${SITE.signOff}</p>
       <p class="cta-row"><a class="btn btn-ghost" href="${HANDLE_URL}" rel="noopener">${icon("youtube")}<span>${SITE.handle}</span></a></p>

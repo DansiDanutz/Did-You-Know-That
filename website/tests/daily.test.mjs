@@ -18,8 +18,8 @@ const addDays = (iso, n) => new Date(Date.parse(`${iso}T12:00:00Z`) + n * 86_400
 
 test("the pool holds every published episode's questions, in a stable order; drafts never take part", () => {
   const pool = dailyPool(catalog);
-  assert.equal(pool.length, 40);
-  assert.deepEqual([...new Set(pool.map((p) => p.slug))], ["time-compressed", "the-sun", "school", "money", "food"]);
+  assert.equal(pool.length, 48);
+  assert.deepEqual([...new Set(pool.map((p) => p.slug))], ["time-compressed", "the-sun", "school", "money", "food", "medicine"]);
   assert.ok(pool.every((p) => p.card && p.card.id === p.question.card), "every daily question shows its fact card");
   assert.deepEqual(dailyPool(loadDraftCatalog()), []);
   assert.equal(dailyFor(loadDraftCatalog(), DAY), null);
@@ -33,6 +33,9 @@ test("an episode joins the daily pool the day after it premieres, so publishing 
   assert.deepEqual(slugsOn("2026-10-13"), ["time-compressed", "the-sun"]);
   assert.deepEqual(slugsOn("2026-10-14"), ["time-compressed", "the-sun", "school"]);
   assert.deepEqual(slugsOn("2026-10-15"), ["time-compressed", "the-sun", "school", "money", "food"]);
+  assert.deepEqual(slugsOn("2026-10-23"), ["time-compressed", "the-sun", "school", "money", "food", "medicine"]);
+  const withoutMedicine = { ...catalog, episodes: catalog.episodes.filter((e) => e.slug !== "medicine") };
+  assert.deepEqual(dailyFor(catalog, "2026-10-22"), dailyFor(withoutMedicine, "2026-10-22"), "Medicine's premiere day keeps the question it had before");
   const withoutFood = { ...catalog, episodes: catalog.episodes.filter((e) => e.slug !== "food") };
   assert.deepEqual(dailyFor(catalog, "2026-10-14"), dailyFor(withoutFood, "2026-10-14"), "Food's premiere day keeps the question it had before");
   const withoutMoney = { ...catalog, episodes: catalog.episodes.filter((e) => e.slug !== "money") };
@@ -43,9 +46,9 @@ test("an episode joins the daily pool the day after it premieres, so publishing 
 
 test("the same date always gives the same question, and consecutive days cover the whole pool without repeats", () => {
   assert.deepEqual(dailyFor(catalog, DAY), dailyFor(catalog, DAY));
-  const start = "2026-10-15";
+  const start = "2026-10-23";
   const pool = dailyPool(catalog, start).map((p) => `${p.slug}:${p.question.id}`);
-  assert.equal(pool.length, 40, "all five episodes are eligible from the day after Food's premiere");
+  assert.equal(pool.length, 48, "all six episodes are eligible from the day after Medicine's premiere");
   const ids = pool.map((_, i) => {
     const pick = dailyFor(catalog, addDays(start, i));
     return `${pick.slug}:${pick.question.id}`;

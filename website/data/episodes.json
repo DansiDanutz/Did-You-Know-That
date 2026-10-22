@@ -1637,39 +1637,328 @@
           "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/food/zh.m4a"
         }
       }
-    }
-  ],
-  "requested": [
+    },
     {
-      "subject": "Medicine",
+      "number": 6,
       "slug": "medicine",
-      "status": "next",
+      "title": "Medicine",
+      "subject": "Medicine",
+      "subjectSlug": "medicine",
       "keywords": [
         "medicine",
         "doctors",
         "health",
         "illness",
-        "vaccines",
+        "cures",
         "hospitals",
+        "life expectancy",
+        "lifespan",
+        "ambroise pare",
+        "paré",
+        "pare",
+        "turin",
+        "gunshot wounds",
+        "boiling oil",
+        "humours",
+        "balance",
         "bloodletting",
         "george washington",
-        "cures"
+        "washington",
+        "mount vernon",
+        "virginia",
+        "sore throat",
+        "ignaz semmelweis",
+        "semmelweis",
+        "vienna",
+        "handwashing",
+        "childbed fever",
+        "maternity",
+        "midwives",
+        "penicillin",
+        "albert alexander",
+        "oxford",
+        "antibiotics",
+        "tuberculosis",
+        "streptomycin",
+        "clinical trial",
+        "randomized controlled trial",
+        "bradford hill",
+        "james lind",
+        "smallpox",
+        "vaccines",
+        "vaccination",
+        "eradication",
+        "somalia",
+        "merca",
+        "ali maow maalin",
+        "prevention",
+        "antibiotic resistance",
+        "superbugs",
+        "evidence",
+        "compared with what",
+        "2100"
       ],
-      "pitch": "In 1799, George Washington’s doctors drained, by some estimates, around two fifths of his blood. So how did we find out what really heals us?"
-    },
+      "hook": "In 1799, George Washington’s doctors drained, by some estimates, around two fifths of his blood. They were trained, and they meant well. So how did anyone ever find out what really works?",
+      "question": "Did you know that in 1799 George Washington’s doctors drained, by some estimates, around two fifths of his blood?",
+      "guess": "In 1948, 55 tuberculosis patients got a new drug and 52 got bed rest alone. After six months, how many of the 55 had died? Guess in the comments, then stay to the end and check.",
+      "summary": "Seven mornings, seven patients: a gunshot wound in a French army camp near Turin, George Washington at Mount Vernon, a new mother in Vienna’s General Hospital, the first penicillin patient in Oxford, tuberculosis patients on a British ward, a child in Merca, Somalia, the town of the last natural smallpox case — and a 2100 scenario, clearly labelled, where the cures race the germs.",
+      "status": "published",
+      "youtubeId": "_RD_Qz66FCg",
+      "publishedAt": "2026-10-22",
+      "thumbnail": "/assets/episodes/medicine/thumb.png",
+      "quiz": {
+        "question": "In 1948, 55 tuberculosis patients got streptomycin and 52 got bed rest alone. After six months, how many of the 55 had died?",
+        "options": [
+          "Four",
+          "Fourteen",
+          "About half"
+        ],
+        "answerIndex": 0,
+        "reveal": "Four of the 55 — against fourteen of the 52 who got bed rest alone. Chance decided who got the drug, and then everyone was counted.",
+        "questions": [
+          {
+            "id": "q1537",
+            "era": "1537",
+            "question": "In an army camp near Turin in 1537, the boiling oil for gunshot wounds ran out. What did the surgeon Ambroise Paré use instead?",
+            "options": [
+              "More boiling oil, from the next camp",
+              "A salve of egg yolk, rose oil and turpentine",
+              "Nothing at all",
+              "Cold river water"
+            ],
+            "answerIndex": 1,
+            "reveal": "A plain salve of egg yolk, rose oil and turpentine. By his own account, those men slept better and their wounds swelled less — he wrote it up years later.",
+            "card": "medicine-1537",
+            "source": "M4"
+          },
+          {
+            "id": "q1799",
+            "era": "1799",
+            "question": "On his last day in December 1799, how much blood did George Washington’s doctors take, by most counts?",
+            "options": [
+              "About a cupful",
+              "About half a litre",
+              "More than 80 ounces — about two and a half litres",
+              "None — they refused to bleed him"
+            ],
+            "answerIndex": 2,
+            "reveal": "More than 80 ounces, about two and a half litres, over roughly twelve hours — by some estimates around two fifths of his blood. He died that night.",
+            "card": "medicine-1799",
+            "source": "M2"
+          },
+          {
+            "id": "q1846",
+            "era": "1846",
+            "question": "Vienna’s General Hospital had two maternity clinics: one trained doctors, one trained midwives. In 1840–46, where did more mothers die?",
+            "options": [
+              "In the doctors’ clinic — about 2.7 times as many",
+              "In the midwives’ clinic",
+              "About the same in both"
+            ],
+            "answerIndex": 0,
+            "reveal": "In the doctors’ clinic: 98.4 deaths per 1,000 births, against 36.2 in the midwives’ clinic. The doctors came straight from the dissecting room.",
+            "card": "medicine-1846",
+            "source": "M12"
+          },
+          {
+            "id": "q1847",
+            "era": "1847",
+            "question": "In April 1847, 18.3% of mothers in Semmelweis’s clinic died. He made everyone wash their hands in chlorinated lime. What was the rate in July?",
+            "options": [
+              "Still about 18%",
+              "1.2%",
+              "About 10%",
+              "Zero"
+            ],
+            "answerIndex": 1,
+            "reveal": "1.2%. He picked chlorinated lime to get rid of the smell of dead tissue — nobody yet knew about germs. He counted, and the pattern spoke.",
+            "card": "medicine-1847",
+            "source": "M5"
+          },
+          {
+            "id": "q1941",
+            "era": "1941",
+            "question": "In February 1941 in Oxford, a police officer was the first person treated with penicillin. He got better within a day. Why did he still die?",
+            "options": [
+              "The drug was poisonous",
+              "The penicillin ran out",
+              "He refused the injections",
+              "A bomb hit the hospital"
+            ],
+            "answerIndex": 1,
+            "reveal": "The penicillin ran out. The team even recovered it from his urine to use again, but after five days it was gone, and he relapsed. The limit was the supply, not the idea.",
+            "card": "medicine-1941",
+            "source": "M13"
+          },
+          {
+            "id": "q1948",
+            "era": "1948",
+            "question": "In the 1948 streptomycin trial, the drug was scarce. How was it decided which patients got it?",
+            "options": [
+              "The sickest patients went first",
+              "The doctors chose",
+              "Random numbers in sealed envelopes",
+              "The patients drew straws"
+            ],
+            "answerIndex": 2,
+            "reveal": "Random sampling numbers in sealed envelopes — the doctors didn’t know who would get it. Then both groups were counted, fairly.",
+            "card": "medicine-1948",
+            "source": "M7"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "Ali Maow Maalin of Merca, Somalia, was the last person to catch smallpox naturally, in 1977. How many human diseases have been wiped out so far?",
+            "options": [
+              "One — smallpox",
+              "About ten",
+              "None — smallpox is still around",
+              "Every disease with a vaccine"
+            ],
+            "answerIndex": 0,
+            "reveal": "Just one: smallpox. Eradication was announced by the WHO on 8 May 1980. Ali Maow Maalin recovered and later worked to vaccinate against polio.",
+            "card": "medicine-today",
+            "source": "M8"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "Washington’s doctors trusted authority. What did Semmelweis and the 1948 trial do that changed medicine?",
+            "options": [
+              "They trusted older books",
+              "They compared a treated group with an untreated one, and counted",
+              "They used stronger drugs",
+              "They asked the patients to vote"
+            ],
+            "answerIndex": 1,
+            "reveal": "They asked a simple question: compared with what? Semmelweis counted deaths before and after handwashing; the 1948 trial let chance decide and then counted. Medicine got better because it learned to test itself.",
+            "card": "medicine-answer",
+            "source": "M7"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1537",
+          "place": "An army camp near Turin",
+          "line": "Smoke, drums, and the groans of wounded men.",
+          "rung": "Balance",
+          "saw": "Balance. The body is a scale, and the doctor adjusts it."
+        },
+        {
+          "year": "1799",
+          "place": "Mount Vernon, Virginia",
+          "line": "It’s December. Snow and sleet blow across the fields.",
+          "rung": "Authority",
+          "saw": "Authority. Trust the expert, even when the expert bleeds you."
+        },
+        {
+          "year": "1847",
+          "place": "Vienna",
+          "line": "A cold morning on the maternity ward of the General Hospital.",
+          "rung": "A pattern",
+          "saw": "Pattern. Count the deaths, then look for the cause."
+        },
+        {
+          "year": "1941",
+          "place": "Oxford",
+          "line": "It’s wartime, and the lights are low.",
+          "rung": "A cure",
+          "saw": "A cure. A drug that finds the germ and leaves you alone."
+        },
+        {
+          "year": "1948",
+          "place": "A hospital ward in Britain",
+          "line": "Patients with tuberculosis lie in rows. The only sound is coughing.",
+          "rung": "Proof",
+          "saw": "Proof. Don’t believe it. Test it, fairly."
+        },
+        {
+          "year": "Today",
+          "place": "Merca, Somalia",
+          "line": "Fishing boats rest on the sand.",
+          "rung": "Prevention",
+          "saw": "Prevention. Stop the disease before it starts."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning hasn’t happened yet. But we can follow the evidence.",
+          "rung": "An arms race?",
+          "saw": "In 1799, doctors trusted authority. In 2100, what will you trust?",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "medicine-1537",
+          "year": "1537",
+          "fact": "In an army camp near Turin, the surgeon Ambroise Paré ran out of the boiling oil used on gunshot wounds and dressed them with egg yolk, rose oil and turpentine instead. By his own account, those men slept better and swelled less. Medicine then meant balance: four humours, and bleeding to set them right. In England, a newborn could expect about 35 years.",
+          "source": "Britannica and Delaware Academy of Medicine on Ambroise Paré · PMC1796715 on humoral theory · Wrigley & Schofield, via Our World in Data"
+        },
+        {
+          "id": "medicine-1799",
+          "year": "1799",
+          "fact": "On 14 December 1799, George Washington’s doctors bled him four times in about twelve hours: more than 80 ounces, about two and a half litres — by some estimates around two fifths of his blood. One doctor proposed a tracheotomy and was overruled. He died that night. Worldwide, a newborn in 1800 could expect about 29 years.",
+          "source": "Morens, Am Surg 2008 (PubMed 18705585) · Hektoen International · PBS NewsHour · UN/Riley via Our World in Data"
+        },
+        {
+          "id": "medicine-1846",
+          "year": "1846",
+          "fact": "Vienna’s General Hospital had two maternity clinics. In 1840–46, the First, which trained doctors, lost 98.4 mothers per 1,000 births; the Second, which trained midwives, lost 36.2. In 1846 the First Clinic’s rate was five times the Second’s.",
+          "source": "PMC3807776 · MJA 2018"
+        },
+        {
+          "id": "medicine-1847",
+          "year": "1847",
+          "fact": "In April 1847, 18.3% of mothers in Ignaz Semmelweis’s clinic died. From mid-May he made everyone wash in chlorinated lime: 2.2% in June, 1.2% in July, 1.9% in August. He chose it to remove the smell of dead tissue — germs weren’t understood yet. In Britain, a newborn could expect about 38 years.",
+          "source": "Semmelweis’s First Clinic figures, 1847 · PMC3807776 · Our World in Data"
+        },
+        {
+          "id": "medicine-1941",
+          "year": "1941",
+          "fact": "On 12 February 1941, Albert Alexander, an Oxford police officer, became the first patient treated with penicillin. He improved within a day, but the supply ran out after five days, even though the team recovered penicillin from his urine; he died on 15 March. In Britain, a newborn could expect about 61 years.",
+          "source": "University of Oxford, 75 years of penicillin in people · Hektoen International · Our World in Data"
+        },
+        {
+          "id": "medicine-1948",
+          "year": "1948",
+          "fact": "In the Medical Research Council’s 1948 trial, 55 tuberculosis patients got streptomycin and bed rest and 52 got bed rest alone, assigned by random numbers in sealed envelopes. In six months, 4 of the 55 died against 14 of the 52. In Britain, a newborn could expect about 68 years.",
+          "source": "BMJ 1948;2:769–782, via Senn, Dicing with Death, and Armitage · Our World in Data"
+        },
+        {
+          "id": "medicine-today",
+          "year": "Today",
+          "fact": "Ali Maow Maalin, a hospital cook in Merca, Somalia, was the last person to catch smallpox naturally, in October 1977. He recovered. The WHO announced eradication on 8 May 1980 — the only human disease eradicated so far. Worldwide, a newborn can now expect about 73 years.",
+          "source": "WHO and NLM on smallpox eradication · UN World Population Prospects 2024"
+        },
+        {
+          "id": "medicine-answer",
+          "year": "The answer",
+          "fact": "Medicine didn’t get better because doctors got smarter. It got better when someone asked: compared with what? Semmelweis counted deaths before and after handwashing; the 1948 trial let chance decide who got the drug, then counted. James Lind had compared six cures for scurvy in 1747.",
+          "source": "PMC3807776 · BMJ 1948 via Senn and Armitage · James Lind, A Treatise of the Scurvy (1753), James Lind Library"
+        }
+      ],
+      "commentPrompt": "Which century’s doctor would you trust, and why?"
+    }
+  ],
+  "requested": [
     {
-      "subject": "Night",
-      "slug": "night",
-      "status": "idea",
+      "subject": "Light",
+      "slug": "light",
+      "status": "next",
       "keywords": [
+        "light",
         "night",
         "dark",
         "darkness",
         "street lights",
         "candles",
-        "electric light"
+        "lamps",
+        "electric light",
+        "cost of light"
       ],
-      "pitch": "How we pushed back the dark, one lamp at a time."
+      "pitch": "In Britain, light now costs less than one three-thousandth of what it did in 1800. So what happened when we switched the night off?"
     },
     {
       "subject": "Music",
