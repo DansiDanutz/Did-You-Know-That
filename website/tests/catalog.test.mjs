@@ -186,14 +186,14 @@ test("validateCatalog checks every per-era quiz question", () => {
   assert.ok(withQuestions([{ id: "Bad Id" }, ...questions.slice(1)]).some((e) => e.includes("id must be lowercase-kebab-case")));
 });
 
-test("every question of episodes 01–05 is traceable to RESEARCH.md and has exactly one answer", () => {
+test("every question of episodes 01–06 is traceable to RESEARCH.md and has exactly one answer", () => {
   const catalog = loadCatalog();
-  for (const slug of ["time-compressed", "the-sun", "school", "money", "food"]) {
+  for (const slug of ["time-compressed", "the-sun", "school", "money", "food", "medicine"]) {
     const episode = catalog.episodes.find((e) => e.slug === slug);
     assert.equal(episode.quiz.questions.length, 8, `${slug} has one question per era plus the answer`);
     assert.ok(episode.quiz.questions.some((q) => q.era === "The answer"), `${slug} ends with the answer`);
     for (const q of episode.quiz.questions) {
-      assert.match(q.source, /^[FA]\d+[a-z]?$/);
+      assert.match(q.source, /^[FAM]\d+[a-z]?$/);
       assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length);
       assert.equal(new Set(q.options).size, q.options.length);
     }
@@ -223,7 +223,16 @@ test("every Food quiz source is a fact number defined in episodes/005-food/RESEA
   assert.ok(food.quiz.questions.every((q) => q.card.startsWith("food-")), "every Food question unlocks a Food card");
 });
 
-test("the shipped catalog has five live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
+test("every Medicine quiz source is a fact number defined in episodes/006-medicine/RESEARCH.md", () => {
+  const research = readFileSync(new URL("../../episodes/006-medicine/RESEARCH.md", import.meta.url), "utf8");
+  const medicine = loadCatalog().episodes.find((e) => e.slug === "medicine");
+  assert.equal(medicine.quiz.questions.length, 8);
+  for (const q of medicine.quiz.questions) assert.match(research, new RegExp(`^\\| ${q.source} \\|`, "m"), `${q.id} cites ${q.source}`);
+  assert.ok(medicine.quiz.questions.every((q) => q.era !== "2100"), "the 2100 prediction is never quizzed");
+  assert.ok(medicine.quiz.questions.every((q) => q.card.startsWith("medicine-")), "every Medicine question unlocks a Medicine card");
+});
+
+test("the shipped catalog has six live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
   const live = loadCatalog().episodes.filter((e) => e.status === "published");
   assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
     ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
@@ -231,12 +240,14 @@ test("the shipped catalog has five live episodes with their real YouTube ids (ep
     ["school", "rchexCb48LM", "2026-10-13"],
     ["money", "GkEBiDLa1WY", "2026-10-14"],
     ["food", "a4qHdjL8bok", "2026-10-14"],
+    ["medicine", "_RD_Qz66FCg", "2026-10-22"],
   ]);
   assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "every episode ships its own artwork");
   for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "school"), "School is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "money"), "Money is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "food"), "Food is an episode now, not an upcoming subject");
-  assert.equal(loadCatalog().requested[0].slug, "medicine", "episode 06 (Medicine) leads the upcoming subjects");
-  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["medicine"], "Medicine is announced as next");
+  assert.ok(!loadCatalog().requested.some((r) => r.slug === "medicine"), "Medicine is an episode now, not an upcoming subject");
+  assert.equal(loadCatalog().requested[0].slug, "light", "episode 07 (Light) leads the upcoming subjects");
+  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["light"], "Light is announced as next");
 });

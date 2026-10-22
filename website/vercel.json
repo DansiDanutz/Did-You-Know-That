@@ -8,6 +8,7 @@
     { "source": "/archive/:path*", "destination": "/#series", "permanent": false },
     { "source": "/parents/:path*", "destination": "/#about", "permanent": false },
     { "source": "/card-showcase.html", "destination": "/collection/", "permanent": false },
+    { "source": "/subject/night/", "destination": "/subject/light/", "permanent": false },
     { "source": "/index.html", "destination": "/", "permanent": true }
   ],
   "headers": [
