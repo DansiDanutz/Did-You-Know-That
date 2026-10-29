@@ -221,7 +221,7 @@ main:focus { outline: none; }
 .hero-dust { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.7; }
 .hero-banner { position: relative; max-width: 2160px; margin: 0 auto; }
 /* The 3D particle scene (js/ui/particles.js) sits over the banner and adds light only (screen blend), fading out above and below it. */
-.hero-3d { position: absolute; inset: -18% 0 -22%; z-index: 1; width: 100%; pointer-events: none; mix-blend-mode: screen; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); }
+.hero-3d { position: absolute; inset: -18% 0 -22%; z-index: 1; width: 100%; height: 140%; pointer-events: none; mix-blend-mode: screen; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); }
 .hero-inner { position: relative; z-index: 2; }
 .hero-banner picture { display: block; }
 /* The whole banner, never zoomed: a 2.4:1 cut on phones, 4:1 from 640 px. Its edges melt into the sky. */
@@ -751,7 +751,7 @@ main:focus { outline: none; }
    buttons get a shine sweep, cards lean toward the pointer in 3D (--tilt-x/--tilt-y) and their art zooms.
    Without the script the glow sits in the centre, so it still works. */
 .btn, .chip, .rung-btn, .how-step, .ep-nav-link { position: relative; overflow: hidden; isolation: isolate; }
-.card-link { --glow: var(--accent); }
+.card-link { --glow: var(--accent); position: relative; }
 .next-tile { --glow: var(--cyan); position: relative; overflow: hidden; }
 .continue { --glow: var(--green); position: relative; overflow: hidden; }
 .btn, .chip, .rung-btn, .how-step, .ep-nav-link { --glow: var(--cyan); }
@@ -793,7 +793,14 @@ main:focus { outline: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .card-link:is(:hover, :focus-visible), .next-tile:hover, .continue:hover, .btn:hover { transform: none; }
+  /* hover keeps its colour and glow, but nothing moves, scales or sweeps */
+  .card-link:is(:hover, :focus-visible), .next-tile:hover, .continue:hover, .btn:hover, .chip:hover, .rung-btn:hover, .ep-nav-link:hover, .how-step:hover,
+  .btn:hover .icon, .how-step:hover .how-icon, .card-link:hover .card-thumb img, .card-link:hover .card-art-word, .continue:hover .continue-go { transform: none; }
+  .card-link:hover .card-play { animation: none; }
+  .node a:hover .node-orb, .node a:focus-visible .node-orb { transform: none; }
+  .facade-play:hover { transform: translate(-50%, -50%); }
+  .ep-hero-art:hover { transform: rotate(1.5deg); }
+  .btn::after, .card-thumb::after, .card-art::after { display: none; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
 
