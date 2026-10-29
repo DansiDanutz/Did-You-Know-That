@@ -16,6 +16,7 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
     "keywords": ["time", "clock", "sleep", "weekend"],  // words that find it in search
     "hook": "…", "question": "…", "guess": "…", "summary": "…", "commentPrompt": "…",
     "status": "draft",                                  // draft | published
+    "format": "explainer",                              // optional: a sub-series explainer (e.g. Medicine 1 · Weight); omit for 1500 → 2100 episodes
     "youtubeId": null, "publishedAt": null,              // set by tools/add-video.mjs
     "thumbnail": "/assets/episodes/time-compressed/thumb.png",   // our artwork (or null)
     "localizations": {                                  // optional, published only: subtitles (+ voice-over) per language
@@ -52,7 +53,7 @@ The "how we saw it" ladder (`eras[].rung` ≤ 28 characters + `eras[].saw`, the 
 interactive ladder on the episode page. If one era has a rung, every era needs both fields.
 
 The build validates `quiz.questions`: unique ids, 3–4 unique options, `answerIndex` on one of them, a `reveal`,
-a `source` like `F18`, `F4b` or `A3` (RESEARCH.md fact numbers), and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
+a `source` like `F18`, `F4b`, `A3` or `W5` (RESEARCH.md fact numbers), and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
 one question (so the "all cards" bonus is reachable). Every question must trace to a verified fact in the
 episode's `RESEARCH.md`; 2100 predictions are never quiz facts.
 

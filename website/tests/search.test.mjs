@@ -40,9 +40,10 @@ test("a keyword shared by episodes returns both", () => {
 });
 
 test("requested subjects are searchable and marked as requested", () => {
-  const result = top("weight");
+  const result = top("diabetes");
   assert.equal(result.kind, "requested");
-  assert.equal(result.url, "/subject/weight/");
+  assert.equal(result.url, "/subject/diabetes/");
+  assert.equal(top("ghrelin").url, "/episodes/weight/", "Weight is an episode now");
 });
 
 test("episode results link to their episode page", () => {

@@ -33,6 +33,7 @@ function validateEpisode(episode, at) {
   } else {
     errors.push(...validateLadder(episode.eras, at));
   }
+  if (episode.format !== undefined && episode.format !== "explainer") errors.push(`${at}: format must be "explainer" when set (omit it for a main-series episode)`);
   errors.push(...validateQuiz(episode.quiz, at));
   const factsValid = Array.isArray(episode.facts) && episode.facts.every((card) => SLUG_PATTERN.test(card?.id ?? "") && isText(card.year) && isText(card.fact) && isText(card.source));
   if (!factsValid) errors.push(`${at}: facts must be an array of { id, year, fact, source }`);
@@ -93,8 +94,8 @@ function validateQuiz(quiz, at) {
 }
 
 const QUESTION_OPTIONS = { min: 3, max: 4 };
-// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, Medicine's M1–M13 or Light's L1–L17.
-const SOURCE_PATTERN = /^[FAML]\d+[a-z]?$/;
+// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, Medicine's M1–M13, Light's L1–L17 or Weight's W1–W17.
+const SOURCE_PATTERN = /^[FAMLW]\d+[a-z]?$/;
 const normalized = (text) => String(text).trim().toLowerCase().replace(/\s+/g, " ");
 
 function validateQuestion(question, at, cardIds) {
@@ -111,7 +112,7 @@ function validateQuestion(question, at, cardIds) {
     errors.push(`${at}: answerIndex must point at exactly one of the options`);
   }
   if (!cardIds.has(question.card)) errors.push(`${at}: card "${question.card}" is not one of this episode's fact cards`);
-  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3", "M7" or "L3"`);
+  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3", "M7", "L3" or "W5"`);
   return errors;
 }
 

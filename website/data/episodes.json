@@ -2240,25 +2240,272 @@
         }
       ],
       "commentPrompt": "Streetlights or stars: if you had to give one up, which would it be, and why?"
+    },
+    {
+      "number": 8,
+      "slug": "weight",
+      "title": "Weight",
+      "subject": "Weight",
+      "subjectSlug": "weight",
+      "keywords": [
+        "weight",
+        "obesity",
+        "ultra-processed food",
+        "ultra processed food",
+        "processed food",
+        "upf",
+        "calories",
+        "overeating",
+        "diet",
+        "nutrition",
+        "hunger",
+        "fullness",
+        "pyy",
+        "ghrelin",
+        "gut",
+        "brain",
+        "hormones",
+        "nih",
+        "kevin hall",
+        "clinical center",
+        "maryland",
+        "eatwell guide",
+        "england",
+        "bruegel",
+        "fat kitchen",
+        "health",
+        "medicine",
+        "medicine 1"
+      ],
+      "hook": "Twenty people check into a hospital. None of them is sick. Two menus, matched on the plate: same calories, same sugar, fat, salt and fibre. Eat as much as you want. One of the menus quietly made people eat far more. Why?",
+      "question": "Did you know that two menus with the same calories on the plate can make people eat very different amounts?",
+      "guess": "Two menus, the same calories on the plate, eat as much as you like. Did people eat the same amount of each? Guess in the comments, then watch and check.",
+      "summary": "Medicine 1 of 10, a short explainer with one experiment and one mystery: twenty healthy adults on a hospital ward in Maryland, two menus matched on the plate, a nurse with a scale and a clock. Then the clues, the gut-to-brain signal that says “enough”, the honest limits, a 2025 test in England, and Bruegel’s two kitchens from 1563.",
+      "youtubeId": "o5NXRlNytjo",
+      "publishedAt": "2026-10-30",
+      "thumbnail": "/assets/episodes/weight/thumb.png",
+      "commentPrompt": "Which menu would you pick: the cheaper, faster one, or the one cooked from scratch?",
+      "quiz": {
+        "question": "Two menus with the same calories on the plate, eat as much as you like. What happened?",
+        "options": [
+          "People ate the same amount of each",
+          "A few more calories of the ultra-processed menu",
+          "About 500 calories a day more of the ultra-processed menu"
+        ],
+        "answerIndex": 2,
+        "reveal": "About 500 calories a day more, without feeling any hungrier, and they didn’t like it better.",
+        "questions": [
+          {
+            "id": "q-ward",
+            "era": "2019",
+            "question": "Twenty people check into a hospital ward in Maryland. None of them is sick. How long do they get to eat each meal before a nurse takes the tray away?",
+            "options": [
+              "Fifteen minutes",
+              "Thirty minutes",
+              "Up to an hour",
+              "As long as they like"
+            ],
+            "answerIndex": 2,
+            "reveal": "Up to an hour. Then the tray went away and staff weighed what was left, every meal, for four weeks.",
+            "card": "weight-ward",
+            "source": "W4"
+          },
+          {
+            "id": "q-matched",
+            "era": "2019",
+            "question": "The two menus were matched on the plate. What was matched?",
+            "options": [
+              "Only the calories",
+              "Calories, sugar, fat, salt and fibre",
+              "Only the portion size",
+              "Nothing: they were completely different"
+            ],
+            "answerIndex": 1,
+            "reveal": "Calories, sugar, fat, salt and fibre. On paper they were the same food; only the processing differed.",
+            "card": "weight-matched",
+            "source": "W3"
+          },
+          {
+            "id": "q-kilo",
+            "era": "2019",
+            "question": "After two weeks on the ultra-processed menu, what had happened to people’s weight?",
+            "options": [
+              "They lost about a kilo",
+              "No change",
+              "They gained about a kilo",
+              "They gained about five kilos"
+            ],
+            "answerIndex": 2,
+            "reveal": "They gained about a kilo, and lost about a kilo on the other menu.",
+            "card": "weight-kilo",
+            "source": "W6"
+          },
+          {
+            "id": "q-taste",
+            "era": "2019",
+            "question": "So did people find the ultra-processed food tastier?",
+            "options": [
+              "Much tastier",
+              "About the same",
+              "Much worse"
+            ],
+            "answerIndex": 1,
+            "reveal": "About the same. They rated both menus about equally pleasant, and they weren’t hungrier either.",
+            "card": "weight-taste",
+            "source": "W7"
+          },
+          {
+            "id": "q-speed",
+            "era": "2019",
+            "question": "The nurses timed every meal. How much faster did people eat on the ultra-processed menu?",
+            "options": [
+              "About 2 calories a minute faster",
+              "About 17 calories a minute faster",
+              "About 170 calories a minute faster"
+            ],
+            "answerIndex": 1,
+            "reveal": "About 17 calories a minute faster. Faster and denser, with the same hunger.",
+            "card": "weight-speed",
+            "source": "W8"
+          },
+          {
+            "id": "q-signal",
+            "era": "2019",
+            "question": "On the unprocessed menu, what did the “enough” hormone, PYY, do?",
+            "options": [
+              "It went up",
+              "It went down",
+              "It didn’t change"
+            ],
+            "answerIndex": 0,
+            "reveal": "It went up, and the “eat” hormone, ghrelin, went down.",
+            "card": "weight-signal",
+            "source": "W9"
+          },
+          {
+            "id": "q-england",
+            "era": "2025",
+            "question": "In 2025 a team in England tested two healthy diets, minimally processed versus ultra-processed. How did the minimally processed one do?",
+            "options": [
+              "No difference",
+              "About twice the weight loss",
+              "About ten times the weight loss"
+            ],
+            "answerIndex": 1,
+            "reveal": "About twice the weight loss: around 2% of body weight against 1%. Even a “healthy” processed menu lost out.",
+            "card": "weight-england",
+            "source": "W12"
+          },
+          {
+            "id": "q-price",
+            "era": "2019",
+            "question": "In the first study, which week of food cost less?",
+            "options": [
+              "The ultra-processed week",
+              "The unprocessed week",
+              "They cost the same"
+            ],
+            "answerIndex": 0,
+            "reveal": "The ultra-processed week: about $106, against $151. The food that’s easiest to overeat was also the cheapest.",
+            "card": "weight-price",
+            "source": "W13"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1563",
+          "place": "Antwerp",
+          "line": "Pieter Bruegel draws two kitchens: in one, people feast; in the other, they starve. Plenty is the dream."
+        },
+        {
+          "year": "2019",
+          "place": "A hospital ward in Maryland",
+          "line": "Twenty people, four weeks, two menus matched on the plate. Eat as much as you want."
+        },
+        {
+          "year": "2025",
+          "place": "England",
+          "line": "Fifty-five adults, two healthy diets, eight weeks each. Does the processing still matter?"
+        },
+        {
+          "year": "Today",
+          "place": "Everywhere",
+          "line": "One in seven people on Earth lives with obesity. The food that’s easiest to overeat is also the cheapest and the fastest."
+        }
+      ],
+      "facts": [
+        {
+          "id": "weight-ward",
+          "year": "2019",
+          "fact": "Twenty healthy adults, ten men and ten women, checked into the NIH Clinical Center, a hospital research ward in Bethesda, Maryland. For four weeks every meal was served on a tray; they had up to an hour to eat, and staff weighed whatever was left.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-matched",
+          "year": "2019",
+          "fact": "The two menus were matched as served for calories, energy density, sugar, fat, salt and fibre. Only the processing differed: two weeks ultra-processed, two weeks unprocessed, in random order.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-kilo",
+          "year": "2019",
+          "fact": "On the ultra-processed menu people ate about 500 more calories a day (508 ± 106 kcal). In two weeks they gained about 0.9 kg; on the unprocessed menu they lost about 0.9 kg.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-taste",
+          "year": "2019",
+          "fact": "They rated both menus about equally pleasant and familiar, and they were no hungrier on either. The extra calories didn’t come from better taste.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-speed",
+          "year": "2019",
+          "fact": "Every meal was timed. On the ultra-processed menu people ate faster: about 17 more calories a minute. Bite for bite, the ultra-processed food (drinks aside) was also far denser in calories.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-signal",
+          "year": "2019",
+          "fact": "On the unprocessed menu the fullness hormone PYY rose and the hunger hormone ghrelin fell, compared with the start. The researchers’ best explanation: fast, calorie-dense food outruns the signal that says “enough”. They say the exact cause is still open.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        },
+        {
+          "id": "weight-england",
+          "year": "2025",
+          "fact": "In England, 55 adults ate two healthy diets that both followed the UK’s Eatwell Guide, eight weeks each. Both led to weight loss, but the minimally processed one did about twice as well: around 2% of body weight, against about 1%.",
+          "source": "Dicken SJ et al., Nature Medicine, 2025, doi 10.1038/s41591-025-03842-0"
+        },
+        {
+          "id": "weight-price",
+          "year": "2019",
+          "fact": "In the 2019 study the ultra-processed week was the cheaper one: about $106 a week against $151 for the unprocessed menu, at 2,000 calories a day and US supermarket prices.",
+          "source": "Hall KD et al., Cell Metabolism 30(1):67–77, 2019 (NIH Clinical Center inpatient trial)"
+        }
+      ],
+      "format": "explainer",
+      "status": "published"
     }
   ],
   "requested": [
     {
-      "subject": "Weight",
-      "slug": "weight",
+      "subject": "Diabetes",
+      "slug": "diabetes",
       "status": "next",
       "keywords": [
-        "weight",
-        "obesity",
-        "body",
-        "body weight",
-        "fat",
-        "diet",
+        "diabetes",
+        "insulin",
+        "blood sugar",
+        "type 1",
+        "type 2",
+        "toronto",
+        "1921",
         "health",
-        "wealth",
-        "plenty"
+        "medicine",
+        "medicine 2"
       ],
-      "pitch": "In 1500, a heavy body could be a sign of wealth. Today, one in seven people on Earth lives with obesity. So how did plenty turn into a problem?"
+      "pitch": "What happened in one Toronto lab in 1921?"
     },
     {
       "subject": "Music",
