@@ -14,7 +14,7 @@ const STAR_SHARE = 0.3; // seed.w below this = far star
 const SHAPE_SHARE = 0.38; // seed.w in [STAR_SHARE, STAR_SHARE + SHAPE_SHARE) = builds the "?"
 const CYCLE_MS = 14000;
 // where the bulb and the "?" sit, as fractions of the banner image (wide crop / phone crop)
-const FOCUS = { wide: { a: [0.16, 0.52], b: [0.92, 0.47] }, narrow: { a: [0.13, 0.5], b: null } };
+const FOCUS = { wide: { a: [0.29, 0.52], b: [0.88, 0.48] }, narrow: { a: [0.12, 0.48], b: null } };
 
 const VERTEX = `
 attribute vec4 aSeed; attribute vec3 aShape; attribute vec3 aColor;

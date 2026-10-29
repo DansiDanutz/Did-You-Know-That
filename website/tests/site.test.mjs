@@ -271,12 +271,12 @@ test("the build removes pages for subjects that left the catalog", () => {
 test("the home hero is the real banner: art-directed, preloaded, sized, and the page h1", () => {
   const home = renderSite(withoutLocalizations(loadCatalog()))["index.html"];
   assert.match(home, /<h1 id="hero-title" class="hero-banner">/);
-  assert.match(home, /<img class="hero-banner-img" src="\/assets\/brand\/hero-1600\.jpg" width="1600" height="238" alt="Did You Know That\?" fetchpriority="high"/);
-  assert.match(home, /<source type="image\/webp" media="\(max-width: 639px\)" srcset="\/assets\/brand\/hero-mobile-800\.webp 800w/);
-  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-mobile-800\.webp[^"]*" imagesizes="100vw" media="\(max-width: 639px\)"/);
-  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-1600\.webp[^"]*" imagesizes="143vw" media="\(min-width: 640px\)"/);
+  assert.match(home, /<img class="hero-banner-img" src="\/assets\/brand\/hero-wide-1600\.jpg" width="1600" height="400" alt="Did You Know That\?" fetchpriority="high"/);
+  assert.match(home, /<source type="image\/webp" media="\(max-width: 639px\)" srcset="\/assets\/brand\/hero-tall-800\.webp 800w/);
+  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-tall-800\.webp[^"]*" imagesizes="100vw" media="\(max-width: 639px\)"/);
+  assert.match(home, /<link rel="preload" as="image" type="image\/webp" imagesrcset="\/assets\/brand\/hero-wide-1600\.webp[^"]*" imagesizes="min\(100vw, 2160px\)" media="\(min-width: 640px\)"/);
   assert.match(home, /href="https:\/\/www\.youtube\.com\/channel\/UC7j29XhArv5tlRqQj2qAb4Q\?sub_confirmation=1"[^>]*>.*Subscribe on YouTube/);
-  for (const file of ["hero-1600.jpg", "hero-1600.webp", "hero-2560.webp", "hero-mobile-800.webp", "hero-mobile-1200.webp", "hero-mobile-1200.jpg"]) {
+  for (const file of ["hero-wide-1600.jpg", "hero-wide-1600.webp", "hero-wide-2560.webp", "hero-tall-800.webp", "hero-tall-1200.webp", "hero-tall-1200.jpg"]) {
     assert.ok(existsSync(join(SITE_ROOT, "assets", "brand", file)), file);
   }
   assert.doesNotMatch(renderSite(withoutLocalizations(loadCatalog()))["collection/index.html"], /rel="preload" as="image"/, "only the home page preloads the banner");

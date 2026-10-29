@@ -12,8 +12,8 @@ const SEARCH_EXAMPLES = ["time", "sun", "sleep", "weekend", "phone"];
 // The real channel banner is the hero. Phones get a tighter crop so the wordmark stays legible;
 // both sources are preloaded by media query so the LCP image starts downloading with the HTML.
 const BANNER = {
-  mobile: { media: "(max-width: 639px)", srcset: "/assets/brand/hero-mobile-800.webp 800w, /assets/brand/hero-mobile-1200.webp 1200w", sizes: "100vw", width: 1200, height: 272 },
-  wide: { media: "(min-width: 640px)", srcset: "/assets/brand/hero-1600.webp 1600w, /assets/brand/hero-2560.webp 2560w", sizes: "143vw", width: 1600, height: 238 },
+  mobile: { media: "(max-width: 639px)", srcset: "/assets/brand/hero-tall-800.webp 800w, /assets/brand/hero-tall-1200.webp 1200w", sizes: "100vw", width: 1200, height: 499 },
+  wide: { media: "(min-width: 640px)", srcset: "/assets/brand/hero-wide-1600.webp 1600w, /assets/brand/hero-wide-2560.webp 2560w", sizes: "min(100vw, 2160px)", width: 1600, height: 400 },
 };
 const heroPreloads = [BANNER.mobile, BANNER.wide].map(({ media, srcset, sizes }) => ({ type: "image/webp", media, srcset, sizes }));
 
@@ -33,9 +33,9 @@ const hero = (catalog) => {
     <span class="hero-glow" aria-hidden="true"></span>
     <picture>
       <source type="image/webp" media="${BANNER.mobile.media}" srcset="${BANNER.mobile.srcset}" sizes="${BANNER.mobile.sizes}" width="${BANNER.mobile.width}" height="${BANNER.mobile.height}">
-      <source type="image/jpeg" media="${BANNER.mobile.media}" srcset="/assets/brand/hero-mobile-1200.jpg" width="${BANNER.mobile.width}" height="${BANNER.mobile.height}">
+      <source type="image/jpeg" media="${BANNER.mobile.media}" srcset="/assets/brand/hero-tall-1200.jpg" width="${BANNER.mobile.width}" height="${BANNER.mobile.height}">
       <source type="image/webp" srcset="${BANNER.wide.srcset}" sizes="${BANNER.wide.sizes}" width="${BANNER.wide.width}" height="${BANNER.wide.height}">
-      <img class="hero-banner-img" src="/assets/brand/hero-1600.jpg" width="${BANNER.wide.width}" height="${BANNER.wide.height}" alt="Did You Know That?" fetchpriority="high" decoding="async">
+      <img class="hero-banner-img" src="/assets/brand/hero-wide-1600.jpg" width="${BANNER.wide.width}" height="${BANNER.wide.height}" alt="Did You Know That?" fetchpriority="high" decoding="async">
     </picture>
     <canvas class="hero-3d" data-particles aria-hidden="true"></canvas>
   </h1>
