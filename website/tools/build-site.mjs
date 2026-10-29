@@ -6,6 +6,7 @@
 //   --root <dir>                          build another copy of the site (used by tests / dry runs)
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 import { validateCatalog, isLocalThumbnail } from "./lib/catalog.mjs";
@@ -32,6 +33,18 @@ export function loadCatalog(root) {
   const problems = [...errors, ...missing];
   if (problems.length) throw new Error(`data/episodes.json is invalid:\n- ${problems.join("\n- ")}`);
   return catalog;
+}
+
+/** Each local thumbnail's content hash (its three files), so pages point at a new URL when the artwork changes. */
+export function withThumbnailVersions(root, catalog) {
+  const versionOf = (thumbnail) => {
+    const hash = createHash("sha256");
+    for (const path of Object.values(thumbnailSources(thumbnail))) hash.update(readFileSync(join(root, path)));
+    return hash.digest("hex").slice(0, 8);
+  };
+  const episodes = catalog.episodes.map((episode) =>
+    isLocalThumbnail(episode.thumbnail) ? { ...episode, thumbnailVersion: versionOf(episode.thumbnail) } : episode);
+  return { ...catalog, episodes };
 }
 
 /** data/special-cards.json (optional; without it there is no Card Vault page). Art must exist on disk. */
@@ -99,7 +112,7 @@ function serviceWorker(root, files) {
 
 export function buildSite(root = DEFAULT_ROOT, { check = false } = {}) {
   const site = loadSiteConfig(root);
-  const catalog = loadCatalog(root);
+  const catalog = withThumbnailVersions(root, loadCatalog(root));
   const special = loadSpecialCards(root, catalog);
   const pages = { ...renderSite(special ? { ...catalog, special } : catalog, site), ...vercelConfig(root, site) };
   const files = { ...pages, ...serviceWorker(root, pages) };

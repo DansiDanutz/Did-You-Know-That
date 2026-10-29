@@ -30,6 +30,21 @@ test("the committed pages match data/episodes.json (run npm run build:site)", ()
   assert.deepEqual({ outdated: result.outdated, stale: result.stale }, { outdated: [], stale: [] });
 });
 
+test("a replaced thumbnail gets a new URL, so a week-long asset cache can't keep the old image", () => {
+  const dir = copySite();
+  try {
+    buildSite(dir);
+    const versionOf = () => readFileSync(join(dir, "episodes", "food", "index.html"), "utf8").match(/food\/thumb-640\.webp\?v=([0-9a-f]{8}) 640w/)?.[1];
+    const before = versionOf();
+    assert.ok(before, "the srcset carries a content version");
+    writeFileSync(join(dir, "assets", "episodes", "food", "thumb-640.webp"), "replaced artwork");
+    buildSite(dir);
+    assert.notEqual(versionOf(), before);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("html escapes interpolated text but keeps nested markup", () => {
   assert.equal(escapeHtml(`<a href="x">'&'</a>`), "&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;");
   assert.equal(String(html`<p>${"<b>"}${html`<i>ok</i>`}${null}${["a", "b"]}</p>`), "<p>&lt;b&gt;<i>ok</i>ab</p>");

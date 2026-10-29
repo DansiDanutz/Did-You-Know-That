@@ -37,10 +37,15 @@ export const commentUrl = (catalog) => {
   return latest ? watchUrl(latest) : CHANNEL_URL;
 };
 
-/** A local thumbnail "/assets/x/thumb.png" ships with "thumb.webp" (1280 wide) and "thumb-640.webp". */
-export function thumbnailSources(thumbnail) {
+/**
+ * A local thumbnail "/assets/x/thumb.png" ships with "thumb.webp" (1280 wide) and "thumb-640.webp".
+ * With a `version` (a content hash, see build-site.mjs) each URL gets "?v=<version>", so a replaced image
+ * reaches visitors whose browser still holds the old one (assets are cached for a week).
+ */
+export function thumbnailSources(thumbnail, version) {
   const base = thumbnail.replace(/\.(png|jpg)$/, "");
-  return { fallback: thumbnail, webp: `${base}.webp`, webpSmall: `${base}-640.webp` };
+  const query = version ? `?v=${version}` : "";
+  return { fallback: `${thumbnail}${query}`, webp: `${base}.webp${query}`, webpSmall: `${base}-640.webp${query}` };
 }
 export const isLocalAsset = (path) => typeof path === "string" && path.startsWith("/assets/");
 

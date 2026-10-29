@@ -37,7 +37,7 @@ export const statusPill = (episode) =>
 export function thumbnailImage(episode, { sizes = "(min-width: 1200px) 1150px, 100vw", lazy = true } = {}) {
   const loading = lazy ? html` loading="lazy"` : "";
   if (isLocalAsset(episode.thumbnail)) {
-    const { fallback, webp, webpSmall } = thumbnailSources(episode.thumbnail);
+    const { fallback, webp, webpSmall } = thumbnailSources(episode.thumbnail, episode.thumbnailVersion);
     return html`<picture><source type="image/webp" srcset="${webpSmall} 640w, ${webp} 1280w" sizes="${sizes}"><img src="${fallback}" alt="" width="1280" height="720"${loading} decoding="async"></picture>`;
   }
   return html`<img src="${episode.thumbnail}" alt="" width="1280" height="720"${loading} decoding="async" data-thumb-fallback="https://i.ytimg.com/vi/${episode.youtubeId}/hqdefault.jpg">`;
