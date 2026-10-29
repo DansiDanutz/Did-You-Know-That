@@ -37,6 +37,7 @@ const hero = (catalog) => {
       <source type="image/webp" srcset="${BANNER.wide.srcset}" sizes="${BANNER.wide.sizes}" width="${BANNER.wide.width}" height="${BANNER.wide.height}">
       <img class="hero-banner-img" src="/assets/brand/hero-1600.jpg" width="${BANNER.wide.width}" height="${BANNER.wide.height}" alt="Did You Know That?" fetchpriority="high" decoding="async">
     </picture>
+    <canvas class="hero-3d" data-particles aria-hidden="true"></canvas>
   </h1>
   <div class="wrap hero-inner">
     <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, school, money, food, medicine, light, whatever you vote for — from 1500 to 2100.</p>

@@ -2,6 +2,8 @@
 // the pages are complete, readable HTML without JavaScript.
 const features = [
   ["[data-dust]", () => import("./ui/hero.js")],
+  ["[data-particles]", () => import("./ui/particles.js")],
+  [".btn, .card-link, .next-tile, .continue, .how-step, .chip", () => import("./ui/hover.js")],
   ["[data-search]", () => import("./ui/search-ui.js")],
   ["[data-facade]", () => import("./ui/player.js")],
   ["[data-quiz]", () => import("./ui/quiz.js")],
