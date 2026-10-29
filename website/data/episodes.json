@@ -1940,25 +1940,325 @@
         }
       ],
       "commentPrompt": "Which century’s doctor would you trust, and why?"
+    },
+    {
+      "number": 7,
+      "slug": "light",
+      "title": "Light",
+      "subject": "Light",
+      "subjectSlug": "light",
+      "keywords": [
+        "light",
+        "light pollution",
+        "night",
+        "dark",
+        "darkness",
+        "night sky",
+        "stars",
+        "milky way",
+        "street lights",
+        "candles",
+        "tallow",
+        "rushlight",
+        "beeswax",
+        "curfew",
+        "flanders",
+        "lamps",
+        "gas lamps",
+        "gas light",
+        "frederick winsor",
+        "pall mall",
+        "london",
+        "gas light and coke company",
+        "kerosene",
+        "abraham gesner",
+        "edwin drake",
+        "titusville",
+        "pennsylvania",
+        "oil",
+        "whales",
+        "electric light",
+        "thomas edison",
+        "edison",
+        "pearl street",
+        "manhattan",
+        "j. p. morgan",
+        "led",
+        "blue led",
+        "shuji nakamura",
+        "tokushima",
+        "japan",
+        "nobel prize",
+        "cost of light",
+        "william nordhaus",
+        "globe at night",
+        "dark sky",
+        "tucson",
+        "france",
+        "2100"
+      ],
+      "hook": "In Britain, light now costs less than one three-thousandth of what it did in 1800. You’d think we’d pocket the savings. We didn’t. So what happened when we switched the night off?",
+      "question": "Did you know that, at today’s rate, a child born where 250 stars are visible will see about 100 by the age of 18?",
+      "guess": "Think of ten people anywhere on Earth. How many of them live under a night sky that our lights have brightened? Two? Five? More than eight? Guess in the comments, then stay to the end and check.",
+      "summary": "Six evenings, six new ways to beat the dark: a rushlight and a curfew bell in a market town in Flanders, the first gas lamps on Pall Mall in London, kerosene and the first commercial oil well in Titusville, Pennsylvania, Edison’s Pearl Street Station lighting a few blocks of lower Manhattan, the blue LED made in Tokushima, Japan, and your own window tonight — and a 2100 scenario, clearly labelled, where the dark has to be protected.",
+      "status": "published",
+      "youtubeId": "HbsIy38RGvI",
+      "publishedAt": "2026-10-29",
+      "thumbnail": "/assets/episodes/light/thumb.png",
+      "quiz": {
+        "question": "Think of ten people anywhere on Earth. How many of them live under a night sky that our lights have brightened?",
+        "options": [
+          "Two",
+          "Five",
+          "More than eight"
+        ],
+        "answerIndex": 2,
+        "reveal": "More than eight in ten — and in the United States and Europe, more than 99 people in 100. Every time light got cheaper, we used more, until it filled the sky.",
+        "questions": [
+          {
+            "id": "q1500",
+            "era": "1500",
+            "question": "In a Flemish market town in 1500, an evening bell ends the day. It’s called the curfew. What does the word come from?",
+            "options": [
+              "“Close the gates”",
+              "“Cover the fire”",
+              "“Call the watch”",
+              "“Count the sheep”"
+            ],
+            "answerIndex": 1,
+            "reveal": "“Cover the fire”, from the old French covrefeu. When the bell rang, you banked the hearth and the day was over.",
+            "card": "light-1500",
+            "source": "L1"
+          },
+          {
+            "id": "q1800",
+            "era": "1800",
+            "question": "The economist William Nordhaus priced light in hours of work. In ancient Babylon, one ordinary bulb’s worth of light for an hour cost about 41.5 hours of work. What did it cost in America in 1800, with a tallow candle?",
+            "options": [
+              "About 5.4 hours",
+              "About 20 minutes",
+              "Less than a second",
+              "Nothing — candles were free"
+            ],
+            "answerIndex": 0,
+            "reveal": "About 5.4 hours of work. The price had fallen since Babylon, but light was still a luxury you made last.",
+            "card": "light-1800",
+            "source": "L3"
+          },
+          {
+            "id": "q1807",
+            "era": "1807",
+            "question": "In June 1807, Frederick Winsor lit part of Pall Mall in London with coal gas. What was the public display for?",
+            "options": [
+              "The victory at Trafalgar",
+              "New Year’s Eve",
+              "King George III’s birthday",
+              "The opening of Parliament"
+            ],
+            "answerIndex": 2,
+            "reveal": "King George III’s birthday, on 4 June 1807. In 1812, Parliament chartered the Gas Light and Coke Company, the world’s first gas company.",
+            "card": "light-1807",
+            "source": "L5"
+          },
+          {
+            "id": "q1859",
+            "era": "1859",
+            "question": "After Edwin Drake struck oil at Titusville in 1859, kerosene filled the lamps. A 1938 history said oil gave kerosene to the world — and life to what?",
+            "options": [
+              "The candle makers",
+              "The few remaining whales",
+              "The railways",
+              "The coal mines"
+            ],
+            "answerIndex": 1,
+            "reveal": "“Life to the few remaining whales.” The line is from Stotz’s 1938 gas-industry history, quoted by the economist William Nordhaus.",
+            "card": "light-1859",
+            "source": "L4"
+          },
+          {
+            "id": "q1882",
+            "era": "1882",
+            "question": "On 4 September 1882, Edison’s Pearl Street Station lit a few blocks of lower Manhattan. Where was Edison when the lights came on?",
+            "options": [
+              "At the switch in the power station",
+              "At home in bed",
+              "In the office of the banker J. P. Morgan",
+              "On a ship in the harbour"
+            ],
+            "answerIndex": 2,
+            "reveal": "In J. P. Morgan’s office, at Drexel, Morgan & Co., wired with about 106 lamps. An engineer on Pearl Street closed the switch, and about 400 lamps lit on day one.",
+            "card": "light-1882",
+            "source": "L10"
+          },
+          {
+            "id": "q1993",
+            "era": "1993",
+            "question": "In 1993, Shuji Nakamura in Tokushima, Japan made the first high-brightness LED of the colour everyone was missing. Which colour?",
+            "options": [
+              "Red",
+              "Blue",
+              "Orange",
+              "Yellow"
+            ],
+            "answerIndex": 1,
+            "reveal": "Blue. Red LEDs existed long before, but efficient blue LEDs made bright, energy-saving white light possible. Nakamura, Akasaki and Amano shared the 2014 Nobel Prize in Physics for it.",
+            "card": "light-1993",
+            "source": "L12"
+          },
+          {
+            "id": "qtoday",
+            "era": "Today",
+            "question": "Go to your window tonight. The Milky Way is hidden from how much of humanity?",
+            "options": [
+              "Hardly anyone",
+              "About one person in a hundred",
+              "More than a third",
+              "Everyone"
+            ],
+            "answerIndex": 2,
+            "reveal": "More than a third of humanity — 60% of Europeans and nearly 80% of North Americans.",
+            "card": "light-today",
+            "source": "L13"
+          },
+          {
+            "id": "qanswer",
+            "era": "The answer",
+            "question": "In Britain, from 1800 to 2000, light came to cost less than one three-thousandth as much. What did people do?",
+            "options": [
+              "Saved the money",
+              "Used about the same",
+              "Used about 6,500 times more each",
+              "Switched more lights off"
+            ],
+            "answerIndex": 2,
+            "reveal": "Each person used about 6,500 times more light. We didn’t save the light; we spent it. In 1500, the scarce thing was light. Today, the scarce thing is the dark.",
+            "card": "light-answer",
+            "source": "L11"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1500",
+          "place": "A market town in Flanders",
+          "line": "It’s late autumn. The light is going, and the church bell starts to ring.",
+          "rung": "A luxury",
+          "saw": "A luxury. You make it yourself, and you make it last."
+        },
+        {
+          "year": "1807",
+          "place": "Pall Mall, London",
+          "line": "It’s a warm June evening, and a crowd is staring at a row of iron posts.",
+          "rung": "A service",
+          "saw": "A service. It comes to you, through a pipe."
+        },
+        {
+          "year": "1859",
+          "place": "Titusville, Pennsylvania",
+          "line": "It’s August. The air smells of mud and tar, and men are cheering around a wooden derrick.",
+          "rung": "A liquid",
+          "saw": "A liquid. Something you buy in a can."
+        },
+        {
+          "year": "1882",
+          "place": "Lower Manhattan",
+          "line": "It’s the fourth of September, a Monday afternoon. Horses, newspapers, the clatter of the street.",
+          "rung": "A network",
+          "saw": "A network. You plug into a system you’ll never see."
+        },
+        {
+          "year": "1993",
+          "place": "Tokushima, Japan",
+          "line": "Inside a small company lab, an engineer is staring at a chip.",
+          "rung": "A crystal",
+          "saw": "A crystal. Light without fire."
+        },
+        {
+          "year": "Today",
+          "place": "Your window",
+          "line": "Well, tonight. Count the lights you can see. Streetlights, signs, the office that never switches off.",
+          "rung": "Too cheap to switch off",
+          "saw": "Too cheap to switch off. Every time the price fell, we bought more."
+        },
+        {
+          "year": "2100",
+          "place": "Prediction",
+          "line": "That morning hasn’t happened yet. But we can follow the evidence.",
+          "rung": "Cover the light?",
+          "saw": "In 1500, the bell meant cover the fire. In 2100, it might mean cover the light.",
+          "prediction": true
+        }
+      ],
+      "facts": [
+        {
+          "id": "light-1500",
+          "year": "1500",
+          "fact": "“Curfew” comes from the old French covrefeu, “cover the fire”: an evening bell told households to cover or bank the hearth. Most evenings were lit by tallow candles, made from animal fat, smoky and smelly, or by rushlights, a dried rush dipped in fat, lasting a few minutes to an hour. Beeswax cost several times more and went mainly to the church and the rich.",
+          "source": "Merriam-Webster and Etymonline on “curfew” · Gilbert White, via Wikipedia “Rushlight” · Johnston Collection, The art of lighting"
+        },
+        {
+          "id": "light-1800",
+          "year": "1800",
+          "fact": "William Nordhaus priced light in hours of work for 1,000 lumen-hours, about one ordinary bulb for an hour. A Babylonian sesame-oil lamp, around 1750 BC: 41.5 hours. A tallow candle in America in 1800: 5.4 hours.",
+          "source": "Nordhaus, The History of Lighting Suggests Not, in The Economics of New Goods (NBER, 1997), table 1.4"
+        },
+        {
+          "id": "light-1807",
+          "year": "1807",
+          "fact": "In June 1807, Frederick Albert Winsor lit part of Pall Mall in London with coal gas, with a public display for King George III’s birthday on 4 June; by the end of the year, 13 lamps lined the south side. In 1812, Parliament chartered the Gas Light and Coke Company, the world’s first gas company.",
+          "source": "Museum of London, Gas lamps illuminated London · London Remembers, 100 Pall Mall"
+        },
+        {
+          "id": "light-1859",
+          "year": "1859",
+          "fact": "In 1846, the Canadian Abraham Gesner distilled a lamp fuel from coal, sold as kerosene. On 27 August 1859, Edwin Drake struck oil at Titusville, Pennsylvania, 69 feet down. A 1938 history said petroleum “gave kerosene to the world, and life to the few remaining whales”. By 1870, an hour of light cost about 20 minutes of work.",
+          "source": "AOGHS, American oil history · Stotz (1938), quoted in Nordhaus (1997) · Nordhaus (1997), table 1.4"
+        },
+        {
+          "id": "light-1882",
+          "year": "1882",
+          "fact": "At about 3 p.m. on 4 September 1882, an engineer closed the switch at Edison’s Pearl Street Station. About 400 lamps lit up in a few blocks of lower Manhattan; Edison himself was at Drexel, Morgan & Co., J. P. Morgan’s office, wired with about 106 lamps. By 1900, an hour of light cost about 13 minutes of work.",
+          "source": "ETHW Milestone, Pearl Street Station 1882 · Nordhaus (1997), table 1.4"
+        },
+        {
+          "id": "light-1993",
+          "year": "1993",
+          "fact": "In 1993, Shuji Nakamura of Nichia in Tokushima, Japan, made the first high-brightness blue LED. With Akasaki and Amano he shared the 2014 Nobel Prize in Physics, for efficient blue LEDs that enabled bright, energy-saving white light. In 1992, with a compact fluorescent bulb, an hour of light cost about 0.4 seconds of work.",
+          "source": "nobelprize.org, Physics 2014 · UCSB Materials · Nordhaus (1997), table 1.4"
+        },
+        {
+          "id": "light-today",
+          "year": "Today",
+          "fact": "More than 80% of the world’s people, and more than 99% in the US and Europe, live under light-polluted skies. The Milky Way is hidden from more than a third of humanity, 60% of Europeans and nearly 80% of North Americans. Star counts by citizen scientists suggest the night sky is brightening by about 9.6% a year.",
+          "source": "Falchi et al., Science Advances 2016 · Kyba et al., Science 2023 (Globe at Night)"
+        },
+        {
+          "id": "light-answer",
+          "year": "The answer",
+          "fact": "In Britain, from 1800 to 2000, lighting came to cost less than one three-thousandth as much. Each person used about 6,500 times more light, and the country 25,000 times more, while GDP per head rose about 15 times. We didn’t save the light; we spent it. In 1500, the scarce thing was light. Today, it’s the dark.",
+          "source": "Fouquet & Pearson, Energy Journal 27(1), 2006 · Our World in Data, price of lighting"
+        }
+      ],
+      "commentPrompt": "Streetlights or stars: if you had to give one up, which would it be, and why?"
     }
   ],
   "requested": [
     {
-      "subject": "Light",
-      "slug": "light",
+      "subject": "Weight",
+      "slug": "weight",
       "status": "next",
       "keywords": [
-        "light",
-        "night",
-        "dark",
-        "darkness",
-        "street lights",
-        "candles",
-        "lamps",
-        "electric light",
-        "cost of light"
+        "weight",
+        "obesity",
+        "body",
+        "body weight",
+        "fat",
+        "diet",
+        "health",
+        "wealth",
+        "plenty"
       ],
-      "pitch": "In Britain, light now costs less than one three-thousandth of what it did in 1800. So what happened when we switched the night off?"
+      "pitch": "In 1500, a heavy body could be a sign of wealth. Today, one in seven people on Earth lives with obesity. So how did plenty turn into a problem?"
     },
     {
       "subject": "Music",
