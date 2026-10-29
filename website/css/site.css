@@ -797,6 +797,9 @@ main:focus { outline: none; }
   .card-link:is(:hover, :focus-visible), .next-tile:hover, .continue:hover, .btn:hover, .chip:hover, .rung-btn:hover, .ep-nav-link:hover, .how-step:hover,
   .btn:hover .icon, .how-step:hover .how-icon, .card-link:hover .card-thumb img, .card-link:hover .card-art-word, .continue:hover .continue-go { transform: none; }
   .card-link:hover .card-play { animation: none; }
+  .node a:hover .node-orb, .node a:focus-visible .node-orb { transform: none; }
+  .facade-play:hover { transform: translate(-50%, -50%); }
+  .ep-hero-art:hover { transform: rotate(1.5deg); }
   .btn::after, .card-thumb::after, .card-art::after { display: none; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
