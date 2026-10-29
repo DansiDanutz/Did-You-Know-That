@@ -71,7 +71,7 @@ function watchStep(episode) {
 </section>`;
   }
   return html`<section class="step-panel" id="player" aria-labelledby="watch-title">
-  ${stepHead(2, "watch-title", "Watch the episode", "Seven mornings, one subject — and the answer to your guess at the end.")}
+  ${stepHead(2, "watch-title", "Watch the episode", isExplainer(episode) ? "One experiment, one mystery — and the answer to your guess at the end." : "Seven mornings, one subject — and the answer to your guess at the end.")}
   <div class="player" data-player>
   <div class="player-stage" data-player-stage>${videoFacade(episode)}</div>
   ${playerControls(episode)}
@@ -185,10 +185,23 @@ function nextStep(catalog, episode) {
 /** "The Sun" → "the Sun", "Time" → "time": the subject inside a sentence. */
 const subjectPhrase = (subject) => (/^The /.test(subject) ? subject.replace(/^The /, "the ") : subject.toLowerCase());
 
+/** A sub-series explainer (format "explainer"): one experiment told in a few dated scenes, not seven mornings 1500 → 2100. */
+const isExplainer = (episode) => episode.format === "explainer";
+
+function exploreHeading(episode) {
+  if (hasLadder(episode)) return { kicker: "Climb the ladder", title: `How we saw ${subjectPhrase(episode.subject)}` };
+  return isExplainer(episode) ? { kicker: "One experiment", title: "The story" } : { kicker: "Seven mornings", title: "1500 → 2100" };
+}
+
+function eraPlace(episode, era) {
+  if (era.prediction) return "Prediction · a scenario, not a fact";
+  return isExplainer(episode) ? era.place : `You wake up: ${era.place}`;
+}
+
 function explore(episode) {
-  const title = hasLadder(episode) ? `How we saw ${subjectPhrase(episode.subject)}` : "1500 → 2100";
+  const { kicker, title } = exploreHeading(episode);
   return html`<section class="explore wrap" aria-labelledby="ladder-title">
-  <p class="section-kicker">${hasLadder(episode) ? "Climb the ladder" : "Seven mornings"}</p>
+  <p class="section-kicker">${kicker}</p>
   <h2 id="ladder-title" class="section-title">${title}</h2>
   ${isPublished(episode) ? "" : html`<p class="section-lede">Coming soon — details may change before the premiere.</p>`}
   ${hasLadder(episode)
@@ -196,7 +209,7 @@ function explore(episode) {
     : html`<ol class="eras">
     ${episode.eras.map((era) => html`<li class="era${era.prediction ? " is-prediction" : ""}">
       <span class="era-year">${era.year}</span>
-      <span class="era-place">${era.prediction ? "Prediction · a scenario, not a fact" : `You wake up: ${era.place}`}</span>
+      <span class="era-place">${eraPlace(episode, era)}</span>
       <span class="era-line">${era.line}</span>
     </li>`)}
   </ol>`}

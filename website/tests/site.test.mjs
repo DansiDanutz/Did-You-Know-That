@@ -71,7 +71,7 @@ test("the shipped site references no test video ids, and only published episodes
     assert.doesNotMatch(contents, /TESTID/, path);
     for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
   }
-  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY", "a4qHdjL8bok", "_RD_Qz66FCg", "HbsIy38RGvI"], "episodes 01, 02 (v2), 03, 04, 05, 06 and 07 are live");
+  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY", "a4qHdjL8bok", "_RD_Qz66FCg", "HbsIy38RGvI", "o5NXRlNytjo"], "episodes 01, 02 (v2), 03, 04, 05, 06, 07 and 08 are live");
   assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Sw1xP57TNTk"/);
   assert.match(files["episodes/the-sun/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/WlClbKXSdSo"/);
   assert.match(files["episodes/school/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/rchexCb48LM"/);
@@ -84,7 +84,10 @@ test("the shipped site references no test video ids, and only published episodes
   assert.match(files["episodes/food/index.html"], /class="next-tile" href="\/episodes\/medicine\/"/, "episode 05 points on to Medicine");
   assert.match(files["episodes/light/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/HbsIy38RGvI"/);
   assert.match(files["episodes/medicine/index.html"], /class="next-tile" href="\/episodes\/light\/"/, "episode 06 points on to Light");
-  assert.match(files["episodes/light/index.html"], /class="next-tile" href="\/subject\/weight\/"><span class="next-kicker">Coming next · in production<\/span><strong>Weight<\/strong><span>In 1500, a heavy body could be a sign of wealth/, "Light teases Weight");
+  assert.match(files["episodes/weight/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/o5NXRlNytjo"/);
+  assert.match(files["episodes/light/index.html"], /class="next-tile" href="\/episodes\/weight\/"/, "episode 07 points on to Weight");
+  assert.match(files["episodes/weight/index.html"], /class="next-tile" href="\/subject\/diabetes\/"><span class="next-kicker">Coming next · in production<\/span><strong>Diabetes<\/strong><span>What happened in one Toronto lab in 1921\?/, "Weight teases Diabetes");
+  assert.doesNotMatch(files["subject/weight/index.html"], /Coming next · in production/, "Weight is no longer a teaser");
   assert.doesNotMatch(files["subject/light/index.html"], /Coming next · in production/, "Light is no longer a teaser");
   assert.doesNotMatch(files["subject/medicine/index.html"], /Coming next · in production/, "Medicine is no longer a teaser");
   assert.doesNotMatch(files["subject/money/index.html"], /Coming next · in production/, "Money is no longer a teaser");
@@ -102,8 +105,10 @@ test("the shipped site references no test video ids, and only published episodes
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/medicine\//);
   assert.match(files["subject/light/index.html"], /href="\/episodes\/light\/"/, "the Light subject page links to episode 07");
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/light\//);
-  assert.match(files["index.html"], /Newest episode · No\. 07/);
-  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=HbsIy38RGvI"/, "comment buttons point at episode 07");
+  assert.match(files["subject/weight/index.html"], /href="\/episodes\/weight\/"/, "the Weight subject page links to episode 08");
+  assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/weight\//);
+  assert.match(files["index.html"], /Newest episode · No\. 08/);
+  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=o5NXRlNytjo"/, "comment buttons point at episode 08");
   assert.match(files["collection/index.html"], /sun-answer/);
   assert.match(files["collection/index.html"], /school-answer/);
   assert.match(files["collection/index.html"], /money-answer/);
@@ -161,7 +166,7 @@ test("an episode with localizations carries them on the facade as escaped JSON; 
   assert.ok(attribute[1].includes("&quot;subtitles&quot;"), "no raw double quote can end the attribute early");
   assert.deepEqual(JSON.parse(attribute[1].replaceAll("&quot;", '"')), localizations, "the browser reads it back as JSON");
   assert.doesNotMatch(money, /data-localizations/);
-  assert.match(renderSite(withLocalizations(withoutLocalizations(loadCatalog()), "light", localizations))["index.html"], /data-localizations='/, "the home page features the newest episode with the same facade");
+  assert.match(renderSite(withLocalizations(withoutLocalizations(loadCatalog()), "weight", localizations))["index.html"], /data-localizations='/, "the home page features the newest episode with the same facade");
   assert.doesNotMatch(files["episodes/index.html"], /data-localizations/, "cards carry no facade");
   assert.doesNotMatch(food, /<iframe/, "still nothing loads before play");
   assert.doesNotMatch(renderSite(withoutLocalizations(loadCatalog()))["episodes/food/index.html"], /data-localizations/, "the committed catalog has none yet");
@@ -358,4 +363,19 @@ test("the build refuses an invalid special-cards catalogue or missing art", () =
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("an explainer episode (the Medicine sub-series) drops the main series' seven-mornings wording", () => {
+  // Arrange
+  const files = renderSite(loadCatalog());
+  // Act
+  const weight = files["episodes/weight/index.html"];
+  const light = files["episodes/light/index.html"];
+  // Assert
+  assert.match(weight, /One experiment, one mystery — and the answer to your guess at the end\./);
+  assert.match(weight, /<p class="section-kicker">One experiment<\/p>\s*<h2 id="ladder-title" class="section-title">The story<\/h2>/);
+  assert.doesNotMatch(weight, /Seven mornings|1500 → 2100|You wake up/);
+  assert.match(weight, /<span class="era-place">A hospital ward in Maryland<\/span>/, "an explainer scene is labelled with its place only");
+  assert.match(light, /You wake up: /, "main-series eras keep the wake-up label");
+  assert.match(light, /Seven mornings, one subject — and the answer to your guess at the end\./, "main-series episodes keep their wording");
 });

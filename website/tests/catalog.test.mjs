@@ -241,7 +241,18 @@ test("every Light quiz source is a fact number defined in episodes/007-light/RES
   assert.ok(light.quiz.questions.every((q) => q.card.startsWith("light-")), "every Light question unlocks a Light card");
 });
 
-test("the shipped catalog has seven live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
+test("every Weight quiz source is a claim number defined in episodes/008-weight/RESEARCH.md", () => {
+  const research = readFileSync(new URL("../../episodes/008-weight/RESEARCH.md", import.meta.url), "utf8");
+  const weight = loadCatalog().episodes.find((e) => e.slug === "weight");
+  assert.equal(weight.quiz.questions.length, 8);
+  for (const q of weight.quiz.questions) {
+    assert.match(q.source, /^W\d+$/, `${q.id} cites a W-numbered claim`);
+    assert.match(research, new RegExp(`^\\| ${q.source} \\|`, "m"), `${q.id} cites ${q.source}`);
+  }
+  assert.ok(weight.quiz.questions.every((q) => q.card.startsWith("weight-")), "every Weight question unlocks a Weight card");
+});
+
+test("the shipped catalog has eight live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
   const live = loadCatalog().episodes.filter((e) => e.status === "published");
   assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
     ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
@@ -251,6 +262,7 @@ test("the shipped catalog has seven live episodes with their real YouTube ids (e
     ["food", "a4qHdjL8bok", "2026-10-14"],
     ["medicine", "_RD_Qz66FCg", "2026-10-22"],
     ["light", "HbsIy38RGvI", "2026-10-29"],
+    ["weight", "o5NXRlNytjo", "2026-10-30"],
   ]);
   assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "every episode ships its own artwork");
   for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
@@ -259,6 +271,20 @@ test("the shipped catalog has seven live episodes with their real YouTube ids (e
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "food"), "Food is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "medicine"), "Medicine is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "light"), "Light is an episode now, not an upcoming subject");
-  assert.equal(loadCatalog().requested[0].slug, "weight", "episode 08 (Weight) leads the upcoming subjects");
-  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["weight"], "Weight is announced as next");
+  assert.ok(!loadCatalog().requested.some((r) => r.slug === "weight"), "Weight is an episode now, not an upcoming subject");
+  assert.equal(loadCatalog().requested[0].slug, "diabetes", "Medicine 2 (Diabetes) leads the upcoming subjects");
+  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["diabetes"], "Diabetes is announced as next");
+});
+
+test("format is optional and only \"explainer\" is allowed", () => {
+  // Arrange
+  const catalog = loadCatalog();
+  const withFormat = (format) => ({ ...catalog, episodes: catalog.episodes.map((e) => (e.slug === "light" ? { ...e, format } : e)) });
+  // Act
+  const explainer = validateCatalog(withFormat("explainer"));
+  const unknown = validateCatalog(withFormat("documentary"));
+  // Assert
+  assert.deepEqual(explainer, []);
+  assert.ok(unknown.some((e) => e.includes('format must be "explainer" when set')));
+  assert.equal(catalog.episodes.find((e) => e.slug === "weight").format, "explainer", "Medicine 1 · Weight is an explainer");
 });
