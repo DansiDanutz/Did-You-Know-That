@@ -93,8 +93,8 @@ function validateQuiz(quiz, at) {
 }
 
 const QUESTION_OPTIONS = { min: 3, max: 4 };
-// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, or Medicine's M1–M13.
-const SOURCE_PATTERN = /^[FAM]\d+[a-z]?$/;
+// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, Medicine's M1–M13 or Light's L1–L17.
+const SOURCE_PATTERN = /^[FAML]\d+[a-z]?$/;
 const normalized = (text) => String(text).trim().toLowerCase().replace(/\s+/g, " ");
 
 function validateQuestion(question, at, cardIds) {
@@ -111,7 +111,7 @@ function validateQuestion(question, at, cardIds) {
     errors.push(`${at}: answerIndex must point at exactly one of the options`);
   }
   if (!cardIds.has(question.card)) errors.push(`${at}: card "${question.card}" is not one of this episode's fact cards`);
-  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3" or "M7"`);
+  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3", "M7" or "L3"`);
   return errors;
 }
 
