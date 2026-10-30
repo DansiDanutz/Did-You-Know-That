@@ -24,6 +24,17 @@ const HOW_IT_WORKS = [
   ["cards", "Collect", "Right answers unlock fact cards."],
 ];
 
+// The first screen IS the game: the newest episode's guess, one tap per answer. Without JavaScript the
+// form opens the episode page; with it, hero-guess.js locks the guess and jumps straight to Watch.
+const heroGuess = (episode) => html`<form class="hero-guess" data-hero-guess data-slug="${episode.slug}" action="${episodePath(episode)}" aria-labelledby="hero-guess-q">
+      <p class="hero-guess-kicker"><span class="pill pill-new">${isPublished(episode) ? "New" : "Soon"}</span><span>No. ${episodeNumber(episode)} · ${episode.title}</span></p>
+      <p class="hero-guess-q" id="hero-guess-q">${episode.quiz.question}</p>
+      <div class="hero-guess-options">
+        ${episode.quiz.options.map((option, i) => html`<button class="hero-guess-option" type="submit" name="guess" value="${i}"><span class="hero-guess-letter" aria-hidden="true">${"ABCDEF"[i]}</span><span>${option}</span></button>`)}
+      </div>
+      <p class="hero-guess-note" data-hero-guess-note>Tap your guess, then watch to find out. A right guess earns 25 points.</p>
+    </form>`;
+
 const hero = (catalog) => {
   const episode = featuredEpisode(catalog);
   const start = episode ? `${episodePath(episode)}#guess` : "/episodes/";
@@ -41,11 +52,11 @@ const hero = (catalog) => {
   </h1>
   <div class="wrap hero-inner">
     <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, school, money, food, medicine, light, whatever you vote for — from 1500 to 2100.</p>
-    <ol class="how" aria-label="How it works">
+    ${episode?.quiz?.options?.length ? heroGuess(episode) : html`<div class="cta-row"><a class="btn btn-primary btn-big" href="${start}">${icon("play")}<span>Pick an episode</span></a></div>`}
+    <ol class="how how-strip" aria-label="How it works">
       ${HOW_IT_WORKS.map(([glyph, title, text], i) => html`<li class="how-step"><span class="how-icon" aria-hidden="true">${icon(glyph)}</span><span class="how-text"><strong>${i + 1}. ${title}</strong><span>${text}</span></span></li>`)}
     </ol>
     <div class="cta-row">
-      <a class="btn btn-primary btn-big" href="${start}">${icon("play")}<span>${episode && isPublished(episode) ? "Play the newest episode" : "Guess the first episode"}</span></a>
       <a class="btn btn-ghost" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a>
     </div>
     <p class="hero-note">Free. No account, no tracking — your points stay on this device.</p>

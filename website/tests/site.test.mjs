@@ -295,6 +295,23 @@ test("home: hero, newest episode, continue, episodes, daily fact, collection, co
   assert.equal(railCards.length, loadCatalog().episodes.length, "the rail lists every episode");
 });
 
+test("home: the first screen is the newest episode's guess, one tap per answer, before the subscribe button", () => {
+  const catalog = loadCatalog();
+  const home = renderSite(withoutLocalizations(catalog))["index.html"];
+  const episode = catalog.episodes.at(-1);
+  const hero = home.slice(home.indexOf('id="hero-title"'), home.indexOf('id="featured"'));
+  assert.match(hero, new RegExp(`<form class="hero-guess" data-hero-guess data-slug="${episode.slug}" action="/episodes/${episode.slug}/" aria-labelledby="hero-guess-q">`));
+  assert.match(hero, new RegExp(`No\\. 0${episode.number} · ${episode.title}`));
+  assert.ok(hero.includes(`id="hero-guess-q">${escapeHtml(episode.quiz.question)}</p>`), "the episode's guess question");
+  episode.quiz.options.forEach((option, i) => {
+    assert.ok(hero.includes(`<button class="hero-guess-option" type="submit" name="guess" value="${i}">`), `option ${i} is a one-tap button`);
+    assert.ok(hero.includes(escapeHtml(option)), `option ${i} text`);
+  });
+  assert.ok(hero.indexOf("data-hero-guess") < hero.indexOf("Subscribe on YouTube"), "the guess comes before the subscribe button");
+  assert.match(hero, /class="how how-strip"/, "the four steps stay, as a compact strip");
+  assert.doesNotMatch(hero, /Play the newest episode/, "the guess replaces the old play button");
+});
+
 test("before anything is published, the next premiere is featured as Premieres soon with its artwork", () => {
   const home = renderSite(loadDraftCatalog())["index.html"];
   const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="continue"'));
