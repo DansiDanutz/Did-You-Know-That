@@ -312,6 +312,20 @@ test("home: the first screen is the newest episode's guess, one tap per answer, 
   assert.doesNotMatch(hero, /Play the newest episode/, "the guess replaces the old play button");
 });
 
+test("episode guess step: a challenge banner for invited friends and a Challenge a friend button after the lock", () => {
+  const catalog = loadCatalog();
+  const episode = catalog.episodes.at(-1);
+  const page = renderSite(withoutLocalizations(catalog))[`episodes/${episode.slug}/index.html`];
+  const guess = page.slice(page.indexOf('id="guess"'), page.indexOf('id="player"'));
+  assert.match(guess, /<p class="challenge-banner" data-challenge-banner hidden>/, "hidden until a ?vs= link opens the page");
+  assert.ok(guess.indexOf("data-challenge-banner") < guess.indexOf("data-quiz-form"), "the banner sits above the guess");
+  const after = guess.slice(guess.indexOf("data-quiz-after"));
+  assert.match(after, new RegExp(`<div class="challenge" data-challenge data-title="${escapeHtml(episode.title)}" hidden>`));
+  assert.match(after, /<button class="btn btn-sub" type="button" data-challenge-share>/);
+  assert.match(after, /Challenge a friend/);
+  assert.match(after, /data-challenge-result hidden/);
+});
+
 test("before anything is published, the next premiere is featured as Premieres soon with its artwork", () => {
   const home = renderSite(loadDraftCatalog())["index.html"];
   const featured = home.slice(home.indexOf('id="featured"'), home.indexOf('id="continue"'));

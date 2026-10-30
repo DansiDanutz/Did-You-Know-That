@@ -41,6 +41,7 @@ const stepper = (episode) => html`<nav class="stepper-bar" aria-label="Your jour
 function guessStep(episode) {
   return html`<section class="step-panel" id="guess" aria-labelledby="guess-title">
   ${stepHead(1, "guess-title", "Guess before you watch", "Pick what you think the answer is. A right guess earns 25 bonus points when you finish the quiz.")}
+  <p class="challenge-banner" data-challenge-banner hidden>${icon("comment")}<span><strong>A friend challenged you.</strong> They’ve locked their guess. Lock yours, then see if you match.</span></p>
   <form class="quiz-form" data-quiz-form>
     <fieldset>
       <legend id="quiz-title" class="quiz-question">${episode.quiz.question}</legend>
@@ -54,6 +55,11 @@ function guessStep(episode) {
   <div class="quiz-after" data-quiz-after hidden>
     <p class="quiz-locked">Your guess is locked: <strong data-quiz-choice></strong></p>
     <p class="cta-row"><a class="btn btn-primary" href="#player">${icon("play")}<span>${isPublished(episode) ? "Now watch the episode" : "See the premiere"}</span></a>${questionCount(episode) ? html`<a class="btn btn-ghost" href="#quiz">Skip to the quiz</a>` : ""}</p>
+    <div class="challenge" data-challenge data-title="${episode.title}" hidden>
+      <p class="challenge-result" data-challenge-result hidden></p>
+      <button class="btn btn-sub" type="button" data-challenge-share>${icon("comment")}<span>Challenge a friend</span></button>
+      <p class="challenge-status" data-challenge-status aria-live="polite"></p>
+    </div>
   </div>
 </section>`;
 }
