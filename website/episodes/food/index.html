@@ -76,6 +76,7 @@
     <span class="step-num" aria-hidden="true">1</span>
     <div><h2 class="step-title" id="guess-title">Guess before you watch</h2><p class="step-lede">Pick what you think the answer is. A right guess earns 25 bonus points when you finish the quiz.</p></div>
   </div>
+  <p class="challenge-banner" data-challenge-banner hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2Z"/></svg><span><strong>A friend challenged you.</strong> They’ve locked their guess. Lock yours, then see if you match.</span></p>
   <form class="quiz-form" data-quiz-form>
     <fieldset>
       <legend id="quiz-title" class="quiz-question">In 1800, life expectancy at birth, worldwide, was about 29 years. What is it for a baby born today?</legend>
@@ -89,6 +90,11 @@
   <div class="quiz-after" data-quiz-after hidden>
     <p class="quiz-locked">Your guess is locked: <strong data-quiz-choice></strong></p>
     <p class="cta-row"><a class="btn btn-primary" href="#player"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.5v13l11-6.5-11-6.5Z"/></svg><span>Now watch the episode</span></a><a class="btn btn-ghost" href="#quiz">Skip to the quiz</a></p>
+    <div class="challenge" data-challenge data-title="Food" hidden>
+      <p class="challenge-result" data-challenge-result hidden></p>
+      <button class="btn btn-sub" type="button" data-challenge-share><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2Z"/></svg><span>Challenge a friend</span></button>
+      <p class="challenge-status" data-challenge-status aria-live="polite"></p>
+    </div>
   </div>
 </section>
   <section class="step-panel" id="player" aria-labelledby="watch-title">

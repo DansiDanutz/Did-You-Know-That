@@ -8,6 +8,7 @@ const features = [
   ["[data-facade]", () => import("./ui/player.js")],
   ["[data-quiz]", () => import("./ui/quiz.js")],
   ["[data-hero-guess]", () => import("./ui/hero-guess.js")],
+  ["[data-challenge]", () => import("./ui/challenge.js")],
   ["[data-special-card]", () => import("./ui/vault.js")],
   ["[data-collection-scope], [data-rank-badge]", () => import("./ui/collection.js")],
   ["[data-journey], [data-continue], [data-ep-progress], [data-set-meter], [data-collection-meter]", () => import("./ui/progress-ui.js")],
