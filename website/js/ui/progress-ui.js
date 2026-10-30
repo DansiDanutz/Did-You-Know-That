@@ -1,13 +1,13 @@
 // Read-only progress views: the episode step indicator, "continue where you left off" on the home
 // page, per-episode progress on episode cards and the card-collection meters. It never writes
 // progress and never awards anything; it re-renders whenever progress changes (PROGRESS_EVENT).
+import { episodeTag } from "../lib/episodes.js";
 import { journeyState, continueTarget, episodeProgress, STEP_ANCHORS } from "../lib/journey.js";
 import { unlockedCardIds, rankFor, earnedOf } from "../lib/progress.js";
 import { store, PROGRESS_EVENT } from "../lib/progress-client.js";
 import { loadCatalog } from "../lib/catalog-client.js";
 
 const STEP_VERB = { guess: "Lock your guess", watch: "Watch the episode", quiz: "Continue the quiz", cards: "Finish your cards", next: "See what’s next" };
-const pad = (n) => String(n).padStart(2, "0");
 
 function renderStepper(nav, episode, state) {
   const { steps } = journeyState(state, episode);
@@ -63,7 +63,7 @@ function renderContinue(section, catalog, state) {
   const { episode, progress } = target;
   section.querySelector("[data-continue-link]").href = `/episodes/${episode.slug}/${STEP_ANCHORS[target.step]}`;
   section.querySelector("[data-continue-kicker]").textContent = target.kind === "continue" ? "Continue where you left off" : "Up next for you";
-  section.querySelector("[data-continue-episode]").textContent = `No. ${pad(episode.number)} · ${episode.title}`;
+  section.querySelector("[data-continue-episode]").textContent = `${episodeTag(episode)} · ${episode.title}`;
   section.querySelector("[data-continue-meta]").textContent = target.kind === "continue"
     ? `${progress.answered} of ${progress.totalQuestions} questions · ${progress.cards} of ${progress.totalCards} cards`
     : `${progress.totalQuestions} questions and ${progress.totalCards} cards waiting`;

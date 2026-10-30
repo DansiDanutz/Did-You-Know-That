@@ -2254,8 +2254,13 @@
       }
     },
     {
-      "number": 8,
       "slug": "weight",
+      "series": {
+        "parent": "medicine",
+        "name": "Medicine",
+        "of": 10,
+        "part": 1
+      },
       "title": "Weight",
       "subject": "Weight",
       "subjectSlug": "weight",
@@ -2498,26 +2503,273 @@
       ],
       "format": "explainer",
       "status": "published"
-    }
-  ],
-  "requested": [
+    },
     {
-      "subject": "Diabetes",
       "slug": "diabetes",
-      "status": "next",
+      "series": {
+        "parent": "medicine",
+        "name": "Medicine",
+        "of": 10,
+        "part": 2
+      },
+      "title": "Diabetes",
+      "subject": "Diabetes",
+      "subjectSlug": "diabetes",
       "keywords": [
         "diabetes",
         "insulin",
         "blood sugar",
+        "glucose",
         "type 1",
         "type 2",
+        "pancreas",
+        "islets",
+        "beta cells",
+        "ketones",
         "toronto",
         "1921",
+        "1922",
+        "banting",
+        "best",
+        "collip",
+        "macleod",
+        "leonard thompson",
+        "marjorie",
+        "dog 33",
+        "insulin patent",
         "health",
         "medicine",
         "medicine 2"
       ],
-      "pitch": "What happened in one Toronto lab in 1921?"
+      "hook": "Toronto, 1921. A dog with no pancreas lives for seventy days on an extract. Then a dying boy gets the same kind of shot, and it almost does nothing. Why?",
+      "question": "Did you know that the first insulin injection ever given to a person almost did nothing?",
+      "guess": "The first shot almost did nothing. Twelve days later came a cleaner one. Did it work? Guess in the comments, then watch and check.",
+      "summary": "Medicine 2 of 10, a short explainer with one story and one mystery: a Toronto lab in 1921, a dog the lab called Dog 33, and Leonard Thompson, 14, whose first injection almost did nothing. Then the clue in the jar, what insulin actually does, why it isn’t a cure, the type 2 twist, and a one-dollar patent. This isn’t medical advice: if diabetes is part of your life, talk to a doctor who knows you.",
+      "youtubeId": "Jjw8_rIPOYA",
+      "publishedAt": "2026-10-30",
+      "thumbnail": "/assets/episodes/diabetes/thumb.png",
+      "commentPrompt": "Would you have tried the second injection, after the first one almost did nothing?",
+      "quiz": {
+        "question": "A dying boy’s first injection almost did nothing. Twelve days later he got a cleaner extract. What happened?",
+        "options": [
+          "Almost nothing again",
+          "His blood sugar fell a little more",
+          "His blood sugar fell to normal"
+        ],
+        "answerIndex": 2,
+        "reveal": "His blood sugar fell from about 520 to 120 mg/dL, normal, and the ketones disappeared.",
+        "questions": [
+          {
+            "id": "q-marjorie",
+            "era": "1921",
+            "question": "In November 1921, Dog 33, later called Marjorie, started injections of a pancreas extract. How long was she kept alive on them?",
+            "options": [
+              "Seven days",
+              "Seventy days",
+              "Seven hundred days"
+            ],
+            "answerIndex": 1,
+            "reveal": "Seventy days. The lab records number the dogs; the name Marjorie came later.",
+            "card": "diabetes-marjorie",
+            "source": "D3"
+          },
+          {
+            "id": "q-first-shot",
+            "era": "1922",
+            "question": "11 January 1922: Leonard Thompson, 14, gets the first injection. What happens?",
+            "options": [
+              "His blood sugar falls to normal",
+              "His blood sugar falls only a little, and an abscess grows",
+              "His blood sugar goes up"
+            ],
+            "answerIndex": 1,
+            "reveal": "It fell only a little, from 0.440% to 0.320%. The ketones stayed, and impurities in the extract caused an abscess.",
+            "card": "diabetes-first-shot",
+            "source": "D7"
+          },
+          {
+            "id": "q-collip",
+            "era": "1922",
+            "question": "The biochemist James Collip cleaned up the extract. How?",
+            "options": [
+              "He boiled it for hours",
+              "He kept adding alcohol, past 90%, until the active part fell out of the liquid",
+              "He froze it and thawed it again"
+            ],
+            "answerIndex": 1,
+            "reveal": "He raised the alcohol concentration past 90% until the active part precipitated, falling out of the liquid on its own.",
+            "card": "diabetes-collip",
+            "source": "D8"
+          },
+          {
+            "id": "q-twelve-days",
+            "era": "1922",
+            "question": "How many days after the first shot did Leonard get the cleaner extract?",
+            "options": [
+              "Two",
+              "Twelve",
+              "Forty"
+            ],
+            "answerIndex": 1,
+            "reveal": "Twelve: on 23 January 1922. His blood sugar fell from 0.520% to 0.120%, about 520 to 120 mg/dL, normal, and the ketones disappeared.",
+            "card": "diabetes-twelve-days",
+            "source": "D9"
+          },
+          {
+            "id": "q-patent",
+            "era": "1922",
+            "question": "The insulin patent was assigned to the University of Toronto. For how much?",
+            "options": [
+              "One dollar",
+              "A thousand dollars",
+              "A million dollars"
+            ],
+            "answerIndex": 0,
+            "reveal": "One dollar, once. The assignment was signed on 19 December 1922.",
+            "card": "diabetes-patent",
+            "source": "D10"
+          },
+          {
+            "id": "q-beta-cells",
+            "era": "Today",
+            "question": "Which cells in the pancreas make insulin?",
+            "options": [
+              "Red blood cells",
+              "Beta cells, in the islets",
+              "Nerve cells"
+            ],
+            "answerIndex": 1,
+            "reveal": "Beta cells, in the islets. In type 1 diabetes the immune system destroys them.",
+            "card": "diabetes-beta-cells",
+            "source": "D13"
+          },
+          {
+            "id": "q-not-a-cure",
+            "era": "Today",
+            "question": "Does insulin cure type 1 diabetes?",
+            "options": [
+              "Yes, one course cures it",
+              "No: it keeps people alive, but it isn’t a cure",
+              "Only in children"
+            ],
+            "answerIndex": 1,
+            "reveal": "No. People with type 1 diabetes need insulin to survive, one dose at a time; it isn’t a cure.",
+            "card": "diabetes-not-a-cure",
+            "source": "D15"
+          },
+          {
+            "id": "q-type-2",
+            "era": "Today",
+            "question": "How much of all diabetes today is type 2?",
+            "options": [
+              "About 10%",
+              "About half",
+              "Over 90%"
+            ],
+            "answerIndex": 2,
+            "reveal": "Over 90%. In type 2 the body doesn’t use insulin properly.",
+            "card": "diabetes-type-2",
+            "source": "D14"
+          }
+        ]
+      },
+      "eras": [
+        {
+          "year": "1921",
+          "place": "A university lab in Toronto",
+          "line": "Banting and Best start work in May. In November, Dog 33 begins the injections and is kept alive on them for seventy days."
+        },
+        {
+          "year": "11 Jan 1922",
+          "place": "Toronto General Hospital",
+          "line": "Leonard Thompson, 14, gets the first injection. His blood sugar falls only a little."
+        },
+        {
+          "year": "23 Jan 1922",
+          "place": "Toronto General Hospital",
+          "line": "Twelve days later, a cleaner extract. His blood sugar falls to normal."
+        },
+        {
+          "year": "Today",
+          "place": "Everywhere",
+          "line": "589 million adults live with diabetes, about 1 in 9, and more than 4 in 10 of them don’t know it."
+        }
+      ],
+      "facts": [
+        {
+          "id": "diabetes-marjorie",
+          "year": "1921",
+          "fact": "In November 1921, in a Toronto university lab, Dog 33 began injections of a pancreas extract and was kept alive on them for 70 days. The lab records number the dogs; the name Marjorie came later.",
+          "source": "U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), “Photograph of Dog 33”; Lambert & Delgado, Biomedicines 12(3):533, 2024"
+        },
+        {
+          "id": "diabetes-first-shot",
+          "year": "1922",
+          "fact": "On 11 January 1922 Leonard Thompson, 14, got the first injection. His blood sugar fell only a little, from 0.440% to 0.320%; the ketones stayed, and impurities in the extract caused an abscess.",
+          "source": "U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), “From Embarrassment to Triumph” and “Leonard Thompson”"
+        },
+        {
+          "id": "diabetes-collip",
+          "year": "1922",
+          "fact": "The biochemist James Collip purified the extract by raising the alcohol concentration past 90% until the active part precipitated.",
+          "source": "U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), “From Embarrassment to Triumph”; Science History Institute"
+        },
+        {
+          "id": "diabetes-twelve-days",
+          "year": "1922",
+          "fact": "On 23 January 1922, twelve days after the first shot, Leonard got the cleaner extract. His blood sugar fell from 0.520% to 0.120%, about 520 to 120 mg/dL, normal, and the ketones disappeared.",
+          "source": "U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), “From Embarrassment to Triumph” (reporting Banting et al., CMAJ 12(3):141–146, 1922)"
+        },
+        {
+          "id": "diabetes-patent",
+          "year": "1922",
+          "fact": "The insulin patent was assigned to the Governors of the University of Toronto for one dollar, once. The assignment was signed on 19 December 1922 and recorded on 1 January 1923.",
+          "source": "U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), document 7143, “Assignment to the Governors of the University of Toronto”"
+        },
+        {
+          "id": "diabetes-beta-cells",
+          "year": "Today",
+          "fact": "Islets in the pancreas hold beta cells that make insulin. Insulin helps glucose get from the blood into cells, to be used for energy. In type 1 diabetes the immune system destroys those beta cells.",
+          "source": "NIDDK, “What is diabetes?” and “Type 1 diabetes”"
+        },
+        {
+          "id": "diabetes-not-a-cure",
+          "year": "Today",
+          "fact": "Insulin keeps people with type 1 diabetes alive, but it isn’t a cure. Leonard Thompson lived thirteen more years and died in 1935, aged 27, of pneumonia.",
+          "source": "WHO diabetes fact sheet; NIDDK, “Type 1 diabetes”; U of T Fisher Library, The Discovery of Insulin at the University of Toronto (2021), “Leonard Thompson”"
+        },
+        {
+          "id": "diabetes-type-2",
+          "year": "Today",
+          "fact": "Over 90% of diabetes is type 2, where the body doesn’t use insulin properly.",
+          "source": "International Diabetes Federation, “Diabetes facts & figures” (IDF Diabetes Atlas, 11th edition, 2025); WHO diabetes fact sheet"
+        }
+      ],
+      "format": "explainer",
+      "status": "published"
+    }
+  ],
+  "requested": [
+    {
+      "subject": "Ozempic & Mounjaro",
+      "slug": "ozempic-mounjaro",
+      "series": {
+        "parent": "medicine",
+        "name": "Medicine",
+        "of": 10,
+        "part": 3
+      },
+      "status": "next",
+      "keywords": [
+        "ozempic",
+        "mounjaro",
+        "glp-1",
+        "weight loss injections",
+        "health",
+        "medicine",
+        "medicine 3"
+      ],
+      "pitch": "What do Ozempic and Mounjaro actually do in the body?"
     },
     {
       "subject": "Music",

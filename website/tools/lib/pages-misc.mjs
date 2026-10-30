@@ -1,7 +1,7 @@
 // Collection page, 404 page, sitemap.xml.
 import { html } from "./html.mjs";
 import { page } from "./layout.mjs";
-import { SITE, episodeNumber, episodePath, subjectPath, absolute } from "./site.mjs";
+import { SITE, episodeTag, inSeriesOrder, episodePath, subjectPath, absolute } from "./site.mjs";
 import { icon, factCard } from "./components.mjs";
 import { RANKS, maxPointsFor } from "../../js/lib/progress.js";
 
@@ -26,9 +26,9 @@ export function collectionPage(catalog) {
   <ul class="fact-grid fact-grid-single" data-shared-slot></ul>
   <p class="cta-row"><a class="btn btn-primary" href="/#series" data-shared-play>Play the episode and collect it</a></p>
 </section>
-${catalog.episodes.map((episode) => html`<section class="wrap collection-set" aria-labelledby="set-${episode.slug}">
+${inSeriesOrder(catalog).map((episode) => html`<section class="wrap collection-set" aria-labelledby="set-${episode.slug}">
   <div class="set-head">
-    <h2 id="set-${episode.slug}" class="small-title">No. ${episodeNumber(episode)} · <a href="${episodePath(episode)}">${episode.title}</a></h2>
+    <h2 id="set-${episode.slug}" class="small-title">${episodeTag(episode)} · <a href="${episodePath(episode)}">${episode.title}</a></h2>
     <div class="set-meter set-meter-inline" data-set-meter="${episode.slug}" data-total="${episode.facts.length}">
       <p class="set-meter-text"><strong data-set-count>0</strong>/${episode.facts.length} cards</p>
       <progress class="rank-meter" max="${episode.facts.length}" value="0" data-set-progress aria-label="Cards collected from ${episode.title}">0</progress>

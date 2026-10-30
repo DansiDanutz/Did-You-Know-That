@@ -1,4 +1,4 @@
-# RESEARCH: Did You Know That? Medicine 1 · "Weight" (sub-series No. 08 on dexty.live, live 2026-10-30)
+# RESEARCH: Did You Know That? Medicine 1 · "Weight" (Medicine 1 of 10, a sub-episode of No. 06 Medicine on dexty.live, live 2026-10-30)
 
 YouTube: https://youtu.be/o5NXRlNytjo · W-numbers are the quiz `source` ids. Copied from the production claim ledger
 (~/Projects/Claude-Youtube/videos/dyk-med01-weight/claims.md), unchanged below this header.

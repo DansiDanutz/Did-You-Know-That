@@ -4,6 +4,7 @@
 // Skipping just shows the fact — it costs nothing, there is no streak and nothing to lose.
 // Pure functions; the caller passes the player's local date (YYYY-MM-DD) and an ISO timestamp.
 import { award, dailyEventId } from "./ledger.js";
+import { inSeriesOrder } from "./episodes.js";
 
 const ISO_DATE = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const MS_PER_DAY = 86_400_000;
@@ -41,19 +42,18 @@ const isPublished = (episode) => episode?.status === "published" && /^[A-Za-z0-9
 const publishedBefore = (isoDate) => (episode) => !isoDate || (isIsoDate(episode.publishedAt) && episode.publishedAt < isoDate);
 
 /**
- * Every question of every published episode, in a stable order (episode number, then quiz order).
+ * Every question of every published episode, in a stable order (series order, then quiz order).
  * With a date, only episodes published before that day: a new episode joins the pool the day after
  * its premiere, so publishing it never swaps the question people already answered today.
  */
 export function dailyPool(catalog, isoDate) {
-  return [...(catalog?.episodes ?? [])]
-    .filter(isPublished)
-    .filter(publishedBefore(isoDate))
-    .sort((a, b) => a.number - b.number)
+  const eligible = (catalog?.episodes ?? []).filter(isPublished).filter(publishedBefore(isoDate));
+  return inSeriesOrder(catalog, eligible)
     .flatMap((episode) =>
       (episode.quiz?.questions ?? []).map((question) => ({
         slug: episode.slug,
         number: episode.number,
+        series: episode.series,
         title: episode.title,
         subject: episode.subject,
         question,

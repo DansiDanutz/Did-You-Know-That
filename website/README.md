@@ -11,12 +11,14 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
 ```jsonc
 {
   "episodes": [{
-    "number": 1, "slug": "time-compressed", "title": "Time, Compressed",
+    "number": 1, "slug": "time-compressed", "title": "Time, Compressed",   // main episodes only: "No. 01"
+    // a sub-episode has no number; instead it names its main episode and its part ("Medicine 1 of 10"):
+    // "series": { "parent": "medicine", "name": "Medicine", "part": 1, "of": 10 },   // parent = a main episode's slug, name = its subject
     "subject": "Time", "subjectSlug": "time",          // headline word → /subject/time/
     "keywords": ["time", "clock", "sleep", "weekend"],  // words that find it in search
     "hook": "…", "question": "…", "guess": "…", "summary": "…", "commentPrompt": "…",
     "status": "draft",                                  // draft | published
-    "format": "explainer",                              // optional: a sub-series explainer (e.g. Medicine 1 · Weight); omit for 1500 → 2100 episodes
+    "format": "explainer",                              // optional: a sub-episode explainer (e.g. Medicine 1 · Weight); omit for 1500 → 2100 episodes
     "youtubeId": null, "publishedAt": null,              // set by tools/add-video.mjs
     "thumbnail": "/assets/episodes/time-compressed/thumb.png",   // our artwork (or null)
     "localizations": {                                  // optional, published only: subtitles (+ voice-over) per language
@@ -39,7 +41,8 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
     "facts": [{ "id": "time-1500", "year": "1500", "fact": "…", "source": "…" }]  // collectible cards
   }],
   "requested": [                                         // future subjects on the map (locked)
-    { "subject": "Money", "slug": "money", "status": "idea", "keywords": ["money"], "pitch": "…" }
+    { "subject": "Money", "slug": "money", "status": "idea", "keywords": ["money"], "pitch": "…" },
+    { "subject": "Ozempic & Mounjaro", "slug": "ozempic-mounjaro", "status": "next", "series": { "parent": "medicine", "name": "Medicine", "part": 3, "of": 10 }, … }
   ]
 }
 ```
@@ -49,11 +52,20 @@ every subject page, the collection page, `sitemap.xml` and the client-side searc
 a "Coming next" card and a teaser page — the `pitch` is a question only, never a claim; at most one). Only use
 `requested` for real requests.
 
+**Main episodes and sub-episodes.** Main episodes are numbered (No. 01 Time … No. 07 Light; the next is No. 08).
+Each can have up to 10 short sub-episodes that carry `series` instead of a `number` and read "Medicine 1 · Weight"
+(`js/lib/episodes.js` makes every label). The build checks that the parent is a numbered episode, `name` is its
+subject, `part` runs 1 → `of` (at most 10) and no part repeats. A sub-episode keeps its own page at `/episodes/<slug>/`
+with the whole game; it sits right after its parent in series order (daily question, collection, map), the parent's
+page and `/episodes/` list it in a "Medicine series" section, and "What's next" goes to the next part. A `next`
+requested subject may carry `series` too: it is then shown as the series' coming part. "Newest" means the latest
+`publishedAt` (ties: the later part), so the home page can feature a sub-episode, labelled "Newest sub-episode".
+
 The "how we saw it" ladder (`eras[].rung` ≤ 28 characters + `eras[].saw`, the episode's own sentence) renders as an
 interactive ladder on the episode page. If one era has a rung, every era needs both fields.
 
 The build validates `quiz.questions`: unique ids, 3–4 unique options, `answerIndex` on one of them, a `reveal`,
-a `source` like `F18`, `F4b`, `A3` or `W5` (RESEARCH.md fact numbers), and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
+a `source` like `F18`, `F4b`, `A3`, `W5` or `D9` (RESEARCH.md fact numbers), and a `card` that is one of the episode's `facts`. Every fact card must be unlocked by exactly
 one question (so the "all cards" bonus is reachable). Every question must trace to a verified fact in the
 episode's `RESEARCH.md`; 2100 predictions are never quiz facts.
 

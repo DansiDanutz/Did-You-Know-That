@@ -22,7 +22,8 @@ const isKeywordList = (value) => Array.isArray(value) && value.length > 0 && val
 
 function validateEpisode(episode, at) {
   const errors = [];
-  if (!Number.isInteger(episode.number) || episode.number < 1) errors.push(`${at}: number must be a positive integer`);
+  if (episode.series === undefined && (!Number.isInteger(episode.number) || episode.number < 1)) errors.push(`${at}: number must be a positive integer`);
+  if (episode.series !== undefined && episode.number !== undefined) errors.push(`${at}: a sub-episode (series) has no number; only main episodes are numbered`);
   if (!SLUG_PATTERN.test(episode.slug ?? "")) errors.push(`${at}: slug must be lowercase-kebab-case`);
   if (!SLUG_PATTERN.test(episode.subjectSlug ?? "")) errors.push(`${at}: subjectSlug must be lowercase-kebab-case`);
   for (const field of REQUIRED_TEXT) if (!isText(episode[field])) errors.push(`${at}: ${field} is required`);
@@ -94,8 +95,8 @@ function validateQuiz(quiz, at) {
 }
 
 const QUESTION_OPTIONS = { min: 3, max: 4 };
-// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, Medicine's M1–M13, Light's L1–L17 or Weight's W1–W17.
-const SOURCE_PATTERN = /^[FAMLW]\d+[a-z]?$/;
+// RESEARCH.md fact numbers: F2, F4b, the v2 additions A1–A5, Medicine's M1–M13, Light's L1–L17, Weight's W1–W17 or Diabetes' D1–D20 (D5b).
+const SOURCE_PATTERN = /^[FAMLWD]\d+[a-z]?$/;
 const normalized = (text) => String(text).trim().toLowerCase().replace(/\s+/g, " ");
 
 function validateQuestion(question, at, cardIds) {
@@ -112,7 +113,7 @@ function validateQuestion(question, at, cardIds) {
     errors.push(`${at}: answerIndex must point at exactly one of the options`);
   }
   if (!cardIds.has(question.card)) errors.push(`${at}: card "${question.card}" is not one of this episode's fact cards`);
-  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3", "M7", "L3" or "W5"`);
+  if (!SOURCE_PATTERN.test(question.source ?? "")) errors.push(`${at}: source must be a RESEARCH.md fact number like "F18", "A3", "M7", "L3", "W5" or "D9"`);
   return errors;
 }
 
@@ -156,6 +157,46 @@ function validateRequest(request, at) {
   return errors;
 }
 
+const SERIES_MAX_PARTS = 10;
+
+/**
+ * Optional `series` on an episode or a requested subject: { parent, name, part, of } makes it a sub-episode of a
+ * main episode ("Medicine 1 of 10"). The parent is a numbered episode, `name` is its subject, part runs 1 → of.
+ */
+function validateSeries(item, at, mains) {
+  if (item.series === undefined) return [];
+  const series = item.series;
+  if (!series || typeof series !== "object" || Array.isArray(series)) return [`${at}: series must be { parent, name, part, of }`];
+  const errors = [];
+  const parent = mains.find((e) => e.slug === series.parent);
+  if (!parent) errors.push(`${at}: series.parent "${series.parent}" is not a main (numbered) episode`);
+  else if (series.name !== parent.subject) errors.push(`${at}: series.name must be the parent's subject "${parent.subject}"`);
+  if (!Number.isInteger(series.of) || series.of < 1 || series.of > SERIES_MAX_PARTS) errors.push(`${at}: series.of must be a whole number from 1 to ${SERIES_MAX_PARTS}`);
+  if (!Number.isInteger(series.part) || series.part < 1 || series.part > series.of) errors.push(`${at}: series.part must be a whole number from 1 to series.of`);
+  return errors;
+}
+
+function validateAllSeries(catalog, requested) {
+  const mains = catalog.episodes.filter((e) => e && e.series === undefined);
+  const items = [
+    ...catalog.episodes.map((e, i) => [e ?? {}, `episodes[${i}] (${e?.slug ?? "?"})`]),
+    ...requested.map((r, i) => [r ?? {}, `requested[${i}] (${r?.slug ?? "?"})`]),
+  ];
+  const errors = items.flatMap(([item, at]) => validateSeries(item, at, mains));
+  const parts = items.filter(([item]) => item.series).map(([item]) => `${item.series.parent} ${item.series.part}`);
+  for (const part of new Set(duplicates(parts))) errors.push(`series part "${part}" is used more than once`);
+  return [...errors, ...seriesTotalConflicts(items.map(([item]) => item.series).filter(Boolean))];
+}
+
+/** Every part of one series (episodes and requested teasers alike) must announce the same total. */
+function seriesTotalConflicts(allSeries) {
+  const totals = Map.groupBy(allSeries, (series) => series.parent);
+  return [...totals].flatMap(([parent, parts]) => {
+    const ofs = [...new Set(parts.map((series) => series.of))].sort((a, b) => a - b);
+    return ofs.length > 1 ? [`series "${parent}" parts disagree on series.of (${ofs.join(", ")})`] : [];
+  });
+}
+
 const duplicates = (values) => values.filter((value, i) => values.indexOf(value) !== i);
 
 /** Returns a list of human-readable problems; an empty list means the catalog is valid. */
@@ -171,7 +212,9 @@ export function validateCatalog(catalog) {
     ...requested.flatMap((request, i) => validateRequest(request ?? {}, `requested[${i}] (${request?.slug ?? "?"})`)),
   ];
   for (const slug of new Set(duplicates(catalog.episodes.map((e) => e.slug)))) errors.push(`duplicate slug "${slug}"`);
-  for (const n of new Set(duplicates(catalog.episodes.map((e) => e.number)))) errors.push(`duplicate episode number ${n}`);
+  errors.push(...validateAllSeries(catalog, requested));
+  const numbers = catalog.episodes.filter((e) => e?.number !== undefined).map((e) => e.number);
+  for (const n of new Set(duplicates(numbers))) errors.push(`duplicate episode number ${n}`);
   const cardIds = catalog.episodes.flatMap((e) => (Array.isArray(e.facts) ? e.facts.map((card) => card.id) : []));
   for (const id of new Set(duplicates(cardIds))) errors.push(`duplicate fact card id "${id}"`);
   const subjectSlugs = [...catalog.episodes.map((e) => e.subjectSlug), ...requested.map((r) => r.slug)];

@@ -40,10 +40,19 @@ test("a keyword shared by episodes returns both", () => {
 });
 
 test("requested subjects are searchable and marked as requested", () => {
-  const result = top("diabetes");
+  const result = top("mounjaro");
   assert.equal(result.kind, "requested");
-  assert.equal(result.url, "/subject/diabetes/");
+  assert.equal(result.url, "/subject/ozempic-mounjaro/");
+  assert.equal(result.title, "Medicine 3 · coming next", "the coming sub-episode is labelled by its series, not a number");
   assert.equal(top("ghrelin").url, "/episodes/weight/", "Weight is an episode now");
+  assert.equal(top("insulin").url, "/episodes/diabetes/", "Diabetes is an episode now");
+  assert.equal(top("music").title, "Idea — vote in the comments");
+});
+
+test("sub-episodes are labelled by their series, main episodes by their number", () => {
+  assert.equal(top("weight").title, "Medicine 1 · Weight");
+  assert.equal(top("diabetes").title, "Medicine 2 · Diabetes");
+  assert.equal(top("light").title, "No. 07 · Light");
 });
 
 test("episode results link to their episode page", () => {
