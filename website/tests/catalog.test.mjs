@@ -241,18 +241,20 @@ test("every Light quiz source is a fact number defined in episodes/007-light/RES
   assert.ok(light.quiz.questions.every((q) => q.card.startsWith("light-")), "every Light question unlocks a Light card");
 });
 
-test("every Weight quiz source is a claim number defined in episodes/008-weight/RESEARCH.md", () => {
-  const research = readFileSync(new URL("../../episodes/008-weight/RESEARCH.md", import.meta.url), "utf8");
-  const weight = loadCatalog().episodes.find((e) => e.slug === "weight");
-  assert.equal(weight.quiz.questions.length, 8);
-  for (const q of weight.quiz.questions) {
-    assert.match(q.source, /^W\d+$/, `${q.id} cites a W-numbered claim`);
-    assert.match(research, new RegExp(`^\\| ${q.source} \\|`, "m"), `${q.id} cites ${q.source}`);
-  }
-  assert.ok(weight.quiz.questions.every((q) => q.card.startsWith("weight-")), "every Weight question unlocks a Weight card");
-});
+for (const [slug, letter, dir] of [["weight", "W", "006-medicine-01-weight"], ["diabetes", "D", "006-medicine-02-diabetes"]]) {
+  test(`every ${slug} quiz source is a claim number defined in episodes/${dir}/RESEARCH.md`, () => {
+    const research = readFileSync(new URL(`../../episodes/${dir}/RESEARCH.md`, import.meta.url), "utf8");
+    const episode = loadCatalog().episodes.find((e) => e.slug === slug);
+    assert.equal(episode.quiz.questions.length, 8);
+    for (const q of episode.quiz.questions) {
+      assert.match(q.source, new RegExp(`^${letter}\\d+[a-z]?$`), `${q.id} cites a ${letter}-numbered claim`);
+      assert.match(research, new RegExp(`^\\| ${q.source} \\|`, "m"), `${q.id} cites ${q.source}`);
+    }
+    assert.ok(episode.quiz.questions.every((q) => q.card.startsWith(`${slug}-`)), `every ${slug} question unlocks a ${slug} card`);
+  });
+}
 
-test("the shipped catalog has eight live episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
+test("the shipped catalog has seven live main episodes and two live Medicine sub-episodes with their real YouTube ids (episode 02 is the v2 upload)", () => {
   const live = loadCatalog().episodes.filter((e) => e.status === "published");
   assert.deepEqual(live.map((e) => [e.slug, e.youtubeId, e.publishedAt]), [
     ["time-compressed", "Sw1xP57TNTk", "2026-10-11"],
@@ -263,6 +265,7 @@ test("the shipped catalog has eight live episodes with their real YouTube ids (e
     ["medicine", "_RD_Qz66FCg", "2026-10-22"],
     ["light", "HbsIy38RGvI", "2026-10-29"],
     ["weight", "o5NXRlNytjo", "2026-10-30"],
+    ["diabetes", "Jjw8_rIPOYA", "2026-10-30"],
   ]);
   assert.ok(loadCatalog().episodes.every((e) => e.thumbnail === `/assets/episodes/${e.slug}/thumb.png`), "every episode ships its own artwork");
   for (const dead of ["WI9P4hHcSoc", "XSQmwP_GSEM"]) assert.ok(!JSON.stringify(loadCatalog()).includes(dead), `the removed upload ${dead} is gone`);
@@ -272,8 +275,52 @@ test("the shipped catalog has eight live episodes with their real YouTube ids (e
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "medicine"), "Medicine is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "light"), "Light is an episode now, not an upcoming subject");
   assert.ok(!loadCatalog().requested.some((r) => r.slug === "weight"), "Weight is an episode now, not an upcoming subject");
-  assert.equal(loadCatalog().requested[0].slug, "diabetes", "Medicine 2 (Diabetes) leads the upcoming subjects");
-  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["diabetes"], "Diabetes is announced as next");
+  assert.ok(!loadCatalog().requested.some((r) => r.slug === "diabetes"), "Diabetes is an episode now, not an upcoming subject");
+  assert.equal(loadCatalog().requested[0].slug, "ozempic-mounjaro", "Medicine 3 (Ozempic & Mounjaro) leads the upcoming subjects");
+  assert.deepEqual(loadCatalog().requested.filter((r) => r.status === "next").map((r) => r.slug), ["ozempic-mounjaro"], "Medicine 3 is announced as next");
+});
+
+test("sub-episodes carry their parent and part instead of a number; main episodes stay numbered 01–07", () => {
+  // Arrange
+  const catalog = loadCatalog();
+  // Act
+  const subs = catalog.episodes.filter((e) => e.series);
+  const mains = catalog.episodes.filter((e) => !e.series);
+  // Assert
+  assert.deepEqual(subs.map((e) => [e.slug, e.series]), [
+    ["weight", { parent: "medicine", name: "Medicine", of: 10, part: 1 }],
+    ["diabetes", { parent: "medicine", name: "Medicine", of: 10, part: 2 }],
+  ]);
+  assert.ok(subs.every((e) => !("number" in e)), "a sub-episode has no number");
+  assert.ok(subs.every((e) => e.format === "explainer"), "sub-episodes keep the explainer format");
+  assert.deepEqual(mains.map((e) => e.number), [1, 2, 3, 4, 5, 6, 7], "No. 08 is still free for the next main episode");
+  assert.deepEqual(catalog.requested.find((r) => r.status === "next").series, { parent: "medicine", name: "Medicine", of: 10, part: 3 });
+});
+
+test("the build refuses a sub-episode with a number, a bad parent, a wrong name, a part out of range or a repeated part", () => {
+  // Arrange
+  const catalog = loadCatalog();
+  const withWeight = (change) => ({ ...catalog, episodes: catalog.episodes.map((e) => (e.slug === "weight" ? change(e) : e)) });
+  const withSeries = (series) => withWeight((e) => ({ ...e, series: { ...e.series, ...series } }));
+  // Act
+  const numbered = validateCatalog(withWeight((e) => ({ ...e, number: 8 })));
+  const unnumberedMain = validateCatalog({ ...catalog, episodes: catalog.episodes.map((e) => (e.slug === "light" ? { ...e, number: undefined } : e)) });
+  const orphan = validateCatalog(withSeries({ parent: "nope" }));
+  const subParent = validateCatalog(withSeries({ parent: "diabetes" }));
+  const misnamed = validateCatalog(withSeries({ name: "Health" }));
+  const tooFar = validateCatalog(withSeries({ part: 11 }));
+  const notAnObject = validateCatalog(withWeight((e) => ({ ...e, series: "medicine" })));
+  const repeated = validateCatalog(withSeries({ part: 2 }));
+  // Assert
+  assert.ok(numbered.some((e) => e.includes("a sub-episode (series) has no number")));
+  assert.ok(unnumberedMain.some((e) => e.includes("number must be a positive integer")));
+  assert.ok(orphan.some((e) => e.includes('series.parent "nope" is not a main (numbered) episode')));
+  assert.ok(subParent.some((e) => e.includes('series.parent "diabetes" is not a main (numbered) episode')), "no sub-sub-episodes");
+  assert.ok(misnamed.some((e) => e.includes('series.name must be the parent\'s subject "Medicine"')));
+  assert.ok(tooFar.some((e) => e.includes("series.part must be a whole number from 1 to series.of")));
+  assert.ok(notAnObject.some((e) => e.includes("series must be { parent, name, part, of }")));
+  assert.ok(repeated.some((e) => e.includes('series part "medicine 2" is used more than once')));
+  assert.deepEqual(validateCatalog(withSeries({ of: 11 })).filter((e) => e.includes("series.of")).length, 1);
 });
 
 test("format is optional and only \"explainer\" is allowed", () => {

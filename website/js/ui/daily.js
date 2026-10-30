@@ -6,6 +6,7 @@ import { store, saveProgress } from "../lib/progress-client.js";
 import { loadCatalog } from "../lib/catalog-client.js";
 import { shuffledOrder } from "../lib/shuffle.js";
 import { unlockedCard } from "./fact-card.js";
+import { episodeTag } from "../lib/episodes.js";
 
 const el = (tag, props = {}, children = []) => {
   const node = Object.assign(document.createElement(tag), props);
@@ -15,7 +16,7 @@ const el = (tag, props = {}, children = []) => {
 
 function factView(pick, verdict) {
   const card = pick.card
-    ? unlockedCard({ card: pick.card, episode: { number: pick.number, subject: pick.subject } }, { shareable: true })
+    ? unlockedCard({ card: pick.card, episode: { number: pick.number, series: pick.series, subject: pick.subject } }, { shareable: true })
     : el("li", { className: "fact-card" }, [el("span", { className: "fact-text", textContent: pick.question.reveal })]);
   const more = el("a", { className: "btn btn-ghost btn-small", href: `/episodes/${pick.slug}/`, textContent: `Play “${pick.title}”` });
   return [
@@ -36,7 +37,7 @@ function questionView(pick, { retry }) {
   );
   const legend = el("legend", { className: "quiz-question", textContent: pick.question.question });
   form.append(
-    el("p", { className: "quiz-step" }, [el("span", { textContent: `From No. ${String(pick.number).padStart(2, "0")} · ${pick.title}` }), el("span", { className: "quiz-era", textContent: pick.question.era })]),
+    el("p", { className: "quiz-step" }, [el("span", { textContent: `From ${episodeTag(pick)} · ${pick.title}` }), el("span", { className: "quiz-era", textContent: pick.question.era })]),
     el("fieldset", {}, [legend, el("div", { className: "quiz-options" }, options)]),
     el("p", { className: "cta-row" }, [
       el("button", { className: "btn btn-primary", type: "submit", textContent: retry ? "Try again" : "Check my answer" }),

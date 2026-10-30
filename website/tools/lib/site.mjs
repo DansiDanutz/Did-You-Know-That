@@ -1,5 +1,7 @@
 // Channel facts used by every generated page. Change them here, then run `npm run build:site`.
 
+import { newestFirst, inSeriesOrder } from "../../js/lib/episodes.js";
+
 export const SITE = {
   name: "Did You Know That?",
   url: "https://dexty.live",
@@ -17,7 +19,7 @@ export const CHANNEL_URL = `https://www.youtube.com/channel/${SITE.channelId}`;
 export const HANDLE_URL = `https://www.youtube.com/${SITE.handle}`;
 export const SUBSCRIBE_URL = `${CHANNEL_URL}?sub_confirmation=1`;
 
-export const episodeNumber = (episode) => String(episode.number).padStart(2, "0");
+export { episodeTag, episodeTagLong, episodeGlyph, isSubEpisode, mainEpisodes, subEpisodesOf, inSeriesOrder } from "../../js/lib/episodes.js";
 export const episodePath = (episode) => `/episodes/${episode.slug}/`;
 export const subjectPath = (slug) => `/subject/${slug}/`;
 export const watchUrl = (episode) => `https://www.youtube.com/watch?v=${episode.youtubeId}`;
@@ -26,9 +28,9 @@ export const embedUrl = (episode) => embedUrlFor(episode.youtubeId);
 export const isPublished = (episode) => episode.status === "published" && Boolean(episode.youtubeId);
 export const absolute = (path) => new URL(path, SITE.url).href;
 
-/** Episodes newest-number first are shown last; the newest published episode hosts the comment links. */
+/** The newest published episode or sub-episode (latest publishedAt); it hosts the comment links. */
 export function latestPublished(catalog) {
-  return [...catalog.episodes].filter(isPublished).sort((a, b) => b.number - a.number)[0] ?? null;
+  return newestFirst(catalog, catalog.episodes.filter(isPublished))[0] ?? null;
 }
 
 /** Where a "comment on YouTube" button should go: the newest published video, else the channel. */
@@ -51,10 +53,10 @@ export const isLocalAsset = (path) => typeof path === "string" && path.startsWit
 
 /**
  * The episode the home page puts front and center: the newest published one; before anything is
- * published, the next to premiere (the lowest-numbered draft) as "Premieres soon".
+ * published, the next to premiere (the first draft in series order) as "Premieres soon".
  */
 export function featuredEpisode(catalog) {
   const published = latestPublished(catalog);
   if (published) return published;
-  return [...catalog.episodes].sort((a, b) => a.number - b.number)[0] ?? null;
+  return inSeriesOrder(catalog)[0] ?? null;
 }

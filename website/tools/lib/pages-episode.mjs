@@ -2,10 +2,10 @@
 import { html, raw } from "./html.mjs";
 import { page } from "./layout.mjs";
 import {
-  SITE, SUBSCRIBE_URL, CHANNEL_URL, episodeNumber, episodePath, subjectPath, watchUrl, embedUrl, isPublished, absolute, commentUrl, latestPublished,
+  SITE, SUBSCRIBE_URL, CHANNEL_URL, episodeTag, episodeTagLong, isSubEpisode, mainEpisodes, subEpisodesOf, episodePath, subjectPath, watchUrl, embedUrl, isPublished, absolute, commentUrl, latestPublished,
 } from "./site.mjs";
 import {
-  icon, statusPill, episodeCard, comingNextCard, suggestCard, factCard, keywordChips, thumbnailImage, videoFacade, playerControls, stepHead, ladder, hasLadder, subjectBoard,
+  icon, statusPill, episodeCard, comingNextCard, comingNextKicker, suggestCard, factCard, keywordChips, thumbnailImage, videoFacade, playerControls, stepHead, ladder, hasLadder, subjectBoard, seriesSection,
 } from "./components.mjs";
 import { JOURNEY_STEPS, STEP_ANCHORS } from "../../js/lib/journey.js";
 import { POINTS } from "../../js/lib/ledger.js";
@@ -19,7 +19,7 @@ const breadcrumbs = (items) => ({
 const videoObject = (episode) => ({
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  name: `Did You Know That? No. ${episodeNumber(episode)} — ${episode.title}`,
+  name: `Did You Know That? ${episodeTagLong(episode)} — ${episode.title}`,
   description: `${episode.hook} ${episode.summary}`,
   thumbnailUrl: [absolute(episode.thumbnail)],
   uploadDate: episode.publishedAt,
@@ -71,7 +71,7 @@ function watchStep(episode) {
   <div class="poster${episode.thumbnail ? " has-art" : ""}">
     ${episode.thumbnail ? html`<span class="poster-art" aria-hidden="true">${thumbnailImage(episode, { lazy: false })}</span>` : html`<span class="poster-word" aria-hidden="true">${episode.subject}</span>`}
     <span class="pill pill-soon">Coming soon</span>
-    <p>No. ${episodeNumber(episode)} is in production. Subscribe and it will find you the day it premieres.</p>
+    <p>${episodeTag(episode)} is in production. Subscribe and it will find you the day it premieres.</p>
     <a class="btn btn-primary" href="${SUBSCRIBE_URL}" rel="noopener">${icon("youtube")}<span>Subscribe on YouTube</span></a>
   </div>
 </section>`;
@@ -132,7 +132,7 @@ function questionRunner(episode) {
     <div class="fact-card fact-answer">
       <span class="fact-head">${icon("bulb")} Did you know that…</span>
       <span class="fact-text">${episode.quiz.reveal}</span>
-      <span class="fact-foot">No. ${episodeNumber(episode)} · ${episode.subject} · the answer</span>
+      <span class="fact-foot">${episodeTag(episode)} · ${episode.subject} · the answer</span>
     </div>
     <p class="cta-row"><a class="btn btn-primary" href="#cards">See your cards</a><a class="btn btn-ghost" href="#next">What’s next</a><button class="btn btn-ghost" type="button" data-quiz-replay>Play again (no new points)</button></p>
   </div>`;
@@ -169,14 +169,22 @@ const cardsStep = (episode) => html`<section class="step-panel ep-cards wrap" id
   <p class="step-foot"><a href="/collection/">Open your whole collection →</a> Progress stays in this browser only.</p>
 </section>`;
 
+/** What follows an episode: the next part of its sub-series, or the next main episode; else null. */
+function followingEpisode(catalog, episode) {
+  if (isSubEpisode(episode)) return subEpisodesOf(catalog, episode.series.parent).find((e) => e.series.part > episode.series.part) ?? null;
+  return mainEpisodes(catalog).find((e) => e.number > episode.number) ?? null;
+}
+
+/** "Coming next · in production" for the main series, "Medicine 3 · coming next · in production" for a sub-episode. */
+const comingNextTileKicker = (request) => (request.series ? `${comingNextKicker(request)} · in production` : "Coming next · in production");
+
 function nextStep(catalog, episode) {
-  const index = catalog.episodes.indexOf(episode);
-  const next = catalog.episodes[index + 1];
+  const next = followingEpisode(catalog, episode);
   const comingNext = (catalog.requested ?? []).find((r) => r.status === "next");
   const nextBlock = next
-    ? html`<a class="next-tile" href="${episodePath(next)}"><span class="next-kicker">No. ${episodeNumber(next)} · ${isPublished(next) ? "play it next" : "coming soon"}</span><strong>${next.title}</strong><span>${next.hook}</span></a>`
+    ? html`<a class="next-tile" href="${episodePath(next)}"><span class="next-kicker">${episodeTag(next)} · ${isPublished(next) ? "play it next" : "coming soon"}</span><strong>${next.title}</strong><span>${next.hook}</span></a>`
     : comingNext
-      ? html`<a class="next-tile" href="${subjectPath(comingNext.slug)}"><span class="next-kicker">Coming next · in production</span><strong>${comingNext.subject}</strong><span>${comingNext.pitch}</span></a>`
+      ? html`<a class="next-tile" href="${subjectPath(comingNext.slug)}"><span class="next-kicker">${comingNextTileKicker(comingNext)}</span><strong>${comingNext.subject}</strong><span>${comingNext.pitch}</span></a>`
       : html`<a class="next-tile" href="/#map"><span class="next-kicker">Next</span><strong>You choose the subject</strong><span>Vote in the comments.</span></a>`;
   return html`<section class="step-panel wrap" id="next" aria-labelledby="next-title">
   ${stepHead(5, "next-title", "What’s next")}
@@ -222,18 +230,40 @@ function explore(episode) {
 </section>`;
 }
 
+/** The main episode a sub-episode belongs to (null for a main episode). */
+const parentOf = (catalog, episode) => (isSubEpisode(episode) ? catalog.episodes.find((e) => e.slug === episode.series.parent) ?? null : null);
+
+/** Breadcrumb trail: Home / Episodes / [No. 06 Medicine /] this episode. */
+function crumbTrail(catalog, episode) {
+  const parent = parentOf(catalog, episode);
+  return [["Home", "/"], ["Episodes", "/episodes/"], ...(parent ? [[`${episodeTag(parent)} ${parent.title}`, episodePath(parent)]] : [])];
+}
+
+function episodeKicker(catalog, episode, newest) {
+  const parent = parentOf(catalog, episode);
+  const partOf = parent ? html` · part of <a href="${episodePath(parent)}">${episodeTag(parent)} ${parent.title}</a>` : "";
+  return html`<p class="ep-kicker">${episodeTagLong(episode)}${partOf} · Subject: <a href="${subjectPath(episode.subjectSlug)}">${episode.subject}</a> · ${statusPill(episode)}${newest ? html` <span class="pill pill-new">New</span>` : ""}</p>`;
+}
+
+/** The sub-series block: on a main episode its own series, on a sub-episode the series it belongs to. */
+function episodeSeries(catalog, episode) {
+  const parent = parentOf(catalog, episode) ?? episode;
+  return seriesSection(catalog, parent, { current: isSubEpisode(episode) ? episode.slug : null, newest: latestPublished(catalog)?.slug });
+}
+
 export function episodePage(catalog, episode) {
   const published = isPublished(episode);
   const newest = latestPublished(catalog)?.slug === episode.slug;
+  const trail = crumbTrail(catalog, episode);
   const structuredData = [
-    breadcrumbs([["Home", "/"], ["Episodes", "/episodes/"], [episode.title, episodePath(episode)]]),
+    breadcrumbs([...trail, [episode.title, episodePath(episode)]]),
     ...(published ? [videoObject(episode)] : []),
   ];
   const main = html`<article class="episode">
   <header class="ep-hero wrap">
     ${episode.thumbnail ? html`<a class="ep-hero-art" href="#player" tabindex="-1" aria-hidden="true">${thumbnailImage(episode, { sizes: "520px" })}</a>` : ""}
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/episodes/">Episodes</a> <span aria-hidden="true">/</span> <span aria-current="page">No. ${episodeNumber(episode)}</span></nav>
-    <p class="ep-kicker">No. ${episodeNumber(episode)} · Subject: <a href="${subjectPath(episode.subjectSlug)}">${episode.subject}</a> · ${statusPill(episode)}${newest ? html` <span class="pill pill-new">New</span>` : ""}</p>
+    <nav class="crumbs" aria-label="Breadcrumb">${trail.map(([name, path]) => html`<a href="${path}">${name}</a> <span aria-hidden="true">/</span> `)}<span aria-current="page">${episodeTag(episode)}</span></nav>
+    ${episodeKicker(catalog, episode, newest)}
     <h1 class="ep-title">${episode.title}</h1>
     <p class="ep-hook">${episode.hook}</p>
     <p class="ep-question">${episode.question}</p>
@@ -243,6 +273,7 @@ export function episodePage(catalog, episode) {
   ${journey(episode)}
   ${cardsStep(episode)}
   ${nextStep(catalog, episode)}
+  ${episodeSeries(catalog, episode)}
   ${explore(episode)}
   <section class="ep-about wrap" aria-labelledby="about-ep-title">
     <div>
@@ -257,7 +288,7 @@ export function episodePage(catalog, episode) {
 </article>`;
   return page({
     newsletter: catalog.newsletter,
-    title: `No. ${episodeNumber(episode)} — ${episode.title} · ${SITE.name}`,
+    title: `${episodeTag(episode)} — ${episode.title} · ${SITE.name}`,
     description: `${episode.hook} ${episode.question}`,
     path: episodePath(episode),
     currentPath: "/episodes/",
@@ -271,7 +302,7 @@ export function episodePage(catalog, episode) {
 /** /episodes/: every episode with your progress, what is coming next, and how to choose a subject. */
 export function episodesIndexPage(catalog) {
   const newest = latestPublished(catalog)?.slug;
-  const comingNext = (catalog.requested ?? []).find((r) => r.status === "next");
+  const comingNext = (catalog.requested ?? []).find((r) => r.status === "next" && !r.series);
   const main = html`<section class="wrap page-hero" aria-labelledby="episodes-title">
   <p class="section-kicker">The series</p>
   <h1 id="episodes-title" class="section-title">All episodes</h1>
@@ -279,11 +310,12 @@ export function episodesIndexPage(catalog) {
 </section>
 <section class="wrap" aria-label="Episodes">
   <ul class="cards">
-    ${catalog.episodes.map((episode, i) => episodeCard(episode, i, { newest: episode.slug === newest }))}
+    ${mainEpisodes(catalog).map((episode, i) => episodeCard(episode, i, { newest: episode.slug === newest }))}
     ${comingNext ? comingNextCard(comingNext) : ""}
     ${suggestCard(commentUrl(catalog))}
   </ul>
 </section>
+${mainEpisodes(catalog).map((episode) => seriesSection(catalog, episode, { newest }))}
 <section class="wrap section-tight" aria-labelledby="map-title">
   <h2 id="map-title" class="small-title">Subjects waiting for your vote</h2>
   ${subjectBoard(catalog)}
@@ -316,7 +348,7 @@ export function subjectPageForEpisode(catalog, episode) {
 </section>`;
   return page({
     newsletter: catalog.newsletter,
-    title: `${episode.subject} — Did You Know That? No. ${episodeNumber(episode)}`,
+    title: `${episode.subject} — Did You Know That? ${episodeTagLong(episode)}`,
     description: `${episode.subject}: ${episode.hook}`,
     path: subjectPath(episode.subjectSlug),
     structuredData: [breadcrumbs([["Home", "/"], ["Episodes", "/episodes/"], [episode.subject, subjectPath(episode.subjectSlug)]])],
@@ -328,7 +360,7 @@ export function subjectPageForEpisode(catalog, episode) {
 function comingNextPage(catalog, request) {
   const main = html`<section class="subject-hero wrap">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/episodes/">Episodes</a> <span aria-hidden="true">/</span> <span aria-current="page">${request.subject}</span></nav>
-  <p class="section-kicker">Coming next · in production</p>
+  <p class="section-kicker">${request.series ? `${episodeTagLong(request)} · coming next · in production` : "Coming next · in production"}</p>
   <h1 class="subject-word">${request.subject}</h1>
   <p class="section-lede subject-teaser">${request.pitch}</p>
 </section>

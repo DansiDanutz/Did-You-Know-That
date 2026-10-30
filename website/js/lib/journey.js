@@ -4,6 +4,7 @@
 // the player moves on to the quiz (nothing here, or anywhere, observes the video).
 import { quizSummary, hasQuiz, unlockedCardIds } from "./progress.js";
 import { earnedFor } from "./ledger.js";
+import { newestFirst } from "./episodes.js";
 
 export const JOURNEY_STEPS = Object.freeze([
   { id: "guess", label: "Guess" },
@@ -51,7 +52,7 @@ const touched = (state, episode) => isIndex(state.guesses?.[episode.slug]) || qu
  * Null for a first-time visitor or when everything is finished.
  */
 export function continueTarget(state, catalog) {
-  const playable = [...(catalog?.episodes ?? [])].filter((e) => isPublished(e) && hasQuiz(e)).sort((a, b) => b.number - a.number);
+  const playable = newestFirst(catalog, (catalog?.episodes ?? []).filter((e) => isPublished(e) && hasQuiz(e)));
   if (!playable.some((episode) => touched(state, episode))) return null;
   const inProgress = playable.find((episode) => touched(state, episode) && !quizSummary(state, episode).allCards);
   if (inProgress) return { kind: "continue", episode: inProgress, step: journeyState(state, inProgress).current, progress: episodeProgress(state, inProgress) };

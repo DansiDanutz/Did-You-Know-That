@@ -2,7 +2,7 @@
 import { html } from "./html.mjs";
 import { page } from "./layout.mjs";
 import {
-  SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute, featuredEpisode, latestPublished, isPublished, episodeNumber, episodePath, watchUrl,
+  SITE, SUBSCRIBE_URL, CHANNEL_URL, HANDLE_URL, commentUrl, absolute, featuredEpisode, latestPublished, isPublished, episodeTag, episodeTagLong, isSubEpisode, inSeriesOrder, episodePath, watchUrl,
 } from "./site.mjs";
 import { icon, episodeCard, comingNextCard, suggestCard, subjectBoard, videoFacade, thumbnailImage } from "./components.mjs";
 import { newsletterBlock } from "./newsletter.mjs";
@@ -27,7 +27,7 @@ const HOW_IT_WORKS = [
 // The first screen IS the game: the newest episode's guess, one tap per answer. Without JavaScript the
 // form opens the episode page; with it, hero-guess.js locks the guess and jumps straight to Watch.
 const heroGuess = (episode) => html`<form class="hero-guess" data-hero-guess data-slug="${episode.slug}" action="${episodePath(episode)}" aria-labelledby="hero-guess-q">
-      <p class="hero-guess-kicker"><span class="pill pill-new">${isPublished(episode) ? "New" : "Soon"}</span><span>No. ${episodeNumber(episode)} · ${episode.title}</span></p>
+      <p class="hero-guess-kicker"><span class="pill pill-new">${isPublished(episode) ? "New" : "Soon"}</span><span>${episodeTag(episode)} · ${episode.title}</span></p>
       <p class="hero-guess-q" id="hero-guess-q">${episode.quiz.question}</p>
       <div class="hero-guess-options">
         ${episode.quiz.options.map((option, i) => html`<button class="hero-guess-option" type="submit" name="guess" value="${i}"><span class="hero-guess-letter" aria-hidden="true">${"ABCDEF"[i]}</span><span>${option}</span></button>`)}
@@ -82,7 +82,7 @@ function featured(catalog) {
   <div class="wrap featured">
     <div class="featured-media">${featuredMedia(episode)}</div>
     <div class="featured-body">
-      <p class="section-kicker">${published ? html`<span class="pill pill-new">New</span> Newest episode` : "Premieres soon"} · No. ${episodeNumber(episode)}</p>
+      <p class="section-kicker">${published ? html`<span class="pill pill-new">New</span> ${isSubEpisode(episode) ? "Newest sub-episode" : "Newest episode"}` : "Premieres soon"} · ${episodeTagLong(episode)}</p>
       <h2 id="featured-title" class="featured-title">${episode.title}</h2>
       <p class="featured-hook">${episode.hook}</p>
       <p class="featured-question">${episode.question}</p>
@@ -204,7 +204,7 @@ const series = (catalog) => {
     <h2 id="series-title" class="section-title">Pick an episode</h2>
     <p class="section-lede">Seven mornings, seven lives, one question you will want to answer before the end.</p>
     <ul class="cards rail" aria-label="All episodes">
-      ${catalog.episodes.map((episode, i) => episodeCard(episode, i, { newest: episode.slug === newest }))}
+      ${inSeriesOrder(catalog).map((episode, i) => episodeCard(episode, i, { newest: episode.slug === newest }))}
       ${comingNext ? comingNextCard(comingNext) : ""}
       ${suggestCard(commentUrl(catalog))}
     </ul>

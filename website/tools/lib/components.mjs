@@ -1,6 +1,6 @@
 // Reusable HTML pieces for the generated pages.
 import { html, raw } from "./html.mjs";
-import { episodeNumber, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl } from "./site.mjs";
+import { episodeTag, episodeTagLong, episodeGlyph, inSeriesOrder, subEpisodesOf, episodePath, subjectPath, isPublished, isLocalAsset, thumbnailSources, embedUrl } from "./site.mjs";
 import { LANGUAGES, DEFAULT_LANGUAGE } from "../../js/lib/player-prefs.js";
 import { languageGroups } from "../../js/lib/localizations.js";
 
@@ -77,17 +77,20 @@ export const playerControls = (episode = {}) => {
   <p class="player-hint" data-player-hint aria-live="polite" hidden></p>`;
 };
 
-export function episodeCard(episode, index, { newest = false } = {}) {
+/** What a card's art says under the subject word: the main series' span, or "Medicine 1 of 10". */
+const artSpan = (item) => (item.series ? episodeTagLong(item) : "1500 → 2100");
+
+export function episodeCard(episode, index, { newest = false, current = false } = {}) {
   const published = isPublished(episode);
   const badge = published ? "" : html`<span class="card-badge">Coming soon</span>`;
   const art = episode.thumbnail
     ? html`<span class="card-thumb">${thumbnailImage(episode, { sizes: "(min-width: 1000px) 380px, 100vw" })}${published ? html`<span class="card-play">${icon("play")}</span>` : ""}${badge}</span>`
-    : html`<span class="card-art"><span class="card-art-no">${episodeNumber(episode)}</span><span class="card-art-word">${episode.subject}</span><span class="card-art-span">1500 → 2100</span>${badge}</span>`;
+    : html`<span class="card-art"><span class="card-art-no">${episodeGlyph(episode)}</span><span class="card-art-word">${episode.subject}</span><span class="card-art-span">${artSpan(episode)}</span>${badge}</span>`;
   return html`<li class="card ${accentFor(index)}${published ? "" : " is-draft"}">
-  <a class="card-link" href="${episodePath(episode)}">
+  <a class="card-link" href="${episodePath(episode)}"${current ? raw(' aria-current="page"') : ""}>
     ${art}
     <span class="card-body">
-      <span class="card-kicker">No. ${episodeNumber(episode)} · ${statusPill(episode)}${newest && published ? html` <span class="pill pill-new">New episode</span>` : ""}</span>
+      <span class="card-kicker">${episodeTagLong(episode)} · ${statusPill(episode)}${newest && published ? html` <span class="pill pill-new">New episode</span>` : ""}${current ? html` <span class="pill">You are here</span>` : ""}</span>
       <span class="card-title">${episode.title}</span>
       <span class="card-hook">${episode.hook}</span>
       <span class="card-progress" data-ep-progress="${episode.slug}" hidden></span>
@@ -97,12 +100,15 @@ export function episodeCard(episode, index, { newest = false } = {}) {
 </li>`;
 }
 
+/** "Next episode" or, for a coming sub-episode, "Medicine 3 · coming next". */
+export const comingNextKicker = (request) => (request.series ? `${episodeTag(request)} · coming next` : "Next episode");
+
 /** The subject marked "next" in data/episodes.json: a teaser only (a question, never a claim). */
 export const comingNextCard = (request) => html`<li class="card card-next accent-purple">
   <a class="card-link" href="${subjectPath(request.slug)}">
-    <span class="card-art"><span class="card-art-no">Next</span><span class="card-art-word">${request.subject}</span><span class="card-art-span">1500 → 2100</span><span class="card-badge">Coming next</span></span>
+    <span class="card-art"><span class="card-art-no">Next</span><span class="card-art-word">${request.subject}</span><span class="card-art-span">${artSpan(request)}</span><span class="card-badge">Coming next</span></span>
     <span class="card-body">
-      <span class="card-kicker">Next episode · in production</span>
+      <span class="card-kicker">${comingNextKicker(request)} · in production</span>
       <span class="card-title">${request.subject}</span>
       <span class="card-hook">${request.pitch}</span>
       <span class="card-cta">See the teaser <span aria-hidden="true">→</span></span>
@@ -165,12 +171,12 @@ function boardNode({ href, label, glyph, state, kind, accent }) {
 
 /** The subject map: published = lit, coming soon = dim "?", requested = locked. */
 export function subjectBoard(catalog) {
-  const episodeNodes = catalog.episodes.map((episode, i) =>
+  const episodeNodes = inSeriesOrder(catalog).map((episode, i) =>
     boardNode({
       href: episodePath(episode),
       label: episode.subject,
-      glyph: isPublished(episode) ? episodeNumber(episode) : "?",
-      state: isPublished(episode) ? `No. ${episodeNumber(episode)} · Play` : `No. ${episodeNumber(episode)} · Coming soon`,
+      glyph: isPublished(episode) ? episodeGlyph(episode) : "?",
+      state: isPublished(episode) ? `${episodeTag(episode)} · Play` : `${episodeTag(episode)} · Coming soon`,
       kind: isPublished(episode) ? "lit" : "dim",
       accent: accentFor(i),
     }),
@@ -180,7 +186,7 @@ export function subjectBoard(catalog) {
       href: subjectPath(request.slug),
       label: request.subject,
       glyph: request.status === "next" ? "?" : icon("lock"),
-      state: request.status === "next" ? "Coming next" : request.status === "requested" ? "Requested · vote in the comments" : "Locked · vote in the comments",
+      state: request.status === "next" ? (request.series ? `${episodeTag(request)} · Coming next` : "Coming next") : request.status === "requested" ? "Requested · vote in the comments" : "Locked · vote in the comments",
       kind: request.status === "next" ? "dim" : "locked",
       accent: accentFor(i + catalog.episodes.length),
     }),
@@ -190,7 +196,7 @@ export function subjectBoard(catalog) {
 
 /** A "Did you know that…" fact card in the neon style of the videos. */
 export function factCard(card, episode, { locked = false, shareable = false } = {}) {
-  const label = `No. ${episodeNumber(episode)} · ${episode.subject}`;
+  const label = `${episodeTag(episode)} · ${episode.subject}`;
   if (locked) {
     return html`<li class="fact-card is-locked" data-card-id="${card.id}">
   <span class="fact-head">${icon("lock")} Locked card</span>
@@ -206,6 +212,28 @@ export function factCard(card, episode, { locked = false, shareable = false } = 
   <span class="fact-foot">${label} · <span class="fact-source">${card.source}</span></span>
   ${shareable ? html`<button class="btn btn-ghost btn-small" type="button" data-share-card="${card.id}">Share this card</button>` : ""}
 </li>`;
+}
+
+/**
+ * A main episode's sub-series ("Medicine series"), in order: its sub-episodes (published ones play, drafts are
+ * "coming soon") and the requested subject announced as its next part. Empty when the episode has no sub-series.
+ */
+export function seriesSection(catalog, parent, { current = null, newest = null } = {}) {
+  const parts = subEpisodesOf(catalog, parent.slug);
+  const comingNext = (catalog.requested ?? []).find((r) => r.status === "next" && r.series?.parent === parent.slug);
+  if (!parts.length && !comingNext) return "";
+  const of = (parts[0] ?? comingNext).series.of;
+  const out = parts.filter(isPublished).length;
+  const titleId = `${parent.slug}-series-title`;
+  return html`<section class="explore wrap" id="${parent.slug}-series" aria-labelledby="${titleId}">
+  <p class="section-kicker">${episodeTag(parent)} · ${of} short sub-episodes</p>
+  <h2 id="${titleId}" class="section-title">${parent.subject} series</h2>
+  <p class="section-lede">${parent.subject} 1 to ${of}: short explainers, one story each, that go deeper than <a href="${episodePath(parent)}">${episodeTag(parent)} ${parent.title}</a>. ${out} of ${of} out so far.</p>
+  <ul class="cards">
+    ${parts.map((episode, i) => episodeCard(episode, i + 1, { current: episode.slug === current, newest: episode.slug === newest }))}
+    ${comingNext ? comingNextCard(comingNext) : ""}
+  </ul>
+</section>`;
 }
 
 export const keywordChips = (keywords, limit = keywords.length) =>

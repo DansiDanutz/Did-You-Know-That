@@ -1,6 +1,8 @@
 // Subject search: find an episode (or a requested subject) by a word.
 // Pure ES module, no dependencies — used by the browser and by the Node tests.
 
+import { episodeTag } from "./episodes.js";
+
 const DEFAULT_LIMIT = 8;
 const SCORE = { subjectExact: 100, keywordExact: 70, subjectPrefix: 60, keywordPrefix: 40, title: 30, text: 15 };
 
@@ -23,7 +25,7 @@ function episodeEntry(episode) {
     kind: "episode",
     slug: episode.slug,
     label: episode.subject,
-    title: `No. ${String(episode.number).padStart(2, "0")} · ${episode.title}`,
+    title: `${episodeTag(episode)} · ${episode.title}`,
     status: episode.status,
     url: `/episodes/${episode.slug}/`,
     watchUrl: watchUrlFor(episode),
@@ -35,12 +37,17 @@ function episodeEntry(episode) {
   };
 }
 
+function requestTitle(request) {
+  if (request.status === "next") return request.series ? `${episodeTag(request)} · coming next` : "Coming next · in production";
+  return request.status === "requested" ? "Requested — vote in the comments" : "Idea — vote in the comments";
+}
+
 function requestEntry(request) {
   return {
     kind: "requested",
     slug: request.slug,
     label: request.subject,
-    title: request.status === "requested" ? "Requested — vote in the comments" : "Idea — vote in the comments",
+    title: requestTitle(request),
     status: request.status,
     url: `/subject/${request.slug}/`,
     watchUrl: null,

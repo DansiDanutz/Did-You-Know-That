@@ -58,7 +58,7 @@ test("every episode, subject and requested subject gets a page and a sitemap ent
     assert.ok(files[`subject/${e.subjectSlug}/index.html`]);
     assert.ok(files["sitemap.xml"].includes(`https://dexty.live/episodes/${e.slug}/`));
   }
-  for (const r of catalog.requested) assert.match(files[`subject/${r.slug}/index.html`], r.status === "next" ? /Coming next · in production/ : /vote in the comments/i, r.slug);
+  for (const r of catalog.requested) assert.match(files[`subject/${r.slug}/index.html`], r.status === "next" ? /[Cc]oming next · in production/ : /vote in the comments/i, r.slug);
   assert.ok(files["episodes/index.html"], "the episodes index page exists");
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/<\/loc>/);
 });
@@ -71,7 +71,7 @@ test("the shipped site references no test video ids, and only published episodes
     assert.doesNotMatch(contents, /TESTID/, path);
     for (const [, id] of contents.matchAll(/(?:youtube\.com\/watch\?v=|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/g)) assert.ok(liveIds.includes(id), `${path} links to ${id}, which is not a published episode`);
   }
-  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY", "a4qHdjL8bok", "_RD_Qz66FCg", "HbsIy38RGvI", "o5NXRlNytjo"], "episodes 01, 02 (v2), 03, 04, 05, 06, 07 and 08 are live");
+  assert.deepEqual(liveIds, ["Sw1xP57TNTk", "WlClbKXSdSo", "rchexCb48LM", "GkEBiDLa1WY", "a4qHdjL8bok", "_RD_Qz66FCg", "HbsIy38RGvI", "o5NXRlNytjo", "Jjw8_rIPOYA"], "episodes 01, 02 (v2), 03, 04, 05, 06 and 07, plus Medicine 1 and 2, are live");
   assert.match(files["episodes/time-compressed/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Sw1xP57TNTk"/);
   assert.match(files["episodes/the-sun/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/WlClbKXSdSo"/);
   assert.match(files["episodes/school/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/rchexCb48LM"/);
@@ -85,8 +85,14 @@ test("the shipped site references no test video ids, and only published episodes
   assert.match(files["episodes/light/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/HbsIy38RGvI"/);
   assert.match(files["episodes/medicine/index.html"], /class="next-tile" href="\/episodes\/light\/"/, "episode 06 points on to Light");
   assert.match(files["episodes/weight/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/o5NXRlNytjo"/);
-  assert.match(files["episodes/light/index.html"], /class="next-tile" href="\/episodes\/weight\/"/, "episode 07 points on to Weight");
-  assert.match(files["episodes/weight/index.html"], /class="next-tile" href="\/subject\/diabetes\/"><span class="next-kicker">Coming next · in production<\/span><strong>Diabetes<\/strong><span>What happened in one Toronto lab in 1921\?/, "Weight teases Diabetes");
+  assert.match(files["episodes/diabetes/index.html"], /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/Jjw8_rIPOYA"/);
+  assert.match(files["episodes/weight/index.html"], /class="next-tile" href="\/episodes\/diabetes\/"><span class="next-kicker">Medicine 2 · play it next<\/span>/, "Medicine 1 points on to Medicine 2");
+  const medicine3Tile = /class="next-tile" href="\/subject\/ozempic-mounjaro\/"><span class="next-kicker">Medicine 3 · coming next · in production<\/span><strong>Ozempic &amp; Mounjaro<\/strong><span>What do Ozempic and Mounjaro actually do in the body\?/;
+  assert.match(files["episodes/diabetes/index.html"], medicine3Tile, "Medicine 2 teases Medicine 3");
+  assert.match(files["episodes/light/index.html"], medicine3Tile, "the newest main episode teases what is in production");
+  assert.doesNotMatch(files["subject/diabetes/index.html"], /[Cc]oming next · in production/, "Diabetes is no longer a teaser");
+  assert.match(files["subject/diabetes/index.html"], /href="\/episodes\/diabetes\/"/, "the Diabetes subject page links to the live episode");
+  assert.match(files["subject/ozempic-mounjaro/index.html"], /Medicine 3 of 10 · coming next · in production/);
   assert.doesNotMatch(files["subject/weight/index.html"], /Coming next · in production/, "Weight is no longer a teaser");
   assert.doesNotMatch(files["subject/light/index.html"], /Coming next · in production/, "Light is no longer a teaser");
   assert.doesNotMatch(files["subject/medicine/index.html"], /Coming next · in production/, "Medicine is no longer a teaser");
@@ -105,17 +111,19 @@ test("the shipped site references no test video ids, and only published episodes
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/medicine\//);
   assert.match(files["subject/light/index.html"], /href="\/episodes\/light\/"/, "the Light subject page links to episode 07");
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/light\//);
-  assert.match(files["subject/weight/index.html"], /href="\/episodes\/weight\/"/, "the Weight subject page links to episode 08");
+  assert.match(files["subject/weight/index.html"], /href="\/episodes\/weight\/"/, "the Weight subject page links to Medicine 1");
   assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/weight\//);
-  assert.match(files["index.html"], /Newest episode · No\. 08/);
-  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=o5NXRlNytjo"/, "comment buttons point at episode 08");
+  assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/episodes\/diabetes\//);
+  assert.match(files["sitemap.xml"], /https:\/\/dexty\.live\/subject\/ozempic-mounjaro\//);
+  assert.match(files["index.html"], /Newest sub-episode · Medicine 2 of 10/);
+  assert.match(files["index.html"], /href="https:\/\/www\.youtube\.com\/watch\?v=Jjw8_rIPOYA"/, "comment buttons point at the newest video, Medicine 2");
   assert.match(files["collection/index.html"], /sun-answer/);
   assert.match(files["collection/index.html"], /school-answer/);
   assert.match(files["collection/index.html"], /money-answer/);
   assert.match(files["collection/index.html"], /food-answer/);
   assert.match(files["collection/index.html"], /medicine-answer/);
   assert.match(files["collection/index.html"], /light-answer/);
-  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html", "episodes/school/index.html", "episodes/money/index.html", "episodes/food/index.html", "episodes/medicine/index.html", "episodes/light/index.html"]) assert.doesNotMatch(files[page], /Quiz coming soon|pill-soon/, page);
+  for (const page of ["episodes/the-sun/index.html", "episodes/time-compressed/index.html", "episodes/school/index.html", "episodes/money/index.html", "episodes/food/index.html", "episodes/medicine/index.html", "episodes/light/index.html", "episodes/weight/index.html", "episodes/diabetes/index.html"]) assert.doesNotMatch(files[page], /Quiz coming soon|pill-soon/, page);
 });
 
 test("before launch, the site references no video at all", () => {
@@ -166,7 +174,7 @@ test("an episode with localizations carries them on the facade as escaped JSON; 
   assert.ok(attribute[1].includes("&quot;subtitles&quot;"), "no raw double quote can end the attribute early");
   assert.deepEqual(JSON.parse(attribute[1].replaceAll("&quot;", '"')), localizations, "the browser reads it back as JSON");
   assert.doesNotMatch(money, /data-localizations/);
-  assert.match(renderSite(withLocalizations(withoutLocalizations(loadCatalog()), "weight", localizations))["index.html"], /data-localizations='/, "the home page features the newest episode with the same facade");
+  assert.match(renderSite(withLocalizations(withoutLocalizations(loadCatalog()), "diabetes", localizations))["index.html"], /data-localizations='/, "the home page features the newest episode with the same facade");
   assert.doesNotMatch(files["episodes/index.html"], /data-localizations/, "cards carry no facade");
   assert.doesNotMatch(food, /<iframe/, "still nothing loads before play");
   assert.doesNotMatch(renderSite(withoutLocalizations(loadCatalog()))["episodes/food/index.html"], /data-localizations/, "the committed catalog has none yet");
@@ -227,7 +235,7 @@ test("add-video CLI publishes on a copy of the site and rebuilds its pages", () 
   const dir = copySite({ catalog: withoutArtwork(loadDraftCatalog(), "the-sun") });
   try {
     const out = execFileSync(process.execPath, [join(SITE_ROOT, "tools", "add-video.mjs"), "the-sun", "https://youtu.be/TESTID00001", "--date", "2026-11-01", "--root", dir], { encoding: "utf8" });
-    assert.match(out, /Published No\. 2 "The Sun"/);
+    assert.match(out, /Published No\. 02 "The Sun"/);
     assert.throws(() => execFileSync(process.execPath, [join(SITE_ROOT, "tools", "add-video.mjs"), "the-sun", "TESTID00002", "--root", dir], { stdio: "pipe" }), "re-publishing needs --force");
     const saved = JSON.parse(readFileSync(join(dir, "data", "episodes.json"), "utf8"));
     const sun = saved.episodes.find((e) => e.slug === "the-sun");
@@ -298,10 +306,10 @@ test("home: hero, newest episode, continue, episodes, daily fact, collection, co
 test("home: the first screen is the newest episode's guess, one tap per answer, before the subscribe button", () => {
   const catalog = loadCatalog();
   const home = renderSite(withoutLocalizations(catalog))["index.html"];
-  const episode = catalog.episodes.at(-1);
+  const episode = catalog.episodes.find((e) => e.slug === "diabetes");
   const hero = home.slice(home.indexOf('id="hero-title"'), home.indexOf('id="featured"'));
   assert.match(hero, new RegExp(`<form class="hero-guess" data-hero-guess data-slug="${episode.slug}" action="/episodes/${episode.slug}/" aria-labelledby="hero-guess-q">`));
-  assert.match(hero, new RegExp(`No\\. 0${episode.number} · ${episode.title}`));
+  assert.match(hero, /<span>Medicine 2 · Diabetes<\/span>/, "the newest sub-episode is labelled by its series, not a number");
   assert.ok(hero.includes(`id="hero-guess-q">${escapeHtml(episode.quiz.question)}</p>`), "the episode's guess question");
   episode.quiz.options.forEach((option, i) => {
     assert.ok(hero.includes(`<button class="hero-guess-option" type="submit" name="guess" value="${i}">`), `option ${i} is a one-tap button`);
@@ -409,4 +417,66 @@ test("an explainer episode (the Medicine sub-series) drops the main series' seve
   assert.match(weight, /<span class="era-place">A hospital ward in Maryland<\/span>/, "an explainer scene is labelled with its place only");
   assert.match(light, /You wake up: /, "main-series eras keep the wake-up label");
   assert.match(light, /Seven mornings, one subject — and the answer to your guess at the end\./, "main-series episodes keep their wording");
+});
+
+test("the Medicine episode page lists its series in order: live parts link to their pages, the next part is coming next", () => {
+  // Arrange
+  const files = renderSite(loadCatalog());
+  const medicine = files["episodes/medicine/index.html"];
+  // Act
+  const section = medicine.slice(medicine.indexOf('id="medicine-series"'), medicine.indexOf("</section>", medicine.indexOf('id="medicine-series"')));
+  const links = [...section.matchAll(/class="card-link" href="([^"]+)"/g)].map((m) => m[1]);
+  const kickers = [...section.matchAll(/<span class="card-kicker">([^<·]+)·/g)].map((m) => m[1].trim());
+  // Assert
+  assert.match(section, /<h2 id="medicine-series-title" class="section-title">Medicine series<\/h2>/);
+  assert.match(section, /2 of 10 out so far\./);
+  assert.deepEqual(links, ["/episodes/weight/", "/episodes/diabetes/", "/subject/ozempic-mounjaro/"], "Medicine 1, Medicine 2, then the coming Medicine 3");
+  assert.deepEqual(kickers, ["Medicine 1 of 10", "Medicine 2 of 10", "Medicine 3"]);
+  assert.match(section, /Medicine 3 · coming next · in production/);
+  assert.doesNotMatch(files["episodes/light/index.html"], /id="light-series"/, "an episode without a sub-series has no series section");
+});
+
+test("a sub-episode page names its parent, lists its series with itself marked, and is never numbered", () => {
+  // Arrange
+  const files = renderSite(loadCatalog());
+  // Act
+  const weight = files["episodes/weight/index.html"];
+  const diabetes = files["episodes/diabetes/index.html"];
+  // Assert
+  assert.match(weight, /<title>Medicine 1 — Weight · Did You Know That\?<\/title>/);
+  assert.match(weight, /<a href="\/episodes\/medicine\/">No\. 06 Medicine<\/a> <span aria-hidden="true">\/<\/span> <span aria-current="page">Medicine 1<\/span>/, "breadcrumb runs through No. 06 Medicine");
+  assert.match(diabetes, /<p class="ep-kicker">Medicine 2 of 10 · part of <a href="\/episodes\/medicine\/">No\. 06 Medicine<\/a>/);
+  assert.match(weight, /<a class="card-link" href="\/episodes\/weight\/" aria-current="page">/, "the series list marks the current part");
+  assert.match(weight, /"name":"Did You Know That\? Medicine 1 of 10 — Weight"/, "VideoObject names the part, not a number");
+  assert.match(diabetes, /<span class="fact-foot">Medicine 2 · Diabetes<\/span>/, "locked cards are labelled by the series");
+  assert.match(diabetes, /data-questions="8"/, "the quiz is still on the page");
+  assert.match(diabetes, /data-set-meter="diabetes" data-total="8"/, "the cards step is still on the page");
+  for (const [path, contents] of Object.entries(files)) assert.doesNotMatch(contents, /No\. 08|No\. 09/, `${path} numbers a sub-episode`);
+});
+
+test("the episodes index groups sub-episodes under Medicine instead of listing them as numbered episodes", () => {
+  // Arrange
+  const index = renderSite(loadCatalog())["episodes/index.html"];
+  // Act
+  const grid = index.slice(index.indexOf('aria-label="Episodes"'), index.indexOf("</section>", index.indexOf('aria-label="Episodes"')));
+  const series = index.slice(index.indexOf('id="medicine-series"'));
+  // Assert
+  assert.doesNotMatch(grid, /\/episodes\/weight\/|\/episodes\/diabetes\/|ozempic-mounjaro/, "the main grid holds main episodes only");
+  assert.equal([...grid.matchAll(/<span class="card-kicker">No\. \d\d/g)].length, 7, "the seven numbered episodes");
+  assert.ok(index.indexOf('id="medicine-series"') > index.indexOf('aria-label="Episodes"'), "the series follows the main grid");
+  assert.match(series, /href="\/episodes\/weight\/"[\s\S]*href="\/episodes\/diabetes\/"[\s\S]*href="\/subject\/ozempic-mounjaro\/"/);
+});
+
+test("the old /episodes/weight/ URL still resolves to Medicine 1, and Diabetes has its own page", () => {
+  // Arrange
+  const files = renderSite(loadCatalog());
+  const vercel = JSON.parse(readFileSync(join(SITE_ROOT, "vercel.json"), "utf8"));
+  // Act
+  const weight = files["episodes/weight/index.html"];
+  const sources = (vercel.redirects ?? []).map((r) => r.source);
+  // Assert
+  assert.match(weight, /<link rel="canonical" href="https:\/\/dexty\.live\/episodes\/weight\/">/);
+  assert.match(weight, /data-embed="https:\/\/www\.youtube-nocookie\.com\/embed\/o5NXRlNytjo"/);
+  assert.ok(!sources.some((source) => source.startsWith("/episodes")), "no redirect hides an episode page");
+  assert.match(files["episodes/diabetes/index.html"], /<link rel="canonical" href="https:\/\/dexty\.live\/episodes\/diabetes\/">/);
 });

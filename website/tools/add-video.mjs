@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 
 import { addVideo, validateCatalog } from "./lib/catalog.mjs";
 import { buildSite } from "./build-site.mjs";
+import { episodeTag } from "../js/lib/episodes.js";
 
 const DEFAULT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const USAGE = "Usage: node tools/add-video.mjs <slug> <youtubeId> [--date YYYY-MM-DD] [--root <dir>] [--no-build] [--force]";
@@ -46,7 +47,7 @@ function main(argv) {
 
   writeFileSync(dataPath, `${JSON.stringify(next, null, 2)}\n`);
   const episode = next.episodes.find((e) => e.slug === slug);
-  console.log(`Published No. ${episode.number} "${episode.title}" → https://www.youtube.com/watch?v=${episode.youtubeId} (${episode.publishedAt})`);
+  console.log(`Published ${episodeTag(episode)} "${episode.title}" → https://www.youtube.com/watch?v=${episode.youtubeId} (${episode.publishedAt})`);
 
   if (!argv.includes("--no-build")) {
     const result = buildSite(root);
