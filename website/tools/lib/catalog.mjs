@@ -185,7 +185,16 @@ function validateAllSeries(catalog, requested) {
   const errors = items.flatMap(([item, at]) => validateSeries(item, at, mains));
   const parts = items.filter(([item]) => item.series).map(([item]) => `${item.series.parent} ${item.series.part}`);
   for (const part of new Set(duplicates(parts))) errors.push(`series part "${part}" is used more than once`);
-  return errors;
+  return [...errors, ...seriesTotalConflicts(items.map(([item]) => item.series).filter(Boolean))];
+}
+
+/** Every part of one series (episodes and requested teasers alike) must announce the same total. */
+function seriesTotalConflicts(allSeries) {
+  const totals = Map.groupBy(allSeries, (series) => series.parent);
+  return [...totals].flatMap(([parent, parts]) => {
+    const ofs = [...new Set(parts.map((series) => series.of))].sort((a, b) => a - b);
+    return ofs.length > 1 ? [`series "${parent}" parts disagree on series.of (${ofs.join(", ")})`] : [];
+  });
 }
 
 const duplicates = (values) => values.filter((value, i) => values.indexOf(value) !== i);

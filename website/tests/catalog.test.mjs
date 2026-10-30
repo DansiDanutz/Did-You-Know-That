@@ -320,7 +320,18 @@ test("the build refuses a sub-episode with a number, a bad parent, a wrong name,
   assert.ok(tooFar.some((e) => e.includes("series.part must be a whole number from 1 to series.of")));
   assert.ok(notAnObject.some((e) => e.includes("series must be { parent, name, part, of }")));
   assert.ok(repeated.some((e) => e.includes('series part "medicine 2" is used more than once')));
-  assert.deepEqual(validateCatalog(withSeries({ of: 11 })).filter((e) => e.includes("series.of")).length, 1);
+  assert.deepEqual(validateCatalog(withSeries({ of: 11 })).filter((e) => e.includes("series.of must be a whole number")).length, 1);
+});
+
+test("the build refuses parts of one series that disagree on how many parts it has", () => {
+  // Arrange
+  const catalog = loadCatalog();
+  const diabetesOfTwo = { ...catalog, episodes: catalog.episodes.map((e) => (e.slug === "diabetes" ? { ...e, series: { ...e.series, of: 2 } } : e)) };
+  // Act
+  const errors = validateCatalog(diabetesOfTwo);
+  // Assert
+  assert.ok(errors.some((e) => e.includes('series "medicine" parts disagree on series.of (2, 10)')), errors.join("\n"));
+  assert.deepEqual(validateCatalog(catalog), []);
 });
 
 test("format is optional and only \"explainer\" is allowed", () => {
