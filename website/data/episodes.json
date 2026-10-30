@@ -1939,7 +1939,13 @@
           "source": "PMC3807776 · BMJ 1948 via Senn and Armitage · James Lind, A Treatise of the Scurvy (1753), James Lind Library"
         }
       ],
-      "commentPrompt": "Which century’s doctor would you trust, and why?"
+      "commentPrompt": "Which century’s doctor would you trust, and why?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/medicine/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/medicine/ro.m4a"
+        }
+      }
     },
     {
       "number": 7,
@@ -2239,7 +2245,13 @@
           "source": "Fouquet & Pearson, Energy Journal 27(1), 2006 · Our World in Data, price of lighting"
         }
       ],
-      "commentPrompt": "Streetlights or stars: if you had to give one up, which would it be, and why?"
+      "commentPrompt": "Streetlights or stars: if you had to give one up, which would it be, and why?",
+      "localizations": {
+        "ro": {
+          "subtitles": "/assets/captions/light/ro.vtt",
+          "audio": "https://npmjds8vbiipsjzw.public.blob.vercel-storage.com/dub/v1/light/ro.m4a"
+        }
+      }
     },
     {
       "number": 8,
