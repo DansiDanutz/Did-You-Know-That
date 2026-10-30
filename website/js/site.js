@@ -3,10 +3,11 @@
 const features = [
   ["[data-dust]", () => import("./ui/hero.js")],
   ["[data-particles]", () => import("./ui/particles.js")],
-  [".btn, .card-link, .next-tile, .continue, .how-step, .chip", () => import("./ui/hover.js")],
+  [".btn, .card-link, .next-tile, .continue, .how-step, .chip, .hero-guess-option", () => import("./ui/hover.js")],
   ["[data-search]", () => import("./ui/search-ui.js")],
   ["[data-facade]", () => import("./ui/player.js")],
   ["[data-quiz]", () => import("./ui/quiz.js")],
+  ["[data-hero-guess]", () => import("./ui/hero-guess.js")],
   ["[data-special-card]", () => import("./ui/vault.js")],
   ["[data-collection-scope], [data-rank-badge]", () => import("./ui/collection.js")],
   ["[data-journey], [data-continue], [data-ep-progress], [data-set-meter], [data-collection-meter]", () => import("./ui/progress-ui.js")],

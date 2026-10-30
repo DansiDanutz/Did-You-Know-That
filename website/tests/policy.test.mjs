@@ -14,9 +14,12 @@ const jsFiles = (dir) => readdirSync(join(SITE_ROOT, dir)).filter((f) => f.endsW
 const ALL_JS = [...jsFiles("js"), ...jsFiles("js/lib"), ...jsFiles("js/ui")];
 const AWARDING = /\b(award|answerQuestion|lockGuess|saveProgress)\b/;
 
-test("only the quiz, daily, collection, profile and vault widgets touch progress; only quiz and daily answers award", () => {
+test("only the quiz, home guess, daily, collection, profile and vault widgets touch progress; only quiz and daily answers award", () => {
   const touching = ALL_JS.filter((path) => !path.startsWith("js/lib/") && AWARDING.test(read(path))).sort();
-  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/daily.js", "js/ui/profile.js", "js/ui/quiz.js", "js/ui/vault.js"]);
+  assert.deepEqual(touching, ["js/ui/collection.js", "js/ui/daily.js", "js/ui/hero-guess.js", "js/ui/profile.js", "js/ui/quiz.js", "js/ui/vault.js"]);
+  const heroGuess = read("js/ui/hero-guess.js");
+  assert.doesNotMatch(heroGuess, /\baward\(|answerQuestion|answerDaily|spend\(|data-facade|youtube/i, "the home guess only locks a guess: no points, no video");
+  assert.equal([...heroGuess.matchAll(/lockGuess\(/g)].length, 1, "one lock path, inside the guess form's submit handler");
   const vault = read("js/ui/vault.js");
   assert.doesNotMatch(vault, /\baward\(|answerQuestion|lockGuess/, "the vault only spends, never awards");
   assert.doesNotMatch(read("js/lib/vault.js"), /\baward\(/, "vault logic only spends");

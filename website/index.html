@@ -71,11 +71,18 @@
   </h1>
   <div class="wrap hero-inner">
     <p class="lede hero-lede">A history mystery game. Every episode follows one thing — time, the Sun, school, money, food, medicine, light, whatever you vote for — from 1500 to 2100.</p>
-    <ol class="how" aria-label="How it works">
+    <form class="hero-guess" data-hero-guess data-slug="weight" action="/episodes/weight/" aria-labelledby="hero-guess-q">
+      <p class="hero-guess-kicker"><span class="pill pill-new">New</span><span>No. 08 · Weight</span></p>
+      <p class="hero-guess-q" id="hero-guess-q">Two menus with the same calories on the plate, eat as much as you like. What happened?</p>
+      <div class="hero-guess-options">
+        <button class="hero-guess-option" type="submit" name="guess" value="0"><span class="hero-guess-letter" aria-hidden="true">A</span><span>People ate the same amount of each</span></button><button class="hero-guess-option" type="submit" name="guess" value="1"><span class="hero-guess-letter" aria-hidden="true">B</span><span>A few more calories of the ultra-processed menu</span></button><button class="hero-guess-option" type="submit" name="guess" value="2"><span class="hero-guess-letter" aria-hidden="true">C</span><span>About 500 calories a day more of the ultra-processed menu</span></button>
+      </div>
+      <p class="hero-guess-note" data-hero-guess-note>Tap your guess, then watch to find out. A right guess earns 25 points.</p>
+    </form>
+    <ol class="how how-strip" aria-label="How it works">
       <li class="how-step"><span class="how-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Zm-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1Z"/></svg></span><span class="how-text"><strong>1. Guess</strong><span>Lock a guess before the answer.</span></span></li><li class="how-step"><span class="how-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span class="how-text"><strong>2. Watch</strong><span>Seven centuries in ten minutes.</span></span></li><li class="how-step"><span class="how-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2Z"/></svg></span><span class="how-text"><strong>3. Quiz</strong><span>One question per era.</span></span></li><li class="how-step"><span class="how-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="13" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 7v11.5A2.5 2.5 0 0 0 6.5 21H15"/></svg></span><span class="how-text"><strong>4. Collect</strong><span>Right answers unlock fact cards.</span></span></li>
     </ol>
     <div class="cta-row">
-      <a class="btn btn-primary btn-big" href="/episodes/weight/#guess"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.5v13l11-6.5-11-6.5Z"/></svg><span>Play the newest episode</span></a>
       <a class="btn btn-ghost" href="https://www.youtube.com/channel/UC7j29XhArv5tlRqQj2qAb4Q?sub_confirmation=1" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg><span>Subscribe on YouTube</span></a>
     </div>
     <p class="hero-note">Free. No account, no tracking — your points stay on this device.</p>
